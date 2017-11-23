@@ -88,17 +88,82 @@
   background: #483f35;
 }
 
-.menu--main > * {
+.nav--main > .container { overflow: visible; }
+
+.menu--main__item {
+  position: relative;
   display: inline-block;
   font-size: 16px;
   font-weight: 600;
-  padding: 17px 25px;
-  cursor: pointer;
   color: #FFFFFF;
 }
 
-.menu--main__special {
-  padding-left: 40px;
-  padding-right: 40px;
+.menu--main > .menu--main__item:not(:last-child) {
+  margin-right: 10px;
+}
+
+.menu--main__item-title {
+  display: inline-block;
+  padding: 11px 25px 17px 25px;
+  margin-top: 6px;
+}
+
+.menu--main__item__brands {
+  padding-left: 15px;
+  padding-right: 15px;
   background: #362d25;
 }
+
+.menu--main__sub-menu {
+  display: none;
+  position: absolute;
+  width: 162px;
+  top: 52px;
+  left: -1px;
+  background: #FFF;
+  border: 1px solid #362d25;
+  border-top: none;
+  z-index: 10;
+}
+
+.menu--main__sub-menu > * {
+  color: #333;
+}
+
+.menu--main__item:hover .menu--main__item-title {
+  cursor: pointer;
+  background: #FFF;
+  color: #2ac1bc;
+}
+
+.menu--main__item:hover .menu--main__sub-menu {
+  display: block;
+  padding: 20px 0;
+}
+
+.menu--main__sub-menu .sub-menu-link {
+  text-decoration: none;
+  display: block;
+  color: #555;
+  font-size: 14px;
+  padding-left: 25px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-weight: 300;
+}
+
+.menu--main__sub-menu .sub-menu-link:hover {
+  color: #2ac1bc;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.menu--main__item__brands .menu--main__sub-menu {
+  left: auto;
+  right: 0;
+}
+.menu--main__item__brands .menu--main__sub-menu .sub-menu-link {
+  padding-left: 0;
+  padding-right: 25px;
+}
+.menu--main__item__brands .menu--main__sub-menu > * { text-align: right; }
