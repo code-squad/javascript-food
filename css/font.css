@@ -1,0 +1,22 @@
+@charset "utf-8";
+
+@font-face {
+  font-family: 'Nanum Gothic';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../font/NanumGothic.woff);
+}
+@font-face {
+  font-family: 'Nanum Gothic';
+  font-style: normal;
+  font-weight: 600;
+  src: url(../font/NanumGothicBold.woff);
+}
+@font-face {
+  font-family: 'Nanum Gothic';
+  font-style: normal;
+  font-weight: 800;
+  src: url(../font/NanumGothicExtraBold.woff);
+}
+
+html { font-family: 'Nanum Gothic', 'Apple Gothic', 'Malgun Gothic', 'Dotum', Arial, sans-serif; }
