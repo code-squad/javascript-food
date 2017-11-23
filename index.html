@@ -2,16 +2,21 @@
 <html>
 <head>
   <title>배민</title>
+
+  <link rel="stylesheet" type="text/css" href="css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="css/font.css">
+  <link rel="stylesheet" type="text/css" href="css/common.css">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
-  <header>
-    <nav class="nav-top">
+  <header class="header">
+    <nav class="nav--top">
       <div class="container">
-        <ul class="left">
+        <ul class="menu pull-left reset-list">
           <li>배민찬 앱 다운로드</li>
         </ul>
 
-        <ul class="right">
+        <ul class="menu pull-right reset-list">
           <li>로그인</li>
           <li>회원가입</li>
           <li>마이페이지</li>
@@ -23,25 +28,25 @@
       </div>
     </nav>
 
-    <div class="container">
+    <div class="header--main container">
       <a class="logo" href="">
-        <img src="" />
+        <img src="img/bmc_logo.png" />
       </a>
 
       <form action="" class="form-search">
-        <input type="text" name="search" class="text-search" />
-        <button class="btn-search"></button>
+        <input type="text" name="search" class="text-search pull-left" />
+        <button class="btn-search pull-left"></button>
       </form>
 
-      <ul class="links">
-        <li><a href="">제일 잘 팔리는<strong>베스트</strong></a></li>
-        <li><a href="">놓치면 후회<strong>이벤트</strong></a></li>
+      <ul class="links reset-list pull-right">
+        <li><a href="" class="banner-text">제일 잘 팔리는<strong class="strong">베스트</strong></a></li>
+        <li><a href="" class="banner-text">놓치면 후회<strong class="strong">이벤트</strong></a></li>
       </ul>
     </div>
 
-    <nav class="nav-main">
+    <nav class="nav--main">
       <div class="container">
-        <ul class="">
+        <ul class="reset-list menu--main">
           <li>밑반찬</li>
           <li>국·찌개</li>
           <li>메인반찬</li>
@@ -49,13 +54,13 @@
           <li>정기식단</li>
           <li>신선·가공</li>
           <li>간식</li>
-          <li>브랜드관</li>
+          <li class="menu--main__special pull-right">브랜드관</li>
         </ul>
       </div>
     </nav>
   </header>
 
-  <section class="carousel main">
+  <section class="carousel--main">
     <span class="wrap-btn prev"></span>
     <span class="wrap-btn next"></span>
 
@@ -138,7 +143,6 @@
           <div class="wrap-thumbnail-image">
             <img src="" />
             <div class="wrap-info">
-              <
             </div>
           </div>
 
