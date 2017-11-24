@@ -2,29 +2,29 @@
   border-bottom: 1px solid #e9e9e9;
 }
 
-.menu {
+.nav--top__menu {
   display: inline-block;
 }
 
-.menu > * {
+.nav--top__menu > * {
   display: inline-block;
   vertical-align: middle;
   font-size: 12px;
   padding: 10px 0 10px 10px;
 }
 
-.menu > *:not(:last-child):after {
+.nav--top__menu > *:not(:last-child):after {
   display: inline-block;
   vertical-align: middle;
   content: '';
   width: 1px;
   height: 10px;
   margin-top: -2px;
-  margin-left: 10px;
+  margin-left: 9px;
   border-right: 1px solid #cfd0d2;
 }
 
-.header--main > * {
+.header__main > * {
   display: inline-block;
   vertical-align: middle;
 }
@@ -42,21 +42,21 @@
   color: #333;
 }
 
-.header--main .logo {
+.header__main .logo {
   padding: 13px 0;
   margin-right: 46px;
 }
 
-.header--main .links {
+.header__main .links {
   display: inline-block;
   padding: 25.5px 0;
 }
 
-.header--main .links > * {
+.header__main .links > * {
   display: inline-block;
 }
 
-.header--main .links > *:not(:last-child) { margin-right: 45px; }
+.header__main .links > *:not(:last-child) { margin-right: 45px; }
 
 .form-search {
   border: 1px solid #cfd0d2;
@@ -90,7 +90,7 @@
 
 .nav--main > .container { overflow: visible; }
 
-.menu--main__item {
+.nav--main__menu-item {
   position: relative;
   display: inline-block;
   font-size: 16px;
@@ -98,23 +98,23 @@
   color: #FFFFFF;
 }
 
-.menu--main > .menu--main__item:not(:last-child) {
+.nav--main__menus > .nav--main__menu-item:not(:last-child) {
   margin-right: 10px;
 }
 
-.menu--main__item-title {
+.nav--main__menu-name {
   display: inline-block;
   padding: 11px 25px 17px 25px;
   margin-top: 6px;
 }
 
-.menu--main__item__brands {
+.nav--main__menu-item--brands {
   padding-left: 15px;
   padding-right: 15px;
   background: #362d25;
 }
 
-.menu--main__sub-menu {
+.nav--main__sub-menus {
   display: none;
   position: absolute;
   width: 162px;
@@ -126,22 +126,22 @@
   z-index: 10;
 }
 
-.menu--main__sub-menu > * {
+.nav--main__sub-menus > * {
   color: #333;
 }
 
-.menu--main__item:hover .menu--main__item-title {
+.nav--main__menu-item:hover .nav--main__menu-name {
   cursor: pointer;
   background: #FFF;
   color: #2ac1bc;
 }
 
-.menu--main__item:hover .menu--main__sub-menu {
+.nav--main__menu-item:hover .nav--main__sub-menus {
   display: block;
   padding: 20px 0;
 }
 
-.menu--main__sub-menu .sub-menu-link {
+.nav--main__sub-menus .sub-menu-link {
   text-decoration: none;
   display: block;
   color: #555;
@@ -152,18 +152,18 @@
   font-weight: 300;
 }
 
-.menu--main__sub-menu .sub-menu-link:hover {
+.nav--main__sub-menus .sub-menu-link:hover {
   color: #2ac1bc;
   font-weight: 600;
   text-decoration: underline;
 }
 
-.menu--main__item__brands .menu--main__sub-menu {
+.nav--main__menu-item--brands .nav--main__sub-menus {
   left: auto;
   right: 0;
 }
-.menu--main__item__brands .menu--main__sub-menu .sub-menu-link {
+.nav--main__menu-item--brands .nav--main__sub-menus .sub-menu-link {
   padding-left: 0;
   padding-right: 25px;
 }
-.menu--main__item__brands .menu--main__sub-menu > * { text-align: right; }
+.nav--main__menu-item--brands .nav--main__sub-menus > * { text-align: right; }
