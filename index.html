@@ -145,50 +145,68 @@
   </header>
 
   <section class="carousel--main">
-    <span class="wrap-btn prev"></span>
-    <span class="wrap-btn next"></span>
+    <span class="carousel__btn carousel__btn--big carousel__btn--prev"></span>
+    <span class="carousel__btn carousel__btn--big carousel__btn--next"></span>
 
-    <ol class="carousel--main__items">
-      <li><img src="img/banner_main1.jpg"></li>
-      <li><img src="img/banner_main2.jpg"></li>
-      <li><img src="img/banner_main3.jpg"></li>
-      <li><img src="img/banner_main4.jpg"></li>
+    <ol class="carousel__items carousel__items--main" data-current-index="0">
+      <li style="background-image: url('img/banner_main1.jpg')"></li>
+      <li style="display: none; background-image: url('img/banner_main2.jpg')"></li>
+      <li style="display: none; background-image: url('img/banner_main3.jpg')"></li>
+      <li style="display: none; background-image: url('img/banner_main4.jpg')"></li>
     </ol>
 
-    <div class="carousel__pagination--bottom">
-      <li><span class="dot"></span></li>
-      <li><span class="dot"></span></li>
-      <li><span class="dot"></span></li>
-      <li><span class="dot"></span></li>
-    </div>
+    <ol class="carousel__pagination carousel__pagination--bottom">
+      <li data-index="0"><div class="pagination__dot pagination__dot--big pagination__dot--active"></div></li>
+      <li data-index="1"><div class="pagination__dot pagination__dot--big"></div></li>
+      <li data-index="2"><div class="pagination__dot pagination__dot--big"></div></li>
+      <li data-index="3"><div class="pagination__dot pagination__dot--big"></div></li>
+    </ol>
   </section>
 
   <section class="banners">
     <div class="container">
-      <div class="carousel newitems">
-        <span class="wrap-btn prev"></span>
-        <span class="wrap-btn next"></span>
+      <div class="carousel--new-items col-6">
+        <span class="carousel__btn carousel__btn--small carousel__btn--prev">
+          <img src="img/btn_slides_prev_s.png">
+        </span>
+        <span class="carousel__btn carousel__btn--small carousel__btn--next">
+          <img src="img/btn_slides_next_s.png">
+        </span>
 
-        <ol class="images">
-          <li></li>
+        <ol class="carousel__items carousel__items--new-item">
+          <li><img src="img/banner_item1.jpg"></li>
+          <li style="display: none;"><img src="img/banner_item2.jpg"></li>
+          <li style="display: none;"><img src="img/banner_item3.jpg"></li>
+          <li style="display: none;"><img src="img/banner_item4.jpg"></li>
+          <li style="display: none;"><img src="img/banner_item5.jpg"></li>
         </ol>
 
-        <div class="pagination-carousel">
-          <li><span class="icon"></span></li>
-        </div>
+        <ol class="carousel__pagination carousel__pagination--top">
+          <li data-index="0"><div class="pagination__dot pagination__dot--active"></div></li>
+          <li data-index="1"><div class="pagination__dot pagination__dot--small"></div></li>
+          <li data-index="2"><div class="pagination__dot pagination__dot--small"></div></li>
+          <li data-index="3"><div class="pagination__dot pagination__dot--small"></div></li>
+          <li data-index="4"><div class="pagination__dot pagination__dot--small"></div></li>
+        </ol>
       </div>
 
-      <div class="carousel notices">
-        <span class="wrap-btn prev"></span>
-        <span class="wrap-btn next"></span>
+      <div class="carousel--notices col-6">
+        <span class="carousel__btn carousel__btn--small carousel__btn--prev">
+          <img src="img/btn_slides_prev_s.png">
+        </span>
+        <span class="carousel__btn carousel__btn--small carousel__btn--next">
+          <img src="img/btn_slides_next_s.png">
+        </span>
 
-        <ol class="images">
-          <li></li>
+        <ol class="carousel__items carousel__items--notice">
+          <li><img src="img/banner_notice1.png"></li>
+          <li><img src="img/banner_notice2.png"></li>
         </ol>
 
-        <div class="pagination-carousel">
-          <li><span class="icon"></span></li>
-        </div>
+        <ol class="carousel__pagination carousel__pagination--top">
+          <li data-index="0"><div class="pagination__dot pagination__dot--small pagination__dot--active"></div></li>
+          <li data-index="1"><div class="pagination__dot pagination__dot--small"></div></li>
+        </ol>
       </div>
     </div>
   </section>
