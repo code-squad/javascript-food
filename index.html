@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>배민</title>
+  <title>배민찬</title>
 
   <link rel="stylesheet" type="text/css" href="css/normalize.css">
   <link rel="stylesheet" type="text/css" href="css/font.css">
@@ -182,7 +182,7 @@
         </ol>
 
         <ol class="carousel__pagination carousel__pagination--top">
-          <li data-index="0"><div class="pagination__dot pagination__dot--active"></div></li>
+          <li data-index="0"><div class="pagination__dot pagination__dot--small pagination__dot--active"></div></li>
           <li data-index="1"><div class="pagination__dot pagination__dot--small"></div></li>
           <li data-index="2"><div class="pagination__dot pagination__dot--small"></div></li>
           <li data-index="3"><div class="pagination__dot pagination__dot--small"></div></li>
@@ -200,7 +200,7 @@
 
         <ol class="carousel__items carousel__items--notice">
           <li><img src="img/banner_notice1.png"></li>
-          <li><img src="img/banner_notice2.png"></li>
+          <li style="display: none;"><img src="img/banner_notice2.jpg"></li>
         </ol>
 
         <ol class="carousel__pagination carousel__pagination--top">
@@ -213,10 +213,10 @@
 
   <section class="bestseller">
     <div class="container">
-      <h2 class="title-bestseller"><small>베스트셀러</small>후기가 증명하는 베스트 반찬</h2>
+      <h2 class="title--section"><small>베스트셀러</small>후기가 증명하는 베스트 반찬</h2>
 
       <ul class="tabs">
-        <li>중국 푸드트립</li>
+        <li class="active">중국 푸드트립</li>
         <li>풍성한 고기반찬</li>
         <li>바다향가득 반찬</li>
         <li>간편한 덮밥요리</li>
@@ -225,14 +225,84 @@
       </ul>
 
       <ul class="thumbnails" data-index="0">
-        <li>
-          <div class="wrap-thumbnail-image">
-            <img src="" />
+        <li class="col-4">
+          <div class="thumbnail">
+            <div class="wrap-thumbnail-image">
+              <img src="img/dish_thumbnail2.jpg" />
+              <div class="thumbnail__mask"></div>
+              <div class="thumbnail__info--hover">
+                <div class="wrap-info">
+                  <span>새벽배송</span>
+                  <hr>
+                  <span>전국택배</span>
+                </div>
+              </div>
 
-            <ul class="tags">
-              <li>이벤트특가</li>
-              <li>베스트</li>
-            </ul>
+              <ul class="thumbnail__tags">
+                <li>이벤트특가</li>
+                <li>베스트</li>
+              </ul>
+            </div>
+
+            <div class="thumbnail__contents">
+              <h3 class="thumbnail__title">[집밥의완성] 천하진미세트</h3>
+              <p class="thumbnail__description">집으로 찾아오는 대륙의 진미</p>
+              <p class="thumbnail__price"><del>32,100</del><strong>29,000</strong>원</p>
+            </div>
+          </div>
+        </li>
+
+        <li class="col-4">
+          <div class="thumbnail">
+            <div class="wrap-thumbnail-image">
+              <img src="img/dish_thumbnail3.jpg" />
+              <div class="thumbnail__mask"></div>
+              <div class="thumbnail__info--hover">
+                <div class="wrap-info">
+                  <span>새벽배송</span>
+                  <hr>
+                  <span>전국택배</span>
+                </div>
+              </div>
+
+              <ul class="thumbnail__tags">
+                <li>이벤트특가</li>
+                <li>베스트</li>
+              </ul>
+            </div>
+
+            <div class="thumbnail__contents">
+              <h3 class="thumbnail__title">[소중한식사] 치파오또우푸 300g</h3>
+              <p class="thumbnail__description">부들부들 담백한 중국식 두부 요리</p>
+              <p class="thumbnail__price"><strong>14,300</strong>원</p>
+            </div>
+          </div>
+        </li>
+
+        <li class="col-4">
+          <div class="thumbnail">
+            <div class="wrap-thumbnail-image">
+              <img src="img/dish_thumbnail1.jpg" />
+              <div class="thumbnail__mask"></div>
+              <div class="thumbnail__info--hover">
+                <div class="wrap-info">
+                  <span>새벽배송</span>
+                  <hr>
+                  <span>전국택배</span>
+                </div>
+              </div>
+
+              <ul class="thumbnail__tags">
+                <li>이벤트특가</li>
+                <li>베스트</li>
+              </ul>
+            </div>
+
+            <div class="thumbnail__contents">
+              <h3 class="thumbnail__title">[소중한식탁] 상하이고추잡채와 꽃빵 (2인분)</h3>
+              <p class="thumbnail__description">볶으면 끝! 고급스런 중화요리도 간단하게</p>
+              <p class="thumbnail__price"><del>13,000</del><strong>12,800</strong>원</p>
+            </div>
           </div>
         </li>
       </ul>
@@ -240,38 +310,125 @@
   </section>
 
   <section class="sidedish">
-    <h2 class="title-sidedish"><small>밑반찬</small>언제 먹어도 든든한 밑반찬</h2>
+    <div class="container">
+      <h2 class="title--section"><small>밑반찬</small>언제 먹어도 든든한 밑반찬</h2>
 
-    <div class="carousel carousel-thumbnails">
-      <span class="wrap-btn prev"></span>
-      <span class="wrap-btn next"></span>
+      <div class="carousel--thumbnails">
+        <span class="carousel__btn carousel__btn--thumb carousel__btn--prev"></span>
+        <span class="carousel__btn carousel__btn--thumb carousel__btn--next"></span>
 
-      <ol class="thumbnails round">
-        <li>
-          <div class="wrap-thumbnail-image">
-            <img src="" />
-            <div class="wrap-info">
+        <ol class="carousel__items--thumbnail clearfix">
+          <li class="col-3">
+            <div class="thumbnail--round">
+              <div class="wrap-thumbnail-image">
+                <img src="img/sidedish_thumbnail1.jpg" />
+                <div class="thumbnail__mask"></div>
+                <div class="thumbnail__info--hover">
+                  <div class="wrap-info">
+                    <span>새벽배송</span>
+                    <hr>
+                    <span>전국택배</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="thumbnail__contents">
+                <h3 class="thumbnail__title">[집밥의완성] 스팸김치볶음 220g</h3>
+                <p class="thumbnail__description">맛이 없을 수 없는 조합! 국민반찬 스팸과 매콤한 김치볶음!</p>
+                <p class="thumbnail__price text-center"><del>3,600</del><strong>3,400</strong>원</p>
+              </div>
+
+              <ul class="thumbnail__tags thumbnail__tags--block">
+                <li>이벤트특가</li>
+              </ul>
             </div>
-          </div>
+          </li>
 
-          <h3 class="title-thumbnail"></h3>
-          <p class="content-thumbnail"></p>
-          <span class="price"></span>
+          <li class="col-3">
+            <div class="thumbnail--round">
+              <div class="wrap-thumbnail-image">
+                <img src="img/sidedish_thumbnail2.jpg" />
+                <div class="thumbnail__info--hover">
+                  <div class="wrap-info">
+                    <span>새벽배송</span>
+                    <hr>
+                    <span>전국택배</span>
+                  </div>
+                </div>
+              </div>
 
-          <ul class="tags">
-            <li>이벤트특가</li>
-            <li>베스트</li>
-          </ul>
-        </li>
-      </ol>
+              <div class="thumbnail__contents">
+                <h3 class="thumbnail__title">[집밥의완성] 스팸김치볶음 220g</h3>
+                <p class="thumbnail__description">맛이 없을 수 없는 조합! 국민반찬 스팸과 매콤한 김치볶음!</p>
+                <p class="thumbnail__price text-center"><del>3,600</del><strong>3,400</strong>원</p>
+              </div>
+
+              <ul class="thumbnail__tags thumbnail__tags--block">
+                <li>이벤트특가</li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="col-3">
+            <div class="thumbnail--round">
+              <div class="wrap-thumbnail-image">
+                <img src="img/sidedish_thumbnail3.jpg" />
+                <div class="thumbnail__info--hover">
+                  <div class="wrap-info">
+                    <span>새벽배송</span>
+                    <hr>
+                    <span>전국택배</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="thumbnail__contents">
+                <h3 class="thumbnail__title">[집밥의완성] 스팸김치볶음 220g</h3>
+                <p class="thumbnail__description">맛이 없을 수 없는 조합! 국민반찬 스팸과 매콤한 김치볶음!</p>
+                <p class="thumbnail__price text-center"><del>3,600</del><strong>3,400</strong>원</p>
+              </div>
+
+              <ul class="thumbnail__tags thumbnail__tags--block">
+                <li>이벤트특가</li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="col-3">
+            <div class="thumbnail--round">
+              <div class="wrap-thumbnail-image">
+                <img src="img/sidedish_thumbnail4.jpg" />
+                <div class="thumbnail__mask"></div>
+                <div class="thumbnail__info--hover">
+                  <div class="wrap-info">
+                    <span>새벽배송</span>
+                    <hr>
+                    <span>전국택배</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="thumbnail__contents">
+                <h3 class="thumbnail__title">[집밥의완성] 스팸김치볶음 220g</h3>
+                <p class="thumbnail__description">맛이 없을 수 없는 조합! 국민반찬 스팸과 매콤한 김치볶음!</p>
+                <p class="thumbnail__price text-center"><del>3,600</del><strong>3,400</strong>원</p>
+              </div>
+
+              <ul class="thumbnail__tags thumbnail__tags--block">
+                <li>이벤트특가</li>
+              </ul>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <a class="btn btn--bordered btn--full" href="">밑반찬 전체보기</a>
     </div>
-
-    <a class="link showall" href="">밑반찬 전체보기</a>
   </section>
 
   <div class="scroller">
-    <button class="btn goto top"></button>
-    <button class="btn goto bottom"></button>
+    <a class="btn--goto btn--goto-top"></a>
+    <a class="btn--goto btn--goto-bottom"></a>
   </div>
 </body>
 </html>
