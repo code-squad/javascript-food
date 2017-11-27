@@ -1,7 +1,19 @@
-/* common styles */
+/*-- common styles */
 *,
 *:after,
 *:before { box-sizing: border-box; }
+
+ul, ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6, p { margin: 0; }
+
+img { vertical-align: middle; }
+/* commonstyles  --*/
+
 
 /* grid system */
 .container {
@@ -51,11 +63,13 @@
 /* helper class */
 .hide { display: none; }
 
-.reset-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
 .pull-left { float: left; }
 .pull-right { float: right; }
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.text-center { text-align: center !important; }
