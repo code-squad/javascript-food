@@ -54,12 +54,16 @@ function makeTabs(response) {
       const tempNode = document.createElement('div');
       tempNode.innerHTML = htmlStr;
 
-
       const deliveryInfo = tempNode.querySelector('.wrap-delivery-info');
       const tags = tempNode.querySelector('.thumbnail__tags');
 
       //delivery types
       obj.delivery_type.forEach((type, index) => {
+        if (index !== 0) {
+          const separator = document.createElement('hr');
+          deliveryInfo.appendChild(separator);
+        }
+
         const info = document.createElement('sapn');
         info.textContent = type;
         
