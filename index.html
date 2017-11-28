@@ -224,88 +224,6 @@
         <li>맛있는 간식타임</li>
       </ul>
 
-      <ul class="thumbnails" data-index="0">
-        <li class="col-4">
-          <div class="thumbnail">
-            <div class="wrap-thumbnail-image">
-              <img src="img/dish_thumbnail2.jpg" />
-              <div class="thumbnail__mask"></div>
-              <div class="thumbnail__info--hover">
-                <div class="wrap-info">
-                  <span>새벽배송</span>
-                  <hr>
-                  <span>전국택배</span>
-                </div>
-              </div>
-
-              <ul class="thumbnail__tags">
-                <li>이벤트특가</li>
-                <li>베스트</li>
-              </ul>
-            </div>
-
-            <div class="thumbnail__contents">
-              <h3 class="thumbnail__title">[집밥의완성] 천하진미세트</h3>
-              <p class="thumbnail__description">집으로 찾아오는 대륙의 진미</p>
-              <p class="thumbnail__price"><del>32,100</del><strong>29,000</strong>원</p>
-            </div>
-          </div>
-        </li>
-
-        <li class="col-4">
-          <div class="thumbnail">
-            <div class="wrap-thumbnail-image">
-              <img src="img/dish_thumbnail3.jpg" />
-              <div class="thumbnail__mask"></div>
-              <div class="thumbnail__info--hover">
-                <div class="wrap-info">
-                  <span>새벽배송</span>
-                  <hr>
-                  <span>전국택배</span>
-                </div>
-              </div>
-
-              <ul class="thumbnail__tags">
-                <li>이벤트특가</li>
-                <li>베스트</li>
-              </ul>
-            </div>
-
-            <div class="thumbnail__contents">
-              <h3 class="thumbnail__title">[소중한식사] 치파오또우푸 300g</h3>
-              <p class="thumbnail__description">부들부들 담백한 중국식 두부 요리</p>
-              <p class="thumbnail__price"><strong>14,300</strong>원</p>
-            </div>
-          </div>
-        </li>
-
-        <li class="col-4">
-          <div class="thumbnail">
-            <div class="wrap-thumbnail-image">
-              <img src="img/dish_thumbnail1.jpg" />
-              <div class="thumbnail__mask"></div>
-              <div class="thumbnail__info--hover">
-                <div class="wrap-info">
-                  <span>새벽배송</span>
-                  <hr>
-                  <span>전국택배</span>
-                </div>
-              </div>
-
-              <ul class="thumbnail__tags">
-                <li>이벤트특가</li>
-                <li>베스트</li>
-              </ul>
-            </div>
-
-            <div class="thumbnail__contents">
-              <h3 class="thumbnail__title">[소중한식탁] 상하이고추잡채와 꽃빵 (2인분)</h3>
-              <p class="thumbnail__description">볶으면 끝! 고급스런 중화요리도 간단하게</p>
-              <p class="thumbnail__price"><del>13,000</del><strong>12,800</strong>원</p>
-            </div>
-          </div>
-        </li>
-      </ul>
     </div>
   </section>
 
@@ -430,6 +348,27 @@
     <a class="btn--goto btn--goto-top"></a>
     <a class="btn--goto btn--goto-bottom"></a>
   </div>
+
+  <script type="text/template" id="bestItemTemplate">
+    <li class="col-4">
+      <div class="thumbnail">
+        <div class="wrap-thumbnail-image">
+          <img src="{{image}}" />
+          <div class="thumbnail__mask"></div>
+          <div class="thumbnail__info--hover">
+            <div class="wrap-delivery-info"></div>
+          </div>
+
+          <ul class="thumbnail__tags"></ul>
+        </div>
+
+        <div class="thumbnail__contents">
+          <h3 class="thumbnail__title">{{title}}</h3>
+          <p class="thumbnail__description">{{description}}</p>
+          <p class="thumbnail__price"><del>{{n_price}}</del><strong>{{s_price}}</strong></p>
+        </div>
+      </div>
+  </script>
 
   <script type="text/javascript" src="js/main.js"></script>
 </body>
