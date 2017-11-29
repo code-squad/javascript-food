@@ -1,0 +1,17 @@
+* {
+  outline: none;  
+}
+button{
+  cursor: pointer;
+  border-radius: 7px;  
+}
+button:hover{
+  background: #ddd
+}
+.vending_machine{
+  border: 5px solid #b33;
+  overflow: hidden;
+  margin-left: 20px;
+  margin-top: 20px;
+  float: left;  
+}
