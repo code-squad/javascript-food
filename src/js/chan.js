@@ -9,7 +9,19 @@ chan.controller = {
   },
 
   getChansEvent() {
-    const result = JSON.parse(this.responseText);
+    const chans = JSON.parse(this.responseText);
+
+    for (const chan of chans) {
+      const chanTemplate = document.querySelector('.chan_template');
+      const clone = document.importNode(chanTemplate.content, true);
+      clone.querySelector('img').src = chan.image;
+      clone.querySelector('dl > dt').innerText = chan.title;
+      clone.querySelector('dl > dd').innerText = chan.description;
+      clone.querySelector('dl > span').innerText = chan.s_price;
+
+      document.querySelector('.chans > ul').appendChild(clone);
+    }
+    console.log(chans);
   },
 
   setAjax(method, uri, event) {
