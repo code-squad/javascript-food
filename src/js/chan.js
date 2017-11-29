@@ -1,27 +1,26 @@
 const chan = {};
 chan.controller = {
   init() {
-    this.getChans();
+    this.getDishes();
   },
 
-  getChans() {
-    this.setAjax("GET", "http://crong.codesquad.kr:8080/woowa/side", this.getChansEvent);
+  getDishes() {
+    this.setAjax("GET", "http://crong.codesquad.kr:8080/woowa/side", this.getDishesEvent);
   },
 
-  getChansEvent() {
-    const chans = JSON.parse(this.responseText);
+  getDishesEvent() {
+    const dishes = JSON.parse(this.responseText);
 
-    for (const chan of chans) {
-      const chanTemplate = document.querySelector('.chan_template');
+    for (const chan of dishes) {
+      const chanTemplate = document.querySelector('.dish_template');
       const clone = document.importNode(chanTemplate.content, true);
       clone.querySelector('img').src = chan.image;
       clone.querySelector('dl > dt').innerText = chan.title;
       clone.querySelector('dl > dd').innerText = chan.description;
       clone.querySelector('dl > span').innerText = chan.s_price;
 
-      document.querySelector('.chans > ul').appendChild(clone);
+      document.querySelector('.dishes > ul').appendChild(clone);
     }
-    console.log(chans);
   },
 
   setAjax(method, uri, event) {
