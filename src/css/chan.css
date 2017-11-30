@@ -19,6 +19,9 @@
 .dishes_title > dd{
   font-size: 32px;
 }
+.dishes_title > dd > span{
+  font-weight: bold;
+}
 .dishes{
   width: 980px;
   height: 355px;
@@ -51,10 +54,33 @@
   color: black;
   width: 215px;
 }
+.dish > a > div{
+  width: 215px;
+  height: 215px;
+  border-radius: 107.5px;
+  background-color: black;
+  position: relative;
+}
 .dish > a > div > img{
   width: 215px;
   height: 215px;
   border-radius: 107.5px;
+  position: relative;
+}
+.dish > a:hover > div > img{
+  opacity: 0.4;
+}
+.dish_type{
+  display: none;
+  position: absolute;
+  top: 79px;
+  left: 70px;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+.dish > a:hover .dish_type{
+  display: block;
 }
 .dish > a > dl{
   padding: 18px 10px 12px 10px;

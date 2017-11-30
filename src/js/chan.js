@@ -26,6 +26,9 @@ chan.controller = {
       clone.querySelector('dl > dd').innerText = chan.description;
       clone.querySelector('dl > span').innerText = chan.s_price;
 
+      const delivery_type = `${chan.delivery_type[0]}\n----------\n${chan.delivery_type[1]}`
+      clone.querySelector('.dish_type').innerText = delivery_type;
+
       document.querySelector('.dishes > ul').appendChild(clone);
     }
   },
