@@ -1,9 +1,10 @@
 function TabMenu(selector) {
   this.buttonsContainer = document.querySelector(selector.buttons);
   this.contentsContainer = document.querySelector(selector.contents);
-  this.thumbnailLists = null;
-  this.buttons = [];
-  this.contents = [];
+  this.buttonElements = this.buttonsContainer.children;
+  this.contentElements = this.contentsContainer.children;
+  this.buttonData = [];
+  this.contentData = [];
 }
 
 TabMenu.prototype = {
@@ -13,47 +14,34 @@ TabMenu.prototype = {
 
     this.setData(data);
     this.makeButtons();
-    this.bindClickEvent();
     this.makeContents();
-
-    //initialize
-    this.buttonsContainer.children[0].classList.add('active');
-    this.thumbnailLists = document.querySelectorAll('.thumbnails');
-    this.thumbnailLists.forEach((thumb) => thumb.style = 'display: none;');
-    this.thumbnailLists[0].style = 'display: block;';
-
+    this.bindClickEvent();
   },
-  setData: function(data) {
-    data.forEach((menu) => {
-      this.buttons.push({
+  setData: function(jsonData) {
+    jsonData.forEach((menu) => {
+      this.buttonData.push({
         id: menu.category_id,
         text: menu.name
       });
 
-      this.contents.push(menu.items);
+      this.contentData.push(menu.items);
     });
   },
   makeButtons: function() {
-    this.buttons.forEach(((button, index) => {
-      const button = document.createElement('li');
-      button.dataset.index = index;
-      button.textContent = button.text;
-
-      this.buttonsContainer.appendChild(button);
-    }));
+    this.buttonData.forEach((data, index) => {
+      const button = this.buttonElements[index];
+      button.textContent = data.text;
+    });
   },
   makeContents: function() {
     const thumbnailTemplate = document.querySelector('#bestItemTemplate');
 
-    this.contents.forEach((contentItems) => {
-      const list = document.createElement('ul');
-      list.classList.add('thumbnails');
+    this.contentData.forEach((contents, index) => {
+      const thumbnailList = this.contentElements[index];
 
-      contentItems.forEach((item) => {
-        list.innerHTML += this.getThumbnailHTML(thumbnailTemplate, item);
+      contents.forEach(thumbnail => {
+        thumbnailList.innerHTML += this.getThumbnailHTML(thumbnailTemplate, thumbnail);
       });
-
-      this.contentsContainer.appendChild(list);
     });
   },
   getThumbnailHTML: function(template, data) {
@@ -97,17 +85,17 @@ TabMenu.prototype = {
     return tempNode.innerHTML;
   },
   bindClickEvent: function() {
-    this.buttonsContainer.addEventListener('click', (evt) => {
+    this.buttonsContainer.addEventListener('click', ({target}) => {
       const currentIndex = this.buttonsContainer.dataset.currentIndex;
-      const selectedIndex = evt.target.dataset.index;
+      const selectedIndex = target.dataset.index;
 
       // button active toggle
-      this.buttonsContainer.children[currentIndex].classList.remove('active');
-      evt.target.classList.add('active');
+      this.buttonElements[currentIndex].classList.remove('active');
+      target.classList.add('active');
 
       // ul display toggle
-      this.thumbnailLists[currentIndex].style = 'display: none;';
-      this.thumbnailLists[selectedIndex].style = 'display: block;';
+      this.contentElements[currentIndex].style = 'display: none;';
+      this.contentElements[selectedIndex].style = 'display: block;';
 
       this.buttonsContainer.dataset.currentIndex = selectedIndex;
     });
