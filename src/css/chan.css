@@ -1,17 +1,69 @@
 * {
   outline: none;  
 }
-button{
-  cursor: pointer;
-  border-radius: 7px;  
+.dishes_panel{
+  width: 1120px;
+  height: 670px;
+  margin: 0 auto;
 }
-button:hover{
-  background: #ddd
+.dishes_title {
+  margin-top: 70px;
+  margin-bottom: 37px;
+  text-align: center;
 }
-.vending_machine{
-  border: 5px solid #b33;
+.dishes_title > dt{
+  color: #999999;
+  font-size: 19px;
+  margin-bottom: 15px;
+}
+.dishes_title > dd{
+  font-size: 32px;
+}
+.dishes{
+}
+.dishes > ul{
+  width: 215%;
+}
+.dish {
+  width: 215px;
+  height: 345px;
+  margin:0px 15px 8px;
+  display:inline-block;
+  text-align: center;
+}
+.dish > a{
+  float: left;
+  text-decoration:none;
+  color: black;
+  width: 215px;
+}
+.dish > a > div > img{
+  width: 215px;
+  height: 215px;
+  border-radius: 107.5px;
+}
+.dish > a > dl{
+  padding: 18px 10px 12px 10px;
+}
+.dish > a > dl > dt{
+  font-size: 16px;
+  padding-top: 1px;
+  margin-bottom: 5px;
+  font-weight: bold;
   overflow: hidden;
-  margin-left: 20px;
-  margin-top: 20px;
-  float: left;  
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dish > a > dl > dd{
+  font-size: 13px;
+  color: #747474;
+  margin-bottom: 11px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dish > a > dl > span{
+  color: #00C2BC;
+  font-size: 26px;
+  font-weight: bold;
 }
