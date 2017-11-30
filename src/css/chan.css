@@ -2,7 +2,7 @@
   outline: none;  
 }
 .dishes_panel{
-  width: 1120px;
+  width: 980px;
   height: 670px;
   margin: 0 auto;
 }
@@ -20,15 +20,24 @@
   font-size: 32px;
 }
 .dishes{
+  width: 980px;
+  overflow: hidden;
+  height: 355px;
 }
 .dishes > ul{
-  width: 215%;
+  width: 1000%;
+  overflow: hidden;
+  position: relative;
 }
 .dish {
+  float: left;
+  position: relative;
+  overflow: visible;
+  
   width: 215px;
   height: 345px;
   margin:0px 15px 8px;
-  display:inline-block;
+  display:block;
   text-align: center;
 }
 .dish > a{
@@ -66,4 +75,21 @@
   color: #00C2BC;
   font-size: 26px;
   font-weight: bold;
+}
+.slide_prev {
+  width: 28px;
+  height: 52px;
+  overflow: hidden;
+  position: absolute;
+  top: 257px;
+  background: black;
+}
+.slide_next {
+  margin-left: 954px;
+  width: 28px;
+  height: 52px;
+  overflow: hidden;
+  position: absolute;
+  top: 257px;
+  background: black;
 }
