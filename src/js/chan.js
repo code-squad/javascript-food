@@ -60,6 +60,6 @@ chan.controller = {
 
   slideDishes(slidePosition) {
     let dishes = document.querySelector(".dishes > ul");
-    dishes.style.left = slidePosition + "px";
+    dishes.style.transform = `translate3d(${slidePosition}px, 0px, 0px)`;
   }
 }

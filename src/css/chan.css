@@ -30,6 +30,9 @@
   width: 1000%;
   overflow: hidden;
   position: relative;
+  transition-duration: 0.5s;
+  transform: translate3d(0px, 0px, 0px);
+  transition-timing-function: ease-in-out;
 }
 .dish {
   float: left;
