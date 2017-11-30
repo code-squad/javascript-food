@@ -3,7 +3,7 @@ const chan = {};
 chan.controller = {
 
   slidePosition: 0,
-  slideWidth: 345,
+  slideWidth: 245,
 
   init() {
     this.getDishes();
@@ -39,35 +39,27 @@ chan.controller = {
 
   setSlideEvents() {
     let el = document.querySelector('.slide_prev');
-    el.addEventListener("click", this.clickPrev);
+    el.addEventListener("click", this.clickPrev.bind(this));
     el = document.querySelector('.slide_next');
-    el.addEventListener("click", this.clickNext);
+    el.addEventListener("click", this.clickNext.bind(this));
   },
 
   clickNext() {
-    // if (!slidePosition) {
-    this.slidePosition += this.slideWidth;
-    // }
-    slideDishes(this.slidePosition);
+    if (!this.slidePosition) {
+      this.slidePosition -= this.slideWidth * 4;
+    }
+    this.slideDishes(this.slidePosition);
   },
 
   clickPrev() {
-    if (!this.slidePosition) {
-      this.slidePosition -= this.slideWidth;
+    if (this.slidePosition === -this.slideWidth * 4) {
+      this.slidePosition += this.slideWidth * 4;
     }
-    slideDishes(this.slidePosition);
+    this.slideDishes(this.slidePosition);
   },
 
   slideDishes(slidePosition) {
-    let dishes = document.getElementsByClassName("dishes");
-    // if (n > x.length) { slideIndex = 1 };
-    // if (n < 1) { slideIndex = x.length };
-    // for (i = 0; i < x.length - 4; i++) {
-    //   x[i].style.display = "none";
-    // }
-    // x[slideIndex - 1].style.display = "inline-block";
-    // x[slideIndex].style.display = "inline-block";
-    // x[slideIndex + 1].style.display = "inline-block";
-    // x[slideIndex + 2].style.display = "inline-block";
+    let dishes = document.querySelector(".dishes > ul");
+    dishes.style.left = slidePosition + "px";
   }
 }
