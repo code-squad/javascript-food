@@ -2,7 +2,7 @@
   outline: none;  
 }
 .dishes_panel{
-  width: 980px;
+  width: 1280px;
   height: 670px;
   margin: 0 auto;
 }
@@ -21,8 +21,10 @@
 }
 .dishes{
   width: 980px;
-  overflow: hidden;
   height: 355px;
+  margin-left: 150px;
+  position: relative;
+  overflow: hidden;
 }
 .dishes > ul{
   width: 1000%;
@@ -76,20 +78,30 @@
   font-size: 26px;
   font-weight: bold;
 }
-.slide_prev {
+.slide_buttons a{
   width: 28px;
   height: 52px;
   overflow: hidden;
   position: absolute;
-  top: 257px;
-  background: black;
+  top: 257px;  
+}
+.slide_prev {
+  left: 50%;
+  margin-left: -558px;
+  background: url(../../public/img/btn_prds_thumb_slides_navi.png) no-repeat center center; 
+  background-position: left top;
+}
+.slide_prev:hover{
+  background-position: left bottom;
+  top: 255px;
 }
 .slide_next {
-  margin-left: 954px;
-  width: 28px;
-  height: 52px;
-  overflow: hidden;
-  position: absolute;
-  top: 257px;
-  background: black;
+  right: 50%;
+  margin-right: -558px;
+  background: url(../../public/img/btn_prds_thumb_slides_navi.png) no-repeat center center; 
+  background-position: right top;
+}
+.slide_next:hover{
+  background-position: right bottom;
+  top: 255px;
 }
