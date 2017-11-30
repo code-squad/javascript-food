@@ -17,8 +17,8 @@ window.addEventListener('DOMContentLoaded', () => {
   const BASE_URL = 'http://crong.codesquad.kr:8080/woowa/';
   
   const bestsellerTab = new TabMenu({
-    buttons: '.bestseller > .container > .tabs',
-    contents: '.bestseller > .container'
+    buttons: '.bestseller > .container > .tab-buttons',
+    contents: '.bestseller > .container > .tab-contents'
   });
 
   requestData({

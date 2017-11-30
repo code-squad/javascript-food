@@ -35,25 +35,25 @@ TabMenu.prototype = {
   },
   makeButtons: function() {
     this.buttons.forEach(((button, index) => {
-      const $button = document.createElement('li');
-      $button.dataset.index = index;
-      $button.textContent = button.text;
+      const button = document.createElement('li');
+      button.dataset.index = index;
+      button.textContent = button.text;
 
-      this.buttonsContainer.appendChild($button);
+      this.buttonsContainer.appendChild(button);
     }));
   },
   makeContents: function() {
-    const $thumbnailTemplate = document.querySelector('#bestItemTemplate');
+    const thumbnailTemplate = document.querySelector('#bestItemTemplate');
 
     this.contents.forEach((contentItems) => {
-      const $list = document.createElement('ul');
-      $list.classList.add('thumbnails');
+      const list = document.createElement('ul');
+      list.classList.add('thumbnails');
 
       contentItems.forEach((item) => {
-        $list.innerHTML += this.getThumbnailHTML($thumbnailTemplate, item);
+        list.innerHTML += this.getThumbnailHTML(thumbnailTemplate, item);
       });
 
-      this.contentsContainer.appendChild($list);
+      this.contentsContainer.appendChild(list);
     });
   },
   getThumbnailHTML: function(template, data) {

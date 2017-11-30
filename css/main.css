@@ -311,12 +311,12 @@
   margin-bottom: 8px;
 }
 
-.tabs {
+.tab-buttons {
   margin-bottom: 24px;
   overflow: hidden;
 }
 
-.tabs > * {
+.tab-buttons > * {
   float: left;
   display: block;
   width: 16.66666666%;
@@ -330,10 +330,10 @@
   cursor: pointer;
 }
 
-.tabs > *:not(:last-child) { border-right: 1px solid #EEE; }
+.tab-buttons > *:not(:last-child) { border-right: 1px solid #EEE; }
 
-.tabs > *.active,
-.tabs > *:hover {
+.tab-buttons > *.active,
+.tab-buttons > *:hover {
   background: #1fcbc7;
   border-color: #1fcbc7;
   color: #FFF;
