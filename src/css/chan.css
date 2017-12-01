@@ -1,0 +1,137 @@
+@import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css');
+* {
+  outline: none;  
+}
+.dishes_panel{
+  width: 1280px;
+  height: 670px;
+  margin: 0 auto;
+}
+.dishes_title {
+  margin-top: 70px;
+  margin-bottom: 37px;
+  text-align: center;
+}
+.dishes_title > dt{
+  color: #999999;
+  font-size: 19px;
+  margin-bottom: 15px;
+}
+.dishes_title > dd{
+  font-size: 32px;
+}
+.dishes_title > dd > span{
+  font-weight: bold;
+}
+.dishes{
+  width: 980px;
+  height: 355px;
+  margin-left: 150px;
+  position: relative;
+  overflow: hidden;
+}
+.dishes > ul{
+  width: 1000%;
+  overflow: hidden;
+  position: relative;
+  transition-duration: 0.5s;
+  transform: translate3d(0px, 0px, 0px);
+  transition-timing-function: ease-in-out;
+}
+.dish {
+  float: left;
+  position: relative;
+  overflow: visible;
+  
+  width: 215px;
+  height: 345px;
+  margin:0px 15px 8px;
+  display:block;
+  text-align: center;
+}
+.dish > a{
+  float: left;
+  text-decoration:none;
+  color: black;
+  width: 215px;
+}
+.dish > a > div{
+  width: 215px;
+  height: 215px;
+  border-radius: 107.5px;
+  background-color: black;
+  position: relative;
+}
+.dish > a > div > img{
+  width: 215px;
+  height: 215px;
+  border-radius: 107.5px;
+  position: relative;
+}
+.dish > a:hover > div > img{
+  opacity: 0.4;
+}
+.dish_type{
+  display: none;
+  position: absolute;
+  top: 79px;
+  left: 70px;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+.dish > a:hover .dish_type{
+  display: block;
+}
+.dish > a > dl{
+  padding: 18px 10px 12px 10px;
+}
+.dish > a > dl > dt{
+  font-size: 16px;
+  padding-top: 1px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dish > a > dl > dd{
+  font-size: 13px;
+  color: #747474;
+  margin-bottom: 11px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dish > a > dl > span{
+  color: #00C2BC;
+  font-size: 26px;
+  font-weight: bold;
+}
+.slide_buttons a{
+  width: 28px;
+  height: 52px;
+  overflow: hidden;
+  position: absolute;
+  top: 257px;  
+}
+.slide_prev {
+  left: 50%;
+  margin-left: -558px;
+  background: url(../../public/img/btn_prds_thumb_slides_navi.png) no-repeat center center; 
+  background-position: left top;
+}
+.slide_prev:hover{
+  background-position: left bottom;
+  top: 255px;
+}
+.slide_next {
+  right: 50%;
+  margin-right: -558px;
+  background: url(../../public/img/btn_prds_thumb_slides_navi.png) no-repeat center center; 
+  background-position: right top;
+}
+.slide_next:hover{
+  background-position: right bottom;
+  top: 255px;
+}
