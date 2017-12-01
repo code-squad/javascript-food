@@ -30,7 +30,7 @@ Carousel.prototype = {
     this.bindPaginationEvent();
 
     this.itemContainer.children[0].classList.add(this.options.effect);
-    this.pagination.children[0].classList.add(this.options.dotActivated);
+    this.pagination.children[0].classList.add(this.classNames.dotActivated);
   },
   render: function() {
     this.images.forEach((imageURL, index) => {
@@ -93,8 +93,8 @@ Carousel.prototype = {
     items[currentIndex].classList.remove(this.options.effect);
     items[nextIndex].classList.add(this.options.effect);
 
-    dots[currentIndex].classList.remove(this.options.dotActivated);
-    dots[nextIndex].classList.add(this.options.dotActivated);
+    dots[currentIndex].classList.remove(this.classNames.dotActivated);
+    dots[nextIndex].classList.add(this.classNames.dotActivated);
 
     this.itemContainer.dataset.currentIndex = nextIndex;
   }
