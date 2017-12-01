@@ -13,29 +13,27 @@ function requestData(params) {
   xhttp.send();
 }
 
+const carouselImages = {
+  main: [
+    'img/banner_main1.jpg',
+    'img/banner_main2.jpg',
+    'img/banner_main3.jpg',
+    'img/banner_main4.jpg'
+  ],
+  newItems: [
+    'img/banner_item1.jpg',
+    'img/banner_item2.jpg',
+    'img/banner_item3.jpg',
+    'img/banner_item4.jpg',
+    'img/banner_item5.jpg'
+  ],
+  notices: [
+    'img/banner_notice1.png',
+    'img/banner_notice2.jpg',
+  ]
+};
+
 window.addEventListener('DOMContentLoaded', () => {
-  const BASE_URL = 'http://crong.codesquad.kr:8080/woowa/';
-
-  const carouselImages = {
-    main: [
-      'img/banner_main1.jpg',
-      'img/banner_main2.jpg',
-      'img/banner_main3.jpg',
-      'img/banner_main4.jpg'
-    ],
-    newItems: [
-      'img/banner_item1.jpg',
-      'img/banner_item2.jpg',
-      'img/banner_item3.jpg',
-      'img/banner_item4.jpg',
-      'img/banner_item5.jpg'
-    ],
-    notices: [
-      'img/banner_notice1.png',
-      'img/banner_notice2.jpg',
-    ]
-  };
-
   (new Carousel({
     images: carouselImages.main,
     imageType: 'background',
@@ -59,6 +57,8 @@ window.addEventListener('DOMContentLoaded', () => {
     buttons: '.bestseller > .container > .tab-buttons',
     contents: '.bestseller > .container > .tab-contents'
   });
+
+  const BASE_URL = 'http://crong.codesquad.kr:8080/woowa/';
 
   requestData({
     url: BASE_URL + 'best',
