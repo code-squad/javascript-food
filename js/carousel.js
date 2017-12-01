@@ -1,6 +1,6 @@
-function Carousel({ images, selector, imageType, dotStyle }) {
+function Carousel({ images, selector, imageType, dotStyle, effect }) {
   this.images = images;
-  
+
   this.options = {
     imageType,
     dotStyle: dotStyle || 'small',
@@ -25,43 +25,40 @@ Carousel.prototype = {
   constructor: Carousel,
 
   init: function() {
-    this.renderItems();
-    this.renderPagination();
+    this.render();
     this.bindButtonEvent();
     this.bindPaginationEvent();
 
     this.itemContainer.children[0].classList.add(this.options.effect);
     this.pagination.children[0].classList.add(this.options.dotActivated);
   },
-  renderItems: function() {
-    this.images.forEach(item => {
-      const newItem = document.createElement('li');
-      const imageElement = document.createElement('img');
+  render: function() {
+    this.images.forEach((imageURL, index) => {
+      const imageItem = this.getImageDOM({
+        url: imageURL,
+        type: this.options.imageType
+      });
 
-      if (this.options.imageType === 'background') {
-        newItem.style = `background-image: url('${item}');`;
-      } else {
-        imageElement.setAttribute('src', item);
-        newItem.appendChild(imageElement);
-      }
+      const dotItem = this.getDotDOM({
+        index,
+        classes: `${this.classNames.dot} ${this.classNames.dot}--${this.options.dotStyle}`
+      });
 
-      this.itemContainer.appendChild(newItem);
+      this.itemContainer.insertAdjacentHTML('beforeend', imageItem);
+      this.pagination.insertAdjacentHTML('beforeend', dotItem);
     });
   },
-  renderPagination: function() {
-    for (let i = 0; i < this.images.length; i++) {
-      const newItem = document.createElement('li');
-      newItem.dataset.index = i;
-
-      newItem.classList.add(this.classNames.dot);
-      newItem.classList.add(`${this.classNames.dot}--${this.dotStyle}`);
-
-      this.pagination.appendChild(newItem);
-    }
+  getImageDOM: function({ url, type }) {
+    return (type === 'background')
+      ? `<li style="background-image: url('${url}')"></li>`
+      : `<li><img src="${url}"></li>`
+  },
+  getDotDOM: function({ classes, index }) {
+    return `<li class="${classes}" data-index="${index}"></li>`;
   },
   bindButtonEvent: function() {
-    const buttonPrev = this.container.querySelector(btnPrev);
-    const buttonNext = this.container.querySelector(btnNext);
+    const buttonPrev = this.container.querySelector(`.${this.classNames.buttonPrev}`);
+    const buttonNext = this.container.querySelector(`.${this.classNames.buttonNext}`);
 
     buttonPrev.addEventListener('click', (evt) => {
       const currentIndex = parseInt(this.itemContainer.dataset.currentIndex);
@@ -81,8 +78,10 @@ Carousel.prototype = {
   },
   bindPaginationEvent: function() {
     this.pagination.addEventListener('click', ({ target }) => {
-      if (!target.classList.contains(this.classNames.dot)) return;
-
+      if (target.classList.contains(this.classNames.dot) === false) {
+        return;
+      }
+      
       this.showItem(target.dataset.index);
     });
   },
