@@ -1,12 +1,24 @@
-function Carousel(params) {
-  this.images = params.images;
-  this.imageType = params.imageType;
-  this.dotStyle = params.dotStyle;
-  this.container = document.querySelector(params.selector);
-  this.itemContainer = this.container.querySelector('.carousel__items');
-  this.pagination = this.container.querySelector('.carousel__pagination');
-  this.buttonPrev = this.container.querySelector('.carousel__btn--prev');
-  this.buttonNext = this.container.querySelector('.carousel__btn--next');
+function Carousel({ images, selector, imageType, dotStyle }) {
+  this.images = images;
+  
+  this.options = {
+    imageType,
+    dotStyle: dotStyle || 'small',
+    effect: effect || 'fade-in'
+  }
+
+  this.classNames = {
+    buttonPrev: 'carousel__btn--prev',
+    buttonNext: 'carousel__btn--next',
+    itemContainer: 'carousel__items',
+    pagination: 'carousel__pagination',
+    dot: 'pagination__dot',
+    dotActivated: 'pagination__dot--active'
+  }
+
+  this.container = document.querySelector(selector);
+  this.itemContainer = this.container.querySelector(`.${this.classNames.itemContainer}`);
+  this.pagination = this.container.querySelector(`.${this.classNames.pagination}`);
 }
 
 Carousel.prototype = {
@@ -18,15 +30,15 @@ Carousel.prototype = {
     this.bindButtonEvent();
     this.bindPaginationEvent();
 
-    this.itemContainer.children[0].classList.add('fade-in');
-    this.pagination.children[0].classList.add('pagination__dot--active');
+    this.itemContainer.children[0].classList.add(this.options.effect);
+    this.pagination.children[0].classList.add(this.options.dotActivated);
   },
   renderItems: function() {
     this.images.forEach(item => {
       const newItem = document.createElement('li');
       const imageElement = document.createElement('img');
 
-      if (this.imageType === 'background') {
+      if (this.options.imageType === 'background') {
         newItem.style = `background-image: url('${item}');`;
       } else {
         imageElement.setAttribute('src', item);
@@ -41,14 +53,17 @@ Carousel.prototype = {
       const newItem = document.createElement('li');
       newItem.dataset.index = i;
 
-      newItem.classList.add('pagination__dot');
-      newItem.classList.add(`pagination__dot--${this.dotStyle}`);
+      newItem.classList.add(this.classNames.dot);
+      newItem.classList.add(`${this.classNames.dot}--${this.dotStyle}`);
 
       this.pagination.appendChild(newItem);
     }
   },
   bindButtonEvent: function() {
-    this.buttonPrev.addEventListener('click', (evt) => {
+    const buttonPrev = this.container.querySelector(btnPrev);
+    const buttonNext = this.container.querySelector(btnNext);
+
+    buttonPrev.addEventListener('click', (evt) => {
       const currentIndex = parseInt(this.itemContainer.dataset.currentIndex);
       const nextIndex = (currentIndex === 0)
         ? this.images.length - 1
@@ -57,7 +72,7 @@ Carousel.prototype = {
       this.showItem(nextIndex);
     });
 
-    this.buttonNext.addEventListener('click', (evt) => {
+    buttonNext.addEventListener('click', (evt) => {
       const currentIndex = parseInt(this.itemContainer.dataset.currentIndex);
       const nextIndex = (currentIndex + 1) % this.images.length;
 
@@ -65,20 +80,22 @@ Carousel.prototype = {
     });
   },
   bindPaginationEvent: function() {
-    this.pagination.addEventListener('click', (evt) => {
-      if (!evt.target.classList.contains('pagination__dot')) return;
+    this.pagination.addEventListener('click', ({ target }) => {
+      if (!target.classList.contains(this.classNames.dot)) return;
 
-      this.showItem(evt.target.dataset.index);
+      this.showItem(target.dataset.index);
     });
   },
   showItem: function(nextIndex) {
     const currentIndex = this.itemContainer.dataset.currentIndex;
+    const items = this.itemContainer.children;
+    const dots = this.pagination.children;
 
-    this.itemContainer.children[currentIndex].classList.remove('fade-in');
-    this.itemContainer.children[nextIndex].classList.add('fade-in');
+    items[currentIndex].classList.remove(this.options.effect);
+    items[nextIndex].classList.add(this.options.effect);
 
-    this.pagination.children[currentIndex].classList.remove('pagination__dot--active');
-    this.pagination.children[nextIndex].classList.add('pagination__dot--active');
+    dots[currentIndex].classList.remove(this.options.dotActivated);
+    dots[nextIndex].classList.add(this.options.dotActivated);
 
     this.itemContainer.dataset.currentIndex = nextIndex;
   }
