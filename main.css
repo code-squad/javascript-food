@@ -109,35 +109,36 @@ span.ic {
 
 .wrap_nav {
     background-color: #483f35;
+    
 }
-.nav {
-    margin:auto;
-    width : 980px;
-    height : 52px;   
+.gnb {
+    margin:0px;
+    text-align: center;        
+    padding:0;
 }
-.nav ul {
-    text-align: center;
-    list-style: none;
-    padding:13px;
-    margin:0 auto;
+.gnb>li:last-child {
+    background-color: #362d25;
 }
-.nav li {
-    display:inline-block;
-    width:100px;
-    height: 100%;    
-    font-weight: bold;
-    margin:0 7px;
-}
-.nav a {
-    display:block;
-    height:35px;
-    margin-bottom: 0;
-}
-.nav span {    
+.gnb>li {
+    margin-left: 5px;
     display: inline-block;
-    color : #fff;
-    font-size:16px;
+    text-align: center;
+    position: relative;
+}
+.wrap_nav a {
+    padding-top: 5px;
+    display:inline-block;
+    height:52px;
+}
+.wrap_nav span{
+    display: inline-block;
+    font-size: 16px;
+    padding:11px 25px 0;
+    height:100%;
+    color:#fff;
+    font-weight: bold;
 }
 .wrap_nav span:hover{
     color:#2ac1bc;
+    background-color: #fff;
 }
