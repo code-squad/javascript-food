@@ -1,3 +1,19 @@
+<script>
+var data;   
+function ajax() {
+var oReq = new XMLHttpRequest();
+   
+ oReq.addEventListener("load", function() {
+    data = JSON.parse(this.responseText);
+ });
+   
+  oReq.open("GET", "http://crong.codesquad.kr:8080/woowa/best");
+  oReq.send();
+}
+ajax();
+console.log(data); // { asdasd}
+</script>
+
 <div class="container">
     <div class="tab_ui">
         <img class="best_seller" src="./images/best.png">
@@ -10,11 +26,103 @@
             <li>맛있는 간식타임</li>
         </ul>
         <div class="best_container">
-            
+            <ul>
+                <li>
+                    <a><img src="./images/tab1_1.jpg">
+                        <div class="best_detail">
+                            <dl>
+                                <dt>[아침]</dt>
+                                    <dd>매일못먹음</dd>
+                            </dl>
+                            <div class="price">
+                                <span class="before">50,000원</span>
+                                <span class="after">10,000원</span>
+                            </div>                        
+                        </div>
+                    </a>
+                    
+                </li>
+                <li>
+                    <a><img src="./images/tab1_2.jpg">
+                        <div class="best_detail">
+                                <dl>
+                                    <dt>[점심]</dt>
+                                        <dd>칼국수</dd>
+                                </dl>
+                                <div class="price">
+                                    <span class="before">50,000원</span>
+                                    <span class="after">10,000원</span>
+                                </div>                        
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a><img src="./images/tab1_3.jpg">
+                        <div class="best_detail">
+                            <dl>
+                                <dt>[저녁]</dt>
+                                    <dd>찜닭</dd>
+                            </dl>
+                            <div class="price">
+                                <span class="before">50,000원</span>
+                                <span class="after">10,000원</span>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
 <style>
+    dl, dt, dd ,ul,li {
+        margin:0
+    }
+    .before {
+        font-size:0.8em;
+        color : #666;
+        text-decoration: line-through;
+    }
+    .after{
+        font-size:1.5em;
+        color : #2ac1bc;
+        font-weight: bold;
+    }
+    .price {
+        text-align: right;
+        margin:1em;
+    }
+    .best_detail dd {
+        margin-top:0.4em;
+        font-size: 0.8em;
+        color:#666;
+    }
+    .best_detail dt {
+        font-size: 1em;
+        font-weight: bold;
+    }
+    .best_detail dl{
+        text-align: left;
+        margin:1em 0 0 1em;
+    }
+    .best_container ul{
+        padding:0;     
+    }
+    .best_container li {
+        margin : 0.4em;
+        display:inline-block;
+    }
+    .best_container a {
+        display:inline-block;
+        background:#fff;
+    }
+    .best_container img {
+        width:308px;
+    }
+    .best_detail{
+        margin:0;
+    }
+
     * {
         box-sizing: border-box;
     }
@@ -27,8 +135,8 @@
         width:980px;
     }
     .best_seller{
-        margin-top:30px;
-        margin-bottom: 15px;
+        margin-top:2em;
+        margin-bottom: 1em;
     }
     .best_tabs{
         margin:0;
@@ -37,11 +145,14 @@
     }
     .best_tabs li {
         font-weight: bold;
-        padding:13px;
+        padding:12px;
+        margin-left:1px;
         display:inline-block;
         float:left;
         height: 48px;
-        width: 161px;
+        width: 160px;
+        color:#777;
+        background:#fff;
     }
     .best_tabs li:hover, .best_tabs li:focus{
         background: #2ac1bc;
