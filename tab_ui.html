@@ -5,38 +5,43 @@ var oReq = new XMLHttpRequest();
    
  oReq.addEventListener("load", function() {
     data = JSON.parse(this.responseText);
+    makeLiList();
  });
    
   oReq.open("GET", "http://crong.codesquad.kr:8080/woowa/best");
   oReq.send();
 }
 ajax();
-console.log(data); // { asdasd}
+
+function makeLiList() { 
+    var ul = document.querySelector(".best_tabs");
+    data.forEach(function(key,index){
+        var node = document.createElement("li");
+        node.innerHTML = key.name         
+        ul.appendChild(node);
+    });
+}
+
 </script>
 
 <div class="container">
     <div class="tab_ui">
         <img class="best_seller" src="./images/best.png">
         <ul class="best_tabs">
-            <li>중국 푸드트립</li>
-            <li>풍성한 고기반찬</li>
-            <li>바다향가득 반찬</li>
-            <li>간편한 덮밥요리</li>
-            <li>할인특가 세트상품</li>
-            <li>맛있는 간식타임</li>
         </ul>
         <div class="best_container">
             <ul>
                 <li>
-                    <a><img src="./images/tab1_1.jpg">
+                    <a><img class="tab_image" src="./images/tab1_1.jpg">
                         <div class="best_detail">
                             <dl>
                                 <dt>[아침]</dt>
                                     <dd>매일못먹음</dd>
                             </dl>
                             <div class="price">
-                                <span class="before">50,000원</span>
+                                <span class="before">50,000</span>
                                 <span class="after">10,000원</span>
+                                <span>원</span>
                             </div>                        
                         </div>
                     </a>
@@ -50,8 +55,9 @@ console.log(data); // { asdasd}
                                         <dd>칼국수</dd>
                                 </dl>
                                 <div class="price">
-                                    <span class="before">50,000원</span>
+                                    <span class="before">50,000</span>
                                     <span class="after">10,000원</span>
+                                    <span>원</span>
                                 </div>                        
                         </div>
                     </a>
@@ -64,14 +70,15 @@ console.log(data); // { asdasd}
                                     <dd>찜닭</dd>
                             </dl>
                             <div class="price">
-                                <span class="before">50,000원</span>
+                                <span class="before">50,000</span>
                                 <span class="after">10,000원</span>
+                                <span>원</span>
                             </div>
                         </div>
                     </a>
                 </li>
             </ul>
-        </div>
+        </div> 
     </div>
 </div>
 <style>
