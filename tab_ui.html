@@ -5,7 +5,9 @@ var oReq = new XMLHttpRequest();
    
  oReq.addEventListener("load", function() {
     data = JSON.parse(this.responseText);
+
     makeLiList();
+    makeImageList();
  });
    
   oReq.open("GET", "http://crong.codesquad.kr:8080/woowa/best");
@@ -22,6 +24,13 @@ function makeLiList() {
     });
 }
 
+function makeImageList(){
+    var aTag = document.querySelectorAll(".best_container img");
+    data[0].items.forEach(function(key,index){
+        aTag[index].src = key.image;
+    })   
+    
+}
 </script>
 
 <div class="container">
@@ -29,10 +38,10 @@ function makeLiList() {
         <img class="best_seller" src="./images/best.png">
         <ul class="best_tabs">
         </ul>
-        <div class="best_container">
+        <div class="best_container"> <!-- template li > a > img, div > dl dt dd , div > span *3 -->
             <ul>
                 <li>
-                    <a><img class="tab_image" src="./images/tab1_1.jpg">
+                    <a><img src="">
                         <div class="best_detail">
                             <dl>
                                 <dt>[아침]</dt>
@@ -48,7 +57,7 @@ function makeLiList() {
                     
                 </li>
                 <li>
-                    <a><img src="./images/tab1_2.jpg">
+                    <a><img src="">
                         <div class="best_detail">
                                 <dl>
                                     <dt>[점심]</dt>
@@ -63,7 +72,7 @@ function makeLiList() {
                     </a>
                 </li>
                 <li>
-                    <a><img src="./images/tab1_3.jpg">
+                    <a><img src="">
                         <div class="best_detail">
                             <dl>
                                 <dt>[저녁]</dt>
@@ -78,7 +87,7 @@ function makeLiList() {
                     </a>
                 </li>
             </ul>
-        </div> 
+        </div> <!-- template end -->
     </div>
 </div>
 <style>
