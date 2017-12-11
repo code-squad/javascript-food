@@ -15,18 +15,18 @@ function requestData(params) {
 
 window.addEventListener('DOMContentLoaded', () => {
   (new Carousel({
-    dotStyle: 'big',
+    dotSize: 'big',
     selector: '.carousel--main'
   })).init();
 
   (new Carousel({
-    dotStyle: 'small',
-    selector: '.carousel--new-items'
+    selector: '.carousel--new-items',
+    positionOfPagination: 'top'
   })).init();
 
   (new Carousel({
-    dotStyle: 'small',
-    selector: '.carousel--notices'
+    selector: '.carousel--notices',
+    positionOfPagination: 'top'
   })).init();
   
   const bestsellerTab = new TabMenu({

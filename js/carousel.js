@@ -1,10 +1,10 @@
-function Carousel({ images, selector, dotStyle, effect }) {
+function Carousel({ images, selector, dotSize, effect, positionOfPagination }) {
   this.images = images;
 
   this.options = {
-    imageType,
-    dotStyle: dotStyle || 'small',
-    effect: effect || 'fade-in'
+    dotSize: dotSize || 'small',
+    effect: effect || 'fade-in',
+    positionOfPagination: positionOfPagination || 'bottom'
   }
 
   this.classNames = {
@@ -25,25 +25,30 @@ Carousel.prototype = {
   constructor: Carousel,
 
   init: function() {
-    this.render();
+    this.renderPagination();
     this.bindButtonEvent();
     this.bindPaginationEvent();
 
     this.itemContainer.children[0].classList.add(this.options.effect);
     this.pagination.children[0].classList.add(this.classNames.dotActivated);
   },
-  render: function() {
-    this.images.forEach((imageURL, index) => {
-      const dotItem = this.getDotDOM({
+  renderPagination: function() {
+    const itemCount = this.itemContainer.children.length;
+    const paginationHTML = `<ol class="${this.classNames.pagination} ${this.classNames.pagination}--${this.options.positionOfPagination}"></ol>`;
+
+    this.container.insertAdjacentHTML('beforeend', paginationHTML);
+    this.pagination = this.container.querySelector(`.${this.classNames.pagination}`);
+
+    for (let index = 0; index < itemCount; index++) {
+      const dotHTML = this.getDotHTML({
         index,
-        classes: `${this.classNames.dot} ${this.classNames.dot}--${this.options.dotStyle}`
+        classes: `${this.classNames.dot} ${this.classNames.dot}--${this.options.dotSize}`
       });
 
-      this.itemContainer.insertAdjacentHTML('beforeend', imageItem);
-      this.pagination.insertAdjacentHTML('beforeend', dotItem);
-    });
+      this.pagination.insertAdjacentHTML('beforeend', dotHTML);
+    }
   },
-  getDotDOM: function({ classes, index }) {
+  getDotHTML: function({ classes, index }) {
     return `<li class="${classes}" data-index="${index}"></li>`;
   },
   bindButtonEvent: function() {
