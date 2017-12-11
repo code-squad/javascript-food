@@ -4,7 +4,6 @@ function Carousel({
   itemPadding,
   visibleItems,
   step,
-  items,
   selector,
   usingPagination,
   positionOfPagination,
@@ -12,17 +11,17 @@ function Carousel({
   effect,
   speed
   }) {
-  
-  this.items = items;
+
   this.visibleItems = visibleItems || 1;
   this.step= step || this.visibleItems;
-  this.itemTemplate = itemTemplate;
-  this.itemPadding = itemPadding;
   this.usingPagination = (usingPagination === undefined) ? true : usingPagination;
   this.positionOfPagination = positionOfPagination || 'bottom';
   this.dotSize = dotSize || 'small';
   this.effect = effect || 'slide'; 
   this.speed = speed || '500ms';
+  this.itemPadding = itemPadding;
+
+  this.itemTemplate = itemTemplate;
 
   this.classNames = {
     buttonPrev: 'carousel__btn--prev',
@@ -42,13 +41,10 @@ function Carousel({
 Carousel.prototype = {
   constructor: Carousel,
 
-  init: function(itemData) {
+  init(itemData) {
     if (itemData) {
-      this.items = JSON.parse(itemData);
-      this.renderItems();
+      this.renderItems(JSON.parse(itemData));
     }
-
-    this.setItemsSize();
 
     if (this.usingPagination) {
       this.renderPagination();
@@ -56,24 +52,17 @@ Carousel.prototype = {
       this.pagination.children[0].classList.add(this.dotActivated);
     }
 
+    this.setItemsSize();
     this.bindButtonEvent();
-
-    Array.prototype.forEach.call(this.itemContainer.children, (item, index) => {
-      if (index === 0) item.classList.add(this.effect);
-
-      item.classList.add(`${this.effect}-ready`);
-    });
-
-    if (this.effect === 'slide')
-      this.itemContainer.style.transitionDuration = this.speed;
+    this.effects[this.effect].init.call(this);
   },
-  renderItems: function() {
-    this.items.forEach((item, index) => {
+  renderItems(items) {
+    items.forEach((item, index) => {
       const itemDOM = this.getItemDOM(item);
       this.itemContainer.insertAdjacentHTML('beforeend', itemDOM);
     });
   },
-  setItemsSize: function() {
+  setItemsSize() {
     const wrap = this.container.querySelector(`.${this.classNames.wrapItems}`);
     const width = wrap.clientWidth / this.visibleItems;
 
@@ -84,7 +73,7 @@ Carousel.prototype = {
       item.style.paddingRight = this.itemPadding;
     });
   },
-  renderPagination: function() {
+  renderPagination() {
     const itemCount = this.itemContainer.children.length;
     const paginationHTML = `<ol class="${this.classNames.pagination} ${this.classNames.pagination}--${this.positionOfPagination}"></ol>`;
 
@@ -100,13 +89,13 @@ Carousel.prototype = {
       this.pagination.insertAdjacentHTML('beforeend', dotHTML);
     }
   },
-  getItemDOM: function(item) {
+  getItemDOM(item) {
     return TabMenu.prototype.getThumbnailHTML(this.itemTemplate, item);
   },
-  getDotHTML: function({ classes, index }) {
+  getDotHTML({ classes, index }) {
     return `<li class="${classes}" data-index="${index}"></li>`;
   },
-  bindButtonEvent: function() {
+  bindButtonEvent() {
     const buttonPrev = this.container.querySelector(`.${this.classNames.buttonPrev}`);
     const buttonNext = this.container.querySelector(`.${this.classNames.buttonNext}`);
 
@@ -114,9 +103,8 @@ Carousel.prototype = {
       const currentIndex = parseInt(this.itemContainer.dataset.currentIndex);
       const itemCounts = this.itemContainer.children.length;
 
-      const nextIndex = (currentIndex - this.step) >= 0 ?
-        (currentIndex - this.step) :
-        itemCounts + (currentIndex - this.step);
+      const distance = (currentIndex - this.step);
+      const nextIndex = distance >= 0 ? distance : itemCounts + distance;
 
       this.showItem(nextIndex);
     });
@@ -129,7 +117,7 @@ Carousel.prototype = {
       this.showItem(nextIndex);
     });
   },
-  bindPaginationEvent: function() {
+  bindPaginationEvent() {
     this.pagination.addEventListener('click', ({ target }) => {
       if (target.classList.contains(this.classNames.dot) === false) {
         return;
@@ -138,11 +126,11 @@ Carousel.prototype = {
       this.showItem(target.dataset.index);
     });
   },
-  showItem: function(nextIndex) {
+  showItem(nextIndex) {
     const currentIndex = this.itemContainer.dataset.currentIndex;
     const items = this.itemContainer.children;
 
-    this.effects[this.effect].call(this, this.itemContainer, items, currentIndex, nextIndex);
+    this.effects[this.effect].run.call(this, items, currentIndex, nextIndex);
 
     if (this.usingPagination) {
       const dots = this.pagination.children;
@@ -153,19 +141,35 @@ Carousel.prototype = {
     this.itemContainer.dataset.currentIndex = nextIndex;
   },
   effects: {
-    fade(itemContainer, items, currentIndex, nextIndex) {
-      const width = itemContainer.parentNode.clientWidth;
+    fade: {
+      init() {
+        Array.prototype.forEach.call(this.itemContainer.children, (item, index) => {
+          if (index === 0) {
+            item.classList.add(this.effect);
+          }
 
-      itemContainer.style.marginLeft = `-${nextIndex * width}px`;
-      items[currentIndex].classList.remove(this.effect);
-      items[nextIndex].classList.add(this.effect);
+          item.classList.add(`${this.effect}-ready`);
+        });
+      },
+      run(items, currentIndex, nextIndex) {
+        const width = this.itemContainer.parentNode.clientWidth;
+
+        this.itemContainer.style.marginLeft = `-${nextIndex * width}px`;
+        items[currentIndex].classList.remove(this.effect);
+        items[nextIndex].classList.add(this.effect);
+      }
     },
-    slide(itemContainer, items, currentIndex, nextIndex) {
-      const wrapItems = itemContainer.parentNode;
-      const itemCount = itemContainer.children.length;
-      const width = (nextIndex / this.visibleItems) * wrapItems.clientWidth;
+    slide: {
+      init() {
+        this.itemContainer.style.transitionDuration = this.speed;
+      },
+      run(items, currentIndex, nextIndex) {
+        const wrapItems = this.itemContainer.parentNode;
+        const itemCount = this.itemContainer.children.length;
+        const width = (nextIndex / this.visibleItems) * wrapItems.clientWidth;
 
-      itemContainer.style.transform = `translateX(-${width}px)`;
+        this.itemContainer.style.transform = `translateX(-${width}px)`;
+      }
     }
   }
 }
