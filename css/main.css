@@ -179,29 +179,34 @@
 .carousel--notices {
   position: relative;
 }
+
+.carousel__wrap-items {
+  position: relative;
+  overflow: hidden;
+}
+
 .carousel__items {
+  width: 9999px;
   position: relative;
 }
 
 .carousel__items > * {
   background-position: center;
   background-repeat: no-repeat;
+}
 
-  position: absolute;
-  left: 0;
-  top: 0;
+.carousel__items .carousel__item {
+  float: left;
+}
 
-  width: 100%;
-  height: 100%;
-
+.fade-ready {
   opacity: 0;
   transition: opacity 1s;
 }
 
-.carousel__items > *.fade-in {
-  opacity: 1;
-  z-index: 10;
-}
+.fade { opacity: 1; }
+
+.carousel__items > *.fade { z-index: 10; }
 
 .carousel__items--main {
   height: 420px;
@@ -454,8 +459,7 @@
 
 .sidedish > .container { overflow: visible; }
 
-.carousel--thumbnails,
-.carousel__items--thumbnail {
+.carousel--thumbnails {
   display: block;
   position: relative;
 }

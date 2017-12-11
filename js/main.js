@@ -15,8 +15,9 @@ function requestData(params) {
 
 window.addEventListener('DOMContentLoaded', () => {
   (new Carousel({
+    selector: '.carousel--main',
     dotSize: 'big',
-    selector: '.carousel--main'
+    effect: 'fade'
   })).init();
 
   (new Carousel({
@@ -28,10 +29,18 @@ window.addEventListener('DOMContentLoaded', () => {
     selector: '.carousel--notices',
     positionOfPagination: 'top'
   })).init();
-  
+
   const bestsellerTab = new TabMenu({
     buttons: '.bestseller > .container > .tab-buttons',
     contents: '.bestseller > .container > .tab-contents'
+  });
+
+  const sidedishCarousel = new Carousel({
+    selector: '.sidedish .carousel--thumbnails',
+    itemTemplate: document.querySelector('#sidedishThumbnail'),
+    visibleItems: 4,
+    itemPadding: '15px',
+    usingPagination: false
   });
 
   const BASE_URL = 'http://crong.codesquad.kr:8080/woowa/';
@@ -39,5 +48,10 @@ window.addEventListener('DOMContentLoaded', () => {
   requestData({
     url: BASE_URL + 'best',
     callback: bestsellerTab.init.bind(bestsellerTab)
+  });
+
+  requestData({
+    url: BASE_URL + 'main',
+    callback: sidedishCarousel.init.bind(sidedishCarousel)
   });
 });
