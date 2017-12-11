@@ -20,58 +20,30 @@ ajax();
 function makeLiList() { 
     var ul = document.querySelector(".best_tabs");
     data.forEach(function(key,index){
-        var node = document.createElement("li");
-        node.id = key.category_id;
-        node.innerHTML = key.name; 
-        ul.appendChild(node);
+        var li = '<li id="'+key.category_id+'">'+key.name+"</li>";
+        ul.innerHTML += li;
     });
 }
 
 //best_detail
 function makeTab(){
     var container = document.querySelector(".best_container");
+    var template = document.querySelector("#bestDetail").innerText;
     data.forEach(function(key,index){
         var ul = document.createElement("ul");
         ul.className = key.category_id;
         
-        //함수화? tag = [li,a,img] , value = [{class:detail_hash},{},{src:"url"} ... ];
-        key.items.forEach(function(key,index){  //캬아악
-            
-            var li = document.createElement("li");
-            var a = document.createElement("a");
-            var img = document.createElement("img");
-            var div1 = document.createElement("div");
-            var dl = document.createElement("dl");
-            var dt = document.createElement("dt");
-            var dd = document.createElement("dd");
-            var div2 = document.createElement("div");
-            var span1 = document.createElement("span");
-            var span2 = document.createElement("span");//cloneNode를 쓰자
-            var span3 = document.createElement("span");
+        key.items.forEach(function(value){ 
+            var li = template;
+            var keys = ["detail_hash","image","title","description","n_price","s_price"];
 
-            li.className = key.detail_hash;
-            img.src = key.image;
-            div1.className = "best_detail";
-            dt.innerText=key.title;
-            dd.innerText=key.description;
-            div2.className = "price";
-            span1.className = "before";
-            key.n_price ? span1.innerText = key.n_price : "";
-            span2.innerText = " "+key.s_price;
-            span2.className = "after";
-            span3.innerText = "";
-            
-            ul.appendChild(li);//반복문? 맙소사
-            li.appendChild(a);
-            a.appendChild(img);
-            a.appendChild(div1);
-            div1.appendChild(dl);
-            dl.appendChild(dt);
-            dl.appendChild(dd);
-            div1.appendChild(div2);
-            div2.appendChild(span1);
-            div2.appendChild(span2);
-            span2.appendChild(span3);
+            keys.forEach(key => { li = li.replace(`{{${key}}}`, value[key]);});
+            // keys.forEach(function(key){
+            //     li = li.replace("{{"+key+"}}",value[key]);
+            // });
+            li = li.replace("undefined","");
+            ul.innerHTML += li;
+
         });
         container.appendChild(ul);
     });
@@ -109,7 +81,22 @@ function bestTabinit(){
 }
 
 </script>
-<template id=""></template>
+<script type="text/template" id="bestDetail">
+    <li class="{{detail_hash}}">
+        <a><img src="{{image}}">
+            <div class="best_detail">
+                <dl>
+                    <dt>{{title}}</dt>
+                    <dd>{{description}}</dd>
+                </dl>
+                <div class="price">
+                    <span class="before">{{n_price}}</span>
+                    <span class="after">{{s_price}}</span>
+                </div>
+            </div>
+        </a>
+    </li>
+</script>
 <div class="container">
     <div class="tab_ui">
         <img class="best_seller" src="./images/best.png">
@@ -123,6 +110,7 @@ function bestTabinit(){
         margin:0
     }
     .before {
+        margin-right:0.5em;
         font-size:0.8em;
         color : #666;
         text-decoration: line-through;
