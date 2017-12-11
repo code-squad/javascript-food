@@ -7,24 +7,8 @@ var oReq = new XMLHttpRequest();
     data = JSON.parse(this.responseText);
 
     makeLiList();
-    // makeImageList();
     makeTab();
     bestTabinit();
-    document.querySelector(".best_tabs").addEventListener("click",function(e){
-        if(e.target && e.target.nodeName == "LI"){
-            // console.log(e.target.className+" 이 클릭됨!");
-            var ul = Array.from(document.querySelector(".best_container").children);
-
-            //var ul = document.querySelector(".best_container").children;
-            // Array.prototype.forEach.call(ul, func)
-            ul.forEach(function(value){
-                if(value.className == e.target.className){
-                    value.style.display = "block";
-                }
-                else value.style.display = "none";
-            });
-        }
-    })
  });
    
   oReq.open("GET", "http://crong.codesquad.kr:8080/woowa/best");
@@ -37,12 +21,13 @@ function makeLiList() {
     var ul = document.querySelector(".best_tabs");
     data.forEach(function(key,index){
         var node = document.createElement("li");
-        node.className = key.category_id;
+        node.id = key.category_id;
         node.innerHTML = key.name; 
         ul.appendChild(node);
     });
 }
 
+//best_detail
 function makeTab(){
     var container = document.querySelector(".best_container");
     data.forEach(function(key,index){
@@ -71,7 +56,7 @@ function makeTab(){
             dd.innerText=key.description;
             div2.className = "price";
             span1.className = "before";
-            span1.innerText = key.n_price;
+            key.n_price ? span1.innerText = key.n_price : "";
             span2.innerText = " "+key.s_price;
             span2.className = "after";
             span3.innerText = "";
@@ -91,16 +76,40 @@ function makeTab(){
         container.appendChild(ul);
     });
 }
+
+
 function bestTabinit(){
     var ul = document.querySelector(".best_container").children;
     var i,length = ul.length;
+    
+    //best_detail 하나 이외의 탭들은 display none 처리
     for(i=1;i<length;i++){
         ul[i].style.display = "none";
     }
+    
+    //탭 클릭 이벤트
+    document.querySelector(".best_tabs").addEventListener("click",function(e){
+        if(e.target && e.target.nodeName == "LI"){
+            //클릭된 탭만 하이라이팅
+            Array.prototype.forEach.call(e.target.parentNode.children,function(value){
+                value.className = "";
+            });
+            e.target.className = "clicked";
+
+            //클릭된 탭 이외의 detail은 display none 처리
+            var ul = Array.from(document.querySelector(".best_container").children);
+            ul.forEach(function(value){
+                if(value.className == e.target.id){
+                    value.style.display = "block";
+                }
+                else value.style.display = "none";
+            });
+        }
+    });
 }
 
 </script>
-
+<template id=""></template>
 <div class="container">
     <div class="tab_ui">
         <img class="best_seller" src="./images/best.png">
@@ -198,7 +207,7 @@ function bestTabinit(){
         color:#777;
         background:#fff;
     }
-    .best_tabs li:hover, .best_tabs li:focus{
+    .best_tabs li:hover, .best_tabs li:focus , .best_tabs > .clicked {
         background: #2ac1bc;
         color:#fff;
     }
