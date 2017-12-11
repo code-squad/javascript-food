@@ -148,19 +148,14 @@
     <span class="carousel__btn carousel__btn--big carousel__btn--prev"></span>
     <span class="carousel__btn carousel__btn--big carousel__btn--next"></span>
 
-    <ol class="carousel__items carousel__items--main" data-current-index="0">
-      <li style="background-image: url('img/banner_main1.jpg')"></li>
-      <li style="display: none; background-image: url('img/banner_main2.jpg')"></li>
-      <li style="display: none; background-image: url('img/banner_main3.jpg')"></li>
-      <li style="display: none; background-image: url('img/banner_main4.jpg')"></li>
-    </ol>
-
-    <ol class="carousel__pagination carousel__pagination--bottom">
-      <li data-index="0"><div class="pagination__dot pagination__dot--big pagination__dot--active"></div></li>
-      <li data-index="1"><div class="pagination__dot pagination__dot--big"></div></li>
-      <li data-index="2"><div class="pagination__dot pagination__dot--big"></div></li>
-      <li data-index="3"><div class="pagination__dot pagination__dot--big"></div></li>
-    </ol>
+    <div class="carousel__wrap-items">
+      <ol class="carousel__items carousel__items--main" data-current-index="0">
+        <li class="carousel__item" style="background-image: url(img/banner_main1.jpg);"></li>
+        <li class="carousel__item" style="background-image: url(img/banner_main2.jpg);"></li>
+        <li class="carousel__item" style="background-image: url(img/banner_main3.jpg);"></li>
+        <li class="carousel__item" style="background-image: url(img/banner_main4.jpg);"></li>
+      </ol>
+    </div>
   </section>
 
   <section class="banners">
@@ -173,21 +168,14 @@
           <img src="img/btn_slides_next_s.png">
         </span>
 
-        <ol class="carousel__items carousel__items--new-item">
-          <li><img src="img/banner_item1.jpg"></li>
-          <li style="display: none;"><img src="img/banner_item2.jpg"></li>
-          <li style="display: none;"><img src="img/banner_item3.jpg"></li>
-          <li style="display: none;"><img src="img/banner_item4.jpg"></li>
-          <li style="display: none;"><img src="img/banner_item5.jpg"></li>
-        </ol>
-
-        <ol class="carousel__pagination carousel__pagination--top">
-          <li data-index="0"><div class="pagination__dot pagination__dot--small pagination__dot--active"></div></li>
-          <li data-index="1"><div class="pagination__dot pagination__dot--small"></div></li>
-          <li data-index="2"><div class="pagination__dot pagination__dot--small"></div></li>
-          <li data-index="3"><div class="pagination__dot pagination__dot--small"></div></li>
-          <li data-index="4"><div class="pagination__dot pagination__dot--small"></div></li>
-        </ol>
+        <div class="carousel__wrap-items">
+          <ol class="carousel__items carousel__items--new-item" data-current-index="0">
+            <li class="carousel__item"><img src="img/banner_item1.jpg" /></li>
+            <li class="carousel__item"><img src="img/banner_item2.jpg" /></li>
+            <li class="carousel__item"><img src="img/banner_item3.jpg" /></li>
+            <li class="carousel__item"><img src="img/banner_item4.jpg" /></li>
+          </ol>
+        </div>
       </div>
 
       <div class="carousel--notices col-6">
@@ -198,15 +186,12 @@
           <img src="img/btn_slides_next_s.png">
         </span>
 
-        <ol class="carousel__items carousel__items--notice">
-          <li><img src="img/banner_notice1.png"></li>
-          <li style="display: none;"><img src="img/banner_notice2.jpg"></li>
-        </ol>
-
-        <ol class="carousel__pagination carousel__pagination--top">
-          <li data-index="0"><div class="pagination__dot pagination__dot--small pagination__dot--active"></div></li>
-          <li data-index="1"><div class="pagination__dot pagination__dot--small"></div></li>
-        </ol>
+        <div class="carousel__wrap-items">
+          <ol class="carousel__items carousel__items--notice" data-current-index="0">
+            <li class="carousel__item"><img src="img/banner_notice1.png" /></li>
+            <li class="carousel__item"><img src="img/banner_notice2.jpg" /></li>
+          </ol>
+        </div>
       </div>
     </div>
   </section>
@@ -215,97 +200,23 @@
     <div class="container">
       <h2 class="title--section"><small>베스트셀러</small>후기가 증명하는 베스트 반찬</h2>
 
-      <ul class="tabs">
-        <li class="active">중국 푸드트립</li>
-        <li>풍성한 고기반찬</li>
-        <li>바다향가득 반찬</li>
-        <li>간편한 덮밥요리</li>
-        <li>할인특가 세트상품</li>
-        <li>맛있는 간식타임</li>
+      <ul class="tab-buttons" data-current-index="0">
+        <li data-index="0" class="active"></li>
+        <li data-index="1"></li>
+        <li data-index="2"></li>
+        <li data-index="3"></li>
+        <li data-index="4"></li>
+        <li data-index="5"></li>
       </ul>
 
-      <ul class="thumbnails" data-index="0">
-        <li class="col-4">
-          <div class="thumbnail">
-            <div class="wrap-thumbnail-image">
-              <img src="img/dish_thumbnail2.jpg" />
-              <div class="thumbnail__mask"></div>
-              <div class="thumbnail__info--hover">
-                <div class="wrap-info">
-                  <span>새벽배송</span>
-                  <hr>
-                  <span>전국택배</span>
-                </div>
-              </div>
-
-              <ul class="thumbnail__tags">
-                <li>이벤트특가</li>
-                <li>베스트</li>
-              </ul>
-            </div>
-
-            <div class="thumbnail__contents">
-              <h3 class="thumbnail__title">[집밥의완성] 천하진미세트</h3>
-              <p class="thumbnail__description">집으로 찾아오는 대륙의 진미</p>
-              <p class="thumbnail__price"><del>32,100</del><strong>29,000</strong>원</p>
-            </div>
-          </div>
-        </li>
-
-        <li class="col-4">
-          <div class="thumbnail">
-            <div class="wrap-thumbnail-image">
-              <img src="img/dish_thumbnail3.jpg" />
-              <div class="thumbnail__mask"></div>
-              <div class="thumbnail__info--hover">
-                <div class="wrap-info">
-                  <span>새벽배송</span>
-                  <hr>
-                  <span>전국택배</span>
-                </div>
-              </div>
-
-              <ul class="thumbnail__tags">
-                <li>이벤트특가</li>
-                <li>베스트</li>
-              </ul>
-            </div>
-
-            <div class="thumbnail__contents">
-              <h3 class="thumbnail__title">[소중한식사] 치파오또우푸 300g</h3>
-              <p class="thumbnail__description">부들부들 담백한 중국식 두부 요리</p>
-              <p class="thumbnail__price"><strong>14,300</strong>원</p>
-            </div>
-          </div>
-        </li>
-
-        <li class="col-4">
-          <div class="thumbnail">
-            <div class="wrap-thumbnail-image">
-              <img src="img/dish_thumbnail1.jpg" />
-              <div class="thumbnail__mask"></div>
-              <div class="thumbnail__info--hover">
-                <div class="wrap-info">
-                  <span>새벽배송</span>
-                  <hr>
-                  <span>전국택배</span>
-                </div>
-              </div>
-
-              <ul class="thumbnail__tags">
-                <li>이벤트특가</li>
-                <li>베스트</li>
-              </ul>
-            </div>
-
-            <div class="thumbnail__contents">
-              <h3 class="thumbnail__title">[소중한식탁] 상하이고추잡채와 꽃빵 (2인분)</h3>
-              <p class="thumbnail__description">볶으면 끝! 고급스런 중화요리도 간단하게</p>
-              <p class="thumbnail__price"><del>13,000</del><strong>12,800</strong>원</p>
-            </div>
-          </div>
-        </li>
-      </ul>
+      <div class="tab-contents">
+        <ul class="thumbnails"></ul>
+        <ul class="thumbnails" style="display: none"></ul>
+        <ul class="thumbnails" style="display: none"></ul>
+        <ul class="thumbnails" style="display: none"></ul>
+        <ul class="thumbnails" style="display: none"></ul>
+        <ul class="thumbnails" style="display: none"></ul>
+      </div>
     </div>
   </section>
 
@@ -317,109 +228,9 @@
         <span class="carousel__btn carousel__btn--thumb carousel__btn--prev"></span>
         <span class="carousel__btn carousel__btn--thumb carousel__btn--next"></span>
 
-        <ol class="carousel__items--thumbnail clearfix">
-          <li class="col-3">
-            <div class="thumbnail--round">
-              <div class="wrap-thumbnail-image">
-                <img src="img/sidedish_thumbnail1.jpg" />
-                <div class="thumbnail__mask"></div>
-                <div class="thumbnail__info--hover">
-                  <div class="wrap-info">
-                    <span>새벽배송</span>
-                    <hr>
-                    <span>전국택배</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="thumbnail__contents">
-                <h3 class="thumbnail__title">[집밥의완성] 스팸김치볶음 220g</h3>
-                <p class="thumbnail__description">맛이 없을 수 없는 조합! 국민반찬 스팸과 매콤한 김치볶음!</p>
-                <p class="thumbnail__price text-center"><del>3,600</del><strong>3,400</strong>원</p>
-              </div>
-
-              <ul class="thumbnail__tags thumbnail__tags--block">
-                <li>이벤트특가</li>
-              </ul>
-            </div>
-          </li>
-
-          <li class="col-3">
-            <div class="thumbnail--round">
-              <div class="wrap-thumbnail-image">
-                <img src="img/sidedish_thumbnail2.jpg" />
-                <div class="thumbnail__info--hover">
-                  <div class="wrap-info">
-                    <span>새벽배송</span>
-                    <hr>
-                    <span>전국택배</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="thumbnail__contents">
-                <h3 class="thumbnail__title">[집밥의완성] 스팸김치볶음 220g</h3>
-                <p class="thumbnail__description">맛이 없을 수 없는 조합! 국민반찬 스팸과 매콤한 김치볶음!</p>
-                <p class="thumbnail__price text-center"><del>3,600</del><strong>3,400</strong>원</p>
-              </div>
-
-              <ul class="thumbnail__tags thumbnail__tags--block">
-                <li>이벤트특가</li>
-              </ul>
-            </div>
-          </li>
-
-          <li class="col-3">
-            <div class="thumbnail--round">
-              <div class="wrap-thumbnail-image">
-                <img src="img/sidedish_thumbnail3.jpg" />
-                <div class="thumbnail__info--hover">
-                  <div class="wrap-info">
-                    <span>새벽배송</span>
-                    <hr>
-                    <span>전국택배</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="thumbnail__contents">
-                <h3 class="thumbnail__title">[집밥의완성] 스팸김치볶음 220g</h3>
-                <p class="thumbnail__description">맛이 없을 수 없는 조합! 국민반찬 스팸과 매콤한 김치볶음!</p>
-                <p class="thumbnail__price text-center"><del>3,600</del><strong>3,400</strong>원</p>
-              </div>
-
-              <ul class="thumbnail__tags thumbnail__tags--block">
-                <li>이벤트특가</li>
-              </ul>
-            </div>
-          </li>
-
-          <li class="col-3">
-            <div class="thumbnail--round">
-              <div class="wrap-thumbnail-image">
-                <img src="img/sidedish_thumbnail4.jpg" />
-                <div class="thumbnail__mask"></div>
-                <div class="thumbnail__info--hover">
-                  <div class="wrap-info">
-                    <span>새벽배송</span>
-                    <hr>
-                    <span>전국택배</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="thumbnail__contents">
-                <h3 class="thumbnail__title">[집밥의완성] 스팸김치볶음 220g</h3>
-                <p class="thumbnail__description">맛이 없을 수 없는 조합! 국민반찬 스팸과 매콤한 김치볶음!</p>
-                <p class="thumbnail__price text-center"><del>3,600</del><strong>3,400</strong>원</p>
-              </div>
-
-              <ul class="thumbnail__tags thumbnail__tags--block">
-                <li>이벤트특가</li>
-              </ul>
-            </div>
-          </li>
-        </ol>
+        <div class="carousel__wrap-items">
+          <ol class="carousel__items carousel__items--thumbnail clearfix" data-current-index="0"></ol>
+        </div>
       </div>
 
       <a class="btn btn--bordered btn--full" href="">밑반찬 전체보기</a>
@@ -431,6 +242,61 @@
     <a class="btn--goto btn--goto-bottom"></a>
   </div>
 
+  <script type="text/template" id="bestItemTemplate">
+    <li class="col-4">
+      <div class="thumbnail">
+        <div class="wrap-thumbnail-image">
+          <img src="{{image}}" />
+          <div class="thumbnail__mask"></div>
+          <div class="thumbnail__info--hover">
+            <div class="wrap-delivery-info">
+              <!-- <span>새벽배송</span>
+              <hr>
+              <span>전국택배</span> -->
+            </div>
+          </div>
+
+          <ul class="thumbnail__tags">
+            <!-- <li>이벤트특가</li> -->
+          </ul>
+        </div>
+
+        <div class="thumbnail__contents">
+          <h3 class="thumbnail__title">{{title}}</h3>
+          <p class="thumbnail__description">{{description}}</p>
+          <p class="thumbnail__price"><del>{{n_price}}</del><strong>{{s_price}}</strong></p>
+        </div>
+      </div>
+  </script>
+
+  <script type="text/template" id="sidedishThumbnail">
+    <li class="carousel__item thumbnail--round">
+      <div class="wrap-thumbnail-image">
+        <img src="{{image}}" />
+        <div class="thumbnail__mask"></div>
+        <div class="thumbnail__info--hover">
+          <div class="wrap-delivery-info">
+            <!-- <span>새벽배송</span>
+            <hr>
+            <span>전국택배</span> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="thumbnail__contents">
+        <h3 class="thumbnail__title">{{title}}</h3>
+        <p class="thumbnail__description">{{description}}</p>
+        <p class="thumbnail__price text-center"><del>{{n_price}}</del><strong>{{s_price}}</strong></p>
+      </div>
+
+      <ul class="thumbnail__tags thumbnail__tags--block">
+        <!-- <li>이벤트특가</li> -->
+      </ul>
+    </li>
+  </script>
+
+  <script type="text/javascript" src="js/carousel.js"></script>
+  <script type="text/javascript" src="js/tab_menu.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>
