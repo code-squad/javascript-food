@@ -1,4 +1,4 @@
-function Carousel({ images, selector, imageType, dotStyle, effect }) {
+function Carousel({ images, selector, dotStyle, effect }) {
   this.images = images;
 
   this.options = {
@@ -34,11 +34,6 @@ Carousel.prototype = {
   },
   render: function() {
     this.images.forEach((imageURL, index) => {
-      const imageItem = this.getImageDOM({
-        url: imageURL,
-        type: this.options.imageType
-      });
-
       const dotItem = this.getDotDOM({
         index,
         classes: `${this.classNames.dot} ${this.classNames.dot}--${this.options.dotStyle}`
@@ -47,11 +42,6 @@ Carousel.prototype = {
       this.itemContainer.insertAdjacentHTML('beforeend', imageItem);
       this.pagination.insertAdjacentHTML('beforeend', dotItem);
     });
-  },
-  getImageDOM: function({ url, type }) {
-    return (type === 'background')
-      ? `<li style="background-image: url('${url}')"></li>`
-      : `<li><img src="${url}"></li>`
   },
   getDotDOM: function({ classes, index }) {
     return `<li class="${classes}" data-index="${index}"></li>`;
