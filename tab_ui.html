@@ -7,7 +7,9 @@ var oReq = new XMLHttpRequest();
     data = JSON.parse(this.responseText);
 
     makeLiList();
-    makeImageList();
+    // makeImageList();
+    makeTab();
+    bestTabinit();
  });
    
   oReq.open("GET", "http://crong.codesquad.kr:8080/woowa/best");
@@ -15,81 +17,81 @@ var oReq = new XMLHttpRequest();
 }
 ajax();
 
+//best_tabs의 li 생성 , 삽입내용 , name , category_id
 function makeLiList() { 
     var ul = document.querySelector(".best_tabs");
     data.forEach(function(key,index){
         var node = document.createElement("li");
-        node.innerHTML = key.name         
+        node.className = key.category_id;
+        node.innerHTML = key.name; 
         ul.appendChild(node);
     });
 }
 
-function makeImageList(){
-    var aTag = document.querySelectorAll(".best_container img");
-    data[0].items.forEach(function(key,index){
-        aTag[index].src = key.image;
-    })   
-    
+function makeTab(){
+    var container = document.querySelector(".best_container");
+    data.forEach(function(key,index){
+        var ul = document.createElement("ul");
+        ul.className = key.category_id;
+        
+        //함수화? tag = [li,a,img] , value = [{class:detail_hash},{},{src:"url"} ... ];
+        key.items.forEach(function(key,index){  //캬아악
+            var li = document.createElement("li");
+            var a = document.createElement("a");
+            var img = document.createElement("img");
+            var div1 = document.createElement("div");
+            var dl = document.createElement("dl");
+            var dt = document.createElement("dt");
+            var dd = document.createElement("dd");
+            var div2 = document.createElement("div");
+            var span1 = document.createElement("span");
+            var span2 = document.createElement("span");//cloneNode를 쓰자
+            var span3 = document.createElement("span");
+
+            li.className = key.detail_hash;
+            img.src = key.image;
+            div1.className = "best_detail";
+            dt.innerText=key.title;
+            dd.innerText=key.description;
+            div2.className = "price";
+            span1.className = "before";
+            span1.innerText = key.n_price;
+            span2.innerText = " "+key.s_price;
+            span2.className = "after";
+            span3.innerText = "";
+            
+            ul.appendChild(li);//반복문? 맙소사
+            li.appendChild(a);
+            a.appendChild(img);
+            a.appendChild(div1);
+            div1.appendChild(dl);
+            dl.appendChild(dt);
+            dl.appendChild(dd);
+            div1.appendChild(div2);
+            div2.appendChild(span1);
+            div2.appendChild(span2);
+            span2.appendChild(span3);
+        });
+        container.appendChild(ul);
+    });
+}
+function bestTabinit(){
+    var ul = document.querySelector(".best_container").children;
+    var i,length = ul.length;
+    for(i=1;i<length;i++){
+        ul[i].style.display = "none";
+    }
 }
 </script>
 
 <div class="container">
     <div class="tab_ui">
         <img class="best_seller" src="./images/best.png">
-        <ul class="best_tabs">
-        </ul>
-        <div class="best_container"> <!-- template li > a > img, div > dl dt dd , div > span *3 -->
-            <ul>
-                <li>
-                    <a><img src="">
-                        <div class="best_detail">
-                            <dl>
-                                <dt>[아침]</dt>
-                                    <dd>매일못먹음</dd>
-                            </dl>
-                            <div class="price">
-                                <span class="before">50,000</span>
-                                <span class="after">10,000원</span>
-                                <span>원</span>
-                            </div>                        
-                        </div>
-                    </a>
-                    
-                </li>
-                <li>
-                    <a><img src="">
-                        <div class="best_detail">
-                                <dl>
-                                    <dt>[점심]</dt>
-                                        <dd>칼국수</dd>
-                                </dl>
-                                <div class="price">
-                                    <span class="before">50,000</span>
-                                    <span class="after">10,000원</span>
-                                    <span>원</span>
-                                </div>                        
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a><img src="">
-                        <div class="best_detail">
-                            <dl>
-                                <dt>[저녁]</dt>
-                                    <dd>찜닭</dd>
-                            </dl>
-                            <div class="price">
-                                <span class="before">50,000</span>
-                                <span class="after">10,000원</span>
-                                <span>원</span>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-            </ul>
-        </div> <!-- template end -->
+        <ul class="best_tabs"></ul>
+        <div class="best_container"></div>
     </div>
 </div>
+
 <style>
     dl, dt, dd ,ul,li {
         margin:0
@@ -102,7 +104,10 @@ function makeImageList(){
     .after{
         font-size:1.5em;
         color : #2ac1bc;
-        font-weight: bold;
+    }
+    .after > span {
+        font-size: 0.6em;
+        color : #2ac1bc;
     }
     .price {
         text-align: right;
@@ -116,6 +121,9 @@ function makeImageList(){
     .best_detail dt {
         font-size: 1em;
         font-weight: bold;
+        overflow: hidden;
+        white-space:nowrap;
+        text-overflow: ellipsis;        
     }
     .best_detail dl{
         text-align: left;
@@ -127,6 +135,7 @@ function makeImageList(){
     .best_container li {
         margin : 0.4em;
         display:inline-block;
+        height:430px;
     }
     .best_container a {
         display:inline-block;
@@ -137,6 +146,7 @@ function makeImageList(){
     }
     .best_detail{
         margin:0;
+        width:304px;
     }
 
     * {
