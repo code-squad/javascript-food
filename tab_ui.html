@@ -10,6 +10,21 @@ var oReq = new XMLHttpRequest();
     // makeImageList();
     makeTab();
     bestTabinit();
+    document.querySelector(".best_tabs").addEventListener("click",function(e){
+        if(e.target && e.target.nodeName == "LI"){
+            // console.log(e.target.className+" 이 클릭됨!");
+            var ul = Array.from(document.querySelector(".best_container").children);
+
+            //var ul = document.querySelector(".best_container").children;
+            // Array.prototype.forEach.call(ul, func)
+            ul.forEach(function(value){
+                if(value.className == e.target.className){
+                    value.style.display = "block";
+                }
+                else value.style.display = "none";
+            });
+        }
+    })
  });
    
   oReq.open("GET", "http://crong.codesquad.kr:8080/woowa/best");
@@ -36,6 +51,7 @@ function makeTab(){
         
         //함수화? tag = [li,a,img] , value = [{class:detail_hash},{},{src:"url"} ... ];
         key.items.forEach(function(key,index){  //캬아악
+            
             var li = document.createElement("li");
             var a = document.createElement("a");
             var img = document.createElement("img");
@@ -82,6 +98,7 @@ function bestTabinit(){
         ul[i].style.display = "none";
     }
 }
+
 </script>
 
 <div class="container">
@@ -128,6 +145,7 @@ function bestTabinit(){
     .best_detail dl{
         text-align: left;
         margin:1em 0 0 1em;
+        height:40px;
     }
     .best_container ul{
         padding:0;     
