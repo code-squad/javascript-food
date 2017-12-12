@@ -58,7 +58,7 @@ Carousel.prototype = {
   },
   renderItems(items) {
     items.forEach((item, index) => {
-      const itemHTML = this.getItemHTML(item);
+      const itemHTML = TabMenu.prototype.getThumbnailHTML(this.itemTemplate, item);
       this.itemContainer.insertAdjacentHTML('beforeend', itemHTML);
     });
   },
@@ -66,7 +66,10 @@ Carousel.prototype = {
     const wrap = this.container.querySelector(`.${this.classNames.wrapItems}`);
     const width = wrap.clientWidth / this.visibleItems;
 
-    Array.prototype.forEach.call(this.itemContainer.children, (item) => {
+    console.dir(this.itemContainer.children);
+
+    this.itemContainer.children.forEach(item => {
+      console.dir(item);
       item.style.width = `${width}px`;
       item.style.height = '100%';
       item.style.paddingLeft = this.itemPadding;
@@ -81,19 +84,10 @@ Carousel.prototype = {
     this.indicatorContainer = this.container.querySelector(`.${this.classNames.indicator}`);
 
     for (let index = 0; index < itemCount; index++) {
-      const dotHTML = this.getDotHTML({
-        index,
-        classes: `${this.classNames.dot} ${this.classNames.dot}--${this.dotSize}`
-      });
-
+      const classString = `${this.classNames.dot} ${this.classNames.dot}--${this.dotSize}`;
+      const dotHTML = `<li class="${classString}" data-index="${index}"></li>`;
       this.indicatorContainer.insertAdjacentHTML('beforeend', dotHTML);
     }
-  },
-  getItemHTML(item) {
-    return TabMenu.prototype.getThumbnailHTML(this.itemTemplate, item);
-  },
-  getDotHTML({ classes, index }) {
-    return `<li class="${classes}" data-index="${index}"></li>`;
   },
   bindButtonEvent() {
     const buttonPrev = this.container.querySelector(`.${this.classNames.buttonPrev}`);
@@ -143,7 +137,7 @@ Carousel.prototype = {
   animations: {
     fade: {
       init() {
-        Array.prototype.forEach.call(this.itemContainer.children, (item, index) => {
+        this.itemContainer.children.forEach((item, index) => {
           if (index === 0) {
             item.classList.add(this.animation);
           }
