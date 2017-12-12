@@ -17,7 +17,7 @@ TabMenu.prototype = {
     this.makeContents();
     this.bindClickEvent();
   },
-  setData: function(jsonData) {
+  setData(jsonData) {
     jsonData.forEach((menu) => {
       this.buttonData.push({
         id: menu.category_id,
@@ -27,13 +27,13 @@ TabMenu.prototype = {
       this.contentData.push(menu.items);
     });
   },
-  makeButtons: function() {
+  makeButtons() {
     this.buttonData.forEach((data, index) => {
       const button = this.buttonElements[index];
       button.textContent = data.text;
     });
   },
-  makeContents: function() {
+  makeContents() {
     const thumbnailTemplate = document.querySelector('#bestItemTemplate');
 
     this.contentData.forEach((contents, index) => {
@@ -44,7 +44,7 @@ TabMenu.prototype = {
       });
     });
   },
-  getThumbnailHTML: function(template, data) {
+  getThumbnailHTML(template, data) {
     let htmlStr = util.getHTMLFromTemplate(template, data);
     htmlStr = htmlStr.replace('{{n_price}}', '');
 

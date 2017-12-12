@@ -142,14 +142,13 @@ Carousel.prototype = {
           if (index === 0) {
             item.classList.add(this.animationType);
           }
-
+          
+          item.style.position = 'absolute';
           item.classList.add(`${this.animationType}-ready`);
         });
       },
       run(items, currentIndex, nextIndex) {
         const width = this.itemContainer.parentNode.clientWidth;
-
-        this.itemContainer.style.marginLeft = `-${nextIndex * width}px`;
         items[currentIndex].classList.remove(this.animationType);
         items[nextIndex].classList.add(this.animationType);
       }
