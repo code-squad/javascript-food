@@ -1,41 +1,41 @@
 function Carousel({
-  itemType,
+  container,
   itemTemplate,
+  visibleItems = 1,
+  step = visibleItems,
+  usingIndicator = true,
+  positionOfIndicator = 'bottom',
+  dotSize = 'small',
+  animation = 'slide',
   itemPadding,
-  visibleItems,
-  step,
-  selector,
-  usingPagination,
-  positionOfPagination,
-  dotSize,
-  effect,
-  speed
+  animationSpeed = '500ms'
   }) {
 
-  this.visibleItems = visibleItems || 1;
-  this.step= step || this.visibleItems;
-  this.usingPagination = (usingPagination === undefined) ? true : usingPagination;
-  this.positionOfPagination = positionOfPagination || 'bottom';
-  this.dotSize = dotSize || 'small';
-  this.effect = effect || 'slide'; 
-  this.speed = speed || '500ms';
-  this.itemPadding = itemPadding;
-
-  this.itemTemplate = itemTemplate;
+  Object.assign(this, {
+    visibleItems,
+    step,
+    usingIndicator,
+    positionOfIndicator,
+    dotSize,
+    animation,
+    animationSpeed,
+    itemPadding,
+    itemTemplate
+  });
 
   this.classNames = {
     buttonPrev: 'carousel__btn--prev',
     buttonNext: 'carousel__btn--next',
     wrapItems: 'carousel__wrap-items',
     itemContainer: 'carousel__items',
-    pagination: 'carousel__pagination',
-    dot: 'pagination__dot',
-    dotActivated: 'pagination__dot--active'
+    indicator: 'carousel__indicator',
+    dot: 'indicator__dot',
+    dotActivated: 'indicator__dot--active'
   }
 
-  this.container = document.querySelector(selector);
+  this.container = container;
   this.itemContainer = this.container.querySelector(`.${this.classNames.itemContainer}`);
-  this.pagination = null;
+  this.indicatorContainer = null;
 }
 
 Carousel.prototype = {
@@ -46,20 +46,20 @@ Carousel.prototype = {
       this.renderItems(JSON.parse(itemData));
     }
 
-    if (this.usingPagination) {
-      this.renderPagination();
-      this.bindPaginationEvent();
-      this.pagination.children[0].classList.add(this.dotActivated);
+    if (this.usingIndicator) {
+      this.renderIndicator();
+      this.bindIndicatorEvent();
+      this.indicatorContainer.children[0].classList.add(this.classNames.dotActivated);
     }
 
     this.setItemsSize();
     this.bindButtonEvent();
-    this.effects[this.effect].init.call(this);
+    this.animations[this.animation].init.call(this);
   },
   renderItems(items) {
     items.forEach((item, index) => {
-      const itemDOM = this.getItemDOM(item);
-      this.itemContainer.insertAdjacentHTML('beforeend', itemDOM);
+      const itemHTML = this.getItemHTML(item);
+      this.itemContainer.insertAdjacentHTML('beforeend', itemHTML);
     });
   },
   setItemsSize() {
@@ -73,12 +73,12 @@ Carousel.prototype = {
       item.style.paddingRight = this.itemPadding;
     });
   },
-  renderPagination() {
+  renderIndicator() {
     const itemCount = this.itemContainer.children.length;
-    const paginationHTML = `<ol class="${this.classNames.pagination} ${this.classNames.pagination}--${this.positionOfPagination}"></ol>`;
+    const indicatorHTML = `<ol class="${this.classNames.indicator} ${this.classNames.indicator}--${this.positionOfIndicator}"></ol>`;
 
-    this.container.insertAdjacentHTML('beforeend', paginationHTML);
-    this.pagination = this.container.querySelector(`.${this.classNames.pagination}`);
+    this.container.insertAdjacentHTML('beforeend', indicatorHTML);
+    this.indicatorContainer = this.container.querySelector(`.${this.classNames.indicator}`);
 
     for (let index = 0; index < itemCount; index++) {
       const dotHTML = this.getDotHTML({
@@ -86,10 +86,10 @@ Carousel.prototype = {
         classes: `${this.classNames.dot} ${this.classNames.dot}--${this.dotSize}`
       });
 
-      this.pagination.insertAdjacentHTML('beforeend', dotHTML);
+      this.indicatorContainer.insertAdjacentHTML('beforeend', dotHTML);
     }
   },
-  getItemDOM(item) {
+  getItemHTML(item) {
     return TabMenu.prototype.getThumbnailHTML(this.itemTemplate, item);
   },
   getDotHTML({ classes, index }) {
@@ -117,8 +117,8 @@ Carousel.prototype = {
       this.showItem(nextIndex);
     });
   },
-  bindPaginationEvent() {
-    this.pagination.addEventListener('click', ({ target }) => {
+  bindIndicatorEvent() {
+    this.indicatorContainer.addEventListener('click', ({ target }) => {
       if (target.classList.contains(this.classNames.dot) === false) {
         return;
       }
@@ -130,38 +130,38 @@ Carousel.prototype = {
     const currentIndex = this.itemContainer.dataset.currentIndex;
     const items = this.itemContainer.children;
 
-    this.effects[this.effect].run.call(this, items, currentIndex, nextIndex);
+    this.animations[this.animation].run.call(this, items, currentIndex, nextIndex);
 
-    if (this.usingPagination) {
-      const dots = this.pagination.children;
+    if (this.usingIndicator) {
+      const dots = this.indicatorContainer.children;
       dots[currentIndex].classList.remove(this.classNames.dotActivated);
       dots[nextIndex].classList.add(this.classNames.dotActivated);
     }
 
     this.itemContainer.dataset.currentIndex = nextIndex;
   },
-  effects: {
+  animations: {
     fade: {
       init() {
         Array.prototype.forEach.call(this.itemContainer.children, (item, index) => {
           if (index === 0) {
-            item.classList.add(this.effect);
+            item.classList.add(this.animation);
           }
 
-          item.classList.add(`${this.effect}-ready`);
+          item.classList.add(`${this.animation}-ready`);
         });
       },
       run(items, currentIndex, nextIndex) {
         const width = this.itemContainer.parentNode.clientWidth;
 
         this.itemContainer.style.marginLeft = `-${nextIndex * width}px`;
-        items[currentIndex].classList.remove(this.effect);
-        items[nextIndex].classList.add(this.effect);
+        items[currentIndex].classList.remove(this.animation);
+        items[nextIndex].classList.add(this.animation);
       }
     },
     slide: {
       init() {
-        this.itemContainer.style.transitionDuration = this.speed;
+        this.itemContainer.style.transitionDuration = this.animationSpeed;
       },
       run(items, currentIndex, nextIndex) {
         const wrapItems = this.itemContainer.parentNode;

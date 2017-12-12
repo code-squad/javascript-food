@@ -267,32 +267,32 @@
 .carousel--main .carousel__btn--prev { margin-right: 530px; }
 .carousel--main .carousel__btn--next { margin-left: 530px; }
 
-.carousel__pagination {
+.carousel__indicator {
   position: absolute;
   z-index: 20;
 }
 
-.carousel__pagination > * {
+.carousel__indicator > * {
   display: inline;
 }
 
-.carousel__pagination > *:not(:last-child) { margin-right: 3px; }
+.carousel__indicator > *:not(:last-child) { margin-right: 3px; }
 
-.carousel__pagination--bottom {
+.carousel__indicator--bottom {
   width: 100%;
   bottom: 15px;
   text-align: center;
 }
 
-.carousel__pagination--top {
+.carousel__indicator--top {
   display: inline-block;
   top: 15px;
   right: 30px;
 }
 
-.carousel__pagination--bottom > *:not(:last-child) { margin-right: 5px; }
+.carousel__indicator--bottom > *:not(:last-child) { margin-right: 5px; }
 
-.pagination__dot {
+.indicator__dot {
   display: inline-block;
   background: #FFF;
   box-shadow: 0 0 0 1px rgba(0,0,0,0.1);
@@ -300,20 +300,20 @@
   cursor: pointer;
 }
 
-.pagination__dot--small {
+.indicator__dot--small {
   width: 8px;
   height: 8px;
   border-radius: 4px;
 }
 
-.pagination__dot--big {
+.indicator__dot--big {
   width: 10px;
   height: 10px;
   border-radius: 5px;
 }
 
-.pagination__dot:hover,
-.pagination__dot--active {
+.indicator__dot:hover,
+.indicator__dot--active {
   opacity: 1.0;
 }
 
