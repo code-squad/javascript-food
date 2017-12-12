@@ -2,7 +2,7 @@ window.addEventListener('DOMContentLoaded', () => {
   (new Carousel({
     container: document.querySelector('.carousel--main'),
     dotSize: 'big',
-    animation: 'fade'
+    animationType: 'fade'
   })).init();
 
   (new Carousel({
@@ -23,6 +23,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const sidedishCarousel = new Carousel({
     container: document.querySelector('.sidedish .carousel--thumbnails'),
     itemTemplate: document.querySelector('#sidedishThumbnail'),
+    getItemHTML: TabMenu.prototype.getThumbnailHTML,
     visibleItems: 4,
     itemPadding: '15px',
     usingIndicator: false

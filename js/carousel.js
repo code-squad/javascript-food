@@ -1,12 +1,13 @@
 function Carousel({
   container,
   itemTemplate,
+  getItemHTML,
   visibleItems = 1,
   step = visibleItems,
   usingIndicator = true,
   positionOfIndicator = 'bottom',
   dotSize = 'small',
-  animation = 'slide',
+  animationType = 'slide',
   itemPadding,
   animationSpeed = '500ms'
   }) {
@@ -17,10 +18,11 @@ function Carousel({
     usingIndicator,
     positionOfIndicator,
     dotSize,
-    animation,
+    animationType,
     animationSpeed,
     itemPadding,
-    itemTemplate
+    itemTemplate,
+    getItemHTML
   });
 
   this.classNames = {
@@ -49,16 +51,18 @@ Carousel.prototype = {
     if (this.usingIndicator) {
       this.renderIndicator();
       this.bindIndicatorEvent();
-      this.indicatorContainer.children[0].classList.add(this.classNames.dotActivated);
+
+      const firstItem = this.indicatorContainer.children[0];
+      firstItem.classList.add(this.classNames.dotActivated);
     }
 
     this.setItemsSize();
     this.bindButtonEvent();
-    this.animations[this.animation].init.call(this);
+    this.animations[this.animationType].init.call(this);
   },
   renderItems(items) {
     items.forEach((item, index) => {
-      const itemHTML = TabMenu.prototype.getThumbnailHTML(this.itemTemplate, item);
+      const itemHTML = this.getItemHTML(this.itemTemplate, item);
       this.itemContainer.insertAdjacentHTML('beforeend', itemHTML);
     });
   },
@@ -121,7 +125,7 @@ Carousel.prototype = {
     const currentIndex = this.itemContainer.dataset.currentIndex;
     const items = this.itemContainer.children;
 
-    this.animations[this.animation].run.call(this, items, currentIndex, nextIndex);
+    this.animations[this.animationType].run.call(this, items, currentIndex, nextIndex);
 
     if (this.usingIndicator) {
       const dots = this.indicatorContainer.children;
@@ -136,18 +140,18 @@ Carousel.prototype = {
       init() {
         this.itemContainer.children.forEach((item, index) => {
           if (index === 0) {
-            item.classList.add(this.animation);
+            item.classList.add(this.animationType);
           }
 
-          item.classList.add(`${this.animation}-ready`);
+          item.classList.add(`${this.animationType}-ready`);
         });
       },
       run(items, currentIndex, nextIndex) {
         const width = this.itemContainer.parentNode.clientWidth;
 
         this.itemContainer.style.marginLeft = `-${nextIndex * width}px`;
-        items[currentIndex].classList.remove(this.animation);
-        items[nextIndex].classList.add(this.animation);
+        items[currentIndex].classList.remove(this.animationType);
+        items[nextIndex].classList.add(this.animationType);
       }
     },
     slide: {

@@ -22,13 +22,19 @@ var util = {
     });
 
     htmlStr = htmlStr.replace('{{undefined}}', '');
-
     return htmlStr;
   },
-  qs(selector) {
-    return document.querySelector(selector);
+  addClass(target, className) {
+    target.classList.add(className);
   },
-  qsa(selector) {
-    return document.querySelectorAll(selector);
+  removeClass(target, className) {
+    target.classList.remove(className);
+  },
+  toggleClass(target, className) {
+    if (target.classList.contains(className)) {
+      this.removeClass(target, className);
+    } else {
+      this.addClass(target, className);
+    }
   }
 };
