@@ -18,10 +18,9 @@ var util = {
     let htmlStr = template.innerHTML;
 
     keys.forEach((key) => {
-        htmlStr = htmlStr.replace(`{{${key}}}`, data[key]);
+      htmlStr = htmlStr.replace(`{{${key}}}`, data[key]);
     });
-
-    htmlStr = htmlStr.replace('{{undefined}}', '');
+    
     return htmlStr;
   },
   addClass(target, className) {

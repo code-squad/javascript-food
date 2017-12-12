@@ -46,6 +46,7 @@ TabMenu.prototype = {
   },
   getThumbnailHTML: function(template, data) {
     let htmlStr = util.getHTMLFromTemplate(template, data);
+    htmlStr = htmlStr.replace('{{n_price}}', '');
 
     const tempNode = document.createElement('div');
     tempNode.innerHTML = htmlStr;
