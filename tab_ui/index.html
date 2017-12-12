@@ -1,0 +1,39 @@
+<html>
+<head>
+    <script type="text/template" id="bestDetail">
+        <li class="{{detail_hash}}">
+            <a class="best_detail_wrap"><img src="{{image}}">
+                <div class="best_detail_hover">
+                    <ul>
+                        <li>새벽배송</li>
+                        <li>전국택배</li>
+                    </ul>
+                </div>
+                <div class="best_detail">
+                    <dl>
+                        <dt>{{title}}</dt>
+                        <dd>{{description}}</dd>
+                    </dl>
+                    <div class="price">
+                        <span class="before">{{n_price}}</span>
+                        <span class="after">{{s_price}}</span>
+                    </div>
+                </div>
+            </a>
+        </li>
+    </script>
+    
+    <link rel="stylesheet" type="text/css" href="./tab_ui.css">
+</head>
+<body>
+<div class="container">
+    <div class="tab_ui">
+        <img class="best_seller" src="./best.png">
+        <ul class="best_tabs"></ul>
+        <div class="best_container"></div>
+    </div>
+</div>
+
+<script type="text/javascript" src="./tab_ui.js"></script>
+</body>
+</html>
