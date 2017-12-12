@@ -36,7 +36,10 @@ function makeTab(){
             var keys = ["detail_hash","image","title","description","n_price","s_price"];
 
             keys.forEach(key => { li = li.replace(`{{${key}}}`, value[key]);});
-            li = li.replace("undefined","");
+            li = li.replace("undefined","")
+            .replace("{{delivery_type0}}",value.delivery_type[0])
+            .replace("{{delivery_type1}}",value.delivery_type[1]);
+
             ul.innerHTML += li;
 
         });

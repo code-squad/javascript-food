@@ -16,11 +16,21 @@ dl, dt, dd ,ul,li {
     width:308px;
 }
 .best_detail_hover ul{
+    top:50%;
+    position: relative;
+    transform: translateY(-50%)
 }
-.best_detail_hover li{
-    display: block;
+.best_detail_hover li {
+    display:block;
+}
+.best_detail_hover span{
+    display: inline-block;
     color:#fff;
     font-size:1.2em;
+}
+.best_detail_hover li:last-child span{
+    padding-top:2px;
+    border-top: 1px solid;
 }
 .best_detail_wrap {
     position: relative;
