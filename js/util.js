@@ -20,8 +20,11 @@ var util = {
     keys.forEach((key) => {
       htmlStr = htmlStr.replace(`{{${key}}}`, data[key]);
     });
-    
+
     return htmlStr;
+  },
+  hasClass(target, className) {
+    return target.classList.contains(className);
   },
   addClass(target, className) {
     target.classList.add(className);

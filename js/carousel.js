@@ -26,6 +26,7 @@ function Carousel({
   });
 
   this.classNames = {
+    button: 'carousel__btn',
     buttonPrev: 'carousel__btn--prev',
     buttonNext: 'carousel__btn--next',
     wrapItems: 'carousel__wrap-items',
@@ -94,20 +95,26 @@ Carousel.prototype = {
     const buttonPrev = this.container.querySelector(`.${this.classNames.buttonPrev}`);
     const buttonNext = this.container.querySelector(`.${this.classNames.buttonNext}`);
 
-    buttonPrev.addEventListener('click', (evt) => {
+    this.container.addEventListener('click', ({ target }) => {
+      if (target.parentNode.matches(`.${this.classNames.button}`)) {
+        target = target.parentNode;
+      } else if (!target.matches(`.${this.classNames.button}`)) {
+        return ;
+      }
+
       const currentIndex = parseInt(this.itemContainer.dataset.currentIndex);
       const itemCounts = this.itemContainer.children.length;
 
-      const distance = (currentIndex - this.step);
-      const nextIndex = distance >= 0 ? distance : itemCounts + distance;
+      let nextIndex = 0;
 
-      this.showItem(nextIndex);
-    });
+      if (util.hasClass(target, this.classNames.buttonPrev)) {
+        const distance = currentIndex - this.step
+        nextIndex = distance >= 0 ? distance : itemCounts + distance;
+      }
 
-    buttonNext.addEventListener('click', (evt) => {
-      const currentIndex = parseInt(this.itemContainer.dataset.currentIndex);
-      const itemCounts = this.itemContainer.children.length;
-      const nextIndex = (currentIndex + this.step) % itemCounts;
+      if (util.hasClass(target, this.classNames.buttonNext)) {
+        nextIndex = (currentIndex + this.step) % itemCounts;
+      }
 
       this.showItem(nextIndex);
     });
@@ -142,7 +149,7 @@ Carousel.prototype = {
           if (index === 0) {
             item.classList.add(this.animationType);
           }
-          
+
           item.style.position = 'absolute';
           item.classList.add(`${this.animationType}-ready`);
         });
