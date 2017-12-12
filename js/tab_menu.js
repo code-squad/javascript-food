@@ -45,14 +45,7 @@ TabMenu.prototype = {
     });
   },
   getThumbnailHTML: function(template, data) {
-    const keys = Object.keys(data);
-    let htmlStr = template.innerHTML;
-
-    keys.forEach((key) => {
-        htmlStr = htmlStr.replace(`{{${key}}}`, data[key]);
-    });
-
-    htmlStr = htmlStr.replace('{{n_price}}', '');
+    let htmlStr = util.getHTMLFromTemplate(template, data);
 
     const tempNode = document.createElement('div');
     tempNode.innerHTML = htmlStr;

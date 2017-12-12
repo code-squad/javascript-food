@@ -66,10 +66,7 @@ Carousel.prototype = {
     const wrap = this.container.querySelector(`.${this.classNames.wrapItems}`);
     const width = wrap.clientWidth / this.visibleItems;
 
-    console.dir(this.itemContainer.children);
-
     this.itemContainer.children.forEach(item => {
-      console.dir(item);
       item.style.width = `${width}px`;
       item.style.height = '100%';
       item.style.paddingLeft = this.itemPadding;
