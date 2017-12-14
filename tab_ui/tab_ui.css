@@ -1,6 +1,23 @@
 dl, dt, dd ,ul,li {
     margin:0
 }
+
+.badge {
+    padding-left:10px;
+    position:absolute;
+    top:275px;
+}
+.badge > div {
+    color:#fff;
+    background:#a974bf;
+    display:inline-block;
+    font-size:0.75em;
+    margin-right:5px;
+}
+.badge span {
+    display:block;
+    padding:4px;
+}
 .best_container ul{
     padding:0;     
 }

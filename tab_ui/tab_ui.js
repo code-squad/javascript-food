@@ -17,10 +17,10 @@ function ajax() {
 }
 
 function makeLiList() { 
-    var ul = document.querySelector(".best_tabs");
+    var bestTabs = document.querySelector(".best_tabs");
     data.forEach(function(key,index){
         var li = '<li id="'+key.category_id+'">'+key.name+"</li>";
-        ul.innerHTML += li;
+        bestTabs.innerHTML += li;
     });
 }
 
@@ -28,50 +28,56 @@ function makeTab(){
     var container = document.querySelector(".best_container");
     var template = document.querySelector("#bestDetail").innerText;
     data.forEach(function(key,index){
-        var ul = document.createElement("ul");
-        ul.className = key.category_id;
+        var bestDetailUl = document.createElement("Ul");
+        bestDetailUl.className = key.category_id;
         
         key.items.forEach(function(value){ 
-            var li = template;
-            var keys = ["detail_hash","image","title","description","n_price","s_price"];
+            var bestDetailLi = template;
+            var findKeys = ["detail_hash","image","title","description","n_price","s_price"];
+            var badgeTag = "";
 
-            keys.forEach(key => { li = li.replace(`{{${key}}}`, value[key]);});
-            li = li.replace("undefined","")
+            findKeys.forEach(key => { bestDetailLi = bestDetailLi.replace(`{{${key}}}`, value[key]);});
+            bestDetailLi = bestDetailLi.replace("undefined","")
             .replace("{{delivery_type0}}",value.delivery_type[0])
             .replace("{{delivery_type1}}",value.delivery_type[1]);
 
-            ul.innerHTML += li;
+            if("badge" in value){
+                value.badge.forEach(value => badgeTag += "<div><span>"+value+"</span></div>");
+                bestDetailLi = bestDetailLi.replace("{{badge}}",badgeTag);
+            }
+            else {
+                bestDetailLi = bestDetailLi.replace("{{badge}}","");
+            }
 
+            bestDetailUl.innerHTML += bestDetailLi;
         });
-        container.appendChild(ul);
+        container.appendChild(bestDetailUl);
     });
 }
 
+function clickBestTab(e){
+    if(e.target && e.target.nodeName == "LI"){
+        Array.prototype.forEach.call(e.target.parentNode.children,function(value){
+            value.className = "";
+        });
+        e.target.className = "clicked";
 
-function initBestTab(){
-    var ul = document.querySelector(".best_container").children;
-    var i,length = ul.length;
-    
-    for(i=1;i<length;i++){
-        ul[i].style.display = "none";
+        var ul = Array.from(document.querySelector(".best_container").children);
+        ul.forEach(function(value){
+            if(value.className == e.target.id){
+                value.style.display = "block";
+            }
+            else value.style.display = "none";
+        });
     }
-    
-    document.querySelector(".best_tabs").addEventListener("click",function(e){
-        if(e.target && e.target.nodeName == "LI"){
-            Array.prototype.forEach.call(e.target.parentNode.children,function(value){
-                value.className = "";
-            });
-            e.target.className = "clicked";
-
-            var ul = Array.from(document.querySelector(".best_container").children);
-            ul.forEach(function(value){
-                if(value.className == e.target.id){
-                    value.style.display = "block";
-                }
-                else value.style.display = "none";
-            });
-        }
+}
+function initBestTab(){
+    var best_container = document.querySelector(".best_container").children;
+    Array.from(best_container).forEach(function(value,index){
+        index !== 0 ? value.style.display = "none" : value.style.display = "block";
     });
+    
+    document.querySelector(".best_tabs").addEventListener("click",clickBestTab);
 }
 
 window.addEventListener("DOMContentLoaded", ajax);
