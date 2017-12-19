@@ -35,31 +35,26 @@
                 const foodBox = qsa('.best_food_box');
                 data.forEach((value, i) => {
                     value.items.forEach((item, j) => {
-                        let badges = `<div class="badge_list">${item.badge ? item.badge.map(badge => `<div class='badge'>${badge}</div>`).join('') : ''}</div>`;
+                        const badges = `<div class="badge_list">${item.badge ? item.badge.map(badge => `<div class='badge'>${badge}</div>`).join('') : ''}</div>`;
                         foodBox[i * 3 + j].insertAdjacentHTML('beforeend', badges);
 
-                        let deliveryType = `<div class='food_img_hover'><ul>${item.delivery_type ? item.delivery_type.map(type => `<li><span>${type}</span></li>`).join('') : ''}</ul></div>`;
+                        const deliveryType = `<div class='food_img_hover'><ul>${item.delivery_type ? item.delivery_type.map(type => `<li><span>${type}</span></li>`).join('') : ''}</ul></div>`;
                         foodBox[i * 3 + j].firstElementChild.insertAdjacentHTML('beforeend', deliveryType);
                     });
                 });
 
+                const foodTabList = qsa('.best_food_tabs > li > a');
                 const initNum = Math.floor(Math.random() * 6);
-                Array.from(foodList).forEach((food, i) => {
-                    food.style.display = i === initNum ? 'block' : 'none';
-                });
-                Array.from(foodTab.children).forEach((tab, i) => {
-                    tab.firstChild.className = i === initNum ? 'now' : '';
-                });
+                foodList[initNum].style.display = 'block';
+                foodTabList[initNum].className = 'now';
                 $delegate(foodTab, 'li > a', 'click', e => {
-                    const targetId = e.delegateTarget.dataset.category_id;
-                    Array.from(foodTab.children).forEach(tab => {
-                        tab.firstChild.className = '';
-                    });
-                    e.delegateTarget.className = 'now';
-                    Array.from(foodList).forEach(food => {
-                        food.style.display = targetId === food.dataset.category_id ? 'block' : 'none';
-                    });
+                    Array.from(foodTabList).forEach(tab => tab.className =
+                        tab === e.delegateTarget ? 'now' : '');
+                    Array.from(foodList).forEach(food => food.style.display =
+                        e.delegateTarget.dataset.category_id === food.dataset.category_id ? 'block' : 'none');
+                    e.preventDefault();
                 });
+
             } else {
                 // We reached our target server, but it returned an error
 
