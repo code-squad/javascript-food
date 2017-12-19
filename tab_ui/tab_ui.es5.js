@@ -35,13 +35,20 @@ function makeTab(){
             var bestDetailLi = template;
             var badgeTag = "";
 
-            findKeys.forEach(key => { bestDetailLi = bestDetailLi.replace(`{{${key}}}`, value[key]);});
+            // findKeys.forEach(key => { bestDetailLi = bestDetailLi.replace(`{{${key}}}`, value[key]);});
+            findKeys.forEach(function(key) {
+                bestDetailLi = bestDetailLi.replace("{{"+key+"}}",value[key]);
+            });
             bestDetailLi = bestDetailLi.replace("undefined","")
             .replace("{{delivery_type0}}",value.delivery_type[0])
             .replace("{{delivery_type1}}",value.delivery_type[1]);
 
             if("badge" in value){
-                value.badge.forEach(value => badgeTag += "<div><span>"+value+"</span></div>");
+                // value.badge.forEach(value => badgeTag += "<div><span>"+value+"</span></div>");
+                value.badge.forEach(function(value){
+                    badgeTag += "<div><span>"+value+"</span></div>";
+                });
+
                 bestDetailLi = bestDetailLi.replace("{{badge}}",badgeTag);
             }
             else {
@@ -74,6 +81,12 @@ function initBestTab(){
         index !== 0 ? value.style.display = "none" : value.style.display = "block";
     });
     
+    // document.querySelector(".best_tabs").addEventListener("click", event => {
+    //     if(!event.target || event.target.nodeName !== "LI") {
+    //         return;
+    //     }
+    //     clickBestTab(event);
+    // });
     document.querySelector(".best_tabs").addEventListener("click",function(event){
         if(!event.target || event.target.nodeName !== "LI") {
             return;
