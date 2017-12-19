@@ -1,6 +1,7 @@
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
 /* reset styles */
 
-@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 *,
 *:after,
 *:before {
@@ -12,10 +13,9 @@
 html,
 body {
     font-family: 'Nanum Gothic';
-    width: 1457.600px;
+    width: 100%;
     font-size: 12px;
     background: #fff;
-    color: #333;
 }
 
 div,
@@ -107,20 +107,6 @@ a {
 }
 
 
-/* common styles */
-
-.hide {
-    display: none;
-}
-
-.row {
-    margin-left: -15px;
-    margin-right: -15px;
-    position: relative;
-    overflow: hidden;
-}
-
-
 /* components styles */
 
 .food {
@@ -129,30 +115,26 @@ a {
     margin: 0 auto;
 }
 
-.lnb-wrap {
+.lnb_wrap {
     position: relative;
-    z-index: 1001;
     background: #fff;
     border-bottom: 1px solid #e9e9e9;
 }
 
-.lnb-content {
+.lnb_content {
     background: #fff;
     height: 36px;
-    overflow: visible;
     letter-spacing: -0.2px;
-    font-family: 'Nanum Gothic', sans-serif;
-    position: relative;
     width: 980px;
     margin: 0 auto;
 }
 
-.link-app {
+.link_app {
     float: left;
     height: 100%;
 }
 
-.link-app>a {
+.link_app>a {
     display: block;
     font-size: 12px;
     height: 100%;
@@ -161,23 +143,23 @@ a {
     color: #666;
 }
 
-.link-app>a:hover {
+.link_app>a:hover {
     color: #2ac1bc;
 }
 
-.lnb-list {
+.lnb_list {
     float: right;
     height: 100%;
     position: relative;
 }
 
-.lnb-list>li {
+.lnb_list>li {
     float: left;
     height: 100%;
     position: relative;
 }
 
-.lnb-list>li>a {
+.lnb_list>li>a {
     display: block;
     font-size: 12px;
     height: 100%;
@@ -187,16 +169,11 @@ a {
     background: url(https://cdn.bmf.kr/web/common/util_bar.gif) no-repeat 0 12px;
 }
 
-.lnb-list>li>a:hover {
+.lnb_list>li>a:hover {
     color: #2ac1bc;
 }
 
-.lnb-list>li:first-child>a {
-    background: none;
-}
-
-.util-cart a {
-    padding-right: 0;
+.util_cart a {
     color: #333;
     font-weight: bold;
 }
@@ -210,7 +187,7 @@ span.ic {
     margin-left: 4px;
 }
 
-.header-wrap {
+.header_wrap {
     position: relative;
     height: 98px;
     width: 980px;
@@ -233,12 +210,9 @@ span.ic {
     width: 210px;
     height: 40px;
     color: rgb(136, 136, 136);
-    font-family: Verdana, 나눔고딕, Nanum, "Malgun Gothic", sans-serif;
-    box-sizing: border-box;
     border-width: 1px;
     border-style: solid;
     border-color: rgb(207, 208, 210);
-    border-image: initial;
     padding: 0px 38px 0px 15px;
 }
 
@@ -246,40 +220,38 @@ span.ic {
     background: url(https://cdn.bmf.kr/web/common/ic_search.png) no-repeat center 0;
     width: 38px;
     height: 38px;
-    text-indent: -3000px;
     position: absolute;
     top: 1px;
     right: 1px;
     border: 0;
 }
 
-.gnb-top {
+.gnb_top {
     overflow: hidden;
     float: right;
     margin-right: 5px;
 }
 
-.gnb-top>li {
+.gnb_top>li {
     float: left;
 }
 
-.gnb-top>li>a {
+.gnb_top>li>a {
     display: block;
     height: 48px;
     margin: 25px 0 25px 50px;
 }
 
-.navi-wrap {
+.navi_wrap {
     position: relative;
-    z-index: 555;
+    z-index: 1;
     background: #483f35;
 }
 
-.navi-content {
+.navi_content {
     width: 980px;
     height: 52px;
     margin: 0 auto;
-    overflow: visible;
 }
 
 .gnb>li {
@@ -290,18 +262,27 @@ span.ic {
     text-align: left;
 }
 
-.gnb>li.g1 {
+.gnb>li:first-child {
     width: 100px;
 }
 
-.gnb>li.g7 {
+.gnb>li:nth-child(7) {
     width: 120px;
 }
 
-.gnb>li.g8 {
+.gnb>li:nth-child(8) {
     width: 140px;
     background: #362d25;
     text-align: center;
+}
+
+.gnb>li:first-child a {
+    text-align: left;
+}
+
+.gnb>li:nth-child(8) a {
+    padding: 6px 20px 3px 0;
+    text-align: right;
 }
 
 .gnb>li>a {
@@ -313,12 +294,9 @@ span.ic {
     display: inline-block;
     color: white;
     font-size: 16px;
-    font-family: NanumBold, 맑은고딕, "Malgun Gothic", sans-serif;
     font-weight: bold;
-    height: 47px;
     text-align: center;
-    letter-spacing: 0px;
-    cursor: pointer;
+    height: 47px;
     padding: 11px 25px 0px;
 }
 
@@ -328,11 +306,40 @@ span.ic {
     color: #2ac1bc;
 }
 
-.sub-list {
-    display: none;
+.gnb>li:hover>ul,
+.gnb>li:focus>ul {
+    display: block;
 }
 
-.main-slides-wrap {
+.sub_list {
+    display: none;
+    width: 162px;
+    position: absolute;
+    left: 0;
+    top: 52px;
+    padding: 20px 0 31px;
+    background: #fff;
+    border: 1px solid rgba(72, 63, 53, 0.6);
+    border-top: 0;
+}
+
+.sub_list a {
+    display: block;
+    color: #555;
+    font-size: 14px;
+    line-height: 20px;
+    padding: 6px 0 3px 25px;
+}
+
+.sub_list a:hover>span,
+.sub_list a:focus>span {
+    font-size: 16px;
+    color: #2ac1bc;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.main_slides_wrap {
     position: relative;
     text-align: center;
     max-width: 1920px;
@@ -344,41 +351,64 @@ span.ic {
     height: 420px;
 }
 
-.bx-wrapper {
+.bx_wrapper {
     max-width: 100%;
     margin: 0px auto;
 }
 
-.bx-viewport {
+.bx_viewport {
     width: 100%;
     overflow: hidden;
     position: relative;
     height: 420px;
-    z-index: 0;
 }
 
-.main-slides-list {
+.main_slides_list {
     width: auto;
     position: relative;
     overflow: hidden;
     height: 420px;
 }
 
-.main-slides-list li {
+.main_slides_list li {
     float: left;
+    position: absolute;
     width: 100%;
     background: no-repeat center top;
 }
 
-.main-slides-list>li {
-    background-image: url('img/bng.jpg');
-    list-style: none;
-    position: absolute;
-    z-index: 50;
-    display: list-item;
+
+/* Fading animation */
+
+.fadein {
+    animation-name: fadein;
+    animation-duration: 1.5s;
 }
 
-.main-slides-list>li>a {
+.fadeout {
+    animation-name: fadeout;
+    animation-duration: 1.5s;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0
+    }
+    to {
+        opacity: 1
+    }
+}
+
+@keyframes fadeout {
+    from {
+        opacity: 1
+    }
+    to {
+        opacity: 0
+    }
+}
+
+.main_slides_list>li>a {
     display: block;
     width: 980px;
     height: 420px;
@@ -388,7 +418,6 @@ span.ic {
 }
 
 .slides_navi>a {
-    z-index: 55;
     display: block;
     width: 60px;
     height: 92px;
@@ -412,36 +441,32 @@ span.ic {
     background-position: right center;
 }
 
-.slides_pagination {
-    z-index: 55;
+.slides_dots {
     position: relative;
-    bottom: 30px;
-    width: 100%;
+    bottom: 40px;
     height: 0;
-    overflow: visible;
 }
 
-.slides_pagination li {
+.slides_dots li {
     display: inline-block;
     vertical-align: top;
-    padding: 0 3px;
+    padding: 0 4px;
 }
 
-.slides_pagination li a {
+.slides_dots li a {
     display: block;
     width: 10px;
     height: 0;
-    padding: 10px 0 0 0;
+    padding-top : 10px;
     overflow: hidden;
     background: #FFF;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
     border-radius: 50%;
-    -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
-    -moz-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
     opacity: 0.6;
-    filter: alpha(opacity=60);
+}
+
+.slides_dots>li>a.now {
+    opacity: 1;
 }
 
 .best_food {
