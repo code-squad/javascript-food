@@ -8,13 +8,18 @@
 
     const slidesEnd = slides.length - 1;
     let slideIndex = 0;
+    let slideImg;
 
     function setView() {
         initSlide();
         initBanchan();
     }
 
-    function initSlide() {
+    async function initSlide() {
+        const url = `http://home.dotol.xyz/php/test_api.php`;
+        const data = await request(url);
+        slideImg = JSON.parse(data);
+
         showSlides(slideIndex);
         $on(slidesPrev, 'click', () => moveSlides(-1));
         $on(slidesNext, 'click', () => moveSlides(1));
@@ -47,7 +52,7 @@
         slides[slideIndex].style.display = 'block';
         slides[slideIndex].className = 'fadein';
 
-        slides[slideIndex].style.backgroundImage = `url('img/bng${slideIndex}.jpg')`;
+        slides[slideIndex].style.backgroundImage = `url("${slideImg[slideIndex]}")`;
         dots[slideIndex].className = "now";
     }
 
