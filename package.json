@@ -23,5 +23,9 @@
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-google": "^0.9.1",
     "eslint-plugin-import": "^2.8.0"
+  },
+  "dependencies": {
+    "handlebars": "^4.0.11",
+    "handlebars-loader": "^1.6.0"
   }
 }
