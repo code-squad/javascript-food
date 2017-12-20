@@ -1,3 +1,5 @@
+import {qs,qsa, $on, $delegate} from './helpers';
+
 (function () {
     'use strict';
 
@@ -16,7 +18,7 @@
     }
 
     async function initSlide() {
-        const url = `http://home.dotol.xyz/php/test_api.php`;
+        const url = 'http://home.dotol.xyz/php/test_api.php';
         const data = await request(url);
         slideImg = JSON.parse(data);
 
@@ -32,7 +34,7 @@
         setTimeout(() => {
             slides[currentIndex].style.display = 'none';
         }, 1000);
-        dots[currentIndex].classList.remove("now");
+        dots[currentIndex].classList.remove('now');
     }
 
     function moveSlides(n) {
@@ -53,7 +55,7 @@
         slides[slideIndex].className = 'fadein';
 
         slides[slideIndex].style.backgroundImage = `url("${slideImg[slideIndex]}")`;
-        dots[slideIndex].className = "now";
+        dots[slideIndex].className = 'now';
     }
 
 
@@ -69,14 +71,14 @@
                 }
             };
             xhr.ontimeout = function () {
-                reject('timeout')
+                reject('timeout');
             };
             xhr.send();
-        })
+        });
     }
 
     async function initBanchan() {
-        const url = `http://crong.codesquad.kr:8080/woowa/best`;
+        const url = 'http://crong.codesquad.kr:8080/woowa/best';
         const data = await request(url);
         const food = JSON.parse(data);
 
