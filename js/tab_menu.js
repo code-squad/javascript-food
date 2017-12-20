@@ -1,4 +1,5 @@
 function TabMenu(selector) {
+  this.currentIndex = 0;
   this.buttonsContainer = document.querySelector(selector.buttons);
   this.contentsContainer = document.querySelector(selector.contents);
   this.buttonElements = this.buttonsContainer.children;
@@ -80,7 +81,7 @@ TabMenu.prototype = {
   },
   bindClickEvent: function() {
     this.buttonsContainer.addEventListener('click', ({target}) => {
-      const currentIndex = this.buttonsContainer.dataset.currentIndex;
+      const currentIndex = this.currentIndex;
       const selectedIndex = target.dataset.index;
 
       // button active toggle
@@ -91,7 +92,7 @@ TabMenu.prototype = {
       this.contentElements[currentIndex].style = 'display: none;';
       this.contentElements[selectedIndex].style = 'display: block;';
 
-      this.buttonsContainer.dataset.currentIndex = selectedIndex;
+      this.currentIndex = selectedIndex;
     });
   }
 }
