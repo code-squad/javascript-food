@@ -14,7 +14,6 @@ export default class View {
         this.dotsEl = qsa('.slides_dots > li > a');
     }
 
-
     bindSlidesPrev(handler) {
         $on(this.slidesPrevEl, 'click', () => handler(-1));
     }
@@ -29,6 +28,15 @@ export default class View {
 
     bindPreventDefault() {
         $delegate('body', 'a', 'click', e => e.preventDefault());
+    }
+
+    bindFoodTab() {
+        $delegate(this.foodTabEl, 'li > a', 'click', e => {
+            Array.from(this.foodTabListEl).forEach(tab => tab.className =
+                tab === e.delegateTarget ? 'now' : '');
+            Array.from(this.foodListEl).forEach(food => food.style.display =
+                e.delegateTarget.dataset.category_id === food.dataset.category_id ? 'block' : 'none');
+        });
     }
 
     renderFoodTab(food) {
@@ -78,15 +86,6 @@ export default class View {
         this.foodTabListEl = qsa('.best_food_tabs > li > a');
         this.foodListEl[initNum].style.display = 'block';
         this.foodTabListEl[initNum].className = 'now';
-    }
-
-    bindFoodTab() {
-        $delegate(this.foodTabEl, 'li > a', 'click', e => {
-            Array.from(this.foodTabListEl).forEach(tab => tab.className =
-                tab === e.delegateTarget ? 'now' : '');
-            Array.from(this.foodListEl).forEach(food => food.style.display =
-                e.delegateTarget.dataset.category_id === food.dataset.category_id ? 'block' : 'none');
-        });
     }
 
     removeCurrentDisplay(currentIndex) {

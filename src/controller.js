@@ -10,7 +10,6 @@ export default class Controller {
         view.bindSlidesDots(this.currentSlide.bind(this));
         this.slidesEnd = 12;
         this.slideIndex = 0;
-        this.slideImgs;
     }
 
     setView() {
@@ -20,8 +19,7 @@ export default class Controller {
 
     async initSlide() {
         const url = 'http://home.dotol.xyz/php/test_api.php';
-        const data = await this.request(url);
-        this.slideImgs = JSON.parse(data);
+        this.slideImgs = await this.request(url);
 
         this.view.showSlides(this.slideIndex, this.slideImgs[this.slideIndex]);
     }
@@ -42,8 +40,7 @@ export default class Controller {
 
     async initBanchan() {
         const url = 'http://crong.codesquad.kr:8080/woowa/best';
-        const data = await this.request(url);
-        const food = JSON.parse(data);
+        const food = await this.request(url);
 
         this.view.renderFoodTab(food);
         this.view.renderFoodContainer(food);
@@ -61,7 +58,7 @@ export default class Controller {
             xhr.open('get', url, true);
             xhr.onload = function () {
                 if (xhr.status >= 200 && xhr.status < 400) {
-                    resolve(xhr.response);
+                    resolve(JSON.parse(xhr.response));
                 } else {
                     reject(xhr.status);
                 }
