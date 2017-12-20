@@ -120,16 +120,16 @@
                     this.slideList.children[index].className = "show";
                     this.pagination.children[index].className = "on";
                 },
-        hide : function(index){
+        hide  : function(index){
                     this.slideList.children[index].className = "hide";
                     this.pagination.children[index].className = "off";
                 },
-        next : function(){
+        next  : function(){
                     this.hide(this.index);
                     this.index+1 == this.length ? this.index = 0 : this.index++;
                     this.show(this.index);
                 },
-        prev : function(){
+        prev  : function(){
                     this.hide(this.index);
                     this.index == 0 ? this.index = this.length-1 : this.index--;
                     this.show(this.index);
@@ -138,7 +138,7 @@
                     this.hide(this.index);
                     this.show(index);
                 },
-        init    : function(){
+        init   : function(){
             this.slideList = document.querySelector(".container_slide > ul");
             this.pagination  = document.querySelector(".slide_pagination > ul");
             this.length = this.pagination.children.length;
