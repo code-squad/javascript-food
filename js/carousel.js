@@ -4,40 +4,45 @@ function Carousel({
   getItemHTML,
   visibleItems = 1,
   step = visibleItems,
+  currentIndex = 0,
   usingIndicator = true,
-  positionOfIndicator = 'bottom',
-  dotSize = 'small',
-  animationType = 'slide',
+  positionOfIndicator = "bottom",
+  dotSize = "small",
+  animationType = "slide",
+  infinityLoop = false,
   itemPadding,
-  animationSpeed = '500ms'
-  }) {
-
+  animationSpeed = "500ms"
+}) {
   Object.assign(this, {
     visibleItems,
+    currentIndex,
     step,
     usingIndicator,
     positionOfIndicator,
     dotSize,
     animationType,
     animationSpeed,
+    infinityLoop,
     itemPadding,
     itemTemplate,
     getItemHTML
   });
 
   this.classNames = {
-    button: 'carousel__btn',
-    buttonPrev: 'carousel__btn--prev',
-    buttonNext: 'carousel__btn--next',
-    wrapItems: 'carousel__wrap-items',
-    itemContainer: 'carousel__items',
-    indicator: 'carousel__indicator',
-    dot: 'indicator__dot',
-    dotActivated: 'indicator__dot--active'
-  }
+    button: "carousel__btn",
+    buttonPrev: "carousel__btn--prev",
+    buttonNext: "carousel__btn--next",
+    wrapItems: "carousel__wrap-items",
+    itemContainer: "carousel__items",
+    indicator: "carousel__indicator",
+    dot: "indicator__dot",
+    dotActivated: "indicator__dot--active"
+  };
 
   this.container = container;
-  this.itemContainer = this.container.querySelector(`.${this.classNames.itemContainer}`);
+  this.itemContainer = this.container.querySelector(
+    `.${this.classNames.itemContainer}`
+  );
   this.indicatorContainer = null;
 }
 
@@ -64,7 +69,7 @@ Carousel.prototype = {
   renderItems(items) {
     items.forEach((item, index) => {
       const itemHTML = this.getItemHTML(this.itemTemplate, item);
-      this.itemContainer.insertAdjacentHTML('beforeend', itemHTML);
+      this.itemContainer.insertAdjacentHTML("beforeend", itemHTML);
     });
   },
   setItemsSize() {
@@ -73,74 +78,82 @@ Carousel.prototype = {
 
     this.itemContainer.children.forEach(item => {
       item.style.width = `${width}px`;
-      item.style.height = '100%';
+      item.style.height = "100%";
       item.style.paddingLeft = this.itemPadding;
       item.style.paddingRight = this.itemPadding;
     });
   },
   renderIndicator() {
     const itemCount = this.itemContainer.children.length;
-    const indicatorHTML = `<ol class="${this.classNames.indicator} ${this.classNames.indicator}--${this.positionOfIndicator}"></ol>`;
+    const indicatorHTML = `<ol class="${this.classNames.indicator} ${
+      this.classNames.indicator
+    }--${this.positionOfIndicator}"></ol>`;
 
-    this.container.insertAdjacentHTML('beforeend', indicatorHTML);
-    this.indicatorContainer = this.container.querySelector(`.${this.classNames.indicator}`);
+    this.container.insertAdjacentHTML("beforeend", indicatorHTML);
+    this.indicatorContainer = this.container.querySelector(
+      `.${this.classNames.indicator}`
+    );
 
     for (let index = 0; index < itemCount; index++) {
-      const classString = `${this.classNames.dot} ${this.classNames.dot}--${this.dotSize}`;
+      const classString = `${this.classNames.dot} ${this.classNames.dot}--${
+        this.dotSize
+      }`;
       const dotHTML = `<li class="${classString}" data-index="${index}"></li>`;
-      this.indicatorContainer.insertAdjacentHTML('beforeend', dotHTML);
+      this.indicatorContainer.insertAdjacentHTML("beforeend", dotHTML);
     }
   },
   bindButtonEvent() {
-    const buttonPrev = this.container.querySelector(`.${this.classNames.buttonPrev}`);
-    const buttonNext = this.container.querySelector(`.${this.classNames.buttonNext}`);
-
-    this.container.addEventListener('click', ({ target }) => {
+    this.container.addEventListener("click", ({
+      target
+    }) => {
       if (target.parentNode.matches(`.${this.classNames.button}`)) {
         target = target.parentNode;
       } else if (!target.matches(`.${this.classNames.button}`)) {
-        return ;
+        return;
       }
 
-      const currentIndex = parseInt(this.itemContainer.dataset.currentIndex);
-      const itemCounts = this.itemContainer.children.length;
-
+      let direction = undefined;
       let nextIndex = 0;
 
       if (util.hasClass(target, this.classNames.buttonPrev)) {
-        const distance = currentIndex - this.step
-        nextIndex = distance >= 0 ? distance : itemCounts + distance;
+        nextIndex = this.currentIndex - this.step;
+        direction = "prev";
       }
 
       if (util.hasClass(target, this.classNames.buttonNext)) {
-        nextIndex = (currentIndex + this.step) % itemCounts;
+        nextIndex = this.currentIndex + this.step;
+        direction = "next";
       }
 
-      this.showItem(nextIndex);
+      this.showItem(nextIndex, direction);
     });
   },
   bindIndicatorEvent() {
-    this.indicatorContainer.addEventListener('click', ({ target }) => {
-      if (target.classList.contains(this.classNames.dot) === false) {
+    this.indicatorContainer.addEventListener("click", event => {
+      if (!event.target.classList.contains(this.classNames.dot)) {
         return;
       }
-      
-      this.showItem(target.dataset.index);
+
+      this.showItem(event.target.dataset.index);
+      event.stopPropagation();
     });
   },
-  showItem(nextIndex) {
-    const currentIndex = this.itemContainer.dataset.currentIndex;
+  showItem(nextIndex, direction) {
     const items = this.itemContainer.children;
+    const prevIndex = this.currentIndex;
 
-    this.animations[this.animationType].run.call(this, items, currentIndex, nextIndex);
+    this.animations[this.animationType].run.call(
+      this,
+      items,
+      nextIndex,
+      direction
+    );
 
     if (this.usingIndicator) {
       const dots = this.indicatorContainer.children;
-      dots[currentIndex].classList.remove(this.classNames.dotActivated);
-      dots[nextIndex].classList.add(this.classNames.dotActivated);
+      dots[prevIndex].classList.remove(this.classNames.dotActivated);
+      dots[this.currentIndex].classList.add(this.classNames.dotActivated);
     }
-
-    this.itemContainer.dataset.currentIndex = nextIndex;
   },
   animations: {
     fade: {
@@ -150,27 +163,134 @@ Carousel.prototype = {
             item.classList.add(this.animationType);
           }
 
-          item.style.position = 'absolute';
+          item.style.position = "absolute";
           item.classList.add(`${this.animationType}-ready`);
         });
       },
-      run(items, currentIndex, nextIndex) {
-        const width = this.itemContainer.parentNode.clientWidth;
-        items[currentIndex].classList.remove(this.animationType);
+      run(items, nextIndex, direction) {
+        const itemCount = this.itemContainer.children.length;
+
+        if (direction === "prev" && nextIndex < 0) {
+          nextIndex = itemCount + nextIndex;
+        }
+
+        if (direction === "next") {
+          nextIndex = nextIndex % itemCount;
+        }
+
+        items[this.currentIndex].classList.remove(this.animationType);
         items[nextIndex].classList.add(this.animationType);
+
+        this.currentIndex = nextIndex;
       }
     },
     slide: {
       init() {
-        this.itemContainer.style.transitionDuration = this.animationSpeed;
-      },
-      run(items, currentIndex, nextIndex) {
-        const wrapItems = this.itemContainer.parentNode;
-        const itemCount = this.itemContainer.children.length;
-        const width = (nextIndex / this.visibleItems) * wrapItems.clientWidth;
+        if (this.infinityLoop) {
+          this.currentIndex = this.step;
+          const wrapItems = this.itemContainer.parentNode;
 
+          const width =
+            this.currentIndex / this.visibleItems * wrapItems.clientWidth;
+          this.itemContainer.style.transform = `translateX(-${width}px)`;
+
+          this.addClonedElements();
+
+          this.itemContainer.addEventListener("transitionend", function (e) {
+            const len = this.itemContainer.children.length;
+            const wrapItems = this.itemContainer.parentNode;
+
+            if (this.currentIndex === 0) {
+              this.currentIndex = len - 2 * this.step;
+
+              position =
+                this.currentIndex /
+                this.visibleItems *
+                wrapItems.clientWidth;
+
+              this.itemContainer.style.transitionDuration = "";
+              this.itemContainer.style.transform = `translateX(-${position}px)`;
+            } else if (this.currentIndex === len - this.step) {
+              this.currentIndex = this.step;
+
+              position =
+                this.currentIndex /
+                this.visibleItems *
+                wrapItems.clientWidth;
+
+              this.itemContainer.style.transitionDuration = "";
+              this.itemContainer.style.transform = `translateX(-${position}px)`;
+            }
+          }.bind(this), true);
+
+        } else {
+          this.itemContainer.style.transitionDuration = this.animationSpeed;
+        }
+      },
+      run(items, nextIndex, direction) {
+        const wrapItems = this.itemContainer.parentNode;
+        const len = this.itemContainer.children.length;
+
+        if (direction && this.infinityLoop) {
+          this.itemContainer.style.transitionDuration = this.animationSpeed;
+
+          if (nextIndex > (len - this.step) && nextIndex < len) {
+            nextIndex = len - this.step;
+          }
+
+          if (nextIndex < 0) {
+            nextIndex = 0;
+          }
+
+          let position =
+            nextIndex /
+            this.visibleItems *
+            wrapItems.clientWidth;
+
+          this.currentIndex = nextIndex;
+          this.itemContainer.style.transform = `translateX(-${position}px)`;
+          return;
+        }
+
+        const itemCount = this.itemContainer.children.length;
+
+        if (direction === "prev" && nextIndex < 0) {
+          nextIndex = itemCount + nextIndex;
+        }
+
+        if (direction === "next") {
+          nextIndex = nextIndex % itemCount;
+        }
+
+        this.currentIndex = nextIndex;
+
+        const width = nextIndex / this.visibleItems * wrapItems.clientWidth;
         this.itemContainer.style.transform = `translateX(-${width}px)`;
       }
     }
+  },
+  addClonedElements() {
+    const items = Array.from(this.itemContainer.children);
+
+    const firstItems = items.slice(0, this.visibleItems).map(item => {
+      const clone = item.cloneNode(true);
+      clone.classList.add("cloned");
+      return clone;
+    });
+
+    const lastItems = items
+      .slice(items.length - this.visibleItems, items.length)
+      .reverse()
+      .map(item => {
+        const clone = item.cloneNode(true);
+        clone.classList.add("cloned");
+        return clone;
+      });
+
+    lastItems.forEach(item =>
+      this.itemContainer.insertBefore(item, this.itemContainer.firstChild)
+    );
+
+    firstItems.forEach(item => this.itemContainer.appendChild(item));
   }
-}
+};
