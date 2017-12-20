@@ -103,19 +103,16 @@
                 target2.innerHTML += "<li><a></a></li> ";
             });
             target2.firstChild.className = "on";
-
             slide.init();
         });
     
         oReq.open("GET", "http://home.dotol.xyz/php/test_api.php");
         oReq.send();
-    }
-     
+    }     
     
     var slide = {
         index : 0,
         slides : document.querySelector(".container_slide > ul").children.length, //ajax로 만들어지기 전이라서 없다!
-        
         length : null,
         slideList : null,
         pagination  : null,
@@ -167,7 +164,6 @@
 
         }
     }
-
     window.addEventListener("DOMContentLoaded", ajax);
 </script>
 </html>
