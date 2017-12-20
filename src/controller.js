@@ -51,6 +51,8 @@ export default class Controller {
         this.view.renderFoodBox(food);
         const initNum = Math.floor(Math.random() * 6);
         this.view.renderFoodTabList(food, initNum);
+        this.view.bindFoodTab(food);
+        this.view.bindPreventDefault();
     }
 
     request(url) {

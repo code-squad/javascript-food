@@ -7,7 +7,6 @@ import {qs,qsa,$on,$delegate} from './helpers';
 
 export default class View {
     constructor() {
-        this.foodListEl;
         this.foodTabEl = qs('.best_food_tabs');
         this.slidesPrevEl = qs('.slides_prev');
         this.slidesNextEl = qs('.slides_next');
@@ -33,25 +32,22 @@ export default class View {
     }
 
     renderFoodTab(food) {
-        const foodTabString = food.map(value => foodTabTemplate({
+        this.foodTabEl.insertAdjacentHTML('afterbegin', food.map(value => foodTabTemplate({
             category_id: value.category_id,
             name: value.name
-        })).join('');
-        this.foodTabEl.insertAdjacentHTML('afterbegin', foodTabString);
+        })).join(''));
     }
 
     renderFoodContainer(food) {
-        const foodContainer = qs('.best_food_container');
-        const containerString = food.map(value => containerTemplate({
+        qs('.best_food_container').insertAdjacentHTML('afterbegin', food.map(value => containerTemplate({
             category_id: value.category_id
-        })).join('');
-        foodContainer.insertAdjacentHTML('afterbegin', containerString);
+        })).join(''));
     }
 
     renderFoodList(food) {
         this.foodListEl = qsa('.best_food_box_list');
         food.forEach((value, i) => {
-            const foodBoxStrs = value.items.map(item =>
+            this.foodListEl[i].insertAdjacentHTML('afterbegin', value.items.map(item =>
                 foodBoxTemplate({
                     image: item.image,
                     alt: item.alt,
@@ -60,8 +56,7 @@ export default class View {
                     old_price: item.n_price ? item.n_price : '',
                     new_price: item.s_price.slice(0, -1),
                     won: item.s_price.slice(-1)
-                })).join('');
-            this.foodListEl[i].insertAdjacentHTML('afterbegin', foodBoxStrs);
+                })).join(''));
         });
     }
 
@@ -69,29 +64,25 @@ export default class View {
         const foodBox = qsa('.best_food_box');
         food.forEach((value, i) => {
             value.items.forEach((item, j) => {
-                const badges = badgeTemplate({
+                foodBox[i * 3 + j].insertAdjacentHTML('beforeend', badgeTemplate({
                     badge: item.badge
-                });
-                foodBox[i * 3 + j].insertAdjacentHTML('beforeend', badges);
-                const deliveryType = deliveryTypeTemplate({
+                }));
+                foodBox[i * 3 + j].firstElementChild.insertAdjacentHTML('beforeend', deliveryTypeTemplate({
                     delivery_type: item.delivery_type
-                });
-                foodBox[i * 3 + j].firstElementChild.insertAdjacentHTML('beforeend', deliveryType);
+                }));
             });
         });
     }
 
     renderFoodTabList(food, initNum) {
-        const foodTabList = qsa('.best_food_tabs > li > a');
+        this.foodTabListEl = qsa('.best_food_tabs > li > a');
         this.foodListEl[initNum].style.display = 'block';
-        foodTabList[initNum].className = 'now';
-        this.bindFoodTab(foodTabList);
-        this.bindPreventDefault();
+        this.foodTabListEl[initNum].className = 'now';
     }
 
-    bindFoodTab(foodTabList) {
+    bindFoodTab() {
         $delegate(this.foodTabEl, 'li > a', 'click', e => {
-            Array.from(foodTabList).forEach(tab => tab.className =
+            Array.from(this.foodTabListEl).forEach(tab => tab.className =
                 tab === e.delegateTarget ? 'now' : '');
             Array.from(this.foodListEl).forEach(food => food.style.display =
                 e.delegateTarget.dataset.category_id === food.dataset.category_id ? 'block' : 'none');
@@ -112,6 +103,5 @@ export default class View {
         this.slidesEl[slideIndex].style.backgroundImage = `url("${slideImg}")`;
         this.dotsEl[slideIndex].className = 'now';
     }
-
 
 }
