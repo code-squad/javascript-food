@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta name="Author" content="Luigi">
+    <title>Luigi's slide ui!</title>
+</head>
+<body>
+<div class="container_slide">
+    <ul>
+    </ul>
+    <div>
+        <a href="" class="prev" onclick="slide.prev();"></a><a href="" class="next" onclick="slide.next();"></a>
+    </div>
+    <div class="slide_pagination">
+        <ul></ul>
+    </div>
+</div>
+</body>
+<style>
+    * { margin: 0; padding:0;}
+    ul , li { margin:0; padding:0; }
+    
+    .container_slide{
+        position:relative;
+    }
+    .container_slide > ul {
+        height:420px;
+    }
+    .container_slide > ul > li {
+        position: absolute;
+        width:100%;
+        height:100%;
+    }
+    .slide_pagination {
+        position: absolute;
+        bottom:30px;       
+        width:100%; 
+        text-align: center;        
+    }
+    .slide_pagination ul{
+        display: inline-block;
+    }
+    .slide_pagination li{
+        display:inline-block;
+    }
+    .slide_pagination a {
+        display:block;
+        background:#fff;
+        width:10px;
+        height:10px;
+        border-radius: 50%;
+        box-shadow: 0 0 0 1px rgba(0,0,0,0.1);
+        opacity: 0.6;
+    }
+    .slide_pagination a:hover {
+        opacity: 1;
+        cursor: pointer;
+    }
+    .on { opacity: 1; background: #fff; border-radius: 50%;}
+    .prev {
+        position:absolute;
+        top:40%;
+        left:0;
+        background:url("./images/main_slides_navi.png") no-repeat center center;
+        background-position: left center;
+        height:92px;
+        width:60px;
+    }
+    .next {
+        position:absolute;
+        top:40%;
+        right:0;
+        background:url("./images/main_slides_navi.png") no-repeat center center;
+        background-position: right center;
+        height:92px;
+        width:60px;
+    }
+    .show {
+        opacity: 1;
+        transition: opacity 2s;
+    }
+    .hide {
+        opacity: 0;
+        transition: opacity 2s;
+    }
+</style>
+<script>
+    function ajax() {
+        var oReq = new XMLHttpRequest();
+    
+        oReq.addEventListener("load", function() {
+            var target1 = document.querySelector(".container_slide > ul");
+            var target2 = document.querySelector(".slide_pagination > ul");
+            data = JSON.parse(this.responseText); //img url Array 
+            
+            data.forEach((url, index) => {
+                var li = document.createElement("li");
+                li.style.background = 'url("'+url+'") no-repeat center';
+                target1.appendChild(li);
+                index == 0 ? li.className = "show" : li.className = "hide";
+                // target1.innerHTML += '<li style="background : url("',url,'") no-repeat center;"></li>'; //안되네,위의 3줄로 대체
+
+                target2.innerHTML += "<li><a></a></li> ";
+            });
+            target2.firstChild.className = "on";
+        });
+    
+        oReq.open("GET", "http://home.dotol.xyz/php/test_api.php");
+        oReq.send();
+    }
+
+     //preventDefault test
+    document.querySelector("body").addEventListener("click",function(e){
+        if(e.target.nodeName == "A") {
+            e.preventDefault();
+        }
+    });
+
+    document.querySelector(".slide_pagination > ul").addEventListener("click",function(e){
+        if(e.target && e.target.nodeName == "A"){
+            var p = e.target.parentElement.parentElement; //ul>li>a -> index비교를 ul단에서 해야함 -> 상위2회접근
+            var index = Array.prototype.indexOf.call(p.children, e.target.parentElement);
+            
+            document.querySelector(".container_slide > ul").children[slide.index].className = "hide";
+            document.querySelector(".container_slide > ul").children[index].className = "show";
+            document.querySelector(".slide_pagination > ul").children[slide.index].className = "off";
+            document.querySelector(".slide_pagination > ul").children[index].className = "on";
+            slide.index = index;
+        }
+    });
+     
+    
+    var slide = {
+        index : 0,
+        slides : document.querySelector(".container_slide > ul").children.length, //ajax로 만들어지기 전이라서 없다!
+        //function show(index) ,hide(index)  만들기
+        //해당슬라이드 이미지 show,hide  pagination on,off
+        //next는 현재 index를 hide에 보내고 다음 index를 show에 보냄, index++ -> 두줄로만든다!
+        //next,prev 말고 change(from,to) ? -> 기존의 index ,새로운 index // 취소
+        next : function(){
+            var pagination = document.querySelector(".slide_pagination > ul").children;
+            var slideList = document.querySelector(".container_slide > ul").children;
+            slideList[this.index].className = "hide";
+            pagination[this.index].className = "off"; //off에 대한 속성은 사실 없음. 의미론적 부여
+            this.index+1 == slideList.length ? this.index = 0 : this.index++;
+            slideList[this.index].className = "show";
+            pagination[this.index].className = "on"            
+        },
+        prev : function(){
+            var pagination = document.querySelector(".slide_pagination > ul").children;
+            var slideList = document.querySelector(".container_slide > ul").children;
+            slideList[this.index].className = "hide";
+            pagination[this.index].className = "off"
+            this.index == 0 ? this.index = slideList.length-1 : this.index--;
+            slideList[this.index].className = "show";
+            pagination[this.index].className = "on"
+        }
+    }
+    window.addEventListener("DOMContentLoaded", ajax);
+</script>
+</html>
