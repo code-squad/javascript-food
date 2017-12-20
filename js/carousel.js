@@ -57,9 +57,7 @@ Carousel.prototype = {
     if (this.usingIndicator) {
       this.renderIndicator();
       this.bindIndicatorEvent();
-
-      const firstItem = this.indicatorContainer.children[0];
-      firstItem.classList.add(this.classNames.dotActivated);
+      this.activateDot(0);
     }
 
     this.setItemsSize();
@@ -103,9 +101,7 @@ Carousel.prototype = {
     }
   },
   bindButtonEvent() {
-    this.container.addEventListener("click", ({
-      target
-    }) => {
+    this.container.addEventListener("click", ({ target }) => {
       if (target.parentNode.matches(`.${this.classNames.button}`)) {
         target = target.parentNode;
       } else if (!target.matches(`.${this.classNames.button}`)) {
@@ -139,21 +135,22 @@ Carousel.prototype = {
     });
   },
   showItem(nextIndex, direction) {
-    const items = this.itemContainer.children;
-    const prevIndex = this.currentIndex;
-
-    this.animations[this.animationType].run.call(
-      this,
-      items,
-      nextIndex,
-      direction
-    );
-
-    if (this.usingIndicator) {
-      const dots = this.indicatorContainer.children;
-      dots[prevIndex].classList.remove(this.classNames.dotActivated);
-      dots[this.currentIndex].classList.add(this.classNames.dotActivated);
-    }
+    this.animations[this.animationType].run.call(this,
+      {
+        nextIndex,
+        direction,
+        callback: () => {
+          if (this.usingIndicator) {
+            this.activateDot(this.currentIndex);
+          }
+        }
+      }
+    );    
+  },
+  activateDot(index) {
+    const dots = this.indicatorContainer.children;
+    dots.forEach(dot => dot.classList.remove(this.classNames.dotActivated));
+    dots[index].classList.add(this.classNames.dotActivated);
   },
   animations: {
     fade: {
@@ -167,130 +164,105 @@ Carousel.prototype = {
           item.classList.add(`${this.animationType}-ready`);
         });
       },
-      run(items, nextIndex, direction) {
-        const itemCount = this.itemContainer.children.length;
+      run({ nextIndex, direction, callback }) {
+        const items = this.itemContainer.children;
+        const itemCount = items.length;
 
-        if (direction === "prev" && nextIndex < 0) {
-          nextIndex = itemCount + nextIndex;
-        }
-
-        if (direction === "next") {
-          nextIndex = nextIndex % itemCount;
-        }
+        nextIndex = this.getAdjustedIndex(nextIndex, direction);
 
         items[this.currentIndex].classList.remove(this.animationType);
         items[nextIndex].classList.add(this.animationType);
 
         this.currentIndex = nextIndex;
+
+        callback();
       }
     },
     slide: {
       init() {
         if (this.infinityLoop) {
           this.currentIndex = this.step;
-          const wrapItems = this.itemContainer.parentNode;
-
-          const width =
-            this.currentIndex / this.visibleItems * wrapItems.clientWidth;
-          this.itemContainer.style.transform = `translateX(-${width}px)`;
 
           this.addClonedElements();
-
-          this.itemContainer.addEventListener("transitionend", function (e) {
-            const len = this.itemContainer.children.length;
-            const wrapItems = this.itemContainer.parentNode;
-
-            if (this.currentIndex === 0) {
-              this.currentIndex = len - 2 * this.step;
-
-              position =
-                this.currentIndex /
-                this.visibleItems *
-                wrapItems.clientWidth;
-
-              this.itemContainer.style.transitionDuration = "";
-              this.itemContainer.style.transform = `translateX(-${position}px)`;
-            } else if (this.currentIndex === len - this.step) {
-              this.currentIndex = this.step;
-
-              position =
-                this.currentIndex /
-                this.visibleItems *
-                wrapItems.clientWidth;
-
-              this.itemContainer.style.transitionDuration = "";
-              this.itemContainer.style.transform = `translateX(-${position}px)`;
-            }
-          }.bind(this), true);
-
-        } else {
-          this.itemContainer.style.transitionDuration = this.animationSpeed;
+          this.slideEffect(this.currentIndex);
+          this.itemContainer.addEventListener("transitionend", this.adjustPosition.bind(this));
         }
       },
-      run(items, nextIndex, direction) {
-        const wrapItems = this.itemContainer.parentNode;
-        const len = this.itemContainer.children.length;
-
-        if (direction && this.infinityLoop) {
-          this.itemContainer.style.transitionDuration = this.animationSpeed;
-
-          if (nextIndex > (len - this.step) && nextIndex < len) {
-            nextIndex = len - this.step;
-          }
-
-          if (nextIndex < 0) {
-            nextIndex = 0;
-          }
-
-          let position =
-            nextIndex /
-            this.visibleItems *
-            wrapItems.clientWidth;
-
-          this.currentIndex = nextIndex;
-          this.itemContainer.style.transform = `translateX(-${position}px)`;
-          return;
-        }
-
-        const itemCount = this.itemContainer.children.length;
-
-        if (direction === "prev" && nextIndex < 0) {
-          nextIndex = itemCount + nextIndex;
-        }
-
-        if (direction === "next") {
-          nextIndex = nextIndex % itemCount;
-        }
-
+      run({ nextIndex, direction, callback }) {
+        this.itemContainer.style.transitionDuration = this.animationSpeed;
+        nextIndex = this.getAdjustedIndex(nextIndex, direction);
+        this.slideEffect(nextIndex);
         this.currentIndex = nextIndex;
 
-        const width = nextIndex / this.visibleItems * wrapItems.clientWidth;
-        this.itemContainer.style.transform = `translateX(-${width}px)`;
+        callback();
       }
     }
   },
+  getAdjustedIndex(index, direction) {
+    const items = this.itemContainer.children;
+    const wrapItems = this.itemContainer.parentNode;
+    const len = items.length;
+    const itemCount = items.length;
+    let adjustedIndex = index;
+
+    if (direction === "prev" && index < 0) {
+      adjustedIndex = itemCount + index;
+    } else if (direction === "next") {
+      adjustedIndex = index % itemCount;
+    } else if (direction && this.infinityLoop) {
+      if (index > (len - this.step) && index < len) {
+        adjustedIndex = len - this.step;
+      }
+
+      if (index < 0) {
+        adjustedIndex = 0;
+      }
+    }
+
+    return adjustedIndex;
+  },
+  adjustPosition() {
+    if (!this.infinityLoop) {
+      return;
+    }
+
+    const len = this.itemContainer.children.length;
+
+    if (this.currentIndex === 0) {
+      this.currentIndex = len - 2 * this.step;
+    } else if (this.currentIndex === len - this.step) {
+      this.currentIndex = this.step;
+    }
+
+    this.itemContainer.style.transitionDuration = "";
+    this.slideEffect(this.currentIndex);
+  },
   addClonedElements() {
     const items = Array.from(this.itemContainer.children);
-
-    const firstItems = items.slice(0, this.visibleItems).map(item => {
+    const makeClone = item => {
       const clone = item.cloneNode(true);
-      clone.classList.add("cloned");
+      clone.classList.add('cloned');
       return clone;
-    });
+    };
 
-    const lastItems = items
+    // clone and insert first items
+    items
+      .slice(0, this.visibleItems)
+      .map(makeClone)
+      .forEach(item => this.itemContainer.appendChild(item));
+
+    // clone and insert last itmes
+    items
       .slice(items.length - this.visibleItems, items.length)
       .reverse()
-      .map(item => {
-        const clone = item.cloneNode(true);
-        clone.classList.add("cloned");
-        return clone;
-      });
-
-    lastItems.forEach(item =>
-      this.itemContainer.insertBefore(item, this.itemContainer.firstChild)
-    );
-
-    firstItems.forEach(item => this.itemContainer.appendChild(item));
+      .map(makeClone)
+      .forEach(item =>
+        this.itemContainer.insertBefore(item, this.itemContainer.firstChild)
+      );
+  },
+  slideEffect(index) {
+    const wrapItems = this.itemContainer.parentNode;
+    const position = index / this.visibleItems * wrapItems.clientWidth;
+    this.itemContainer.style.transform = `translateX(-${position}px)`;
   }
 };
