@@ -1,7 +1,7 @@
 module.exports = {
     context: __dirname + '/src',
     entry: {
-        app: './main.js'
+        app: './app.js'
     },
     output: {
         path: __dirname + '/dist',
@@ -12,5 +12,6 @@ module.exports = {
             test: /\-tpl.html$/,
             loader: 'handlebars-loader'
         }]
-    }
+    },
+    devtool: '#inline-source-map'
 };
