@@ -358,6 +358,7 @@
 .bestseller {
   background-color: #eee;
   padding: 40px 0;
+  margin-bottom: 40px;
 }
 
 .title--section {
@@ -497,8 +498,8 @@
 
 /*-- sidedish section */
 
-.sidedish {
-  margin-top: 40px;
+.sidedish,
+.course {
   margin-bottom: 40px;
 }
 
