@@ -61,7 +61,7 @@ export default class View {
                     alt: item.alt,
                     title: item.title,
                     description: item.description,
-                    old_price: item.n_price ? item.n_price : '',
+                    old_price: item.n_price,
                     new_price: item.s_price.slice(0, -1),
                     won: item.s_price.slice(-1)
                 })).join(''));
