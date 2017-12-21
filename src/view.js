@@ -92,7 +92,7 @@ export default class View {
         this.slidesEl[currentIndex].className = 'fadeout';
         setTimeout(() => {
             this.slidesEl[currentIndex].style.display = 'none';
-        }, 1000);
+        }, 1500);
         this.dotsEl[currentIndex].classList.remove('now');
     }
 
