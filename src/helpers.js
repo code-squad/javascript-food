@@ -98,6 +98,13 @@ function listener(element, selector, type, callback) {
     };
 }
 
+
+/**
+ * AJAX request.
+ *
+ * @param {String} url
+ * @return {Object}
+ */
 export function request(url) {
     return new Promise(function (resolve, reject) {
         const xhr = new XMLHttpRequest();
