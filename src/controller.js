@@ -42,17 +42,9 @@ export default class Controller {
     async initBanchan(url) {
         const food = await request(url);
 
-        this.renderBanchan(food);
-
+        this.view.renderBanchan(food);
         this.view.bindFoodTab(food);
         this.view.bindPreventDefault();
     }
 
-    renderBanchan(food) {
-        this.view.renderFoodTab(food);
-        this.view.renderFoodContainer(food);
-        this.view.renderFoodBoxList(food);
-        this.view.renderFoodBox(food);
-        this.view.renderFoodTabList(food, Math.floor(Math.random() * 6));
-    }
 }

@@ -30,6 +30,7 @@ export default class View {
         $delegate('body', 'a', 'click', e => e.preventDefault());
     }
 
+
     bindFoodTab() {
         $delegate(this.foodTabEl, 'li > a', 'click', e => {
             Array.from(this.foodTabListEl).forEach(tab => tab.className =
@@ -37,6 +38,14 @@ export default class View {
             Array.from(this.foodBoxListEl).forEach(food => food.style.display =
                 e.delegateTarget.dataset.category_id === food.dataset.category_id ? 'block' : 'none');
         });
+    }
+    
+    renderBanchan(food) {
+        this.renderFoodTab(food);
+        this.renderFoodContainer(food);
+        this.renderFoodBoxList(food);
+        this.renderFoodBox(food);
+        this.renderFoodTabList(food, Math.floor(Math.random() * 6));
     }
 
     renderFoodTab(food) {
@@ -86,6 +95,7 @@ export default class View {
     renderFoodTabList(food, initNum) {
         this.foodTabListEl = qsa('.best_food_tabs > li > a');
         this.foodTabListEl[initNum].className = 'now';
+        this.foodBoxListEl[initNum].style.display = 'block';
     }
 
     removeCurrentDisplay(currentIndex) {
@@ -98,4 +108,5 @@ export default class View {
         this.slidesEl[slideIndex].style.backgroundImage = `url("${slideImg}")`;
         this.dotsEl[slideIndex].className = 'now';
     }
+
 }
