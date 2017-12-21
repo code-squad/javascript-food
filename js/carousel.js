@@ -174,7 +174,6 @@ Carousel.prototype = {
         items[nextIndex].classList.add(this.animationType);
 
         this.currentIndex = nextIndex;
-
         callback();
       }
     },
@@ -185,22 +184,33 @@ Carousel.prototype = {
 
           this.addClonedElements();
           this.slideEffect(this.currentIndex);
-          this.itemContainer.addEventListener("transitionend", this.adjustPosition.bind(this));
+          
+          this.itemContainer.addEventListener("transitionend", e => {
+            this.adjustPosition();
+            this.eventThrottling = false;
+          });
         }
       },
       run({ nextIndex, direction, callback }) {
+        if (this.eventThrottling) {
+          return;
+        }
+
+        if (this.infinityLoop) {
+          this.eventThrottling = true;
+        }
+
         this.itemContainer.style.transitionDuration = this.animationSpeed;
         nextIndex = this.getAdjustedIndex(nextIndex, direction);
+        
         this.slideEffect(nextIndex);
         this.currentIndex = nextIndex;
-
         callback();
       }
     }
   },
   getAdjustedIndex(index, direction) {
     const items = this.itemContainer.children;
-    const wrapItems = this.itemContainer.parentNode;
     const len = items.length;
     const itemCount = items.length;
     let adjustedIndex = index;
@@ -209,7 +219,9 @@ Carousel.prototype = {
       adjustedIndex = itemCount + index;
     } else if (direction === "next") {
       adjustedIndex = index % itemCount;
-    } else if (direction && this.infinityLoop) {
+    }
+
+    if (direction && this.infinityLoop) {
       if (index > (len - this.step) && index < len) {
         adjustedIndex = len - this.step;
       }
@@ -222,16 +234,14 @@ Carousel.prototype = {
     return adjustedIndex;
   },
   adjustPosition() {
-    if (!this.infinityLoop) {
-      return;
-    }
-
     const len = this.itemContainer.children.length;
 
     if (this.currentIndex === 0) {
       this.currentIndex = len - 2 * this.step;
     } else if (this.currentIndex === len - this.step) {
       this.currentIndex = this.step;
+    } else {
+      return;
     }
 
     this.itemContainer.style.transitionDuration = "";
