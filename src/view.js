@@ -34,7 +34,7 @@ export default class View {
         $delegate(this.foodTabEl, 'li > a', 'click', e => {
             Array.from(this.foodTabListEl).forEach(tab => tab.className =
                 tab === e.delegateTarget ? 'now' : '');
-            Array.from(this.foodListEl).forEach(food => food.style.display =
+            Array.from(this.foodBoxListEl).forEach(food => food.style.display =
                 e.delegateTarget.dataset.category_id === food.dataset.category_id ? 'block' : 'none');
         });
     }
@@ -52,10 +52,10 @@ export default class View {
         })).join(''));
     }
 
-    renderFoodList(food) {
-        this.foodListEl = qsa('.best_food_box_list');
+    renderFoodBoxList(food) {
+        this.foodBoxListEl = qsa('.best_food_box_list');
         food.forEach((value, i) => {
-            this.foodListEl[i].insertAdjacentHTML('afterbegin', value.items.map(item =>
+            this.foodBoxListEl[i].insertAdjacentHTML('afterbegin', value.items.map(item =>
                 foodBoxTemplate({
                     image: item.image,
                     alt: item.alt,
@@ -84,7 +84,7 @@ export default class View {
 
     renderFoodTabList(food, initNum) {
         this.foodTabListEl = qsa('.best_food_tabs > li > a');
-        this.foodListEl[initNum].style.display = 'block';
+        this.foodBoxListEl[initNum].style.display = 'block';
         this.foodTabListEl[initNum].className = 'now';
     }
 

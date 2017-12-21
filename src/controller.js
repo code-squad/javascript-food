@@ -18,8 +18,7 @@ export default class Controller {
     }
 
     async initSlide() {
-        const url = 'http://home.dotol.xyz/php/test_api.php';
-        this.slideImgs = await this.request(url);
+        this.slideImgs = await this.request('http://home.dotol.xyz/php/test_api.php');
 
         this.view.showSlides(this.slideIndex, this.slideImgs[this.slideIndex]);
     }
@@ -39,17 +38,21 @@ export default class Controller {
     }
 
     async initBanchan() {
-        const url = 'http://crong.codesquad.kr:8080/woowa/best';
-        const food = await this.request(url);
+        const food = await this.request('http://crong.codesquad.kr:8080/woowa/best');
 
+        this.renderBanchan(food);
+        
+        this.view.bindFoodTab(food);
+        this.view.bindPreventDefault();
+    }
+
+    renderBanchan(food) {
         this.view.renderFoodTab(food);
         this.view.renderFoodContainer(food);
-        this.view.renderFoodList(food);
+        this.view.renderFoodBoxList(food);
         this.view.renderFoodBox(food);
         const initNum = Math.floor(Math.random() * 6);
         this.view.renderFoodTabList(food, initNum);
-        this.view.bindFoodTab(food);
-        this.view.bindPreventDefault();
     }
 
     request(url) {
