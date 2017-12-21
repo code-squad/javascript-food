@@ -426,7 +426,7 @@ span.ic {
     position: absolute;
     top: 50%;
     margin-top: -46px;
-    background: url('img/main_slides_navi.png') no-repeat center center;
+    background: url('https://cdn.bmf.kr/web/common/main_slides_navi.png') no-repeat center center;
 }
 
 .slides_navi>.slides_prev {
