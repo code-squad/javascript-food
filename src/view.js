@@ -71,11 +71,12 @@ export default class View {
     renderFoodBox(food) {
         const foodBox = qsa('.best_food_box');
         food.forEach((value, i) => {
+            const len = value.items.length;
             value.items.forEach((item, j) => {
-                foodBox[i * 3 + j].insertAdjacentHTML('beforeend', badgeTemplate({
+                foodBox[i * len + j].insertAdjacentHTML('beforeend', badgeTemplate({
                     badge: item.badge
                 }));
-                foodBox[i * 3 + j].firstElementChild.insertAdjacentHTML('beforeend', deliveryTypeTemplate({
+                foodBox[i * len + j].firstElementChild.insertAdjacentHTML('beforeend', deliveryTypeTemplate({
                     delivery_type: item.delivery_type
                 }));
             });
