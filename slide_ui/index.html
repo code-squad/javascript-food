@@ -9,7 +9,7 @@
     <ul>
     </ul>
     <div>
-        <a href="" class="prev" onclick="slide.prev();"></a><a href="" class="next" onclick="slide.next();"></a>
+        <a class="prev" onclick="slide.prev();"></a><a class="next" onclick="slide.next();"></a>
     </div>
     <div class="slide_pagination">
         <ul></ul>
@@ -18,8 +18,8 @@
 </body>
 <style>
     * { margin: 0; padding:0;}
-    ul , li { margin:0; padding:0; }
-    
+    ul , li { margin:0; padding:0; list-style: none;}
+    a:hover { cursor: pointer; }
     .container_slide{
         position:relative;
     }
@@ -54,7 +54,6 @@
     }
     .slide_pagination a:hover {
         opacity: 1;
-        cursor: pointer;
     }
     .on { opacity: 1; background: #fff; border-radius: 50%;}
     .prev {
@@ -112,6 +111,7 @@
     
     var slide = {
         index : 0,
+        last : null,
         slides : document.querySelector(".container_slide > ul").children.length, //ajax로 만들어지기 전이라서 없다!
         length : null,
         slideList : null,
@@ -126,12 +126,12 @@
                 },
         next  : function(){
                     this.hide(this.index);
-                    this.index+1 == this.length ? this.index = 0 : this.index++;
+                    this.index == this.last ? this.index = 0 : this.index++;
                     this.show(this.index);
                 },
         prev  : function(){
                     this.hide(this.index);
-                    this.index == 0 ? this.index = this.length-1 : this.index--;
+                    this.index == 0 ? this.index = this.last : this.index--;
                     this.show(this.index);
                 },
         change : function(index){
@@ -142,16 +142,19 @@
             this.slideList = document.querySelector(".container_slide > ul");
             this.pagination  = document.querySelector(".slide_pagination > ul");
             this.length = this.pagination.children.length;
+            this.last = this.length-1;
 
             document.querySelector(".slide_pagination > ul").addEventListener("click",function(e){
+                var slideEl = document.querySelector(".container_slide > ul").children;
+                var pageEl = document.querySelector(".slide_pagination > ul").children;
                 if(e.target && e.target.nodeName == "A"){
                     var p = e.target.parentElement.parentElement; //ul>li>a -> index비교를 ul단에서 해야함 -> 상위2회접근
                     var index = Array.prototype.indexOf.call(p.children, e.target.parentElement);
                     
-                    document.querySelector(".container_slide > ul").children[slide.index].className = "hide";
-                    document.querySelector(".container_slide > ul").children[index].className = "show";
-                    document.querySelector(".slide_pagination > ul").children[slide.index].className = "off";
-                    document.querySelector(".slide_pagination > ul").children[index].className = "on";
+                    slideEl[slide.index].className = "hide";
+                    slideEl[index].className = "show";
+                    pageEl[slide.index].className = "off";
+                    pageEl[index].className = "on";
                     slide.index = index;
                 }
             });
