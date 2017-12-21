@@ -85,23 +85,17 @@ export default class View {
 
     renderFoodTabList(food, initNum) {
         this.foodTabListEl = qsa('.best_food_tabs > li > a');
-        this.foodBoxListEl[initNum].style.display = 'block';
         this.foodTabListEl[initNum].className = 'now';
     }
 
     removeCurrentDisplay(currentIndex) {
         this.slidesEl[currentIndex].className = 'fadeout';
-        setTimeout(() => {
-            this.slidesEl[currentIndex].style.display = 'none';
-        }, 1500);
         this.dotsEl[currentIndex].classList.remove('now');
     }
 
     showSlides(slideIndex, slideImg) {
-        this.slidesEl[slideIndex].style.display = 'block';
         this.slidesEl[slideIndex].className = 'fadein';
         this.slidesEl[slideIndex].style.backgroundImage = `url("${slideImg}")`;
         this.dotsEl[slideIndex].className = 'now';
     }
-
 }
