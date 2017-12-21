@@ -217,8 +217,8 @@ Carousel.prototype = {
 
     if (direction === "prev" && index < 0) {
       adjustedIndex = itemCount + index;
-    } else if (direction === "next") {
-      adjustedIndex = index % itemCount;
+    } else if (direction === "next" && index >= len) {
+      adjustedIndex = 0;
     }
 
     if (direction && this.infinityLoop) {

@@ -30,6 +30,15 @@ window.addEventListener('DOMContentLoaded', () => {
     infinityLoop: true
   });
 
+  const courseCarousel = new Carousel({
+    container: document.querySelector('.course .carousel--thumbnails'),
+    itemTemplate: document.querySelector('#sidedishThumbnail'),
+    getItemHTML: TabMenu.prototype.getThumbnailHTML,
+    visibleItems: 4,
+    itemPadding: '15px',
+    usingIndicator: false
+  });
+
   const BASE_URL = 'http://crong.codesquad.kr:8080/woowa/';
 
   util.requestData({
@@ -40,5 +49,10 @@ window.addEventListener('DOMContentLoaded', () => {
   util.requestData({
     url: BASE_URL + 'main',
     callback: sidedishCarousel.init.bind(sidedishCarousel)
+  });
+
+  util.requestData({
+    url: BASE_URL + 'course',
+    callback: courseCarousel.init.bind(courseCarousel)
   });
 });
