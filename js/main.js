@@ -36,7 +36,8 @@ window.addEventListener('DOMContentLoaded', () => {
     getItemHTML: TabMenu.prototype.getThumbnailHTML,
     visibleItems: 4,
     itemPadding: '15px',
-    usingIndicator: false
+    usingIndicator: false,
+    infinityLoop: true
   });
 
   const BASE_URL = 'http://crong.codesquad.kr:8080/woowa/';
