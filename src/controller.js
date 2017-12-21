@@ -15,12 +15,12 @@ export default class Controller {
     }
 
     setView() {
-        this.initSlide();
-        this.initBanchan();
+        this.initSlide('http://home.dotol.xyz/php/test_api.php');
+        this.initBanchan('http://crong.codesquad.kr:8080/woowa/best');
     }
 
-    async initSlide() {
-        this.slideImgs = await request('http://home.dotol.xyz/php/test_api.php');
+    async initSlide(url) {
+        this.slideImgs = await request(url);
 
         this.view.showSlides(this.slideIndex, this.slideImgs[this.slideIndex]);
     }
@@ -39,8 +39,8 @@ export default class Controller {
         this.view.showSlides(this.slideIndex, this.slideImgs[this.slideIndex]);
     }
 
-    async initBanchan() {
-        const food = await request('http://crong.codesquad.kr:8080/woowa/best');
+    async initBanchan(url) {
+        const food = await request(url);
 
         this.renderBanchan(food);
 
