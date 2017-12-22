@@ -499,6 +499,7 @@
 /*-- sidedish section */
 
 .sidedish,
+.sidedish--main,
 .course {
   margin-bottom: 40px;
 }

@@ -30,6 +30,16 @@ window.addEventListener('DOMContentLoaded', () => {
     infinityLoop: true
   });
 
+  const mainSidedishCarousel = new Carousel({
+    container: document.querySelector('.sidedish--main .carousel--thumbnails'),
+    itemTemplate: document.querySelector('#sidedishThumbnail'),
+    getItemHTML: TabMenu.prototype.getThumbnailHTML,
+    visibleItems: 4,
+    itemPadding: '15px',
+    usingIndicator: false,
+    infinityLoop: true
+  });
+
   const courseCarousel = new Carousel({
     container: document.querySelector('.course .carousel--thumbnails'),
     itemTemplate: document.querySelector('#sidedishThumbnail'),
@@ -48,8 +58,13 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 
   util.requestData({
-    url: BASE_URL + 'main',
+    url: BASE_URL + 'side',
     callback: sidedishCarousel.init.bind(sidedishCarousel)
+  });
+
+  util.requestData({
+    url: BASE_URL + 'main',
+    callback: mainSidedishCarousel.init.bind(mainSidedishCarousel)
   });
 
   util.requestData({
