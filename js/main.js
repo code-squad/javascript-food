@@ -1,4 +1,39 @@
 window.addEventListener('DOMContentLoaded', () => {
+
+  const scrollVertical = function(targetPos, duration) {
+    const distance = targetPos - window.scrollY;
+    const fps = 60;
+    const step = distance * (1000 / fps / duration);
+
+    let animationID = window.requestAnimationFrame(scroll);
+
+    function scroll() {
+      const restOfDistance = Math.abs(targetPos - window.scrollY);
+      window.scrollTo(0, window.scrollY + step);
+
+      if (restOfDistance <= 0) {
+        window.cancelAnimationFrame(animationID);
+      } else {
+        animationID = window.requestAnimationFrame(scroll);
+      }
+    }
+  };
+
+  document.querySelector('.scroller').addEventListener('click', event => {
+    const target = event.target;
+    const btnClassName = 'btn--scroll-to';
+
+    if (!util.hasClass(target, btnClassName)) {
+      return;
+    }
+
+    if (util.hasClass(target, `${btnClassName}-top`)) {
+      scrollVertical(0, 300);
+    } else if (util.hasClass(target, `${btnClassName}-bottom`)) {
+      scrollVertical(document.body.scrollHeight - window.innerHeight, 300);
+    }
+  });
+  
   (new Carousel({
     container: document.querySelector('.carousel--main'),
     dotSize: 'big',
