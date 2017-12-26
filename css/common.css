@@ -18,7 +18,6 @@ img { vertical-align: middle; }
 /* grid system */
 .container {
   position: relative;
-  overflow: hidden;
   width: 980px;
   margin: 0 auto;
 }

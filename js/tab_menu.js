@@ -1,4 +1,5 @@
 function TabMenu(selector) {
+  this.currentIndex = 0;
   this.buttonsContainer = document.querySelector(selector.buttons);
   this.contentsContainer = document.querySelector(selector.contents);
   this.buttonElements = this.buttonsContainer.children;
@@ -17,7 +18,7 @@ TabMenu.prototype = {
     this.makeContents();
     this.bindClickEvent();
   },
-  setData: function(jsonData) {
+  setData(jsonData) {
     jsonData.forEach((menu) => {
       this.buttonData.push({
         id: menu.category_id,
@@ -27,13 +28,13 @@ TabMenu.prototype = {
       this.contentData.push(menu.items);
     });
   },
-  makeButtons: function() {
+  makeButtons() {
     this.buttonData.forEach((data, index) => {
       const button = this.buttonElements[index];
       button.textContent = data.text;
     });
   },
-  makeContents: function() {
+  makeContents() {
     const thumbnailTemplate = document.querySelector('#bestItemTemplate');
 
     this.contentData.forEach((contents, index) => {
@@ -44,14 +45,8 @@ TabMenu.prototype = {
       });
     });
   },
-  getThumbnailHTML: function(template, data) {
-    const keys = Object.keys(data);
-    let htmlStr = template.innerHTML;
-
-    keys.forEach((key) => {
-        htmlStr = htmlStr.replace(`{{${key}}}`, data[key]);
-    });
-
+  getThumbnailHTML(template, data) {
+    let htmlStr = util.getHTMLFromTemplate(template, data);
     htmlStr = htmlStr.replace('{{n_price}}', '');
 
     const tempNode = document.createElement('div');
@@ -86,7 +81,7 @@ TabMenu.prototype = {
   },
   bindClickEvent: function() {
     this.buttonsContainer.addEventListener('click', ({target}) => {
-      const currentIndex = this.buttonsContainer.dataset.currentIndex;
+      const currentIndex = this.currentIndex;
       const selectedIndex = target.dataset.index;
 
       // button active toggle
@@ -97,7 +92,7 @@ TabMenu.prototype = {
       this.contentElements[currentIndex].style = 'display: none;';
       this.contentElements[selectedIndex].style = 'display: block;';
 
-      this.buttonsContainer.dataset.currentIndex = selectedIndex;
+      this.currentIndex = selectedIndex;
     });
   }
 }

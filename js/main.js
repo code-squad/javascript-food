@@ -1,33 +1,53 @@
+window.addEventListener('DOMContentLoaded', () => {
 
-function requestData(params) {
-  const xhttp = new XMLHttpRequest();
+  const scrollVertical = function(targetPos, duration) {
+    const distance = targetPos - window.scrollY;
+    const fps = 60;
+    const step = distance * (1000 / fps / duration);
 
-  xhttp.onreadystatechange = function(evt, res) {
-    if (this.readyState == 4 && this.status == 200) {
-      const response = evt.target.response;
-      params.callback(response);
+    let animationID = window.requestAnimationFrame(scroll);
+
+    function scroll() {
+      const restOfDistance = Math.abs(targetPos - window.scrollY);
+      window.scrollTo(0, window.scrollY + step);
+
+      if (restOfDistance <= 0) {
+        window.cancelAnimationFrame(animationID);
+      } else {
+        animationID = window.requestAnimationFrame(scroll);
+      }
     }
   };
 
-  xhttp.open("GET", params.url, true);
-  xhttp.send();
-}
+  document.querySelector('.scroller').addEventListener('click', event => {
+    const target = event.target;
+    const btnClassName = 'btn--scroll-to';
 
-window.addEventListener('DOMContentLoaded', () => {
+    if (!util.hasClass(target, btnClassName)) {
+      return;
+    }
+
+    if (util.hasClass(target, `${btnClassName}-top`)) {
+      scrollVertical(0, 300);
+    } else if (util.hasClass(target, `${btnClassName}-bottom`)) {
+      scrollVertical(document.body.scrollHeight - window.innerHeight, 300);
+    }
+  });
+  
   (new Carousel({
-    selector: '.carousel--main',
+    container: document.querySelector('.carousel--main'),
     dotSize: 'big',
-    effect: 'fade'
+    animationType: 'fade'
   })).init();
 
   (new Carousel({
-    selector: '.carousel--new-items',
-    positionOfPagination: 'top'
+    container: document.querySelector('.carousel--new-items'),
+    positionOfIndicator: 'top'
   })).init();
 
   (new Carousel({
-    selector: '.carousel--notices',
-    positionOfPagination: 'top'
+    container: document.querySelector('.carousel--notices'),
+    positionOfIndicator: 'top'
   })).init();
 
   const bestsellerTab = new TabMenu({
@@ -36,22 +56,54 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 
   const sidedishCarousel = new Carousel({
-    selector: '.sidedish .carousel--thumbnails',
+    container: document.querySelector('.sidedish .carousel--thumbnails'),
     itemTemplate: document.querySelector('#sidedishThumbnail'),
+    getItemHTML: TabMenu.prototype.getThumbnailHTML,
     visibleItems: 4,
     itemPadding: '15px',
-    usingPagination: false
+    usingIndicator: false,
+    infinityLoop: true
+  });
+
+  const mainSidedishCarousel = new Carousel({
+    container: document.querySelector('.sidedish--main .carousel--thumbnails'),
+    itemTemplate: document.querySelector('#sidedishThumbnail'),
+    getItemHTML: TabMenu.prototype.getThumbnailHTML,
+    visibleItems: 4,
+    itemPadding: '15px',
+    usingIndicator: false,
+    infinityLoop: true
+  });
+
+  const courseCarousel = new Carousel({
+    container: document.querySelector('.course .carousel--thumbnails'),
+    itemTemplate: document.querySelector('#sidedishThumbnail'),
+    getItemHTML: TabMenu.prototype.getThumbnailHTML,
+    visibleItems: 4,
+    itemPadding: '15px',
+    usingIndicator: false,
+    infinityLoop: true
   });
 
   const BASE_URL = 'http://crong.codesquad.kr:8080/woowa/';
 
-  requestData({
+  util.requestData({
     url: BASE_URL + 'best',
     callback: bestsellerTab.init.bind(bestsellerTab)
   });
 
-  requestData({
-    url: BASE_URL + 'main',
+  util.requestData({
+    url: BASE_URL + 'side',
     callback: sidedishCarousel.init.bind(sidedishCarousel)
+  });
+
+  util.requestData({
+    url: BASE_URL + 'main',
+    callback: mainSidedishCarousel.init.bind(mainSidedishCarousel)
+  });
+
+  util.requestData({
+    url: BASE_URL + 'course',
+    callback: courseCarousel.init.bind(courseCarousel)
   });
 });

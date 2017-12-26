@@ -1,41 +1,49 @@
 function Carousel({
-  itemType,
+  container,
   itemTemplate,
+  getItemHTML,
+  visibleItems = 1,
+  step = visibleItems,
+  currentIndex = 0,
+  usingIndicator = true,
+  positionOfIndicator = "bottom",
+  dotSize = "small",
+  animationType = "slide",
+  infinityLoop = false,
   itemPadding,
-  visibleItems,
-  step,
-  selector,
-  usingPagination,
-  positionOfPagination,
-  dotSize,
-  effect,
-  speed
-  }) {
-
-  this.visibleItems = visibleItems || 1;
-  this.step= step || this.visibleItems;
-  this.usingPagination = (usingPagination === undefined) ? true : usingPagination;
-  this.positionOfPagination = positionOfPagination || 'bottom';
-  this.dotSize = dotSize || 'small';
-  this.effect = effect || 'slide'; 
-  this.speed = speed || '500ms';
-  this.itemPadding = itemPadding;
-
-  this.itemTemplate = itemTemplate;
+  animationSpeed = "500ms"
+}) {
+  Object.assign(this, {
+    visibleItems,
+    currentIndex,
+    step,
+    usingIndicator,
+    positionOfIndicator,
+    dotSize,
+    animationType,
+    animationSpeed,
+    infinityLoop,
+    itemPadding,
+    itemTemplate,
+    getItemHTML
+  });
 
   this.classNames = {
-    buttonPrev: 'carousel__btn--prev',
-    buttonNext: 'carousel__btn--next',
-    wrapItems: 'carousel__wrap-items',
-    itemContainer: 'carousel__items',
-    pagination: 'carousel__pagination',
-    dot: 'pagination__dot',
-    dotActivated: 'pagination__dot--active'
-  }
+    button: "carousel__btn",
+    buttonPrev: "carousel__btn--prev",
+    buttonNext: "carousel__btn--next",
+    wrapItems: "carousel__wrap-items",
+    itemContainer: "carousel__items",
+    indicator: "carousel__indicator",
+    dot: "indicator__dot",
+    dotActivated: "indicator__dot--active"
+  };
 
-  this.container = document.querySelector(selector);
-  this.itemContainer = this.container.querySelector(`.${this.classNames.itemContainer}`);
-  this.pagination = null;
+  this.container = container;
+  this.itemContainer = this.container.querySelector(
+    `.${this.classNames.itemContainer}`
+  );
+  this.indicatorContainer = null;
 }
 
 Carousel.prototype = {
@@ -46,130 +54,225 @@ Carousel.prototype = {
       this.renderItems(JSON.parse(itemData));
     }
 
-    if (this.usingPagination) {
-      this.renderPagination();
-      this.bindPaginationEvent();
-      this.pagination.children[0].classList.add(this.dotActivated);
+    if (this.usingIndicator) {
+      this.renderIndicator();
+      this.bindIndicatorEvent();
+      this.activateDot(0);
     }
 
     this.setItemsSize();
     this.bindButtonEvent();
-    this.effects[this.effect].init.call(this);
+    this.animations[this.animationType].init.call(this);
   },
   renderItems(items) {
     items.forEach((item, index) => {
-      const itemDOM = this.getItemDOM(item);
-      this.itemContainer.insertAdjacentHTML('beforeend', itemDOM);
+      const itemHTML = this.getItemHTML(this.itemTemplate, item);
+      this.itemContainer.insertAdjacentHTML("beforeend", itemHTML);
     });
   },
   setItemsSize() {
     const wrap = this.container.querySelector(`.${this.classNames.wrapItems}`);
     const width = wrap.clientWidth / this.visibleItems;
 
-    Array.prototype.forEach.call(this.itemContainer.children, (item) => {
+    this.itemContainer.children.forEach(item => {
       item.style.width = `${width}px`;
-      item.style.height = '100%';
+      item.style.height = "100%";
       item.style.paddingLeft = this.itemPadding;
       item.style.paddingRight = this.itemPadding;
     });
   },
-  renderPagination() {
+  renderIndicator() {
     const itemCount = this.itemContainer.children.length;
-    const paginationHTML = `<ol class="${this.classNames.pagination} ${this.classNames.pagination}--${this.positionOfPagination}"></ol>`;
+    const indicatorHTML = `<ol class="${this.classNames.indicator} ${
+      this.classNames.indicator
+    }--${this.positionOfIndicator}"></ol>`;
 
-    this.container.insertAdjacentHTML('beforeend', paginationHTML);
-    this.pagination = this.container.querySelector(`.${this.classNames.pagination}`);
+    this.container.insertAdjacentHTML("beforeend", indicatorHTML);
+    this.indicatorContainer = this.container.querySelector(
+      `.${this.classNames.indicator}`
+    );
 
     for (let index = 0; index < itemCount; index++) {
-      const dotHTML = this.getDotHTML({
-        index,
-        classes: `${this.classNames.dot} ${this.classNames.dot}--${this.dotSize}`
-      });
-
-      this.pagination.insertAdjacentHTML('beforeend', dotHTML);
+      const classString = `${this.classNames.dot} ${this.classNames.dot}--${
+        this.dotSize
+      }`;
+      const dotHTML = `<li class="${classString}" data-index="${index}"></li>`;
+      this.indicatorContainer.insertAdjacentHTML("beforeend", dotHTML);
     }
-  },
-  getItemDOM(item) {
-    return TabMenu.prototype.getThumbnailHTML(this.itemTemplate, item);
-  },
-  getDotHTML({ classes, index }) {
-    return `<li class="${classes}" data-index="${index}"></li>`;
   },
   bindButtonEvent() {
-    const buttonPrev = this.container.querySelector(`.${this.classNames.buttonPrev}`);
-    const buttonNext = this.container.querySelector(`.${this.classNames.buttonNext}`);
-
-    buttonPrev.addEventListener('click', (evt) => {
-      const currentIndex = parseInt(this.itemContainer.dataset.currentIndex);
-      const itemCounts = this.itemContainer.children.length;
-
-      const distance = (currentIndex - this.step);
-      const nextIndex = distance >= 0 ? distance : itemCounts + distance;
-
-      this.showItem(nextIndex);
-    });
-
-    buttonNext.addEventListener('click', (evt) => {
-      const currentIndex = parseInt(this.itemContainer.dataset.currentIndex);
-      const itemCounts = this.itemContainer.children.length;
-      const nextIndex = (currentIndex + this.step) % itemCounts;
-
-      this.showItem(nextIndex);
-    });
-  },
-  bindPaginationEvent() {
-    this.pagination.addEventListener('click', ({ target }) => {
-      if (target.classList.contains(this.classNames.dot) === false) {
+    this.container.addEventListener("click", ({ target }) => {
+      if (target.parentNode.matches(`.${this.classNames.button}`)) {
+        target = target.parentNode;
+      } else if (!target.matches(`.${this.classNames.button}`)) {
         return;
       }
-      
-      this.showItem(target.dataset.index);
+
+      let direction = undefined;
+      let nextIndex = 0;
+
+      if (util.hasClass(target, this.classNames.buttonPrev)) {
+        nextIndex = this.currentIndex - this.step;
+        direction = "prev";
+      }
+
+      if (util.hasClass(target, this.classNames.buttonNext)) {
+        nextIndex = this.currentIndex + this.step;
+        direction = "next";
+      }
+
+      this.showItem(nextIndex, direction);
     });
   },
-  showItem(nextIndex) {
-    const currentIndex = this.itemContainer.dataset.currentIndex;
-    const items = this.itemContainer.children;
+  bindIndicatorEvent() {
+    this.indicatorContainer.addEventListener("click", event => {
+      if (!event.target.classList.contains(this.classNames.dot)) {
+        return;
+      }
 
-    this.effects[this.effect].run.call(this, items, currentIndex, nextIndex);
-
-    if (this.usingPagination) {
-      const dots = this.pagination.children;
-      dots[currentIndex].classList.remove(this.classNames.dotActivated);
-      dots[nextIndex].classList.add(this.classNames.dotActivated);
-    }
-
-    this.itemContainer.dataset.currentIndex = nextIndex;
+      this.showItem(event.target.dataset.index);
+      event.stopPropagation();
+    });
   },
-  effects: {
+  showItem(nextIndex, direction) {
+    this.animations[this.animationType].run.call(this,
+      {
+        nextIndex,
+        direction,
+        callback: () => {
+          if (this.usingIndicator) {
+            this.activateDot(this.currentIndex);
+          }
+        }
+      }
+    );    
+  },
+  activateDot(index) {
+    const dots = this.indicatorContainer.children;
+    dots.forEach(dot => dot.classList.remove(this.classNames.dotActivated));
+    dots[index].classList.add(this.classNames.dotActivated);
+  },
+  animations: {
     fade: {
       init() {
-        Array.prototype.forEach.call(this.itemContainer.children, (item, index) => {
+        this.itemContainer.children.forEach((item, index) => {
           if (index === 0) {
-            item.classList.add(this.effect);
+            item.classList.add(this.animationType);
           }
 
-          item.classList.add(`${this.effect}-ready`);
+          item.style.position = "absolute";
+          item.classList.add(`${this.animationType}-ready`);
         });
       },
-      run(items, currentIndex, nextIndex) {
-        const width = this.itemContainer.parentNode.clientWidth;
+      run({ nextIndex, direction, callback }) {
+        const items = this.itemContainer.children;
+        const itemCount = items.length;
 
-        this.itemContainer.style.marginLeft = `-${nextIndex * width}px`;
-        items[currentIndex].classList.remove(this.effect);
-        items[nextIndex].classList.add(this.effect);
+        nextIndex = this.getAdjustedIndex(nextIndex, direction);
+
+        items[this.currentIndex].classList.remove(this.animationType);
+        items[nextIndex].classList.add(this.animationType);
+
+        this.currentIndex = nextIndex;
+        callback();
       }
     },
     slide: {
       init() {
-        this.itemContainer.style.transitionDuration = this.speed;
-      },
-      run(items, currentIndex, nextIndex) {
-        const wrapItems = this.itemContainer.parentNode;
-        const itemCount = this.itemContainer.children.length;
-        const width = (nextIndex / this.visibleItems) * wrapItems.clientWidth;
+        if (this.infinityLoop) {
+          this.currentIndex = this.step;
 
-        this.itemContainer.style.transform = `translateX(-${width}px)`;
+          this.addClonedElements();
+          this.slideEffect(this.currentIndex);
+          
+          this.itemContainer.addEventListener("transitionend", e => {
+            this.adjustPosition();
+            this.eventThrottling = false;
+          });
+        }
+      },
+      run({ nextIndex, direction, callback }) {
+        if (this.eventThrottling) {
+          return;
+        }
+
+        if (this.infinityLoop) {
+          this.eventThrottling = true;
+        }
+
+        this.itemContainer.style.transitionDuration = this.animationSpeed;
+        nextIndex = this.getAdjustedIndex(nextIndex, direction);
+        
+        this.slideEffect(nextIndex);
+        this.currentIndex = nextIndex;
+        callback();
       }
     }
+  },
+  getAdjustedIndex(index, direction) {
+    const items = this.itemContainer.children;
+    const len = items.length;
+    const itemCount = items.length;
+    let adjustedIndex = index;
+
+    if (direction === "prev" && index < 0) {
+      adjustedIndex = itemCount + index;
+    } else if (direction === "next" && index >= len) {
+      adjustedIndex = 0;
+    }
+
+    if (direction && this.infinityLoop) {
+      if (index > (len - this.step) && index < len) {
+        adjustedIndex = len - this.step;
+      }
+
+      if (index < 0) {
+        adjustedIndex = 0;
+      }
+    }
+
+    return adjustedIndex;
+  },
+  adjustPosition() {
+    const len = this.itemContainer.children.length;
+
+    if (this.currentIndex === 0) {
+      this.currentIndex = len - 2 * this.step;
+    } else if (this.currentIndex === len - this.step) {
+      this.currentIndex = this.step;
+    } else {
+      return;
+    }
+
+    this.itemContainer.style.transitionDuration = "";
+    this.slideEffect(this.currentIndex);
+  },
+  addClonedElements() {
+    const items = Array.from(this.itemContainer.children);
+    const makeClone = item => {
+      const clone = item.cloneNode(true);
+      clone.classList.add('cloned');
+      return clone;
+    };
+
+    // clone and insert first items
+    items
+      .slice(0, this.visibleItems)
+      .map(makeClone)
+      .forEach(item => this.itemContainer.appendChild(item));
+
+    // clone and insert last itmes
+    items
+      .slice(items.length - this.visibleItems, items.length)
+      .reverse()
+      .map(makeClone)
+      .forEach(item =>
+        this.itemContainer.insertBefore(item, this.itemContainer.firstChild)
+      );
+  },
+  slideEffect(index) {
+    const wrapItems = this.itemContainer.parentNode;
+    const position = index / this.visibleItems * wrapItems.clientWidth;
+    this.itemContainer.style.transform = `translateX(-${position}px)`;
   }
-}
+};
