@@ -15,50 +15,12 @@ function slide(cn){
     this.slideList = null;
     this.moveButton = null;
     this.pagination = null;
-        
-    this.init = function(){
-        this.length = this.urlList.length;
-        this.last = this.length-1;
-        this.target.innerHTML = this.template;
-
-        this.slideList = this.target.children[0]; 
-        this.moveButton = this.target.children[1];
-        this.pagination = this.target.children[2].children[0];
-        
-        this.urlList.forEach((url,index)=> {
-            var li = document.createElement("li");
-            li.style.background = 'url("'+url+'") no-repeat center';
-            this.slideList.appendChild(li);
-            index == 0 ? li.className = "show" : li.className = "hide";
-
-            this.pagination.innerHTML += "<li><a></a></li> ";
-        });
-        this.pagination.children[0].className = "on";
-        
-        $on(this.moveButton,"click",e=>{
-            if(!event.target || event.target.nodeName !== "A") {
-                return;
-            }
-            e.target.className == "next" ? this.next() : this.prev();
-        });
-
-        $on(this.pagination,"click",e=>{
-            if(!e.target || e.target.nodeName !== "A"){
-                return;
-            }
-            var p = e.target.parentElement.parentElement;
-            var index = Array.prototype.indexOf.call(p.children, e.target.parentElement);
-            
-            this.hide(this.index);                
-            this.show(index);
-            this.index = index;
-        });
-    };
-
+    
     (function(){ 
         this.target && slide.prototype.getData(this.target.innerHTML,this);
     }.bind(this))();
 }
+
 slide.prototype = {
     constructor : slide,
     template :  `
@@ -102,6 +64,44 @@ slide.prototype = {
     change : function(index){
         this.hide(this.index);
         this.show(index);
+    },
+    init : function(){
+        this.length = this.urlList.length;
+        this.last = this.length-1;
+        this.target.innerHTML = this.template;
+
+        this.slideList = this.target.children[0]; 
+        this.moveButton = this.target.children[1];
+        this.pagination = this.target.children[2].children[0];
+        
+        this.urlList.forEach((url,index)=> {
+            var li = document.createElement("li");
+            li.style.background = 'url("'+url+'") no-repeat center';
+            this.slideList.appendChild(li);
+            index == 0 ? li.className = "show" : li.className = "hide";
+
+            this.pagination.innerHTML += "<li><a></a></li> ";
+        });
+        this.pagination.children[0].className = "on";
+        
+        $on(this.moveButton,"click",e=>{
+            if(!event.target || event.target.nodeName !== "A") {
+                return;
+            }
+            e.target.className == "next" ? this.next() : this.prev();
+        });
+
+        $on(this.pagination,"click",e=>{
+            if(!e.target || e.target.nodeName !== "A"){
+                return;
+            }
+            var p = e.target.parentElement.parentElement;
+            var index = Array.prototype.indexOf.call(p.children, e.target.parentElement);
+            
+            this.hide(this.index);                
+            this.show(index);
+            this.index = index;
+        });
     }
 }
 
