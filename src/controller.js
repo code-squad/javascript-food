@@ -10,7 +10,7 @@ export default class Controller {
         view.bindSlidesPrev(this.moveSlides.bind(this));
         view.bindSlidesNext(this.moveSlides.bind(this));
         view.bindSlidesDots(this.currentSlide.bind(this));
-        this.slidesEnd = 12;
+        this.slidesEnd = 11;
         this.slideIndex = 0;
     }
 
