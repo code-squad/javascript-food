@@ -106,19 +106,42 @@ function listener(element, selector, type, callback) {
  * @return {Object}
  */
 export function request(url) {
-    return new Promise(function (resolve, reject) {
+    return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
         xhr.open('get', url, true);
-        xhr.onload = function () {
-            if (xhr.status >= 200 && xhr.status < 400) {
-                resolve(JSON.parse(xhr.response));
-            } else {
-                reject(xhr.status);
-            }
-        };
-        xhr.ontimeout = function () {
-            reject('timeout');
-        };
+        xhr.onload = () => (xhr.status >= 200 && xhr.status < 400) ?
+            resolve(JSON.parse(xhr.response)) : reject(xhr.status);
+        xhr.ontimeout = () => reject('timeout');
         xhr.send();
     });
+}
+/**
+ * Returns a new function that, when invoked, invokes `func` at most once per `wait` milliseconds.
+ *
+ * @param {Function} func Function to wrap.
+ * @param {Number} wait Number of milliseconds that must elapse between `func` invocations.
+ * @return {Function} A new function that wraps the `func` function passed in.
+ */
+
+export function throttle(func, wait) {
+    var ctx, args, rtn, timeoutID; // caching
+    var last = 0;
+
+    return function throttled() {
+        ctx = this;
+        args = arguments;
+        var delta = new Date() - last;
+        if (!timeoutID)
+            if (delta >= wait) call();
+            else timeoutID = setTimeout(call, wait - delta);
+        return rtn;
+    };
+
+    function call() {
+        timeoutID = 0;
+        last = +new Date();
+        rtn = func.apply(ctx, args);
+        ctx = null;
+        args = null;
+    }
 }
