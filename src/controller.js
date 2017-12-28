@@ -57,9 +57,8 @@ export default class Controller {
     }
 
     resetSideSlides() {
-        if (this.direction === -40) this.direction = -20;
-        if (this.direction === 0) this.direction = -20;
-        this.view.resetSideSlides(this.direction);
+        if (this.direction === -40 || this.direction === 0)
+            this.view.resetSideSlides(this.direction = -20);
     }
 
     async initSideBanchan(url) {
