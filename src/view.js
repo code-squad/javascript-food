@@ -11,11 +11,12 @@ export default class View {
         this.foodTabEl = qs('.best_food_tabs');
         this.slidesPrevEl = qs('.slides_prev');
         this.slidesNextEl = qs('.slides_next');
-        this.slidesSidePrevEl = qs('.side_food_slides_navi>.slides_prev');
-        this.slidesSideNextEl = qs('.side_food_slides_navi>.slides_next');
         this.slidesEl = qsa('.main_slides_list > li');
         this.dotsEl = qsa('.slides_dots > li > a');
+        
         this.sideFoodBoxEl = qs('.side_food_box_list');
+        this.slidesSidePrevEl = qs('.side_food_slides_navi>.slides_prev');
+        this.slidesSideNextEl = qs('.side_food_slides_navi>.slides_next');
     }
 
     bindSlidesPrev(handler) {

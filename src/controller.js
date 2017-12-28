@@ -16,18 +16,19 @@ export default class Controller {
         view.bindSideSlidesNext(this.moveSideSlides.bind(this));
 
         this.slideIndex = 0;
-        this.direction = -10;
+        this.direction = -20;
     }
 
     setView() {
         this.initSlide('http://home.dotol.xyz/php/test_api.php');
         this.initBanchan('http://crong.codesquad.kr:8080/woowa/best');
         this.initSideBanchan('http://crong.codesquad.kr:8080/woowa/side');
+        this.view.bindPreventDefault();
     }
 
     async initSlide(url) {
         this.slideImgs = await request(url);
-        this.slidesEnd = this.slideImgs.length-1;
+        this.slidesEnd = this.slideImgs.length - 1;
         this.view.showSlides(this.slideIndex, this.slideImgs[this.slideIndex]);
     }
 
@@ -55,19 +56,17 @@ export default class Controller {
         this.view.bindFoodTab(food);
     }
 
-    async initSideBanchan(url) {
-        const food = await request(url);
-        this.view.renderSideBanchan(food);
-        this.view.showSideSlides(this.direction);
-        this.view.bindSideSlides(this.resetSideSlides.bind(this));
-        this.view.bindPreventDefault();
-    }
-
     resetSideSlides() {
         if (this.direction === -40) this.direction = -20;
         if (this.direction === 0) this.direction = -20;
-
         this.view.resetSideSlides(this.direction);
+    }
+
+    async initSideBanchan(url) {
+        const food = await request(url);
+        this.view.renderSideBanchan(food);
+        this.view.resetSideSlides(this.direction);
+        this.view.bindSideSlides(this.resetSideSlides.bind(this));
     }
 
 }
