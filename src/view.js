@@ -1,10 +1,11 @@
 import foodBoxTemplate from '../template/foodBox-tpl.html';
+import foodBoxSideTemplate from '../template/foodBoxSide-tpl.html';
 import foodTabTemplate from '../template/foodTab-tpl.html';
 import containerTemplate from '../template/container-tpl.html';
 import badgeTemplate from '../template/badge-tpl.html';
 import badgeSideTemplate from '../template/badgeSide-tpl.html';
 import deliveryTypeTemplate from '../template/deliveryType-tpl.html';
-import {qs,qsa,$on,$delegate} from './helpers';
+import {qs,qsa,on,delegate,throttle} from './helpers';
 
 export default class View {
     constructor() {
@@ -19,35 +20,35 @@ export default class View {
     }
 
     bindSlidesPrev(handler) {
-        $on(this.slidesPrevEl, 'click', () => handler(-1));
+        on(this.slidesPrevEl, 'click', () => handler(-1));
     }
 
     bindSlidesNext(handler) {
-        $on(this.slidesNextEl, 'click', () => handler(1));
+        on(this.slidesNextEl, 'click', () => handler(1));
     }
 
     bindSlidesSidePrev(handler) {
-        $on(this.slidesSidePrevEl, 'click', throttle(() => handler(10), 800));
+        on(this.slidesSidePrevEl, 'click', throttle(() => handler(10), 800));
     }
 
     bindSlidesSideNext(handler) {
-        $on(this.slidesSideNextEl, 'click', throttle(() => handler(-10), 800));
+        on(this.slidesSideNextEl, 'click', throttle(() => handler(-10), 800));
     }
 
     bindSideSlides(handler) {
-        $on(this.sideFoodBoxEl, 'transitionend', () => handler(true));
+        on(this.sideFoodBoxEl, 'transitionend', () => handler(true));
     }
 
     bindSlidesDots(handler) {
-        $delegate('.slides_dots', '.slides_dots > li > a', 'click', (e) => handler(+e.delegateTarget.textContent));
+        delegate('.slides_dots', '.slides_dots > li > a', 'click', (e) => handler(+e.delegateTarget.textContent));
     }
 
     bindPreventDefault() {
-        $delegate('body', 'a', 'click', e => e.preventDefault());
+        delegate('body', 'a', 'click', e => e.preventDefault());
     }
 
     bindFoodTab() {
-        $delegate(this.foodTabEl, 'li > a', 'click', e => {
+        delegate(this.foodTabEl, 'li > a', 'click', e => {
             Array.from(this.foodTabListEl).forEach(tab => tab.className =
                 tab === e.delegateTarget ? 'now' : '');
             Array.from(this.foodBoxListEl).forEach(food => food.style.display =

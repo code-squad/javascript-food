@@ -19,7 +19,7 @@ export function qsa(selector, scope) {
  * @param {Function} callback Event callback
  * @param {boolean} useCapture Capture the event
  */
-export function $on(element, type, callback, useCapture) {
+export function on(element, type, callback, useCapture) {
     element.addEventListener(type, callback, useCapture);
 }
 
@@ -55,7 +55,7 @@ function _delegate(element, selector, type, callback, useCapture) {
  * @param {Boolean} useCapture
  * @return {Object}
  */
-export function $delegate(elements, selector, type, callback, useCapture) {
+export function delegate(elements, selector, type, callback, useCapture) {
     // Handle the regular Element usage
     if (typeof elements.addEventListener === 'function') {
         return _delegate.apply(null, arguments);
