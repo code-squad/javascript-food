@@ -12,11 +12,17 @@ export default class Controller {
         view.bindSlidesDots(this.currentSlide.bind(this));
         this.slidesEnd = 11;
         this.slideIndex = 0;
+        this.direction = -10;
+
+
+        view.bindSlidesSidePrev(this.moveSideSlides.bind(this));
+        view.bindSlidesSideNext(this.moveSideSlides.bind(this));
     }
 
     setView() {
         this.initSlide('http://home.dotol.xyz/php/test_api.php');
         this.initBanchan('http://crong.codesquad.kr:8080/woowa/best');
+        this.initSideBanchan('http://crong.codesquad.kr:8080/woowa/side');
     }
 
     async initSlide(url) {
@@ -32,6 +38,10 @@ export default class Controller {
         if (this.slideIndex < 0) this.slideIndex = this.slidesEnd;
         this.view.showSlides(this.slideIndex, this.slideImgs[this.slideIndex]);
     }
+    moveSideSlides(direction) {
+        this.direction += direction;
+        this.view.showSideSlides(this.direction);
+    }
 
     currentSlide(n) {
         this.view.removeCurrentDisplay(this.slideIndex);
@@ -39,11 +49,28 @@ export default class Controller {
         this.view.showSlides(this.slideIndex, this.slideImgs[this.slideIndex]);
     }
 
+    resetSideSlides(reset) {
+        if (reset) {
+            if (this.direction === -40) this.direction = -20;
+            if (this.direction === 0) this.direction = -20;
+            
+            this.view.resetSideSlides(this.direction);
+        }
+    }
+
     async initBanchan(url) {
         const food = await request(url);
 
         this.view.renderBanchan(food);
         this.view.bindFoodTab(food);
+    }
+
+    async initSideBanchan(url) {
+        const food = await request(url);
+
+        this.view.renderSideBanchan(food);
+        this.view.showSideSlides(this.direction);
+        this.view.bindSideSlides(this.resetSideSlides.bind(this));
         this.view.bindPreventDefault();
     }
 
