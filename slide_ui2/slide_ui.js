@@ -2,27 +2,21 @@ function initSlide() {
     var findSlide = qsa(".slide");
     var slideList = [];
     findSlide && findSlide.forEach(element => {
-        slideList.push(new slide("."+element.classList[1]))
+        slideList.push(new Slide("."+element.classList[1]))
     });
 }
 
-function slide(cn){
+function Slide(cn){
     this.index = 0;
-    this.last = null;
-    this.length = null;
-    this.urlList = null;
     this.target = qs(cn);
-    this.slideList = null;
-    this.moveButton = null;
-    this.pagination = null;
     
     (function(){ 
-        this.target && slide.prototype.getData(this.target.innerHTML,this);
+        this.target && Slide.prototype.getData(this.target.innerHTML,this);
     }.bind(this))();
 }
 
-slide.prototype = {
-    constructor : slide,
+Slide.prototype = { //메소드만 포함
+    constructor : Slide,
     template :  `
     <ul></ul>
     <div>
@@ -65,15 +59,7 @@ slide.prototype = {
         this.hide(this.index);
         this.show(index);
     },
-    init : function(){
-        this.length = this.urlList.length;
-        this.last = this.length-1;
-        this.target.innerHTML = this.template;
-
-        this.slideList = this.target.children[0]; 
-        this.moveButton = this.target.children[1];
-        this.pagination = this.target.children[2].children[0];
-        
+    makeTag : function(){
         this.urlList.forEach((url,index)=> {
             var li = document.createElement("li");
             li.style.background = 'url("'+url+'") no-repeat center';
@@ -83,7 +69,8 @@ slide.prototype = {
             this.pagination.innerHTML += "<li><a></a></li> ";
         });
         this.pagination.children[0].className = "on";
-        
+    },
+    makeEvent : function() {
         $on(this.moveButton,"click",e=>{
             if(!event.target || event.target.nodeName !== "A") {
                 return;
@@ -102,6 +89,18 @@ slide.prototype = {
             this.show(index);
             this.index = index;
         });
+    },
+    init : function(){
+        this.length = this.urlList.length;
+        this.last = this.length-1;
+        this.target.innerHTML = this.template;
+
+        this.slideList = this.target.children[0]; 
+        this.moveButton = this.target.children[1];
+        this.pagination = this.target.children[2].children[0];
+
+        this.makeTag();
+        this.makeEvent();
     }
 }
 
