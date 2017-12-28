@@ -1,4 +1,6 @@
-import {request} from './helpers';
+import {
+    request
+} from './helpers';
 
 export default class Controller {
     /**
@@ -10,13 +12,11 @@ export default class Controller {
         view.bindSlidesPrev(this.moveSlides.bind(this));
         view.bindSlidesNext(this.moveSlides.bind(this));
         view.bindSlidesDots(this.currentSlide.bind(this));
-        this.slidesEnd = 11;
+        view.bindSideSlidesPrev(this.moveSideSlides.bind(this));
+        view.bindSideSlidesNext(this.moveSideSlides.bind(this));
+
         this.slideIndex = 0;
         this.direction = -10;
-
-
-        view.bindSlidesSidePrev(this.moveSideSlides.bind(this));
-        view.bindSlidesSideNext(this.moveSideSlides.bind(this));
     }
 
     setView() {
@@ -27,7 +27,7 @@ export default class Controller {
 
     async initSlide(url) {
         this.slideImgs = await request(url);
-
+        this.slidesEnd = this.slideImgs.length-1;
         this.view.showSlides(this.slideIndex, this.slideImgs[this.slideIndex]);
     }
 
@@ -49,29 +49,25 @@ export default class Controller {
         this.view.showSlides(this.slideIndex, this.slideImgs[this.slideIndex]);
     }
 
-    resetSideSlides(reset) {
-        if (reset) {
-            if (this.direction === -40) this.direction = -20;
-            if (this.direction === 0) this.direction = -20;
-            
-            this.view.resetSideSlides(this.direction);
-        }
-    }
-
     async initBanchan(url) {
         const food = await request(url);
-
         this.view.renderBanchan(food);
         this.view.bindFoodTab(food);
     }
 
     async initSideBanchan(url) {
         const food = await request(url);
-
         this.view.renderSideBanchan(food);
         this.view.showSideSlides(this.direction);
         this.view.bindSideSlides(this.resetSideSlides.bind(this));
         this.view.bindPreventDefault();
+    }
+
+    resetSideSlides() {
+        if (this.direction === -40) this.direction = -20;
+        if (this.direction === 0) this.direction = -20;
+
+        this.view.resetSideSlides(this.direction);
     }
 
 }
