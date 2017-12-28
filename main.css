@@ -373,6 +373,7 @@ span.ic {
 .main_slides_list li {
     float: left;
     position: absolute;
+    display: block;
     width: 100%;
     background: no-repeat center top;
 }
@@ -381,31 +382,13 @@ span.ic {
 /* Fading animation */
 
 .fadein {
-    animation-name: fadein;
-    animation-duration: 1.5s;
+    opacity: 1;
+    transition: opacity 1s;
 }
 
 .fadeout {
-    animation-name: fadeout;
-    animation-duration: 1.5s;
-}
-
-@keyframes fadein {
-    from {
-        opacity: 0
-    }
-    to {
-        opacity: 1
-    }
-}
-
-@keyframes fadeout {
-    from {
-        opacity: 1
-    }
-    to {
-        opacity: 0
-    }
+    opacity: 0;
+    transition: opacity 1s;
 }
 
 .main_slides_list>li>a {
@@ -426,7 +409,7 @@ span.ic {
     position: absolute;
     top: 50%;
     margin-top: -46px;
-    background: url('https://cdn.bmf.kr/web/common/main_slides_navi.png') no-repeat center center;
+    background: url(https://cdn.bmf.kr/web/common/main_slides_navi.png) no-repeat center center;
 }
 
 .slides_navi>.slides_prev {
@@ -457,7 +440,7 @@ span.ic {
     display: block;
     width: 10px;
     height: 0;
-    padding-top : 10px;
+    padding-top: 10px;
     overflow: hidden;
     background: #FFF;
     border-radius: 50%;
@@ -539,6 +522,10 @@ span.ic {
 
 .food_img_hover {
     display: none;
+}
+
+.food_img_hover>div {
+    height: 100%;
 }
 
 .food_img_hover ul {
@@ -656,4 +643,175 @@ span.ic {
     font-size: 15px;
     font-weight: bold;
     top: -3px;
+}
+
+.side_food {
+    overflow: auto;
+    text-align: center;
+    position: relative;
+}
+
+.side_food_content {
+    position: relative;
+    background: #fff;
+    width: 980px;
+    height: 670px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.side_food_title {
+    margin: 70px 0 37px;
+    position: relative;
+}
+
+.side_food_container {
+    height: 346px;
+    overflow: hidden;
+}
+
+.side_food_box_list {
+    width: 1000%;
+    position: relative;
+    overflow: hidden;
+    transform: translateX(-10%);
+}
+
+.side_food_slides_navi>a {
+    display: block;
+    width: 28px;
+    height: 52px;
+    text-indent: -3000px;
+    overflow: hidden;
+    position: absolute;
+    top: 257px;
+    background: url(https://cdn.bmf.kr/web/common/btn_prds_thumb_slides_navi.png) no-repeat center center;
+}
+
+.side_food_slides_navi>.slides_prev {
+    left: 50%;
+    margin-left: -558px;
+    background-position: left top;
+}
+
+.side_food_slides_navi>.slides_prev:hover,
+.side_food_slides_navi>.slides_prev:focus {
+    background-position: left -52px;
+}
+
+.side_food_slides_navi>.slides_next {
+    right: 50%;
+    margin-right: -558px;
+    background-position: right top;
+}
+
+.side_food_slides_navi>.slides_next:hover,
+.side_food_slides_navi>.slides_next:focus {
+    background-position: right -52px;
+}
+
+.side_btn {
+    display: block;
+    margin: 38px auto;
+    padding: 15px 0 17px;
+    width: 980px;
+    text-align: center;
+    font-size: 15px;
+    color: #333;
+    border: 1px solid #d7d7d7;
+}
+
+.side_btn span {
+    padding-right: 14px;
+    background: url(https://cdn.bmf.kr/web/main/btn_arr_more.png) no-repeat right;
+}
+
+.side_food_banner {
+    background: url(https://cdn.bmf.kr/banner/main_event/171214/1513243712683_1e0a6312599e.jpg) no-repeat center top #fff;
+    height: 140px;
+}
+
+.side_food_banner a {
+    display: block;
+    width: 980px;
+    height: 140px;
+    margin: 0 auto;
+}
+
+.thumb_img {
+    position: relative;
+    height: 215px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.thumb_img>p>img {
+    max-width: 100%;
+}
+
+.circle_mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url(https://cdn.bmf.kr/web/common/circle_mask.png) no-repeat center center;
+    width: 215px;
+    height: 215px;
+}
+
+.prd_box {
+    float: left;
+    list-style: none;
+    position: relative;
+    width: 215px;
+    margin: 0px 15px 8px;
+}
+
+.prd_box>a>dl {
+    padding: 18px 10px 12px 10px;
+}
+
+.prd_title {
+    color: #000;
+    letter-spacing: -1.2px;
+    font-size: 16px;
+    margin-bottom: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.prd_description {
+    font-size: 13px;
+    letter-spacing: -1.2px;
+    margin-bottom: 5px;
+    color: #666;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.prd_price>.old_price {
+    font-size: 13px;
+}
+
+.prd_badge_list {
+    position: relative;
+    height: 24px;
+    text-align: center;
+}
+
+.prd_badge_list>.badge {
+    float: none;
+    margin: 0 auto;
+}
+
+.prd_box:hover .food_img_hover,
+.prd_box:focus .food_img_hover {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
 }
