@@ -397,15 +397,11 @@ span.ic {
     height: 420px;
     margin: 0 auto;
     overflow: hidden;
-    text-indent: -3000px;
 }
 
 .slides_navi>a {
-    display: block;
     width: 60px;
     height: 92px;
-    text-indent: -3000px;
-    overflow: hidden;
     position: absolute;
     top: 50%;
     margin-top: -46px;
@@ -678,13 +674,10 @@ span.ic {
 }
 
 .side_food_slides_navi>a {
-    display: block;
-    width: 28px;
-    height: 52px;
-    text-indent: -3000px;
-    overflow: hidden;
     position: absolute;
     top: 257px;
+    width: 28px;
+    height: 52px;
     background: url(https://cdn.bmf.kr/web/common/btn_prds_thumb_slides_navi.png) no-repeat center center;
 }
 
@@ -794,13 +787,15 @@ span.ic {
     font-size: 13px;
 }
 
-.prd_badge_list {
+.prd_box>a>.badge_list {
     position: relative;
+    top : 0;
     height: 24px;
     text-align: center;
+    margin:0;
 }
 
-.prd_badge_list>.badge {
+.prd_box>a>.badge_list>.badge {
     float: none;
     margin: 0 auto;
 }

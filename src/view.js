@@ -3,7 +3,6 @@ import foodBoxSideTemplate from '../template/foodBoxSide-tpl.html';
 import foodTabTemplate from '../template/foodTab-tpl.html';
 import containerTemplate from '../template/container-tpl.html';
 import badgeTemplate from '../template/badge-tpl.html';
-import badgeSideTemplate from '../template/badgeSide-tpl.html';
 import deliveryTypeTemplate from '../template/deliveryType-tpl.html';
 import {qs,qsa,on,delegate,throttle} from './helpers';
 
@@ -27,16 +26,16 @@ export default class View {
         on(this.slidesNextEl, 'click', () => handler(1));
     }
 
-    bindSlidesSidePrev(handler) {
+    bindSideSlidesPrev(handler) {
         on(this.slidesSidePrevEl, 'click', throttle(() => handler(10), 800));
     }
 
-    bindSlidesSideNext(handler) {
+    bindSideSlidesNext(handler) {
         on(this.slidesSideNextEl, 'click', throttle(() => handler(-10), 800));
     }
 
     bindSideSlides(handler) {
-        on(this.sideFoodBoxEl, 'transitionend', () => handler(true));
+        on(this.sideFoodBoxEl, 'transitionend', () => handler());
     }
 
     bindSlidesDots(handler) {
@@ -132,7 +131,7 @@ export default class View {
     renderFoodBoxSide(food) {
         const prdBox = qsa('.prd_box>a');
         food.forEach((item, i) => {
-            prdBox[i].insertAdjacentHTML('beforeend', badgeSideTemplate({
+            prdBox[i].insertAdjacentHTML('beforeend', badgeTemplate({
                 badge: item.badge
             }));
             prdBox[i].firstElementChild.insertAdjacentHTML('beforeend', deliveryTypeTemplate({
