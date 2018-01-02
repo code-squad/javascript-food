@@ -56,12 +56,12 @@ export default class Controller {
 
     async initBanchan(url) {
         try {
-            const food = await request(url);
+            this.banchan = await request(url);
         } catch (e) {
             console.error(e);
         }
-        this.view.renderBanchan(food);
-        this.view.bindFoodTab(food);
+        this.view.renderBanchan(this.banchan);
+        this.view.bindFoodTab(this.banchan);
     }
 
     resetSideSlides() {
@@ -72,11 +72,11 @@ export default class Controller {
 
     async initSideBanchan(url) {
         try {
-            const food = await request(url);
+            this.sideBanchan = await request(url);
         } catch (e) {
             console.error(e);
         }
-        this.view.renderSideBanchan(food);
+        this.view.renderSideBanchan(this.sideBanchan);
         this.view.resetSideSlides(this.direction);
         this.view.bindSideSlides(this.resetSideSlides.bind(this));
     }

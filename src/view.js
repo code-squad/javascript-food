@@ -13,7 +13,7 @@ export default class View {
         this.slidesNextEl = qs('.slides_next');
         this.slidesEl = qsa('.main_slides_list > li');
         this.dotsEl = qsa('.slides_dots > li > a');
-        
+
         this.sideFoodBoxEl = qs('.side_food_box_list');
         this.slidesSidePrevEl = qs('.side_food_slides_navi>.slides_prev');
         this.slidesSideNextEl = qs('.side_food_slides_navi>.slides_next');
@@ -56,7 +56,6 @@ export default class View {
         });
     }
 
-
     renderBanchan(food) {
         this.renderFoodTab(food);
         this.renderFoodContainer(food);
@@ -65,7 +64,6 @@ export default class View {
         this.renderFoodTabList(food, Math.floor(Math.random() * 6));
     }
 
-
     renderSideBanchan(food) {
         this.renderFoodBoxSideList(food);
         this.renderFoodBoxSide(food);
@@ -73,22 +71,24 @@ export default class View {
     }
 
     renderFoodTab(food) {
-        this.foodTabEl.insertAdjacentHTML('afterbegin', food.map(value => foodTabTemplate({
+        const foodTab = food.map(value => foodTabTemplate({
             category_id: value.category_id,
             name: value.name
-        })).join(''));
+        })).join('');
+        this.foodTabEl.insertAdjacentHTML('afterbegin', foodTab);
     }
 
     renderFoodContainer(food) {
-        qs('.best_food_container').insertAdjacentHTML('afterbegin', food.map(value => containerTemplate({
+        const foodContainer = food.map(value => containerTemplate({
             category_id: value.category_id
-        })).join(''));
+        })).join('');
+        qs('.best_food_container').insertAdjacentHTML('afterbegin', foodContainer);
     }
 
     renderFoodBoxList(food) {
         this.foodBoxListEl = qsa('.best_food_box_list');
         food.forEach((value, i) => {
-            this.foodBoxListEl[i].insertAdjacentHTML('afterbegin', value.items.map(item =>
+            const foodBoxList = value.items.map(item =>
                 foodBoxTemplate({
                     image: item.image,
                     alt: item.alt,
@@ -97,7 +97,8 @@ export default class View {
                     old_price: item.n_price,
                     new_price: item.s_price.slice(0, -1),
                     won: item.s_price.slice(-1)
-                })).join(''));
+                })).join('');
+            this.foodBoxListEl[i].insertAdjacentHTML('afterbegin', foodBoxList);
         });
     }
 
@@ -117,7 +118,7 @@ export default class View {
     }
 
     renderFoodBoxSideList(food) {
-        this.sideFoodBoxEl.insertAdjacentHTML('afterbegin', food.map(item =>
+        const foodBoxSideList = food.map(item =>
             foodBoxSideTemplate({
                 image: item.image,
                 alt: item.alt,
@@ -126,7 +127,8 @@ export default class View {
                 old_price: item.n_price,
                 new_price: item.s_price.slice(0, -1),
                 won: item.s_price.slice(-1)
-            })).join(''));
+            })).join('');
+        this.sideFoodBoxEl.insertAdjacentHTML('afterbegin', foodBoxSideList);
     }
 
     renderFoodBoxSide(food) {
