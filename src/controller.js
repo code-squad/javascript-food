@@ -43,6 +43,7 @@ export default class Controller {
         if (this.slideIndex < 0) this.slideIndex = this.slidesEnd;
         this.view.showSlides(this.slideIndex, this.slideImgs[this.slideIndex]);
     }
+
     moveSideSlides(direction) {
         this.direction += direction;
         this.view.showSideSlides(this.direction);
@@ -64,9 +65,9 @@ export default class Controller {
         this.view.bindFoodTab(this.banchan);
     }
 
-    resetSideSlides() {
-        if (this.direction === -40 || this.direction === 0) {
-            this.view.resetSideSlides(this.direction = -20);
+    resetSideSlides(thresholdLeft, thresholdRight) {
+        if (this.direction === thresholdLeft || this.direction === thresholdRight) {
+            this.view.renderResetSideSlides(this.direction = -20);
         }
     }
 
@@ -77,8 +78,8 @@ export default class Controller {
             console.error(e);
         }
         this.view.renderSideBanchan(this.sideBanchan);
-        this.view.resetSideSlides(this.direction);
-        this.view.bindSideSlides(this.resetSideSlides.bind(this));
+        this.view.renderResetSideSlides(this.direction);
+        this.view.bindSideSlides(this.resetSideSlides.bind(this, -40, 0));
     }
 
 }

@@ -176,7 +176,7 @@ export default class View {
         this.sideFoodBoxEl.style.transform = `translateX(${direction}%)`;
     }
 
-    resetSideSlides(direction) {
+    renderResetSideSlides(direction) {
         this.sideFoodBoxEl.style.transitionDuration = '0s';
         this.sideFoodBoxEl.style.transform = `translateX(${direction}%)`;
     }
