@@ -48,15 +48,15 @@ export default class View {
 
     render(viewCmd, parameter) {
         const viewCommands = {
-            renderBanchan: () => {
-                this.renderBanchan(parameter);
+            Banchan: () => {
+                this.Banchan(parameter);
             }
         };
 
         viewCommands[viewCmd]();
     }
 
-    renderBanchan(food) {
+    Banchan(food) {
         this.renderFoodTab(food);
         this.renderFoodContainer(food);
         this.renderFoodBoxList(food);

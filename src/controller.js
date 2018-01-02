@@ -68,7 +68,7 @@ export default class Controller {
         } catch (e) {
             console.error(e);
         }
-        this.view.render('renderBanchan', this.banchan);
+        this.view.render('Banchan', this.banchan);
         this.view.bind('foodTab', this.banchan);
     }
 
@@ -78,10 +78,10 @@ export default class Controller {
         } catch (e) {
             console.error(e);
         }
-        this.infiniteView.render('renderSideBanchan', this.sideBanchan, this.sideDirection);
+        this.infiniteView.render('SideBanchan', this.sideBanchan, this.sideDirection);
         this.infiniteView.bind('sideSlides', this.resetSideSlides.bind(this, -40, 0));
     }
-    
+
     moveSideSlides(direction) {
         this.sideDirection += direction;
         this.infiniteView.showSlides('side', this.sideDirection);
@@ -99,7 +99,7 @@ export default class Controller {
         } catch (e) {
             console.error(e);
         }
-        this.infiniteView.render('renderMainBanchan', this.mainBanchan, this.mainDirection);
+        this.infiniteView.render('MainBanchan', this.mainBanchan, this.mainDirection);
         this.infiniteView.bind('mainSlides', this.resetMainSlides.bind(this, -40, 0));
     }
 
@@ -120,7 +120,7 @@ export default class Controller {
         } catch (e) {
             console.error(e);
         }
-        this.infiniteView.render('renderCourseBanchan', this.courseBanchan, this.courseDirection);
+        this.infiniteView.render('CourseBanchan', this.courseBanchan, this.courseDirection);
         this.infiniteView.bind('courseSlides', this.resetCourseSlides.bind(this, -40, 0));
     }
 

@@ -58,14 +58,14 @@ export default class InfiniteView {
 
     render(viewCmd, ...parameter) {
         const viewCommands = {
-            renderSideBanchan: () => {
-                this.renderSideBanchan(...parameter);
+            SideBanchan: () => {
+                this.renderBanchan('side', this.sideFoodBoxEl, ...parameter);
             },
-            renderMainBanchan: () => {
-                this.renderMainBanchan(...parameter);
+            MainBanchan: () => {
+                this.renderBanchan('main', this.mainFoodBoxEl, ...parameter);
             },
-            renderCourseBanchan: () => {
-                this.renderCourseBanchan(...parameter);
+            CourseBanchan: () => {
+                this.renderBanchan('course', this.courseFoodBoxEl, ...parameter);
             }
         };
 
@@ -73,25 +73,11 @@ export default class InfiniteView {
     }
 
 
-    renderSideBanchan(food, direction) {
-        this.renderFoodBoxSideList(this.sideFoodBoxEl, food);
-        this.renderFoodBoxSide(food, qsa('.side_food .prd_box>a'));
-        this.renderSlides(this.sideFoodBoxEl, qsa('.side_food .prd_box'));
-        this.showSlides('side', direction, true);
-    }
-
-    renderMainBanchan(food, direction) {
-        this.renderFoodBoxSideList(this.mainFoodBoxEl, food);
-        this.renderFoodBoxSide(food, qsa('.main_food .prd_box>a'));
-        this.renderSlides(this.mainFoodBoxEl, qsa('.main_food .prd_box'));
-        this.showSlides('main', direction, true);
-    }
-
-    renderCourseBanchan(food, direction) {
-        this.renderFoodBoxSideList(this.courseFoodBoxEl, food);
-        this.renderFoodBoxSide(food, qsa('.course_food .prd_box>a'));
-        this.renderSlides(this.courseFoodBoxEl, qsa('.course_food .prd_box'));
-        this.showSlides('course', direction, true);
+    renderBanchan(name, element, food, direction) {
+        this.renderFoodBoxSideList(element, food);
+        this.renderFoodBoxSide(food, qsa(`.${name}_food .prd_box>a`));
+        this.renderSlides(element, qsa(`.${name}_food .prd_box`));
+        this.showSlides(name, direction, true);
     }
 
     renderFoodBoxSideList(element, food) {
