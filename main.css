@@ -653,6 +653,13 @@ span.ic {
     position: relative;
 }
 
+.course_food {
+    overflow: auto;
+    text-align: center;
+    position: relative;
+}
+
+
 .infinite_food_content {
     position: relative;
     background: #fff;
@@ -732,6 +739,11 @@ span.ic {
 
 .main_food .infinite_food_banner {
     background: url(https://cdn.bmf.kr/banner/main_event/170628/1498639751272_e6cadbda65b4.jpg) no-repeat center top #fff;
+    height: 140px;
+}
+
+.course_food .infinite_food_banner {
+    background: url(https://cdn.bmf.kr/banner/main_event/170425/1493082744401_ba9831e4e2bb.png) no-repeat center top #fff;
     height: 140px;
 }
 

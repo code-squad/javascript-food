@@ -20,9 +20,13 @@ export default class Controller {
         infiniteView.bind('mainSlidesPrev', this.moveMainSlides.bind(this));
         infiniteView.bind('mainSlidesNext', this.moveMainSlides.bind(this));
 
+        infiniteView.bind('courseSlidesPrev', this.moveCourseSlides.bind(this));
+        infiniteView.bind('courseSlidesNext', this.moveCourseSlides.bind(this));
+
         this.slideIndex = 0;
         this.sideDirection = -20;
         this.mainDirection = -20;
+        this.courseDirection = -20;
     }
 
     setView() {
@@ -30,6 +34,7 @@ export default class Controller {
         this.initBanchan('http://crong.codesquad.kr:8080/woowa/best');
         this.initSideBanchan('http://crong.codesquad.kr:8080/woowa/side');
         this.initMainBanchan('http://crong.codesquad.kr:8080/woowa/main');
+        this.initCourseBanchan('http://crong.codesquad.kr:8080/woowa/course');
         this.view.bind('preventDefault');
     }
 
@@ -67,28 +72,6 @@ export default class Controller {
         this.view.bind('foodTab', this.banchan);
     }
 
-    moveSideSlides(direction) {
-        this.sideDirection += direction;
-        this.infiniteView.showSlides('side', this.sideDirection);
-    }
-
-    moveMainSlides(direction) {
-        this.mainDirection += direction;
-        this.infiniteView.showSlides('main', this.mainDirection);
-    }
-
-    resetSideSlides(thresholdLeft, thresholdRight) {
-        if (this.sideDirection === thresholdLeft || this.sideDirection === thresholdRight) {
-            this.infiniteView.showSlides('side', this.sideDirection = -20, true);
-        }
-    }
-
-    resetMainSlides(thresholdLeft, thresholdRight) {
-        if (this.mainDirection === thresholdLeft || this.mainDirection === thresholdRight) {
-            this.infiniteView.showSlides('main', this.mainDirection = -20, true);
-        }
-    }
-
     async initSideBanchan(url) {
         try {
             this.sideBanchan = await request(url);
@@ -97,6 +80,17 @@ export default class Controller {
         }
         this.infiniteView.render('renderSideBanchan', this.sideBanchan, this.sideDirection);
         this.infiniteView.bind('sideSlides', this.resetSideSlides.bind(this, -40, 0));
+    }
+    
+    moveSideSlides(direction) {
+        this.sideDirection += direction;
+        this.infiniteView.showSlides('side', this.sideDirection);
+    }
+
+    resetSideSlides(thresholdLeft, thresholdRight) {
+        if (this.sideDirection === thresholdLeft || this.sideDirection === thresholdRight) {
+            this.infiniteView.showSlides('side', this.sideDirection = -20, true);
+        }
     }
 
     async initMainBanchan(url) {
@@ -107,6 +101,38 @@ export default class Controller {
         }
         this.infiniteView.render('renderMainBanchan', this.mainBanchan, this.mainDirection);
         this.infiniteView.bind('mainSlides', this.resetMainSlides.bind(this, -40, 0));
+    }
+
+    moveMainSlides(direction) {
+        this.mainDirection += direction;
+        this.infiniteView.showSlides('main', this.mainDirection);
+    }
+
+    resetMainSlides(thresholdLeft, thresholdRight) {
+        if (this.mainDirection === thresholdLeft || this.mainDirection === thresholdRight) {
+            this.infiniteView.showSlides('main', this.mainDirection = -20, true);
+        }
+    }
+
+    async initCourseBanchan(url) {
+        try {
+            this.courseBanchan = await request(url);
+        } catch (e) {
+            console.error(e);
+        }
+        this.infiniteView.render('renderCourseBanchan', this.courseBanchan, this.courseDirection);
+        this.infiniteView.bind('courseSlides', this.resetCourseSlides.bind(this, -40, 0));
+    }
+
+    moveCourseSlides(direction) {
+        this.courseDirection += direction;
+        this.infiniteView.showSlides('course', this.courseDirection);
+    }
+
+    resetCourseSlides(thresholdLeft, thresholdRight) {
+        if (this.courseDirection === thresholdLeft || this.courseDirection === thresholdRight) {
+            this.infiniteView.showSlides('course', this.courseDirection = -20, true);
+        }
     }
 
 }

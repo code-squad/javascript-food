@@ -16,6 +16,10 @@ export default class InfiniteView {
         this.mainFoodBoxEl = qs('.main_food .infinite_food_box_list');
         this.slidesMainPrevEl = qs('.main_food .infinite_food_slides_navi>.slides_prev');
         this.slidesMainNextEl = qs('.main_food .infinite_food_slides_navi>.slides_next');
+
+        this.courseFoodBoxEl = qs('.course_food .infinite_food_box_list');
+        this.slidesCoursePrevEl = qs('.course_food .infinite_food_slides_navi>.slides_prev');
+        this.slidesCourseNextEl = qs('.course_food .infinite_food_slides_navi>.slides_next');
     }
 
     bind(event, handler) {
@@ -38,6 +42,15 @@ export default class InfiniteView {
             case 'mainSlides':
                 on(this.mainFoodBoxEl, 'transitionend', () => handler());
                 break;
+            case 'courseSlidesPrev':
+                on(this.slidesCoursePrevEl, 'click', throttle(() => handler(10), 800));
+                break;
+            case 'courseSlidesNext':
+                on(this.slidesCourseNextEl, 'click', throttle(() => handler(-10), 800));
+                break;
+            case 'courseSlides':
+                on(this.courseFoodBoxEl, 'transitionend', () => handler());
+                break;
             default:
                 break;
         }
@@ -50,6 +63,9 @@ export default class InfiniteView {
             },
             renderMainBanchan: () => {
                 this.renderMainBanchan(...parameter);
+            },
+            renderCourseBanchan: () => {
+                this.renderCourseBanchan(...parameter);
             }
         };
 
@@ -60,15 +76,22 @@ export default class InfiniteView {
     renderSideBanchan(food, direction) {
         this.renderFoodBoxSideList(this.sideFoodBoxEl, food);
         this.renderFoodBoxSide(food, qsa('.side_food .prd_box>a'));
-        this.renderSideSlides(this.sideFoodBoxEl, qsa('.side_food .prd_box'));
+        this.renderSlides(this.sideFoodBoxEl, qsa('.side_food .prd_box'));
         this.showSlides('side', direction, true);
     }
 
     renderMainBanchan(food, direction) {
         this.renderFoodBoxSideList(this.mainFoodBoxEl, food);
         this.renderFoodBoxSide(food, qsa('.main_food .prd_box>a'));
-        this.renderSideSlides(this.mainFoodBoxEl, qsa('.main_food .prd_box'));
+        this.renderSlides(this.mainFoodBoxEl, qsa('.main_food .prd_box'));
         this.showSlides('main', direction, true);
+    }
+
+    renderCourseBanchan(food, direction) {
+        this.renderFoodBoxSideList(this.courseFoodBoxEl, food);
+        this.renderFoodBoxSide(food, qsa('.course_food .prd_box>a'));
+        this.renderSlides(this.courseFoodBoxEl, qsa('.course_food .prd_box'));
+        this.showSlides('course', direction, true);
     }
 
     renderFoodBoxSideList(element, food) {
@@ -96,7 +119,7 @@ export default class InfiniteView {
         });
     }
 
-    renderSideSlides(element, sideSlides) {
+    renderSlides(element, sideSlides) {
         const sideSlidesSecond = Array.from(sideSlides).slice(sideSlides.length / 2);
         sideSlides.forEach(sideSlide =>
             element.appendChild(sideSlide.cloneNode(true)));
@@ -105,7 +128,19 @@ export default class InfiniteView {
     }
 
     showSlides(name, direction, Immediately) {
-        const element = name === 'side' ? this.sideFoodBoxEl : this.mainFoodBoxEl;
+        let element;
+        switch (name) {
+            case 'side':
+                element = this.sideFoodBoxEl;
+                break;
+            case 'main':
+                element = this.mainFoodBoxEl;
+                break;
+            case 'course':
+                element = this.courseFoodBoxEl;
+                break;
+        }
+
         element.style.transitionDuration = Immediately ? '0s' : '0.5s';
         element.style.transform = `translateX(${direction}%)`;
     }
