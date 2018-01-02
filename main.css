@@ -647,7 +647,13 @@ span.ic {
     position: relative;
 }
 
-.side_food_content {
+.main_food {
+    overflow: auto;
+    text-align: center;
+    position: relative;
+}
+
+.infinite_food_content {
     position: relative;
     background: #fff;
     width: 980px;
@@ -656,24 +662,24 @@ span.ic {
     overflow: hidden;
 }
 
-.side_food_title {
+.infinite_food_title {
     margin: 70px 0 37px;
     position: relative;
 }
 
-.side_food_container {
+.infinite_food_container {
     height: 346px;
     overflow: hidden;
 }
 
-.side_food_box_list {
+.infinite_food_box_list {
     width: 1000%;
     position: relative;
     overflow: hidden;
     transform: translateX(-10%);
 }
 
-.side_food_slides_navi>a {
+.infinite_food_slides_navi>a {
     position: absolute;
     top: 257px;
     width: 28px;
@@ -681,29 +687,29 @@ span.ic {
     background: url(https://cdn.bmf.kr/web/common/btn_prds_thumb_slides_navi.png) no-repeat center center;
 }
 
-.side_food_slides_navi>.slides_prev {
+.infinite_food_slides_navi>.slides_prev {
     left: 50%;
     margin-left: -558px;
     background-position: left top;
 }
 
-.side_food_slides_navi>.slides_prev:hover,
-.side_food_slides_navi>.slides_prev:focus {
+.infinite_food_slides_navi>.slides_prev:hover,
+.infinite_food_slides_navi>.slides_prev:focus {
     background-position: left -52px;
 }
 
-.side_food_slides_navi>.slides_next {
+.infinite_food_slides_navi>.slides_next {
     right: 50%;
     margin-right: -558px;
     background-position: right top;
 }
 
-.side_food_slides_navi>.slides_next:hover,
-.side_food_slides_navi>.slides_next:focus {
+.infinite_food_slides_navi>.slides_next:hover,
+.infinite_food_slides_navi>.slides_next:focus {
     background-position: right -52px;
 }
 
-.side_btn {
+.infinite_btn {
     display: block;
     margin: 38px auto;
     padding: 15px 0 17px;
@@ -714,17 +720,22 @@ span.ic {
     border: 1px solid #d7d7d7;
 }
 
-.side_btn span {
+.infinite_btn span {
     padding-right: 14px;
     background: url(https://cdn.bmf.kr/web/main/btn_arr_more.png) no-repeat right;
 }
 
-.side_food_banner {
+.side_food .infinite_food_banner {
     background: url(https://cdn.bmf.kr/banner/main_event/171214/1513243712683_1e0a6312599e.jpg) no-repeat center top #fff;
     height: 140px;
 }
 
-.side_food_banner a {
+.main_food .infinite_food_banner {
+    background: url(https://cdn.bmf.kr/banner/main_event/170628/1498639751272_e6cadbda65b4.jpg) no-repeat center top #fff;
+    height: 140px;
+}
+
+.infinite_food_banner a {
     display: block;
     width: 980px;
     height: 140px;
