@@ -27,7 +27,11 @@ export default class Controller {
     }
 
     async initSlide(url) {
-        this.slideImgs = await request(url);
+        try {
+            this.slideImgs = await request(url);
+        } catch (e) {
+            console.error(e);
+        }
         this.slidesEnd = this.slideImgs.length - 1;
         this.view.showSlides(this.slideIndex, this.slideImgs[this.slideIndex]);
     }
@@ -51,18 +55,27 @@ export default class Controller {
     }
 
     async initBanchan(url) {
-        const food = await request(url);
+        try {
+            const food = await request(url);
+        } catch (e) {
+            console.error(e);
+        }
         this.view.renderBanchan(food);
         this.view.bindFoodTab(food);
     }
 
     resetSideSlides() {
-        if (this.direction === -40 || this.direction === 0)
+        if (this.direction === -40 || this.direction === 0) {
             this.view.resetSideSlides(this.direction = -20);
+        }
     }
 
     async initSideBanchan(url) {
-        const food = await request(url);
+        try {
+            const food = await request(url);
+        } catch (e) {
+            console.error(e);
+        }
         this.view.renderSideBanchan(food);
         this.view.resetSideSlides(this.direction);
         this.view.bindSideSlides(this.resetSideSlides.bind(this));
