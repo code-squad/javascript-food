@@ -72,7 +72,8 @@ export default class Controller {
         try {
             const foodData = await request(url);
             this.infiniteView.render(`${name}Banchan`, foodData);
-            this.infiniteView.bind(`${name}Slides`, this.resetInfiniteSlides.bind(this, -40, 0));
+            const [thresholdLeft, thresholdRight] = [-20 - (foodData.length * 2.5), -20 + (foodData.length * 2.5)];
+            this.infiniteView.bind(`${name}Slides`, this.resetInfiniteSlides.bind(this, thresholdLeft, thresholdRight));
         } catch (e) {
             console.error(e);
         }
