@@ -1,12 +1,7 @@
 import foodBoxInfiniteTemplate from '../template/foodBoxInfinite-tpl.html';
 import badgeTemplate from '../template/badge-tpl.html';
 import deliveryTypeTemplate from '../template/deliveryType-tpl.html';
-import {
-    qs,
-    qsa,
-    on,
-    throttle
-} from './helpers';
+import {qs,qsa,on,throttle} from './helpers';
 
 export default class InfiniteView {
     constructor() {
@@ -22,7 +17,7 @@ export default class InfiniteView {
         this.courseSlidesPrevEl = qs('.course_food .infinite_food_slides_navi>.slides_prev');
         this.courseSlidesNextEl = qs('.course_food .infinite_food_slides_navi>.slides_next');
 
-        this.data = {
+        this.state = {
             side: {
                 name: 'side',
                 el: this.sideFoodBoxEl,
@@ -44,31 +39,31 @@ export default class InfiniteView {
     bind(event, handler) {
         switch (event) {
             case 'sideSlides':
-                on(this.sideFoodBoxEl, 'transitionend', () => handler(this.data.side));
+                on(this.sideFoodBoxEl, 'transitionend', () => handler(this.state.side));
                 break;
             case 'sideSlidesPrev':
-                on(this.sideSlidesPrevEl, 'click', throttle(() => handler(this.data.side, 10), 600));
+                on(this.sideSlidesPrevEl, 'click', throttle(() => handler(this.state.side, 10), 600));
                 break;
             case 'sideSlidesNext':
-                on(this.sideSlidesNextEl, 'click', throttle(() => handler(this.data.side, -10), 600));
+                on(this.sideSlidesNextEl, 'click', throttle(() => handler(this.state.side, -10), 600));
                 break;
             case 'mainSlides':
-                on(this.mainFoodBoxEl, 'transitionend', () => handler(this.data.main));
+                on(this.mainFoodBoxEl, 'transitionend', () => handler(this.state.main));
                 break;
             case 'mainSlidesPrev':
-                on(this.mainSlidesPrevEl, 'click', throttle(() => handler(this.data.main, 10), 600));
+                on(this.mainSlidesPrevEl, 'click', throttle(() => handler(this.state.main, 10), 600));
                 break;
             case 'mainSlidesNext':
-                on(this.mainSlidesNextEl, 'click', throttle(() => handler(this.data.main, -10), 600));
+                on(this.mainSlidesNextEl, 'click', throttle(() => handler(this.state.main, -10), 600));
                 break;
             case 'courseSlides':
-                on(this.courseFoodBoxEl, 'transitionend', () => handler(this.data.course));
+                on(this.courseFoodBoxEl, 'transitionend', () => handler(this.state.course));
                 break;
             case 'courseSlidesPrev':
-                on(this.courseSlidesPrevEl, 'click', throttle(() => handler(this.data.course, 10), 600));
+                on(this.courseSlidesPrevEl, 'click', throttle(() => handler(this.state.course, 10), 600));
                 break;
             case 'courseSlidesNext':
-                on(this.courseSlidesNextEl, 'click', throttle(() => handler(this.data.course, -10), 600));
+                on(this.courseSlidesNextEl, 'click', throttle(() => handler(this.state.course, -10), 600));
                 break;
             default:
                 break;
@@ -78,13 +73,13 @@ export default class InfiniteView {
     render(viewCmd, parameter) {
         const viewCommands = {
             sideBanchan: () => {
-                this.renderBanchan(this.data.side, parameter);
+                this.renderBanchan(this.state.side, parameter);
             },
             mainBanchan: () => {
-                this.renderBanchan(this.data.main, parameter);
+                this.renderBanchan(this.state.main, parameter);
             },
             courseBanchan: () => {
-                this.renderBanchan(this.data.course, parameter);
+                this.renderBanchan(this.state.course, parameter);
             }
         };
 
@@ -133,7 +128,7 @@ export default class InfiniteView {
     }
 
     showSlides(name, direction, Immediately) {
-        const element = this.data[name].el;
+        const element = this.state[name].el;
 
         element.style.transitionDuration = Immediately ? '0s' : '0.5s';
         element.style.transform = `translateX(${direction}%)`;

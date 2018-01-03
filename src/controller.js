@@ -1,6 +1,4 @@
-import {
-    request
-} from './helpers';
+import {request} from './helpers';
 
 export default class Controller {
     /**
@@ -60,12 +58,12 @@ export default class Controller {
 
     async initBanchan(url) {
         try {
-            this.banchan = await request(url);
+            const banchan = await request(url);
+            this.view.render('Banchan', banchan);
+            this.view.bind('foodTab', banchan);
         } catch (e) {
             console.error(e);
         }
-        this.view.render('Banchan', this.banchan);
-        this.view.bind('foodTab', this.banchan);
     }
 
     async initInfiniteBanchan(name, url) {
