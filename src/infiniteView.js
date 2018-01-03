@@ -10,16 +10,16 @@ import {
 export default class InfiniteView {
     constructor() {
         this.sideFoodBoxEl = qs('.side_food .infinite_food_box_list');
-        this.slidesSidePrevEl = qs('.side_food .infinite_food_slides_navi>.slides_prev');
-        this.slidesSideNextEl = qs('.side_food .infinite_food_slides_navi>.slides_next');
+        this.sideSlidesPrevEl = qs('.side_food .infinite_food_slides_navi>.slides_prev');
+        this.sideSlidesNextEl = qs('.side_food .infinite_food_slides_navi>.slides_next');
 
         this.mainFoodBoxEl = qs('.main_food .infinite_food_box_list');
-        this.slidesMainPrevEl = qs('.main_food .infinite_food_slides_navi>.slides_prev');
-        this.slidesMainNextEl = qs('.main_food .infinite_food_slides_navi>.slides_next');
+        this.mainSlidesPrevEl = qs('.main_food .infinite_food_slides_navi>.slides_prev');
+        this.mainSlidesNextEl = qs('.main_food .infinite_food_slides_navi>.slides_next');
 
         this.courseFoodBoxEl = qs('.course_food .infinite_food_box_list');
-        this.slidesCoursePrevEl = qs('.course_food .infinite_food_slides_navi>.slides_prev');
-        this.slidesCourseNextEl = qs('.course_food .infinite_food_slides_navi>.slides_next');
+        this.courseSlidesPrevEl = qs('.course_food .infinite_food_slides_navi>.slides_prev');
+        this.courseSlidesNextEl = qs('.course_food .infinite_food_slides_navi>.slides_next');
 
         this.foodBoxMap = {
             side: this.sideFoodBoxEl,
@@ -30,32 +30,32 @@ export default class InfiniteView {
 
     bind(event, handler) {
         switch (event) {
-            case 'sideSlidesPrev':
-                on(this.slidesSidePrevEl, 'click', throttle(() => handler(10), 800));
-                break;
-            case 'sideSlidesNext':
-                on(this.slidesSideNextEl, 'click', throttle(() => handler(-10), 800));
-                break;
             case 'sideSlides':
                 on(this.sideFoodBoxEl, 'transitionend', () => handler());
                 break;
-            case 'mainSlidesPrev':
-                on(this.slidesMainPrevEl, 'click', throttle(() => handler(10), 800));
+            case 'sideSlidesPrev':
+                on(this.sideSlidesPrevEl, 'click', throttle(() => handler(10), 800));
                 break;
-            case 'mainSlidesNext':
-                on(this.slidesMainNextEl, 'click', throttle(() => handler(-10), 800));
+            case 'sideSlidesNext':
+                on(this.sideSlidesNextEl, 'click', throttle(() => handler(-10), 800));
                 break;
             case 'mainSlides':
                 on(this.mainFoodBoxEl, 'transitionend', () => handler());
                 break;
-            case 'courseSlidesPrev':
-                on(this.slidesCoursePrevEl, 'click', throttle(() => handler(10), 800));
+            case 'mainSlidesPrev':
+                on(this.mainSlidesPrevEl, 'click', throttle(() => handler(10), 800));
                 break;
-            case 'courseSlidesNext':
-                on(this.slidesCourseNextEl, 'click', throttle(() => handler(-10), 800));
+            case 'mainSlidesNext':
+                on(this.mainSlidesNextEl, 'click', throttle(() => handler(-10), 800));
                 break;
             case 'courseSlides':
                 on(this.courseFoodBoxEl, 'transitionend', () => handler());
+                break;
+            case 'courseSlidesPrev':
+                on(this.courseSlidesPrevEl, 'click', throttle(() => handler(10), 800));
+                break;
+            case 'courseSlidesNext':
+                on(this.courseSlidesNextEl, 'click', throttle(() => handler(-10), 800));
                 break;
             default:
                 break;
@@ -86,7 +86,7 @@ export default class InfiniteView {
     }
 
     renderFoodBoxList(element, food) {
-        const foodBoxSideList = food.map(item =>
+        const foodBoxList = food.map(item =>
             foodBoxInfiniteTemplate({
                 image: item.image,
                 alt: item.alt,
@@ -96,7 +96,7 @@ export default class InfiniteView {
                 new_price: item.s_price.slice(0, -1),
                 won: item.s_price.slice(-1)
             })).join('');
-        element.insertAdjacentHTML('afterbegin', foodBoxSideList);
+        element.insertAdjacentHTML('afterbegin', foodBoxList);
     }
 
     renderFoodBox(food, prdBox) {
@@ -110,12 +110,13 @@ export default class InfiniteView {
         });
     }
 
-    renderSlides(element, sideSlides) {
-        const sideSlidesSecond = Array.from(sideSlides).slice(-4);
-        sideSlides.forEach(sideSlide =>
-            element.appendChild(sideSlide.cloneNode(true)));
-        sideSlidesSecond.reverse().forEach(sideSlideSecond =>
-            element.insertBefore(sideSlideSecond.cloneNode(true), element.childNodes[0]));
+    renderSlides(element, Slides) {
+        const lastSlides = Array.from(Slides).slice(-4);
+
+        Slides.forEach(Slide =>
+            element.appendChild(Slide.cloneNode(true)));
+        lastSlides.reverse().forEach(lastSlide =>
+            element.insertBefore(lastSlide.cloneNode(true), element.childNodes[0]));
     }
 
     showSlides(name, direction, Immediately) {
