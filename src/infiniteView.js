@@ -90,7 +90,7 @@ export default class InfiniteView {
         this.renderFoodBoxList(target.el, food);
         this.renderFoodBox(food, qsa(`.${target.name}_food .prd_box>a`));
         this.renderSlides(target.el, qsa(`.${target.name}_food .prd_box`));
-        this.showSlides(target.name, target.direction, true);
+        this.showSlides(target.el, target.direction, true);
     }
 
     renderFoodBoxList(element, food) {
@@ -127,9 +127,7 @@ export default class InfiniteView {
             element.insertBefore(lastSlide.cloneNode(true), element.childNodes[0]));
     }
 
-    showSlides(name, direction, Immediately) {
-        const element = this.state[name].el;
-
+    showSlides(element, direction, Immediately) {
         element.style.transitionDuration = Immediately ? '0s' : '0.5s';
         element.style.transform = `translateX(${direction}%)`;
     }

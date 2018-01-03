@@ -79,12 +79,12 @@ export default class Controller {
 
     moveInfiniteSlides(target, move) {
         target.direction += move;
-        this.infiniteView.showSlides(target.name, target.direction);
+        this.infiniteView.showSlides(target.el, target.direction);
     }
 
     resetInfiniteSlides(thresholdLeft, thresholdRight, target) {
         if (target.direction === thresholdLeft || target.direction === thresholdRight) {
-            this.infiniteView.showSlides(target.name, target.direction = -20, true);
+            this.infiniteView.showSlides(target.el, target.direction = -20, true);
         }
     }
 
