@@ -25,7 +25,7 @@ export default class Controller {
 
     setView() {
         this.initSlide(this.urlList.mainSlide);
-        this.initBanchan(this.urlList.bestBanchan);
+        this.initBestBanchan(this.urlList.bestBanchan);
         this.initInfiniteBanchan('side', this.urlList.sideBanchan);
         this.initInfiniteBanchan('main', this.urlList.mainBanchan);
         this.initInfiniteBanchan('course', this.urlList.courseBanchan);
@@ -56,10 +56,10 @@ export default class Controller {
         this.view.showSlide(target.index, this.slideImgs[target.index]);
     }
 
-    async initBanchan(url) {
+    async initBestBanchan(url) {
         try {
             const banchan = await request(url);
-            this.view.render('Banchan', banchan);
+            this.view.render('bestBanchan', banchan);
             this.view.bind('foodTab', banchan);
         } catch (e) {
             console.error(e);
