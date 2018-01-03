@@ -1,4 +1,4 @@
-import foodBoxSideTemplate from '../template/foodBoxSide-tpl.html';
+import foodBoxInfiniteTemplate from '../template/foodBoxInfinite-tpl.html';
 import badgeTemplate from '../template/badge-tpl.html';
 import deliveryTypeTemplate from '../template/deliveryType-tpl.html';
 import {
@@ -20,6 +20,12 @@ export default class InfiniteView {
         this.courseFoodBoxEl = qs('.course_food .infinite_food_box_list');
         this.slidesCoursePrevEl = qs('.course_food .infinite_food_slides_navi>.slides_prev');
         this.slidesCourseNextEl = qs('.course_food .infinite_food_slides_navi>.slides_next');
+
+        this.foodBoxMap = {
+            side: this.sideFoodBoxEl,
+            main: this.mainFoodBoxEl,
+            course: this.courseFoodBoxEl
+        };
     }
 
     bind(event, handler) {
@@ -72,17 +78,16 @@ export default class InfiniteView {
         viewCommands[viewCmd]();
     }
 
-
     renderBanchan(name, element, food, direction) {
-        this.renderFoodBoxSideList(element, food);
-        this.renderFoodBoxSide(food, qsa(`.${name}_food .prd_box>a`));
+        this.renderFoodBoxList(element, food);
+        this.renderFoodBox(food, qsa(`.${name}_food .prd_box>a`));
         this.renderSlides(element, qsa(`.${name}_food .prd_box`));
         this.showSlides(name, direction, true);
     }
 
-    renderFoodBoxSideList(element, food) {
+    renderFoodBoxList(element, food) {
         const foodBoxSideList = food.map(item =>
-            foodBoxSideTemplate({
+            foodBoxInfiniteTemplate({
                 image: item.image,
                 alt: item.alt,
                 title: item.title,
@@ -94,7 +99,7 @@ export default class InfiniteView {
         element.insertAdjacentHTML('afterbegin', foodBoxSideList);
     }
 
-    renderFoodBoxSide(food, prdBox) {
+    renderFoodBox(food, prdBox) {
         food.forEach((item, i) => {
             prdBox[i].insertAdjacentHTML('beforeend', badgeTemplate({
                 badge: item.badge
@@ -106,7 +111,7 @@ export default class InfiniteView {
     }
 
     renderSlides(element, sideSlides) {
-        const sideSlidesSecond = Array.from(sideSlides).slice(sideSlides.length / 2);
+        const sideSlidesSecond = Array.from(sideSlides).slice(-4);
         sideSlides.forEach(sideSlide =>
             element.appendChild(sideSlide.cloneNode(true)));
         sideSlidesSecond.reverse().forEach(sideSlideSecond =>
@@ -114,18 +119,7 @@ export default class InfiniteView {
     }
 
     showSlides(name, direction, Immediately) {
-        let element;
-        switch (name) {
-            case 'side':
-                element = this.sideFoodBoxEl;
-                break;
-            case 'main':
-                element = this.mainFoodBoxEl;
-                break;
-            case 'course':
-                element = this.courseFoodBoxEl;
-                break;
-        }
+        const element = this.foodBoxMap[name];
 
         element.style.transitionDuration = Immediately ? '0s' : '0.5s';
         element.style.transform = `translateX(${direction}%)`;
