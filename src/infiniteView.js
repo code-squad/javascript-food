@@ -75,27 +75,27 @@ export default class InfiniteView {
         }
     }
 
-    render(viewCmd, ...parameter) {
+    render(viewCmd, parameter) {
         const viewCommands = {
             sideBanchan: () => {
-                this.renderBanchan('side', this.sideFoodBoxEl, ...parameter);
+                this.renderBanchan(this.data.side, parameter);
             },
             mainBanchan: () => {
-                this.renderBanchan('main', this.mainFoodBoxEl, ...parameter);
+                this.renderBanchan(this.data.main, parameter);
             },
             courseBanchan: () => {
-                this.renderBanchan('course', this.courseFoodBoxEl, ...parameter);
+                this.renderBanchan(this.data.course, parameter);
             }
         };
 
         viewCommands[viewCmd]();
     }
 
-    renderBanchan(name, element, food) {
-        this.renderFoodBoxList(element, food);
-        this.renderFoodBox(food, qsa(`.${name}_food .prd_box>a`));
-        this.renderSlides(element, qsa(`.${name}_food .prd_box`));
-        this.showSlides(name, this.data[name].direction, true);
+    renderBanchan(target, food) {
+        this.renderFoodBoxList(target.el, food);
+        this.renderFoodBox(food, qsa(`.${target.name}_food .prd_box>a`));
+        this.renderSlides(target.el, qsa(`.${target.name}_food .prd_box`));
+        this.showSlides(target.name, target.direction, true);
     }
 
     renderFoodBoxList(element, food) {
