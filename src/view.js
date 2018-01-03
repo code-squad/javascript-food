@@ -17,18 +17,24 @@ export default class View {
         this.slidesNextEl = qs('.slides_next');
         this.slidesEl = qsa('.main_slides_list > li');
         this.dotsEl = qsa('.slides_dots > li > a');
+
+        this.data = {
+            main: {
+                index: 0
+            }
+        };
     }
 
     bind(event, handler) {
         switch (event) {
             case 'slidesPrev':
-                on(this.slidesPrevEl, 'click', () => handler(-1));
+                on(this.slidesPrevEl, 'click', () => handler(this.data.main, -1));
                 break;
             case 'slidesNext':
-                on(this.slidesNextEl, 'click', () => handler(1));
+                on(this.slidesNextEl, 'click', () => handler(this.data.main, 1));
                 break;
             case 'slidesDots':
-                delegate('.slides_dots', '.slides_dots > li > a', 'click', (e) => handler(+e.delegateTarget.textContent));
+                delegate('.slides_dots', '.slides_dots > li > a', 'click', (e) => handler(this.data.main, +e.delegateTarget.textContent));
                 break;
             case 'preventDefault':
                 delegate('body', 'a', 'click', e => e.preventDefault());
@@ -111,6 +117,7 @@ export default class View {
             });
         });
     }
+    
     renderFoodTabList(food, initNum) {
         this.foodTabListEl = qsa('.best_food_tabs > li > a');
         this.foodTabListEl[initNum].className = 'now';

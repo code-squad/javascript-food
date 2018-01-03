@@ -7,6 +7,7 @@ import {
     on,
     throttle
 } from './helpers';
+
 export default class InfiniteView {
     constructor() {
         this.sideFoodBoxEl = qs('.side_food .infinite_food_box_list');
@@ -21,41 +22,53 @@ export default class InfiniteView {
         this.courseSlidesPrevEl = qs('.course_food .infinite_food_slides_navi>.slides_prev');
         this.courseSlidesNextEl = qs('.course_food .infinite_food_slides_navi>.slides_next');
 
-        this.foodBoxMap = {
-            side: this.sideFoodBoxEl,
-            main: this.mainFoodBoxEl,
-            course: this.courseFoodBoxEl
+        this.data = {
+            side: {
+                name: 'side',
+                el: this.sideFoodBoxEl,
+                direction: -20
+            },
+            main: {
+                name: 'main',
+                el: this.mainFoodBoxEl,
+                direction: -20
+            },
+            course: {
+                name: 'course',
+                el: this.courseFoodBoxEl,
+                direction: -20
+            }
         };
     }
 
     bind(event, handler) {
         switch (event) {
             case 'sideSlides':
-                on(this.sideFoodBoxEl, 'transitionend', () => handler());
+                on(this.sideFoodBoxEl, 'transitionend', () => handler(this.data.side));
                 break;
             case 'sideSlidesPrev':
-                on(this.sideSlidesPrevEl, 'click', throttle(() => handler(10), 800));
+                on(this.sideSlidesPrevEl, 'click', throttle(() => handler(this.data.side, 10), 600));
                 break;
             case 'sideSlidesNext':
-                on(this.sideSlidesNextEl, 'click', throttle(() => handler(-10), 800));
+                on(this.sideSlidesNextEl, 'click', throttle(() => handler(this.data.side, -10), 600));
                 break;
             case 'mainSlides':
-                on(this.mainFoodBoxEl, 'transitionend', () => handler());
+                on(this.mainFoodBoxEl, 'transitionend', () => handler(this.data.main));
                 break;
             case 'mainSlidesPrev':
-                on(this.mainSlidesPrevEl, 'click', throttle(() => handler(10), 800));
+                on(this.mainSlidesPrevEl, 'click', throttle(() => handler(this.data.main, 10), 600));
                 break;
             case 'mainSlidesNext':
-                on(this.mainSlidesNextEl, 'click', throttle(() => handler(-10), 800));
+                on(this.mainSlidesNextEl, 'click', throttle(() => handler(this.data.main, -10), 600));
                 break;
             case 'courseSlides':
-                on(this.courseFoodBoxEl, 'transitionend', () => handler());
+                on(this.courseFoodBoxEl, 'transitionend', () => handler(this.data.course));
                 break;
             case 'courseSlidesPrev':
-                on(this.courseSlidesPrevEl, 'click', throttle(() => handler(10), 800));
+                on(this.courseSlidesPrevEl, 'click', throttle(() => handler(this.data.course, 10), 600));
                 break;
             case 'courseSlidesNext':
-                on(this.courseSlidesNextEl, 'click', throttle(() => handler(-10), 800));
+                on(this.courseSlidesNextEl, 'click', throttle(() => handler(this.data.course, -10), 600));
                 break;
             default:
                 break;
@@ -64,13 +77,13 @@ export default class InfiniteView {
 
     render(viewCmd, ...parameter) {
         const viewCommands = {
-            SideBanchan: () => {
+            sideBanchan: () => {
                 this.renderBanchan('side', this.sideFoodBoxEl, ...parameter);
             },
-            MainBanchan: () => {
+            mainBanchan: () => {
                 this.renderBanchan('main', this.mainFoodBoxEl, ...parameter);
             },
-            CourseBanchan: () => {
+            courseBanchan: () => {
                 this.renderBanchan('course', this.courseFoodBoxEl, ...parameter);
             }
         };
@@ -78,11 +91,11 @@ export default class InfiniteView {
         viewCommands[viewCmd]();
     }
 
-    renderBanchan(name, element, food, direction) {
+    renderBanchan(name, element, food) {
         this.renderFoodBoxList(element, food);
         this.renderFoodBox(food, qsa(`.${name}_food .prd_box>a`));
         this.renderSlides(element, qsa(`.${name}_food .prd_box`));
-        this.showSlides(name, direction, true);
+        this.showSlides(name, this.data[name].direction, true);
     }
 
     renderFoodBoxList(element, food) {
@@ -120,7 +133,7 @@ export default class InfiniteView {
     }
 
     showSlides(name, direction, Immediately) {
-        const element = this.foodBoxMap[name];
+        const element = this.data[name].el;
 
         element.style.transitionDuration = Immediately ? '0s' : '0.5s';
         element.style.transform = `translateX(${direction}%)`;

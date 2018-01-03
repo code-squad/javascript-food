@@ -6,7 +6,8 @@ export default class Controller {
     /**
      * @param  {!View} view A View instance
      */
-    constructor(view, infiniteView) {
+    constructor(urlList, view, infiniteView) {
+        this.urlList = urlList;
         this.view = view;
         this.infiniteView = infiniteView;
 
@@ -14,27 +15,22 @@ export default class Controller {
         view.bind('slidesNext', this.moveSlides.bind(this));
         view.bind('slidesDots', this.currentSlide.bind(this));
 
-        infiniteView.bind('sideSlidesPrev', this.moveSideSlides.bind(this));
-        infiniteView.bind('sideSlidesNext', this.moveSideSlides.bind(this));
+        infiniteView.bind('sideSlidesPrev', this.moveInfiniteSlides.bind(this));
+        infiniteView.bind('sideSlidesNext', this.moveInfiniteSlides.bind(this));
 
-        infiniteView.bind('mainSlidesPrev', this.moveMainSlides.bind(this));
-        infiniteView.bind('mainSlidesNext', this.moveMainSlides.bind(this));
+        infiniteView.bind('mainSlidesPrev', this.moveInfiniteSlides.bind(this));
+        infiniteView.bind('mainSlidesNext', this.moveInfiniteSlides.bind(this));
 
-        infiniteView.bind('courseSlidesPrev', this.moveCourseSlides.bind(this));
-        infiniteView.bind('courseSlidesNext', this.moveCourseSlides.bind(this));
-
-        this.slideIndex = 0;
-        this.sideDirection = -20;
-        this.mainDirection = -20;
-        this.courseDirection = -20;
+        infiniteView.bind('courseSlidesPrev', this.moveInfiniteSlides.bind(this));
+        infiniteView.bind('courseSlidesNext', this.moveInfiniteSlides.bind(this));
     }
 
     setView() {
-        this.initSlide('http://home.dotol.xyz/php/test_api.php');
-        this.initBanchan('http://crong.codesquad.kr:8080/woowa/best');
-        this.initSideBanchan('http://crong.codesquad.kr:8080/woowa/side');
-        this.initMainBanchan('http://crong.codesquad.kr:8080/woowa/main');
-        this.initCourseBanchan('http://crong.codesquad.kr:8080/woowa/course');
+        this.initSlide(this.urlList.mainSlide);
+        this.initBanchan(this.urlList.bestBanchan);
+        this.initInfiniteBanchan('side', this.urlList.sideBanchan);
+        this.initInfiniteBanchan('main', this.urlList.mainBanchan);
+        this.initInfiniteBanchan('course', this.urlList.courseBanchan);
         this.view.bind('preventDefault');
     }
 
@@ -45,21 +41,21 @@ export default class Controller {
             console.error(e);
         }
         this.slidesEnd = this.slideImgs.length - 1;
-        this.view.showSlide(this.slideIndex, this.slideImgs[this.slideIndex]);
+        this.view.showSlide(0, this.slideImgs[0]);
     }
 
-    moveSlides(n) {
-        this.view.hideSlide(this.slideIndex);
-        this.slideIndex += n;
-        if (this.slideIndex > this.slidesEnd) this.slideIndex = 0;
-        if (this.slideIndex < 0) this.slideIndex = this.slidesEnd;
-        this.view.showSlide(this.slideIndex, this.slideImgs[this.slideIndex]);
+    moveSlides(target, n) {
+        this.view.hideSlide(target.index);
+        target.index += n;
+        if (target.index > this.slidesEnd) target.index = 0;
+        if (target.index < 0) target.index = this.slidesEnd;
+        this.view.showSlide(target.index, this.slideImgs[target.index]);
     }
 
-    currentSlide(n) {
-        this.view.hideSlide(this.slideIndex);
-        this.slideIndex = n;
-        this.view.showSlide(this.slideIndex, this.slideImgs[this.slideIndex]);
+    currentSlide(target, n) {
+        this.view.hideSlide(target.index);
+        target.index = n;
+        this.view.showSlide(target.index, this.slideImgs[target.index]);
     }
 
     async initBanchan(url) {
@@ -72,66 +68,24 @@ export default class Controller {
         this.view.bind('foodTab', this.banchan);
     }
 
-    async initSideBanchan(url) {
+    async initInfiniteBanchan(name, url) {
         try {
-            this.sideBanchan = await request(url);
+            const foodData = await request(url);
+            this.infiniteView.render(`${name}Banchan`, foodData);
+            this.infiniteView.bind(`${name}Slides`, this.resetInfiniteSlides.bind(this, -40, 0));
         } catch (e) {
             console.error(e);
         }
-        this.infiniteView.render('SideBanchan', this.sideBanchan, this.sideDirection);
-        this.infiniteView.bind('sideSlides', this.resetSideSlides.bind(this, -40, 0));
     }
 
-    moveSideSlides(direction) {
-        this.sideDirection += direction;
-        this.infiniteView.showSlides('side', this.sideDirection);
+    moveInfiniteSlides(target, move) {
+        target.direction += move;
+        this.infiniteView.showSlides(target.name, target.direction);
     }
 
-    resetSideSlides(thresholdLeft, thresholdRight) {
-        if (this.sideDirection === thresholdLeft || this.sideDirection === thresholdRight) {
-            this.infiniteView.showSlides('side', this.sideDirection = -20, true);
-        }
-    }
-
-    async initMainBanchan(url) {
-        try {
-            this.mainBanchan = await request(url);
-        } catch (e) {
-            console.error(e);
-        }
-        this.infiniteView.render('MainBanchan', this.mainBanchan, this.mainDirection);
-        this.infiniteView.bind('mainSlides', this.resetMainSlides.bind(this, -40, 0));
-    }
-
-    moveMainSlides(direction) {
-        this.mainDirection += direction;
-        this.infiniteView.showSlides('main', this.mainDirection);
-    }
-
-    resetMainSlides(thresholdLeft, thresholdRight) {
-        if (this.mainDirection === thresholdLeft || this.mainDirection === thresholdRight) {
-            this.infiniteView.showSlides('main', this.mainDirection = -20, true);
-        }
-    }
-
-    async initCourseBanchan(url) {
-        try {
-            this.courseBanchan = await request(url);
-        } catch (e) {
-            console.error(e);
-        }
-        this.infiniteView.render('CourseBanchan', this.courseBanchan, this.courseDirection);
-        this.infiniteView.bind('courseSlides', this.resetCourseSlides.bind(this, -40, 0));
-    }
-
-    moveCourseSlides(direction) {
-        this.courseDirection += direction;
-        this.infiniteView.showSlides('course', this.courseDirection);
-    }
-
-    resetCourseSlides(thresholdLeft, thresholdRight) {
-        if (this.courseDirection === thresholdLeft || this.courseDirection === thresholdRight) {
-            this.infiniteView.showSlides('course', this.courseDirection = -20, true);
+    resetInfiniteSlides(thresholdLeft, thresholdRight, target) {
+        if (target.direction === thresholdLeft || target.direction === thresholdRight) {
+            this.infiniteView.showSlides(target.name, target.direction = -20, true);
         }
     }
 
