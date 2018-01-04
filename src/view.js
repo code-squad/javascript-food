@@ -34,8 +34,8 @@ export default class View {
             case 'slidesDots':
                 delegate('.slides_dots', '.slides_dots > li > a', 'click', (e) => handler(this.state, +e.delegateTarget.textContent));
                 break;
-            case 'preventDefault':
-                delegate('body', 'a', 'click', e => e.preventDefault());
+            case 'scroller':
+                delegate('.page_up_down_list', '.page_up_down_list > li > a', 'click', (e) => handler(e.delegateTarget.dataset.direction));
                 break;
             case 'foodTab':
                 delegate(this.foodTabEl, 'li > a', 'click', e => {
@@ -44,6 +44,9 @@ export default class View {
                     Array.from(this.foodBoxListEl).forEach(food => food.style.display =
                         e.delegateTarget.dataset.category_id === food.dataset.category_id ? 'block' : 'none');
                 });
+                break;
+            case 'preventDefault':
+                delegate('body', 'a', 'click', e => e.preventDefault());
                 break;
             default:
                 break;

@@ -1,4 +1,7 @@
-import {request} from './helpers';
+import {
+    request,
+    easeInOutQuad
+} from './helpers';
 
 export default class Controller {
     /**
@@ -12,6 +15,7 @@ export default class Controller {
         view.bind('slidesPrev', this.moveSlides.bind(this));
         view.bind('slidesNext', this.moveSlides.bind(this));
         view.bind('slidesDots', this.currentSlide.bind(this));
+        view.bind('scroller', this.moveScroller.bind(this));
 
         infiniteView.bind('sideSlidesPrev', this.moveInfiniteSlides.bind(this));
         infiniteView.bind('sideSlidesNext', this.moveInfiniteSlides.bind(this));
@@ -55,6 +59,32 @@ export default class Controller {
         target.index = n;
         this.view.showSlide(target.index, this.slideImgs[target.index]);
     }
+
+    moveScroller(direction) {
+        if (direction === 'up') {
+            this.moveScroll(0);
+        } else {
+            this.moveScroll(3136);
+        }
+    }
+
+    moveScroll(to) {
+        const start = scrollY;
+        const change = to - start;
+        const duration = Math.abs(change / 4);
+        const increment = 20;
+        let currentTime = 0;
+
+        const animateScroll = () => {
+            currentTime += increment;
+            let newY = easeInOutQuad(currentTime, start, change, duration);
+            scrollTo(0, newY);
+            if (currentTime < duration) setTimeout(animateScroll, increment);
+        };
+
+        animateScroll();
+    }
+
 
     async initBestBanchan(url) {
         try {
