@@ -1,7 +1,12 @@
 import foodBoxInfiniteTemplate from '../template/foodBoxInfinite-tpl.html';
 import badgeTemplate from '../template/badge-tpl.html';
 import deliveryTypeTemplate from '../template/deliveryType-tpl.html';
-import {qs,qsa,on,throttle} from './helpers';
+import {
+    qs,
+    qsa,
+    on,
+    throttle
+} from './helpers';
 
 export default class InfiniteView {
     constructor() {
@@ -36,38 +41,38 @@ export default class InfiniteView {
         };
     }
 
-    bind(event, handler) {
-        switch (event) {
-            case 'sideSlides':
+    bind(bindCmd, handler) {
+        const bindCommands = {
+            sideSlides: () => {
                 on(this.sideFoodBoxEl, 'transitionend', () => handler(this.state.side));
-                break;
-            case 'sideSlidesPrev':
+            },
+            sideSlidesPrev: () => {
                 on(this.sideSlidesPrevEl, 'click', throttle(() => handler(this.state.side, 10), 600));
-                break;
-            case 'sideSlidesNext':
+            },
+            sideSlidesNext: () => {
                 on(this.sideSlidesNextEl, 'click', throttle(() => handler(this.state.side, -10), 600));
-                break;
-            case 'mainSlides':
+            },
+            mainSlides: () => {
                 on(this.mainFoodBoxEl, 'transitionend', () => handler(this.state.main));
-                break;
-            case 'mainSlidesPrev':
+            },
+            mainSlidesPrev: () => {
                 on(this.mainSlidesPrevEl, 'click', throttle(() => handler(this.state.main, 10), 600));
-                break;
-            case 'mainSlidesNext':
+            },
+            mainSlidesNext: () => {
                 on(this.mainSlidesNextEl, 'click', throttle(() => handler(this.state.main, -10), 600));
-                break;
-            case 'courseSlides':
+            },
+            courseSlides: () => {
                 on(this.courseFoodBoxEl, 'transitionend', () => handler(this.state.course));
-                break;
-            case 'courseSlidesPrev':
+            },
+            courseSlidesPrev: () => {
                 on(this.courseSlidesPrevEl, 'click', throttle(() => handler(this.state.course, 10), 600));
-                break;
-            case 'courseSlidesNext':
+            },
+            courseSlidesNext: () => {
                 on(this.courseSlidesNextEl, 'click', throttle(() => handler(this.state.course, -10), 600));
-                break;
-            default:
-                break;
-        }
+            }
+        };
+
+        bindCommands[bindCmd]();
     }
 
     render(viewCmd, parameter) {

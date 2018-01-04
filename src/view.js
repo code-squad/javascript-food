@@ -23,34 +23,36 @@ export default class View {
         };
     }
 
-    bind(event, handler) {
-        switch (event) {
-            case 'slidesPrev':
+    bind(bindCmd, handler) {
+        const bindCommands = {
+            slidesPrev: () => {
                 on(this.slidesPrevEl, 'click', () => handler(this.state, -1));
-                break;
-            case 'slidesNext':
+            },
+            slidesNext: () => {
                 on(this.slidesNextEl, 'click', () => handler(this.state, 1));
-                break;
-            case 'slidesDots':
-                delegate('.slides_dots', '.slides_dots > li > a', 'click', (e) => handler(this.state, +e.delegateTarget.textContent));
-                break;
-            case 'scroller':
-                delegate('.page_up_down_list', '.page_up_down_list > li > a', 'click', (e) => handler(e.delegateTarget.dataset.direction));
-                break;
-            case 'foodTab':
+            },
+            slidesDots: () => {
+                delegate('.slides_dots', '.slides_dots > li > a',
+                    'click', (e) => handler(this.state, +e.delegateTarget.textContent));
+            },
+            scroller: () => {
+                delegate('.page_up_down_list', '.page_up_down_list > li > a',
+                    'click', (e) => handler(e.delegateTarget.dataset.direction));
+            },
+            foodTab: () => {
                 delegate(this.foodTabEl, 'li > a', 'click', e => {
                     Array.from(this.foodTabListEl).forEach(tab => tab.className =
                         tab === e.delegateTarget ? 'now' : '');
                     Array.from(this.foodBoxListEl).forEach(food => food.style.display =
                         e.delegateTarget.dataset.category_id === food.dataset.category_id ? 'block' : 'none');
                 });
-                break;
-            case 'preventDefault':
+            },
+            preventDefault: () => {
                 delegate('body', 'a', 'click', e => e.preventDefault());
-                break;
-            default:
-                break;
-        }
+            }
+        };
+
+        bindCommands[bindCmd]();
     }
 
     render(viewCmd, parameter) {
