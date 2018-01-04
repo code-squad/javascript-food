@@ -1,6 +1,7 @@
 import {
     request,
-    easeInOutQuad
+    easeInOutQuad,
+    easeInQuad
 } from './helpers';
 
 export default class Controller {
@@ -61,7 +62,7 @@ export default class Controller {
     }
 
     moveScroller(direction) {
-        direction === 'up' ? this.moveScroll(0) : this.moveScroll(3136);
+        direction === 'up' ? this.moveScroll(0) : this.moveScroll(document.body.clientHeight);
     }
 
     moveScroll(to) {
@@ -73,7 +74,7 @@ export default class Controller {
 
         const animateScroll = () => {
             currentTime += increment;
-            let newY = easeInOutQuad(currentTime, start, change, duration);
+            let newY = easeInQuad(currentTime, start, change, duration);
             scrollTo(0, newY);
             if (currentTime < duration) requestAnimationFrame(animateScroll);
         };
