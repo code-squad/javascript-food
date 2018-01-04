@@ -6,16 +6,16 @@ import {qs,qsa,on,throttle} from './helpers';
 export default class InfiniteView {
     constructor() {
         this.sideFoodBoxEl = qs('.side_food .infinite_food_box_list');
-        this.sideSlidesPrevEl = qs('.side_food .infinite_food_slides_navi>.slides_prev');
-        this.sideSlidesNextEl = qs('.side_food .infinite_food_slides_navi>.slides_next');
+        this.sideSlidesPrevEl = qs('.side_food .slides_prev');
+        this.sideSlidesNextEl = qs('.side_food .slides_next');
 
         this.mainFoodBoxEl = qs('.main_food .infinite_food_box_list');
-        this.mainSlidesPrevEl = qs('.main_food .infinite_food_slides_navi>.slides_prev');
-        this.mainSlidesNextEl = qs('.main_food .infinite_food_slides_navi>.slides_next');
+        this.mainSlidesPrevEl = qs('.main_food .slides_prev');
+        this.mainSlidesNextEl = qs('.main_food .slides_next');
 
         this.courseFoodBoxEl = qs('.course_food .infinite_food_box_list');
-        this.courseSlidesPrevEl = qs('.course_food .infinite_food_slides_navi>.slides_prev');
-        this.courseSlidesNextEl = qs('.course_food .infinite_food_slides_navi>.slides_next');
+        this.courseSlidesPrevEl = qs('.course_food .slides_prev');
+        this.courseSlidesNextEl = qs('.course_food .slides_next');
 
         this.state = {
             side: {
