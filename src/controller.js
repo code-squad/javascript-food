@@ -61,11 +61,7 @@ export default class Controller {
     }
 
     moveScroller(direction) {
-        if (direction === 'up') {
-            this.moveScroll(0);
-        } else {
-            this.moveScroll(3136);
-        }
+        direction === 'up' ? this.moveScroll(0) : this.moveScroll(3136);
     }
 
     moveScroll(to) {
@@ -79,7 +75,7 @@ export default class Controller {
             currentTime += increment;
             let newY = easeInOutQuad(currentTime, start, change, duration);
             scrollTo(0, newY);
-            if (currentTime < duration) setTimeout(animateScroll, increment);
+            if (currentTime < duration) requestAnimationFrame(animateScroll);
         };
 
         animateScroll();
