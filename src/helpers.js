@@ -135,3 +135,35 @@ export function throttle(func, limit) {
         }
     };
 }
+
+/**
+ * acceleration until halfway, then deceleration
+ *
+ * @param {Number} t current time
+ * @param {Number} b start value
+ * @param {Number} c change in value
+ * @param {Number} d duration
+ * @return {Number} new scrollY
+ */
+
+export function easeInOutQuad(t, b, c, d) {
+    t /= d / 2;
+    if (t < 1) return c / 2 * t * t + b;
+    t--;
+    return -c / 2 * (t * (t - 2) - 1) + b;
+}
+
+/**
+ * accelerating from zero velocity
+ *
+ * @param {Number} t current time
+ * @param {Number} b start value
+ * @param {Number} c change in value
+ * @param {Number} d duration
+ * @return {Number} new scrollY
+ */
+
+export function easeInQuad(t, b, c, d) {
+    t /= d / 2;
+    return c / 2 * t * t + b;
+}

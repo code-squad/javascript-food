@@ -17,46 +17,55 @@ export default class View {
         this.slidesNextEl = qs('.slides_next');
         this.slidesEl = qsa('.main_slides_list > li');
         this.dotsEl = qsa('.slides_dots > li > a');
+
+        this.state = {
+            index: 0
+        };
     }
 
-    bind(event, handler) {
-        switch (event) {
-            case 'slidesPrev':
-                on(this.slidesPrevEl, 'click', () => handler(-1));
-                break;
-            case 'slidesNext':
-                on(this.slidesNextEl, 'click', () => handler(1));
-                break;
-            case 'slidesDots':
-                delegate('.slides_dots', '.slides_dots > li > a', 'click', (e) => handler(+e.delegateTarget.textContent));
-                break;
-            case 'preventDefault':
-                delegate('body', 'a', 'click', e => e.preventDefault());
-                break;
-            case 'foodTab':
+    bind(bindCmd, handler) {
+        const bindCommands = {
+            slidesPrev: () => {
+                on(this.slidesPrevEl, 'click', () => handler(this.state, -1));
+            },
+            slidesNext: () => {
+                on(this.slidesNextEl, 'click', () => handler(this.state, 1));
+            },
+            slidesDots: () => {
+                delegate('.slides_dots', '.slides_dots > li > a',
+                    'click', (e) => handler(this.state, +e.delegateTarget.textContent));
+            },
+            scroller: () => {
+                delegate('.page_up_down_list', '.page_up_down_list > li > a',
+                    'click', (e) => handler(e.delegateTarget.dataset.direction));
+            },
+            foodTab: () => {
                 delegate(this.foodTabEl, 'li > a', 'click', e => {
                     Array.from(this.foodTabListEl).forEach(tab => tab.className =
                         tab === e.delegateTarget ? 'now' : '');
                     Array.from(this.foodBoxListEl).forEach(food => food.style.display =
                         e.delegateTarget.dataset.category_id === food.dataset.category_id ? 'block' : 'none');
                 });
-                break;
-            default:
-                break;
-        }
+            },
+            preventDefault: () => {
+                delegate('body', 'a', 'click', e => e.preventDefault());
+            }
+        };
+
+        bindCommands[bindCmd]();
     }
 
     render(viewCmd, parameter) {
         const viewCommands = {
-            renderBanchan: () => {
-                this.renderBanchan(parameter);
+            bestBanchan: () => {
+                this.bestBanchan(parameter);
             }
         };
 
         viewCommands[viewCmd]();
     }
 
-    renderBanchan(food) {
+    bestBanchan(food) {
         this.renderFoodTab(food);
         this.renderFoodContainer(food);
         this.renderFoodBoxList(food);
@@ -111,6 +120,7 @@ export default class View {
             });
         });
     }
+
     renderFoodTabList(food, initNum) {
         this.foodTabListEl = qsa('.best_food_tabs > li > a');
         this.foodTabListEl[initNum].className = 'now';

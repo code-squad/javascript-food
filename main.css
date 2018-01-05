@@ -659,7 +659,6 @@ span.ic {
     position: relative;
 }
 
-
 .infinite_food_content {
     position: relative;
     background: #fff;
@@ -812,10 +811,10 @@ span.ic {
 
 .prd_box>a>.badge_list {
     position: relative;
-    top : 0;
+    top: 0;
     height: 24px;
     text-align: center;
-    margin:0;
+    margin: 0;
 }
 
 .prd_box>a>.badge_list>.badge {
@@ -832,4 +831,40 @@ span.ic {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.6);
+}
+
+.scroller {
+    position: fixed;
+    bottom: 70px;
+    left: 79%;
+}
+
+.page_up_down_list {
+    width: 50px;
+    position: absolute;
+    bottom: 0;
+}
+
+.page_up_down_list>li>a {
+    display: block;
+    width: 50px;
+    height: 50px;
+    background: url(https://cdn.bmf.kr/web/common/btn_page_up_down_new.png) no-repeat;
+}
+
+.page_up_down_list>.page_up>a {
+    background-position: 0 top;
+}
+
+.page_up_down_list>.page_up>a:hover,.page_up_down_list>.page_up>a:focus {
+    background-position: -50px top;
+}
+
+
+.page_up_down_list>.page_down>a {
+    background-position: 0 -50px;
+}
+
+.page_up_down_list>.page_down>a:hover,.page_up_down_list>.page_down>a:focus {
+    background-position: -50px -50px;
 }

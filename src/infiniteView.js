@@ -1,4 +1,4 @@
-import foodBoxSideTemplate from '../template/foodBoxSide-tpl.html';
+import foodBoxInfiniteTemplate from '../template/foodBoxInfinite-tpl.html';
 import badgeTemplate from '../template/badge-tpl.html';
 import deliveryTypeTemplate from '../template/deliveryType-tpl.html';
 import {
@@ -7,96 +7,100 @@ import {
     on,
     throttle
 } from './helpers';
+
 export default class InfiniteView {
     constructor() {
         this.sideFoodBoxEl = qs('.side_food .infinite_food_box_list');
-        this.slidesSidePrevEl = qs('.side_food .infinite_food_slides_navi>.slides_prev');
-        this.slidesSideNextEl = qs('.side_food .infinite_food_slides_navi>.slides_next');
+        this.sideSlidesPrevEl = qs('.side_food .slides_prev');
+        this.sideSlidesNextEl = qs('.side_food .slides_next');
 
         this.mainFoodBoxEl = qs('.main_food .infinite_food_box_list');
-        this.slidesMainPrevEl = qs('.main_food .infinite_food_slides_navi>.slides_prev');
-        this.slidesMainNextEl = qs('.main_food .infinite_food_slides_navi>.slides_next');
+        this.mainSlidesPrevEl = qs('.main_food .slides_prev');
+        this.mainSlidesNextEl = qs('.main_food .slides_next');
 
         this.courseFoodBoxEl = qs('.course_food .infinite_food_box_list');
-        this.slidesCoursePrevEl = qs('.course_food .infinite_food_slides_navi>.slides_prev');
-        this.slidesCourseNextEl = qs('.course_food .infinite_food_slides_navi>.slides_next');
+        this.courseSlidesPrevEl = qs('.course_food .slides_prev');
+        this.courseSlidesNextEl = qs('.course_food .slides_next');
+
+        this.state = {
+            side: {
+                name: 'side',
+                el: this.sideFoodBoxEl,
+                direction: -20
+            },
+            main: {
+                name: 'main',
+                el: this.mainFoodBoxEl,
+                direction: -20
+            },
+            course: {
+                name: 'course',
+                el: this.courseFoodBoxEl,
+                direction: -20
+            }
+        };
     }
 
-    bind(event, handler) {
-        switch (event) {
-            case 'sideSlidesPrev':
-                on(this.slidesSidePrevEl, 'click', throttle(() => handler(10), 800));
-                break;
-            case 'sideSlidesNext':
-                on(this.slidesSideNextEl, 'click', throttle(() => handler(-10), 800));
-                break;
-            case 'sideSlides':
-                on(this.sideFoodBoxEl, 'transitionend', () => handler());
-                break;
-            case 'mainSlidesPrev':
-                on(this.slidesMainPrevEl, 'click', throttle(() => handler(10), 800));
-                break;
-            case 'mainSlidesNext':
-                on(this.slidesMainNextEl, 'click', throttle(() => handler(-10), 800));
-                break;
-            case 'mainSlides':
-                on(this.mainFoodBoxEl, 'transitionend', () => handler());
-                break;
-            case 'courseSlidesPrev':
-                on(this.slidesCoursePrevEl, 'click', throttle(() => handler(10), 800));
-                break;
-            case 'courseSlidesNext':
-                on(this.slidesCourseNextEl, 'click', throttle(() => handler(-10), 800));
-                break;
-            case 'courseSlides':
-                on(this.courseFoodBoxEl, 'transitionend', () => handler());
-                break;
-            default:
-                break;
-        }
+    bind(bindCmd, handler) {
+        const bindCommands = {
+            sideSlides: () => {
+                on(this.sideFoodBoxEl, 'transitionend', () => handler(this.state.side));
+            },
+            sideSlidesPrev: () => {
+                on(this.sideSlidesPrevEl, 'click', throttle(() => handler(this.state.side, 10), 600));
+            },
+            sideSlidesNext: () => {
+                on(this.sideSlidesNextEl, 'click', throttle(() => handler(this.state.side, -10), 600));
+            },
+            mainSlides: () => {
+                on(this.mainFoodBoxEl, 'transitionend', () => handler(this.state.main));
+            },
+            mainSlidesPrev: () => {
+                on(this.mainSlidesPrevEl, 'click', throttle(() => handler(this.state.main, 10), 600));
+            },
+            mainSlidesNext: () => {
+                on(this.mainSlidesNextEl, 'click', throttle(() => handler(this.state.main, -10), 600));
+            },
+            courseSlides: () => {
+                on(this.courseFoodBoxEl, 'transitionend', () => handler(this.state.course));
+            },
+            courseSlidesPrev: () => {
+                on(this.courseSlidesPrevEl, 'click', throttle(() => handler(this.state.course, 10), 600));
+            },
+            courseSlidesNext: () => {
+                on(this.courseSlidesNextEl, 'click', throttle(() => handler(this.state.course, -10), 600));
+            }
+        };
+
+        bindCommands[bindCmd]();
     }
 
-    render(viewCmd, ...parameter) {
+    render(viewCmd, parameter) {
         const viewCommands = {
-            renderSideBanchan: () => {
-                this.renderSideBanchan(...parameter);
+            sideBanchan: () => {
+                this.renderBanchan(this.state.side, parameter);
             },
-            renderMainBanchan: () => {
-                this.renderMainBanchan(...parameter);
+            mainBanchan: () => {
+                this.renderBanchan(this.state.main, parameter);
             },
-            renderCourseBanchan: () => {
-                this.renderCourseBanchan(...parameter);
+            courseBanchan: () => {
+                this.renderBanchan(this.state.course, parameter);
             }
         };
 
         viewCommands[viewCmd]();
     }
 
-
-    renderSideBanchan(food, direction) {
-        this.renderFoodBoxSideList(this.sideFoodBoxEl, food);
-        this.renderFoodBoxSide(food, qsa('.side_food .prd_box>a'));
-        this.renderSlides(this.sideFoodBoxEl, qsa('.side_food .prd_box'));
-        this.showSlides('side', direction, true);
+    renderBanchan(target, food) {
+        this.renderFoodBoxList(target.el, food);
+        this.renderFoodBox(food, qsa(`.${target.name}_food .prd_box>a`));
+        this.renderSlides(target.el, qsa(`.${target.name}_food .prd_box`));
+        this.showSlides(target.el, target.direction, true);
     }
 
-    renderMainBanchan(food, direction) {
-        this.renderFoodBoxSideList(this.mainFoodBoxEl, food);
-        this.renderFoodBoxSide(food, qsa('.main_food .prd_box>a'));
-        this.renderSlides(this.mainFoodBoxEl, qsa('.main_food .prd_box'));
-        this.showSlides('main', direction, true);
-    }
-
-    renderCourseBanchan(food, direction) {
-        this.renderFoodBoxSideList(this.courseFoodBoxEl, food);
-        this.renderFoodBoxSide(food, qsa('.course_food .prd_box>a'));
-        this.renderSlides(this.courseFoodBoxEl, qsa('.course_food .prd_box'));
-        this.showSlides('course', direction, true);
-    }
-
-    renderFoodBoxSideList(element, food) {
-        const foodBoxSideList = food.map(item =>
-            foodBoxSideTemplate({
+    renderFoodBoxList(element, food) {
+        const foodBoxList = food.map(item =>
+            foodBoxInfiniteTemplate({
                 image: item.image,
                 alt: item.alt,
                 title: item.title,
@@ -105,10 +109,10 @@ export default class InfiniteView {
                 new_price: item.s_price.slice(0, -1),
                 won: item.s_price.slice(-1)
             })).join('');
-        element.insertAdjacentHTML('afterbegin', foodBoxSideList);
+        element.insertAdjacentHTML('afterbegin', foodBoxList);
     }
 
-    renderFoodBoxSide(food, prdBox) {
+    renderFoodBox(food, prdBox) {
         food.forEach((item, i) => {
             prdBox[i].insertAdjacentHTML('beforeend', badgeTemplate({
                 badge: item.badge
@@ -119,28 +123,16 @@ export default class InfiniteView {
         });
     }
 
-    renderSlides(element, sideSlides) {
-        const sideSlidesSecond = Array.from(sideSlides).slice(sideSlides.length / 2);
-        sideSlides.forEach(sideSlide =>
-            element.appendChild(sideSlide.cloneNode(true)));
-        sideSlidesSecond.reverse().forEach(sideSlideSecond =>
-            element.insertBefore(sideSlideSecond.cloneNode(true), element.childNodes[0]));
+    renderSlides(element, Slides) {
+        const lastSlides = Array.from(Slides).slice(-4);
+
+        Slides.forEach(Slide =>
+            element.appendChild(Slide.cloneNode(true)));
+        lastSlides.reverse().forEach(lastSlide =>
+            element.insertBefore(lastSlide.cloneNode(true), element.childNodes[0]));
     }
 
-    showSlides(name, direction, Immediately) {
-        let element;
-        switch (name) {
-            case 'side':
-                element = this.sideFoodBoxEl;
-                break;
-            case 'main':
-                element = this.mainFoodBoxEl;
-                break;
-            case 'course':
-                element = this.courseFoodBoxEl;
-                break;
-        }
-
+    showSlides(element, direction, Immediately) {
         element.style.transitionDuration = Immediately ? '0s' : '0.5s';
         element.style.transform = `translateX(${direction}%)`;
     }
