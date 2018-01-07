@@ -2,11 +2,8 @@ import Controller from './controller';
 import {
     on
 } from './helpers';
-import View from './view';
-import InfiniteView from './infiniteView';
-
-const view = new View();
-const infiniteView = new InfiniteView();
+import View from './commonView';
+import InfiniteSlideView from './infiniteSlideView';
 
 const urlList = {
     mainSlide: 'http://home.dotol.xyz/php/test_api.php',
@@ -16,10 +13,16 @@ const urlList = {
     courseBanchan: 'http://crong.codesquad.kr:8080/woowa/soup'
 };
 
+const commonView = new View();
+const sideBanchanView = new InfiniteSlideView('side');
+const mainBanchanView = new InfiniteSlideView('main');
+const courseBanchanView = new InfiniteSlideView('course');
+
+
 /**
  * @type {Controller}
  */
-const controller = new Controller(urlList, view, infiniteView);
+const controller = new Controller(urlList, commonView, sideBanchanView, mainBanchanView, courseBanchanView);
 
 const setView = () => controller.setView();
 on(window, 'load', setView);
