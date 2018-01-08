@@ -1,40 +1,30 @@
 import {
     request,
-    easeInOutQuad,
     easeInQuad
 } from './helpers';
 
 export default class Controller {
-    /**
-     * @param  {!View} view A View instance
-     */
-    constructor(urlList, view, infiniteView) {
+    constructor(urlList, commonView, ...infiniteViews) {
         this.urlList = urlList;
-        this.view = view;
-        this.infiniteView = infiniteView;
+        this.commonView = commonView;
 
-        view.bind('slidesPrev', this.moveSlides.bind(this));
-        view.bind('slidesNext', this.moveSlides.bind(this));
-        view.bind('slidesDots', this.currentSlide.bind(this));
-        view.bind('scroller', this.moveScroller.bind(this));
+        commonView.bind('slidesPrev', this.moveSlides.bind(this));
+        commonView.bind('slidesNext', this.moveSlides.bind(this));
+        commonView.bind('slidesDots', this.currentSlide.bind(this));
+        commonView.bind('scroller', this.moveScroller.bind(this));
 
-        infiniteView.bind('sideSlidesPrev', this.moveInfiniteSlides.bind(this));
-        infiniteView.bind('sideSlidesNext', this.moveInfiniteSlides.bind(this));
 
-        infiniteView.bind('mainSlidesPrev', this.moveInfiniteSlides.bind(this));
-        infiniteView.bind('mainSlidesNext', this.moveInfiniteSlides.bind(this));
-
-        infiniteView.bind('courseSlidesPrev', this.moveInfiniteSlides.bind(this));
-        infiniteView.bind('courseSlidesNext', this.moveInfiniteSlides.bind(this));
+        infiniteViews.forEach(infiniteView => {
+            infiniteView.bind('slidesPrev', this.moveInfiniteSlides.bind(infiniteView));
+            infiniteView.bind('slidesNext', this.moveInfiniteSlides.bind(infiniteView));
+            this.initInfiniteBanchan(infiniteView, this.urlList[infiniteView.state.name]);
+        });
     }
 
     setView() {
         this.initSlide(this.urlList.mainSlide);
         this.initBestBanchan(this.urlList.bestBanchan);
-        this.initInfiniteBanchan('side', this.urlList.sideBanchan);
-        this.initInfiniteBanchan('main', this.urlList.mainBanchan);
-        this.initInfiniteBanchan('course', this.urlList.courseBanchan);
-        this.view.bind('preventDefault');
+        this.commonView.bind('preventDefault');
     }
 
     async initSlide(url) {
@@ -44,21 +34,20 @@ export default class Controller {
             console.error(e);
         }
         this.slidesEnd = this.slideImgs.length - 1;
-        this.view.showSlide(0, this.slideImgs[0]);
+        this.commonView.showSlide(0, this.slideImgs[0]);
     }
 
     moveSlides(target, n) {
-        this.view.hideSlide(target.index);
+        this.commonView.hideSlide(target.index);
         target.index += n;
         if (target.index > this.slidesEnd) target.index = 0;
         if (target.index < 0) target.index = this.slidesEnd;
-        this.view.showSlide(target.index, this.slideImgs[target.index]);
+        this.commonView.showSlide(target.index, this.slideImgs[target.index]);
     }
 
     currentSlide(target, n) {
-        this.view.hideSlide(target.index);
-        target.index = n;
-        this.view.showSlide(target.index, this.slideImgs[target.index]);
+        this.commonView.hideSlide(target.index);
+        this.commonView.showSlide(target.index = n, this.slideImgs[target.index]);
     }
 
     moveScroller(direction) {
@@ -79,26 +68,26 @@ export default class Controller {
             if (currentTime < duration) requestAnimationFrame(animateScroll);
         };
 
-        animateScroll();
+        requestAnimationFrame(animateScroll);
     }
 
 
     async initBestBanchan(url) {
         try {
             const banchan = await request(url);
-            this.view.render('bestBanchan', banchan);
-            this.view.bind('foodTab', banchan);
+            this.commonView.render('bestBanchan', banchan);
+            this.commonView.bind('foodTab', banchan);
         } catch (e) {
             console.error(e);
         }
     }
 
-    async initInfiniteBanchan(name, url) {
+    async initInfiniteBanchan(targetView, url) {
         try {
             const foodData = await request(url);
-            this.infiniteView.render(`${name}Banchan`, foodData);
+            targetView.render('banchan', foodData);
             const [thresholdLeft, thresholdRight] = [-20 - (foodData.length * 2.5), -20 + (foodData.length * 2.5)];
-            this.infiniteView.bind(`${name}Slides`, this.resetInfiniteSlides.bind(this, thresholdLeft, thresholdRight));
+            targetView.bind('slides', this.resetInfiniteSlides.bind(targetView, thresholdLeft, thresholdRight));
         } catch (e) {
             console.error(e);
         }
@@ -106,12 +95,12 @@ export default class Controller {
 
     moveInfiniteSlides(target, move) {
         target.direction += move;
-        this.infiniteView.showSlides(target.el, target.direction);
+        this.showSlides(target.el, target.direction);
     }
 
     resetInfiniteSlides(thresholdLeft, thresholdRight, target) {
         if (target.direction === thresholdLeft || target.direction === thresholdRight) {
-            this.infiniteView.showSlides(target.el, target.direction = -20, true);
+            this.showSlides(target.el, target.direction = -20, true);
         }
     }
 
