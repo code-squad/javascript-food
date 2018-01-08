@@ -10,13 +10,13 @@ import {
 
 export default class InfiniteView {
     constructor(name) {
-        this.FoodBoxEl = qs(`.${name}_food .infinite_food_box_list`);
+        this.foodBoxEl = qs(`.${name}_food .infinite_food_box_list`);
         this.slidesPrevEl = qs(`.${name}_food .slides_prev`);
         this.slidesNextEl = qs(`.${name}_food .slides_next`);
 
         this.state = {
             name,
-            el: this.FoodBoxEl,
+            el: this.foodBoxEl,
             direction: -20
         };
     }
@@ -24,7 +24,7 @@ export default class InfiniteView {
     bind(bindCmd, handler) {
         const bindCommands = {
             slides: () => {
-                on(this.FoodBoxEl, 'transitionend', () => handler(this.state));
+                on(this.foodBoxEl, 'transitionend', () => handler(this.state));
             },
             slidesPrev: () => {
                 on(this.slidesPrevEl, 'click', throttle(() => handler(this.state, 10), 600));
