@@ -8,9 +8,9 @@ import InfiniteSlideView from './infiniteSlideView';
 const urlList = {
     mainSlide: 'http://home.dotol.xyz/php/test_api.php',
     bestBanchan: 'http://crong.codesquad.kr:8080/woowa/best',
-    sideBanchan: 'http://crong.codesquad.kr:8080/woowa/side',
-    mainBanchan: 'http://crong.codesquad.kr:8080/woowa/main',
-    courseBanchan: 'http://crong.codesquad.kr:8080/woowa/soup'
+    side: 'http://crong.codesquad.kr:8080/woowa/side',
+    main: 'http://crong.codesquad.kr:8080/woowa/main',
+    course: 'http://crong.codesquad.kr:8080/woowa/soup'
 };
 
 const commonView = new View();

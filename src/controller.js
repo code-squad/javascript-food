@@ -4,32 +4,26 @@ import {
 } from './helpers';
 
 export default class Controller {
-    constructor(urlList, commonView, sideBanchanView, mainBanchanView, courseBanchanView) {
+    constructor(urlList, commonView, ...infiniteViews) {
         this.urlList = urlList;
         this.commonView = commonView;
-        this.sideBanchanView = sideBanchanView;
-        this.mainBanchanView = mainBanchanView;
-        this.courseBanchanView = courseBanchanView;
 
         commonView.bind('slidesPrev', this.moveSlides.bind(this));
         commonView.bind('slidesNext', this.moveSlides.bind(this));
         commonView.bind('slidesDots', this.currentSlide.bind(this));
         commonView.bind('scroller', this.moveScroller.bind(this));
 
-        sideBanchanView.bind('slidesPrev', this.moveInfiniteSlides.bind(sideBanchanView));
-        sideBanchanView.bind('slidesNext', this.moveInfiniteSlides.bind(sideBanchanView));
-        mainBanchanView.bind('slidesPrev', this.moveInfiniteSlides.bind(mainBanchanView));
-        mainBanchanView.bind('slidesNext', this.moveInfiniteSlides.bind(mainBanchanView));
-        courseBanchanView.bind('slidesPrev', this.moveInfiniteSlides.bind(courseBanchanView));
-        courseBanchanView.bind('slidesNext', this.moveInfiniteSlides.bind(courseBanchanView));
+
+        infiniteViews.forEach(infiniteView => {
+            infiniteView.bind('slidesPrev', this.moveInfiniteSlides.bind(infiniteView));
+            infiniteView.bind('slidesNext', this.moveInfiniteSlides.bind(infiniteView));
+            this.initInfiniteBanchan(infiniteView, this.urlList[infiniteView.state.name]);
+        });
     }
 
     setView() {
         this.initSlide(this.urlList.mainSlide);
         this.initBestBanchan(this.urlList.bestBanchan);
-        this.initInfiniteBanchan(this.sideBanchanView, this.urlList.sideBanchan);
-        this.initInfiniteBanchan(this.mainBanchanView, this.urlList.mainBanchan);
-        this.initInfiniteBanchan(this.courseBanchanView, this.urlList.courseBanchan);
         this.commonView.bind('preventDefault');
     }
 
