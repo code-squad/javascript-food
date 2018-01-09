@@ -13,7 +13,6 @@ export default class Controller {
         commonView.bind('slidesDots', this.currentSlide.bind(this));
         commonView.bind('scroller', this.moveScroller.bind(this));
 
-
         infiniteViews.forEach(infiniteView => {
             infiniteView.bind('slidesPrev', this.moveInfiniteSlides.bind(infiniteView));
             infiniteView.bind('slidesNext', this.moveInfiniteSlides.bind(infiniteView));
@@ -71,12 +70,11 @@ export default class Controller {
         requestAnimationFrame(animateScroll);
     }
 
-
     async initBestBanchan(url) {
         try {
             const banchan = await request(url);
             this.commonView.render('bestBanchan', banchan);
-            this.commonView.bind('foodTab', banchan);
+            this.commonView.bind('foodTab');
         } catch (e) {
             console.error(e);
         }
@@ -94,8 +92,7 @@ export default class Controller {
     }
 
     moveInfiniteSlides(target, move) {
-        target.direction += move;
-        this.showSlides(target.el, target.direction);
+        this.showSlides(target.el, target.direction += move);
     }
 
     resetInfiniteSlides(thresholdLeft, thresholdRight, target) {
