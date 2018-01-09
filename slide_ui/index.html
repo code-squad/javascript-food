@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta name="Author" content="Luigi">
+    <title>Luigi's slide ui!</title>
+    <link rel="stylesheet" type="text/css" href="./slide_ui.css">
+</head>
+<body>
+<div class="container_slide">
+    <ul>
+    </ul>
+    <div>
+        <a class="prev" onclick="slide.prev();"></a><a class="next" onclick="slide.next();"></a>
+    </div>
+    <div class="slide_pagination">
+        <ul></ul>
+    </div>
+</div>
+</body>
+<script>
+    function ajax() {
+        var oReq = new XMLHttpRequest();
+    
+        oReq.addEventListener("load", function() {
+            var target1 = document.querySelector(".container_slide > ul");
+            var target2 = document.querySelector(".slide_pagination > ul");
+            data = JSON.parse(this.responseText); //img url Array 
+            
+            data.forEach((url, index) => {
+                var li = document.createElement("li");
+                li.style.background = 'url("'+url+'") no-repeat center';
+                target1.appendChild(li);
+                index == 0 ? li.className = "show" : li.className = "hide";
+                // target1.innerHTML += '<li style="background : url("',url,'") no-repeat center;"></li>'; //안되네,위의 3줄로 대체
+
+                target2.innerHTML += "<li><a></a></li> ";
+            });
+            target2.firstChild.className = "on";
+            slide.init();
+        });
+    
+        oReq.open("GET", "http://home.dotol.xyz/php/test_api.php");
+        oReq.send();
+    }     
+    
+    var slide = {
+        index : 0,
+        last : null,
+        slides : document.querySelector(".container_slide > ul").children.length, //ajax로 만들어지기 전이라서 없다!
+        length : null,
+        slideList : null,
+        pagination  : null,
+        show  : function(index){
+                    this.slideList.children[index].className = "show";
+                    this.pagination.children[index].className = "on";
+                },
+        hide  : function(index){
+                    this.slideList.children[index].className = "hide";
+                    this.pagination.children[index].className = "off";
+                },
+        next  : function(){
+                    this.hide(this.index);
+                    this.index == this.last ? this.index = 0 : this.index++;
+                    this.show(this.index);
+                },
+        prev  : function(){
+                    this.hide(this.index);
+                    this.index == 0 ? this.index = this.last : this.index--;
+                    this.show(this.index);
+                },
+        change : function(index){
+                    this.hide(this.index);
+                    this.show(index);
+                },
+        init   : function(){
+            this.slideList = document.querySelector(".container_slide > ul");
+            this.pagination  = document.querySelector(".slide_pagination > ul");
+            this.length = this.pagination.children.length;
+            this.last = this.length-1;
+
+            document.querySelector(".slide_pagination > ul").addEventListener("click",function(e){
+                var slideEl = document.querySelector(".container_slide > ul").children;
+                var pageEl = document.querySelector(".slide_pagination > ul").children;
+                if(e.target && e.target.nodeName == "A"){
+                    var p = e.target.parentElement.parentElement; //ul>li>a -> index비교를 ul단에서 해야함 -> 상위2회접근
+                    var index = Array.prototype.indexOf.call(p.children, e.target.parentElement);
+                    
+                    slideEl[slide.index].className = "hide";
+                    slideEl[index].className = "show";
+                    pageEl[slide.index].className = "off";
+                    pageEl[index].className = "on";
+                    slide.index = index;
+                }
+            });
+
+            document.querySelector("body").addEventListener("click",function(e){
+                if(e.target.nodeName == "A") {
+                    e.preventDefault();
+                }
+            });
+
+        }
+    }
+    window.addEventListener("DOMContentLoaded", ajax);
+</script>
+</html>
