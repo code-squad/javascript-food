@@ -7,6 +7,7 @@ import {
     qs,
     qsa,
     on,
+    throttle,
     delegate
 } from './helpers';
 
@@ -26,10 +27,10 @@ export default class View {
     bind(bindCmd, handler) {
         const bindCommands = {
             slidesPrev: () => {
-                on(this.slidesPrevEl, 'click', () => handler(this.state, -1));
+                on(this.slidesPrevEl, 'click', throttle(() => handler(this.state, -1), 1000));
             },
             slidesNext: () => {
-                on(this.slidesNextEl, 'click', () => handler(this.state, 1));
+                on(this.slidesNextEl, 'click', throttle(() => handler(this.state, 1), 1000));
             },
             slidesDots: () => {
                 delegate('.slides_dots', '.slides_dots > li > a',

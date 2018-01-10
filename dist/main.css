@@ -383,12 +383,12 @@ span.ic {
 
 .fadein {
     opacity: 1;
-    transition: opacity 1s;
+    transition: opacity 2s;
 }
 
 .fadeout {
     opacity: 0;
-    transition: opacity 1s;
+    transition: opacity 2s;
 }
 
 .main_slides_list>li>a {
