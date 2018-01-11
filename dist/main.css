@@ -189,6 +189,7 @@ span.ic {
 
 .header_wrap {
     position: relative;
+    z-index: 9999;
     height: 98px;
     width: 980px;
     margin: 0 auto;
@@ -224,6 +225,38 @@ span.ic {
     top: 1px;
     right: 1px;
     border: 0;
+}
+
+.autocomplete_suggestions {
+    width: 210px;
+    text-align: left;
+    cursor: default;
+    background: #fff;
+    box-shadow: -1px 1px 3px rgba(0, 0, 0, .1);
+    position: absolute;
+    max-height: 254px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.autocomplete_suggestion {
+    position: relative;
+    padding: 0 .6em;
+    line-height: 23px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.autocomplete_suggestion b {
+    font-weight: bold;
+    color: #c92222;
+}
+
+.autocomplete_suggestion.selected {
+    background: #f0f0f0;
 }
 
 .gnb_top {
@@ -856,15 +889,16 @@ span.ic {
     background-position: 0 top;
 }
 
-.page_up_down_list>.page_up>a:hover,.page_up_down_list>.page_up>a:focus {
+.page_up_down_list>.page_up>a:hover,
+.page_up_down_list>.page_up>a:focus {
     background-position: -50px top;
 }
-
 
 .page_up_down_list>.page_down>a {
     background-position: 0 -50px;
 }
 
-.page_up_down_list>.page_down>a:hover,.page_up_down_list>.page_down>a:focus {
+.page_up_down_list>.page_down>a:hover,
+.page_up_down_list>.page_down>a:focus {
     background-position: -50px -50px;
 }

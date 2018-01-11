@@ -18,6 +18,8 @@ export default class View {
         this.slidesNextEl = qs('.slides_next');
         this.slidesEl = qsa('.main_slides_list > li');
         this.dotsEl = qsa('.slides_dots > li > a');
+        this.searchEl = qs('#search_str');
+        this.suggestionsEl = qs('.autocomplete_suggestions');
 
         this.state = {
             index: 0
@@ -48,6 +50,9 @@ export default class View {
                         e.delegateTarget.dataset.category_id === food.dataset.category_id ? 'block' : 'none');
                 });
             },
+            search: () => {
+                on(this.searchEl, 'keyup', e => handler(e.target.value));
+            },
             preventDefault: () => {
                 delegate('body', 'a', 'click', e => e.preventDefault());
             }
@@ -56,14 +61,29 @@ export default class View {
         bindCommands[bindCmd]();
     }
 
-    render(viewCmd, parameter) {
+    render(viewCmd, ...parameter) {
         const viewCommands = {
             bestBanchan: () => {
-                this.bestBanchan(parameter);
+                this.bestBanchan(...parameter);
+            },
+            autoComplete: () => {
+                this.renderAutoComplete(...parameter);
             }
         };
 
         viewCommands[viewCmd]();
+    }
+
+    renderAutoComplete(term, suggestions) {
+        this.emptyAutoComplete();
+        const target = new RegExp(term, 'g');
+        const suggestionsStr = suggestions.map(suggestion =>
+            `<li class="autocomplete_suggestion">${suggestion.replace(target, `<b>${term}</b>`)}</li>`).join('');
+        this.suggestionsEl.insertAdjacentHTML('afterbegin', suggestionsStr);
+    }
+
+    emptyAutoComplete() {
+        this.suggestionsEl.innerHTML = '';
     }
 
     bestBanchan(food) {

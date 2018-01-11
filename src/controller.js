@@ -12,6 +12,7 @@ export default class Controller {
         commonView.bind('slidesNext', this.moveSlides.bind(this));
         commonView.bind('slidesDots', this.currentSlide.bind(this));
         commonView.bind('scroller', this.moveScroller.bind(this));
+        commonView.bind('search', this.autoComplete.bind(this));
 
         infiniteViews.forEach(infiniteView => {
             infiniteView.bind('slidesPrev', this.moveInfiniteSlides.bind(infiniteView));
@@ -68,6 +69,17 @@ export default class Controller {
         };
 
         requestAnimationFrame(animateScroll);
+    }
+
+    async autoComplete(term) {
+        try {
+            const suggestions = await request(`http://crong.codesquad.kr:8080/ac/${term}`);
+            const results = suggestions[1].map(suggestion => suggestion[0]);
+            this.commonView.render('autoComplete', term, results);
+        } catch (e) {
+            this.commonView.emptyAutoComplete();
+            console.error(e);
+        }
     }
 
     async initBestBanchan(url) {
