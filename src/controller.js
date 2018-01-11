@@ -71,14 +71,18 @@ export default class Controller {
         requestAnimationFrame(animateScroll);
     }
 
-    async autoComplete(term) {
-        try {
-            const suggestions = await request(`http://crong.codesquad.kr:8080/ac/${term}`);
-            const results = suggestions[1].map(suggestion => suggestion[0]);
-            this.commonView.render('autoComplete', term, results);
-        } catch (e) {
-            this.commonView.emptyAutoComplete();
-            console.error(e);
+    async autoComplete(term, key) {
+        if (!key || (key < 35 || key > 40) && key !== 13 && key !== 27) {
+            try {
+                const suggestions = await request(`http://crong.codesquad.kr:8080/ac/${term}`);
+                const results = suggestions[1].map(suggestion => suggestion[0]);
+                this.commonView.render('autoComplete', term, results);
+            } catch (e) {
+                this.commonView.emptyAutoComplete();
+                console.error(e);
+            }
+        } else {
+            console.log('a');
         }
     }
 

@@ -189,11 +189,9 @@ span.ic {
 
 .header_wrap {
     position: relative;
-    z-index: 9999;
     height: 98px;
     width: 980px;
     margin: 0 auto;
-    overflow: hidden;
 }
 
 .logo {
@@ -231,8 +229,10 @@ span.ic {
     width: 210px;
     text-align: left;
     cursor: default;
+    z-index: 9999;
     background: #fff;
     box-shadow: -1px 1px 3px rgba(0, 0, 0, .1);
+    display: block;
     position: absolute;
     max-height: 254px;
     overflow: hidden;

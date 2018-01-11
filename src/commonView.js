@@ -51,7 +51,7 @@ export default class View {
                 });
             },
             search: () => {
-                on(this.searchEl, 'keyup', e => handler(e.target.value));
+                on(this.searchEl, 'keyup', e => handler(e.target.value, e.keyCode));
             },
             preventDefault: () => {
                 delegate('body', 'a', 'click', e => e.preventDefault());
