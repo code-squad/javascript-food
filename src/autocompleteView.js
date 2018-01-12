@@ -22,7 +22,10 @@ export default class View {
                 on(this.searchButtonEl, 'click', () => handler(this.searchEl.value));
             },
             searches: () => {
-                on(this.searchEl, 'click', () => handler());
+                on(this.searchEl, 'click', () => handler(!this.suggestionsEl.innerHTML, this.searchEl.value));
+            },
+            nonClick: () => {
+                delegate('body', '*', 'click', e => handler(e.target !== this.searchEl));
             }
         };
 
@@ -44,7 +47,7 @@ export default class View {
 
     renderSearches(searches) {
         const searchesStr = searches.map(search =>
-            `<li class="autocomplete_suggestion"data-value="${search}">${search} </li>`).join('');
+            `<li class="autocomplete_suggestion searches"data-value="${search}">${search} </li>`).join('');
         this.suggestionsEl.insertAdjacentHTML('afterbegin', searchesStr);
     }
 

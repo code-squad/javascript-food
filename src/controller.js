@@ -17,6 +17,7 @@ export default class Controller {
         automCompleteView.bind('click', this.clickAutoComplete.bind(this));
         automCompleteView.bind('submit', this.submitSearches.bind(this));
         automCompleteView.bind('searches', this.showSearches.bind(this));
+        automCompleteView.bind('nonClick', this.hideAutoComplete.bind(this));
 
 
         infiniteViews.forEach(infiniteView => {
@@ -121,9 +122,15 @@ export default class Controller {
         this.automCompleteView.emptySearchbar();
     }
 
-    async showSearches() {
-        const searches = await this.getLocalStorage('searches');
-        this.automCompleteView.render('searches', searches.slice(-5).reverse());
+    async showSearches(check) {
+        if (check) {
+            const searches = await this.getLocalStorage('searches');
+            this.automCompleteView.render('searches', searches.slice(-5).reverse());
+        }
+    }
+
+    hideAutoComplete(check) {
+        if (check) this.automCompleteView.emptyAutoComplete();
     }
 
     async initBestBanchan(url) {
