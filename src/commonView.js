@@ -102,6 +102,7 @@ export default class View {
             target = key === 40 ? qs('.autocomplete_suggestion') : this.suggestionsEl.childNodes[this.suggestionsEl.childNodes.length - 1];
             target.className += ' selected';
         }
+        this.sel = target;
     }
 
     emptyAutoComplete() {
