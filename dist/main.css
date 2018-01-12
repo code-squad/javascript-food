@@ -256,7 +256,7 @@ span.ic {
 }
 
 .autocomplete_suggestion.selected {
-    background: #f0f0f0;
+    background: #f0f0f0bd;
 }
 
 .gnb_top {

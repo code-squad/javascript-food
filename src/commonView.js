@@ -78,8 +78,30 @@ export default class View {
         this.emptyAutoComplete();
         const target = new RegExp(term, 'g');
         const suggestionsStr = suggestions.map(suggestion =>
-            `<li class="autocomplete_suggestion">${suggestion.replace(target, `<b>${term}</b>`)}</li>`).join('');
+            `<li class="autocomplete_suggestion" data-value="${suggestion}">${suggestion.replace(target, `<b>${term}</b>`)}</li>`).join('');
         this.suggestionsEl.insertAdjacentHTML('afterbegin', suggestionsStr);
+    }
+
+    enterAutoComplete() {
+        if (this.sel && this.suggestionsEl.innerHTML) {
+            this.searchEl.value = this.sel.dataset.value;
+            setTimeout(() => {
+                this.emptyAutoComplete();
+            }, 20);
+        }
+    }
+
+    moveAutoComplete(key) {
+        this.sel = qs('.autocomplete_suggestion.selected');
+        let target;
+        if (this.sel) {
+            target = key === 40 ? this.sel.nextSibling : this.sel.previousSibling;
+            this.sel.className = 'autocomplete_suggestion';
+            if (target) target.className += ' selected';
+        } else {
+            target = key === 40 ? qs('.autocomplete_suggestion') : this.suggestionsEl.childNodes[this.suggestionsEl.childNodes.length - 1];
+            target.className += ' selected';
+        }
     }
 
     emptyAutoComplete() {

@@ -81,8 +81,18 @@ export default class Controller {
                 this.commonView.emptyAutoComplete();
                 console.error(e);
             }
-        } else {
-            console.log('a');
+        }
+        // down (40), up (38)
+        else if (key === 40 || key === 38) {
+            this.commonView.moveAutoComplete(key);
+        }
+        // esc
+        else if (key === 27) {
+            this.commonView.emptyAutoComplete();
+        }
+        // enter
+        else if (key === 13) {
+            this.commonView.enterAutoComplete();
         }
     }
 
