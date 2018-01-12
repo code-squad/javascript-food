@@ -13,11 +13,12 @@ export default class Controller {
         commonView.bind('slidesNext', this.moveSlides.bind(this));
         commonView.bind('slidesDots', this.currentSlide.bind(this));
         commonView.bind('scroller', this.moveScroller.bind(this));
+
         automCompleteView.bind('press', this.pressAutoComplete.bind(this));
         automCompleteView.bind('click', this.clickAutoComplete.bind(this));
+        automCompleteView.bind('nonClick', this.hideAutoComplete.bind(this));
         automCompleteView.bind('submit', this.submitSearches.bind(this));
         automCompleteView.bind('searches', this.showSearches.bind(this));
-        automCompleteView.bind('nonClick', this.hideAutoComplete.bind(this));
 
 
         infiniteViews.forEach(infiniteView => {
@@ -90,9 +91,9 @@ export default class Controller {
     }
 
     async pressAutoComplete(term, key) {
-        if (!key || (key < 35 || key > 40) && key !== 13 && key !== 27 && term) {
+        if (!key || (key < 35 || key > 40) && key !== 13 && key !== 27) {
             const suggestions = await this.checkLocalStorage(`http://crong.codesquad.kr:8080/ac/${term}`);
-            suggestions ? this.automCompleteView.render('autoComplete', term, suggestions[1]) : this.automCompleteView.emptyAutoComplete();
+            suggestions && term ? this.automCompleteView.render('autoComplete', term, suggestions[1]) : this.automCompleteView.emptyAutoComplete();
         }
         // down (40), up (38)
         else if (key === 40 || key === 38) {
