@@ -22,7 +22,7 @@ export default class View {
                 on(this.searchButtonEl, 'click', () => handler(this.searchEl.value));
             },
             searches: () => {
-                on(this.searchEl, 'click', () => handler(!this.suggestionsEl.innerHTML, this.searchEl.value));
+                on(this.searchEl, 'click', () => handler(!this.suggestionsEl.innerHTML && !this.searchEl.value));
             },
             nonClick: () => {
                 delegate('body', '*', 'click', e => handler(e.target !== this.searchEl));
