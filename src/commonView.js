@@ -103,6 +103,12 @@ export default class View {
             target.className += ' selected';
         }
         this.sel = target;
+        this.updateAutoCompleteScroll();
+    }
+
+    updateAutoCompleteScroll() {
+        const offsetGap = this.sel.offsetTop + this.sel.clientHeight - this.suggestionsEl.clientHeight;
+        this.suggestionsEl.scrollTop = offsetGap ? offsetGap : 0;
     }
 
     emptyAutoComplete() {
