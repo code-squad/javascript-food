@@ -234,9 +234,7 @@ span.ic {
     box-shadow: -1px 1px 3px rgba(0, 0, 0, .1);
     display: block;
     position: absolute;
-    max-height: 254px;
     overflow: hidden;
-    overflow-y: auto;
 }
 
 .autocomplete_suggestion {

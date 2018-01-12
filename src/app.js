@@ -4,6 +4,7 @@ import {
 } from './helpers';
 import CommonView from './commonView';
 import InfiniteSlideView from './infiniteSlideView';
+import AutomCompleteView from './autocompleteView';
 
 const urlList = {
     mainSlide: 'http://home.dotol.xyz/php/test_api.php',
@@ -17,12 +18,13 @@ const commonView = new CommonView();
 const sideBanchanView = new InfiniteSlideView('side');
 const mainBanchanView = new InfiniteSlideView('main');
 const courseBanchanView = new InfiniteSlideView('course');
+const automCompleteView = new AutomCompleteView();
 
 
 /**
  * @type {Controller}
  */
-const controller = new Controller(urlList, commonView, sideBanchanView, mainBanchanView, courseBanchanView);
+const controller = new Controller(urlList, commonView, automCompleteView, sideBanchanView, mainBanchanView, courseBanchanView);
 
 const setView = () => controller.setView();
 on(window, 'load', setView);

@@ -4,15 +4,16 @@ import {
 } from './helpers';
 
 export default class Controller {
-    constructor(urlList, commonView, ...infiniteViews) {
+    constructor(urlList, commonView, automCompleteView, ...infiniteViews) {
         this.urlList = urlList;
         this.commonView = commonView;
+        this.automCompleteView = automCompleteView;
 
         commonView.bind('slidesPrev', this.moveSlides.bind(this));
         commonView.bind('slidesNext', this.moveSlides.bind(this));
         commonView.bind('slidesDots', this.currentSlide.bind(this));
         commonView.bind('scroller', this.moveScroller.bind(this));
-        commonView.bind('search', this.autoComplete.bind(this));
+        automCompleteView.bind('search', this.autoComplete.bind(this));
 
         infiniteViews.forEach(infiniteView => {
             infiniteView.bind('slidesPrev', this.moveInfiniteSlides.bind(infiniteView));
@@ -90,19 +91,19 @@ export default class Controller {
                     suggestions = this.setLocalStorage(term, results);
                 }
             }
-            this.commonView.render('autoComplete', term, suggestions);
+            this.automCompleteView.render('autoComplete', term, suggestions);
         }
         // down (40), up (38)
         else if (key === 40 || key === 38) {
-            this.commonView.moveAutoComplete(key);
+            this.automCompleteView.moveAutoComplete(key);
         }
         // esc
         else if (key === 27) {
-            this.commonView.emptyAutoComplete();
+            this.automCompleteView.emptyAutoComplete();
         }
         // enter
         else if (key === 13) {
-            this.commonView.enterAutoComplete();
+            this.automCompleteView.enterAutoComplete();
         }
     }
 
