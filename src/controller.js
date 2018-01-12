@@ -21,6 +21,15 @@ export default class Controller {
         });
     }
 
+    getLocalStorage(key) {
+        return JSON.parse(localStorage.getItem(key));
+    }
+
+    setLocalStorage(key, value) {
+        localStorage.setItem(key, JSON.stringify(value));
+        return value;
+    }
+
     setView() {
         this.initSlide(this.urlList.mainSlide);
         this.initBestBanchan(this.urlList.bestBanchan);
@@ -73,14 +82,15 @@ export default class Controller {
 
     async autoComplete(term, key) {
         if (!key || (key < 35 || key > 40) && key !== 13 && key !== 27) {
-            try {
-                const suggestions = await request(`http://crong.codesquad.kr:8080/ac/${term}`);
-                const results = suggestions[1].map(suggestion => suggestion[0]);
-                this.commonView.render('autoComplete', term, results);
-            } catch (e) {
-                this.commonView.emptyAutoComplete();
-                console.error(e);
+            let suggestions = this.getLocalStorage(term);
+            if (!suggestions) {
+                const response = await request(`http://crong.codesquad.kr:8080/ac/${term}`);
+                if (Array.isArray(response)) {
+                    const results = response[1].map(suggestion => suggestion[0]);
+                    suggestions = this.setLocalStorage(term, results);
+                }
             }
+            this.commonView.render('autoComplete', term, suggestions);
         }
         // down (40), up (38)
         else if (key === 40 || key === 38) {
