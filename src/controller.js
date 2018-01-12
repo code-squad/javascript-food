@@ -13,8 +13,11 @@ export default class Controller {
         commonView.bind('slidesNext', this.moveSlides.bind(this));
         commonView.bind('slidesDots', this.currentSlide.bind(this));
         commonView.bind('scroller', this.moveScroller.bind(this));
-        automCompleteView.bind('search', this.pressAutoComplete.bind(this));
+        automCompleteView.bind('press', this.pressAutoComplete.bind(this));
         automCompleteView.bind('click', this.clickAutoComplete.bind(this));
+        automCompleteView.bind('submit', this.submitSearches.bind(this));
+        automCompleteView.bind('searches', this.showSearches.bind(this));
+
 
         infiniteViews.forEach(infiniteView => {
             infiniteView.bind('slidesPrev', this.moveInfiniteSlides.bind(infiniteView));
@@ -109,25 +112,31 @@ export default class Controller {
         this.automCompleteView.enterAutoComplete();
     }
 
-    async initBestBanchan(url) {
-        try {
-            const banchan = await this.checkLocalStorage(url);
-            this.commonView.render('bestBanchan', banchan);
-            this.commonView.bind('foodTab');
-        } catch (e) {
-            console.error(e);
+    submitSearches(keyword) {
+        if (keyword) {
+            const searches = new Set(this.getLocalStorage('searches'));
+            searches.add(keyword);
+            this.setLocalStorage('searches', [...searches]);
         }
+        this.automCompleteView.emptySearchbar();
+    }
+
+    async showSearches() {
+        const searches = await this.getLocalStorage('searches');
+        this.automCompleteView.render('searches', searches.slice(-5).reverse());
+    }
+
+    async initBestBanchan(url) {
+        const banchan = await this.checkLocalStorage(url);
+        this.commonView.render('bestBanchan', banchan);
+        this.commonView.bind('foodTab');
     }
 
     async initInfiniteBanchan(targetView, url) {
-        try {
-            const foodData = await this.checkLocalStorage(url);
-            targetView.render('banchan', foodData);
-            const [thresholdLeft, thresholdRight] = [-20 - (foodData.length * 2.5), -20 + (foodData.length * 2.5)];
-            targetView.bind('slides', this.resetInfiniteSlides.bind(targetView, thresholdLeft, thresholdRight));
-        } catch (e) {
-            console.error(e);
-        }
+        const foodData = await this.checkLocalStorage(url);
+        targetView.render('banchan', foodData);
+        const [thresholdLeft, thresholdRight] = [-20 - (foodData.length * 2.5), -20 + (foodData.length * 2.5)];
+        targetView.bind('slides', this.resetInfiniteSlides.bind(targetView, thresholdLeft, thresholdRight));
     }
 
     moveInfiniteSlides(target, move) {

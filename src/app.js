@@ -4,7 +4,7 @@ import {
 } from './helpers';
 import CommonView from './commonView';
 import InfiniteSlideView from './infiniteSlideView';
-import AutomCompleteView from './autocompleteView';
+import AutomCompleteView from './autoCompleteView';
 
 const urlList = {
     mainSlide: 'http://home.dotol.xyz/php/test_api.php',

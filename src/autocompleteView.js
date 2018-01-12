@@ -7,16 +7,22 @@ export default class View {
     constructor() {
         this.searchEl = qs('#search_str');
         this.suggestionsEl = qs('.autocomplete_suggestions');
-
+        this.searchButtonEl = qs('.search_btn');
     }
 
     bind(bindCmd, handler) {
         const bindCommands = {
-            search: () => {
+            press: () => {
                 on(this.searchEl, 'keyup', e => handler(e.target.value, e.keyCode));
             },
             click: () => {
                 delegate(this.suggestionsEl, '.autocomplete_suggestion', 'click', e => handler(e.delegateTarget));
+            },
+            submit: () => {
+                on(this.searchButtonEl, 'click', () => handler(this.searchEl.value));
+            },
+            searches: () => {
+                on(this.searchEl, 'click', () => handler());
             }
         };
 
@@ -27,10 +33,19 @@ export default class View {
         const viewCommands = {
             autoComplete: () => {
                 this.renderAutoComplete(...parameter);
+            },
+            searches: () => {
+                this.renderSearches(...parameter);
             }
         };
 
         viewCommands[viewCmd]();
+    }
+
+    renderSearches(searches) {
+        const searchesStr = searches.map(search =>
+            `<li class="autocomplete_suggestion"data-value="${search}">${search} </li>`).join('');
+        this.suggestionsEl.insertAdjacentHTML('afterbegin', searchesStr);
     }
 
     renderAutoComplete(term, suggestions) {
@@ -68,6 +83,10 @@ export default class View {
 
     emptyAutoComplete() {
         this.suggestionsEl.innerHTML = '';
+    }
+
+    emptySearchbar() {
+        this.searchEl.value = '';
     }
 
 }
