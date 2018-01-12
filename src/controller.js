@@ -13,7 +13,8 @@ export default class Controller {
         commonView.bind('slidesNext', this.moveSlides.bind(this));
         commonView.bind('slidesDots', this.currentSlide.bind(this));
         commonView.bind('scroller', this.moveScroller.bind(this));
-        automCompleteView.bind('search', this.autoComplete.bind(this));
+        automCompleteView.bind('search', this.pressAutoComplete.bind(this));
+        automCompleteView.bind('click', this.clickAutoComplete.bind(this));
 
         infiniteViews.forEach(infiniteView => {
             infiniteView.bind('slidesPrev', this.moveInfiniteSlides.bind(infiniteView));
@@ -84,8 +85,8 @@ export default class Controller {
         requestAnimationFrame(animateScroll);
     }
 
-    async autoComplete(term, key) {
-        if (!key || (key < 35 || key > 40) && key !== 13 && key !== 27) {
+    async pressAutoComplete(term, key) {
+        if (!key || (key < 35 || key > 40) && key !== 13 && key !== 27 && term) {
             const suggestions = await this.checkLocalStorage(`http://crong.codesquad.kr:8080/ac/${term}`);
             suggestions ? this.automCompleteView.render('autoComplete', term, suggestions[1]) : this.automCompleteView.emptyAutoComplete();
         }
@@ -101,6 +102,11 @@ export default class Controller {
         else if (key === 13) {
             this.automCompleteView.enterAutoComplete();
         }
+    }
+
+    clickAutoComplete(target) {
+        this.automCompleteView.updateAutoComplete(target);
+        this.automCompleteView.enterAutoComplete();
     }
 
     async initBestBanchan(url) {

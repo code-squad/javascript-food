@@ -1,6 +1,7 @@
 import {
     qs,
-    on
+    on,
+    delegate
 } from './helpers';
 export default class View {
     constructor() {
@@ -13,6 +14,9 @@ export default class View {
         const bindCommands = {
             search: () => {
                 on(this.searchEl, 'keyup', e => handler(e.target.value, e.keyCode));
+            },
+            click: () => {
+                delegate(this.suggestionsEl, '.autocomplete_suggestion', 'click', e => handler(e.delegateTarget));
             }
         };
 
@@ -38,6 +42,10 @@ export default class View {
         this.suggestionsEl.insertAdjacentHTML('afterbegin', suggestionsStr);
     }
 
+    updateAutoComplete(target) {
+        this.sel = target;
+    }
+
     enterAutoComplete() {
         if (this.sel && this.suggestionsEl.innerHTML) {
             this.searchEl.value = this.sel.dataset.value;
@@ -55,7 +63,7 @@ export default class View {
             target = key === 40 ? this.suggestionsEl.firstChild : this.suggestionsEl.lastChild;
         }
         target.classList.add('selected');
-        this.sel = target;
+        this.updateAutoComplete(target);
     }
 
     emptyAutoComplete() {

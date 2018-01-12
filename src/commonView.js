@@ -34,11 +34,11 @@ export default class View {
             },
             slidesDots: () => {
                 delegate('.slides_dots', '.slides_dots > li > a',
-                    'click', (e) => handler(this.state, +e.delegateTarget.textContent));
+                    'click', e => handler(this.state, +e.delegateTarget.textContent));
             },
             scroller: () => {
                 delegate('.page_up_down_list', '.page_up_down_list > li > a',
-                    'click', (e) => handler(e.delegateTarget.dataset.direction));
+                    'click', e => handler(e.delegateTarget.dataset.direction));
             },
             foodTab: () => {
                 delegate(this.foodTabEl, 'li > a', 'click', e => {

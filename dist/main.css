@@ -228,7 +228,7 @@ span.ic {
 .autocomplete_suggestions {
     width: 210px;
     text-align: left;
-    cursor: default;
+    cursor: pointer;
     z-index: 9999;
     background: #fff;
     box-shadow: -1px 1px 3px rgba(0, 0, 0, .1);
@@ -239,13 +239,18 @@ span.ic {
 
 .autocomplete_suggestion {
     position: relative;
-    padding: 0 .6em;
+    padding: 6px 0 3px 25px;
     line-height: 23px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 1.2em;
     color: #333;
+}
+
+.autocomplete_suggestion:hover,
+.autocomplete_suggestion:focus {
+    background: #f0f0f0bd;
 }
 
 .autocomplete_suggestion b {
