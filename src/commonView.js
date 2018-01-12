@@ -96,12 +96,11 @@ export default class View {
         let target;
         if (this.sel) {
             target = key === 40 ? this.sel.nextSibling : this.sel.previousSibling;
-            this.sel.className = 'autocomplete_suggestion';
-            if (target) target.className += ' selected';
+            this.sel.classList.remove('selected');
         } else {
-            target = key === 40 ? qs('.autocomplete_suggestion') : this.suggestionsEl.childNodes[this.suggestionsEl.childNodes.length - 1];
-            target.className += ' selected';
+            target = key === 40 ? this.suggestionsEl.firstChild : this.suggestionsEl.lastChild;
         }
+        target.classList.add('selected');
         this.sel = target;
         this.updateAutoCompleteScroll();
     }
