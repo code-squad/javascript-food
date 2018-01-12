@@ -110,8 +110,8 @@ export function request(url) {
         const xhr = new XMLHttpRequest();
         xhr.open('get', url, true);
         xhr.onload = () => (xhr.status >= 200 && xhr.status < 400) ?
-            resolve(JSON.parse(xhr.response)) : reject(Error(xhr.status));
-        xhr.ontimeout = () => reject(Error('timeout'));
+            resolve(JSON.parse(xhr.response)) : reject(xhr.status);
+        xhr.ontimeout = () => reject('timeout');
         xhr.send();
     });
 }

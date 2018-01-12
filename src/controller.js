@@ -31,6 +31,13 @@ export default class Controller {
         return value;
     }
 
+    async checkLocalStorage(key) {
+        let cache = this.getLocalStorage(key);
+        if (cache) return cache;
+        const response = await request(key);
+        return response.hasOwnProperty('error') ? false : this.setLocalStorage(key, response);
+    }
+
     setView() {
         this.initSlide(this.urlList.mainSlide);
         this.initBestBanchan(this.urlList.bestBanchan);
@@ -38,11 +45,7 @@ export default class Controller {
     }
 
     async initSlide(url) {
-        try {
-            this.slideImgs = await request(url);
-        } catch (e) {
-            console.error(e);
-        }
+        this.slideImgs = await this.checkLocalStorage(url);
         this.slidesEnd = this.slideImgs.length - 1;
         this.commonView.showSlide(0, this.slideImgs[0]);
     }
@@ -83,15 +86,8 @@ export default class Controller {
 
     async autoComplete(term, key) {
         if (!key || (key < 35 || key > 40) && key !== 13 && key !== 27) {
-            let suggestions = this.getLocalStorage(term);
-            if (!suggestions) {
-                const response = await request(`http://crong.codesquad.kr:8080/ac/${term}`);
-                if (Array.isArray(response)) {
-                    const results = response[1].map(suggestion => suggestion[0]);
-                    suggestions = this.setLocalStorage(term, results);
-                }
-            }
-            this.automCompleteView.render('autoComplete', term, suggestions);
+            const suggestions = await this.checkLocalStorage(`http://crong.codesquad.kr:8080/ac/${term}`);
+            suggestions ? this.automCompleteView.render('autoComplete', term, suggestions[1]) : this.automCompleteView.emptyAutoComplete();
         }
         // down (40), up (38)
         else if (key === 40 || key === 38) {
@@ -109,7 +105,7 @@ export default class Controller {
 
     async initBestBanchan(url) {
         try {
-            const banchan = await request(url);
+            const banchan = await this.checkLocalStorage(url);
             this.commonView.render('bestBanchan', banchan);
             this.commonView.bind('foodTab');
         } catch (e) {
@@ -119,7 +115,7 @@ export default class Controller {
 
     async initInfiniteBanchan(targetView, url) {
         try {
-            const foodData = await request(url);
+            const foodData = await this.checkLocalStorage(url);
             targetView.render('banchan', foodData);
             const [thresholdLeft, thresholdRight] = [-20 - (foodData.length * 2.5), -20 + (foodData.length * 2.5)];
             targetView.bind('slides', this.resetInfiniteSlides.bind(targetView, thresholdLeft, thresholdRight));

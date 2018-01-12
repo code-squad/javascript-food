@@ -33,7 +33,8 @@ export default class View {
         this.emptyAutoComplete();
         const target = new RegExp(term, 'g');
         const suggestionsStr = suggestions.map(suggestion =>
-            `<li class="autocomplete_suggestion" data-value="${suggestion}">${suggestion.replace(target, `<b>${term}</b>`)}</li>`).join('');
+            `<li class="autocomplete_suggestion" data-value="${suggestion[0]}">
+            ${suggestion[0].replace(target, `<b>${term}</b>`)}</li>`).join('');
         this.suggestionsEl.insertAdjacentHTML('afterbegin', suggestionsStr);
     }
 
