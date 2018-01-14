@@ -678,19 +678,7 @@ span.ic {
     top: -3px;
 }
 
-.side_food {
-    overflow: auto;
-    text-align: center;
-    position: relative;
-}
-
-.main_food {
-    overflow: auto;
-    text-align: center;
-    position: relative;
-}
-
-.course_food {
+.infinite_food {
     overflow: auto;
     text-align: center;
     position: relative;
