@@ -15,10 +15,11 @@ export default class Controller {
         commonView.bind('scroller', this.moveScroller.bind(this));
 
         automCompleteView.bind('press', this.pressAutoComplete.bind(this));
-        automCompleteView.bind('click', this.clickAutoComplete.bind(this));
-        automCompleteView.bind('nonClick', this.hideAutoComplete.bind(this));
         automCompleteView.bind('submit', this.submitSearches.bind(this));
         automCompleteView.bind('searches', this.showSearches.bind(this));
+        automCompleteView.bind('click');
+        automCompleteView.bind('nonClick');
+        automCompleteView.bind('hover');
 
 
         infiniteViews.forEach(infiniteView => {
@@ -109,18 +110,13 @@ export default class Controller {
         }
     }
 
-    clickAutoComplete(target) {
-        this.automCompleteView.updateAutoComplete(target);
-        this.automCompleteView.enterAutoComplete();
-    }
-
     submitSearches(keyword) {
         if (keyword) {
             const searches = new Set(this.getLocalStorage('searches'));
             searches.add(keyword);
             this.setLocalStorage('searches', [...searches]);
+            this.automCompleteView.emptySearchbar();
         }
-        this.automCompleteView.emptySearchbar();
     }
 
     async showSearches(check) {
@@ -128,10 +124,6 @@ export default class Controller {
             const searches = await this.getLocalStorage('searches');
             this.automCompleteView.render('searches', searches.slice(-5).reverse());
         }
-    }
-
-    hideAutoComplete(check) {
-        if (check) this.automCompleteView.emptyAutoComplete();
     }
 
     async initBestBanchan(url) {

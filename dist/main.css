@@ -248,14 +248,9 @@ span.ic {
     color: #333;
 }
 
-.autocomplete_suggestion:hover,
-.autocomplete_suggestion:focus {
-    background: #f0f0f0bd;
-}
-
 .autocomplete_suggestion b {
     font-weight: bold;
-    color: #c92222;
+    color: #fe1a1a;
 }
 
 .autocomplete_suggestion.selected {

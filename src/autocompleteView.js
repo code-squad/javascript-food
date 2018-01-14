@@ -15,17 +15,23 @@ export default class View {
             press: () => {
                 on(this.searchEl, 'keyup', e => handler(e.target.value, e.keyCode));
             },
-            click: () => {
-                delegate(this.suggestionsEl, '.autocomplete_suggestion', 'click', e => handler(e.delegateTarget));
-            },
             submit: () => {
                 on(this.searchButtonEl, 'click', () => handler(this.searchEl.value));
             },
             searches: () => {
                 on(this.searchEl, 'click', () => handler(!this.suggestionsEl.innerHTML && !this.searchEl.value));
             },
+            click: () => {
+                delegate(this.suggestionsEl, '.autocomplete_suggestion', 'click', e => {
+                    this.updateAutoComplete(e.delegateTarget);
+                    this.enterAutoComplete();
+                });
+            },
             nonClick: () => {
-                delegate('body', '*', 'click', e => handler(e.target !== this.searchEl));
+                delegate('body', '*', 'click', e => e.target !== this.searchEl && this.emptyAutoComplete());
+            },
+            hover: () => {
+                delegate(this.suggestionsEl, '.autocomplete_suggestion', 'mouseover', e => this.updateAutoComplete(e.delegateTarget));
             }
         };
 
@@ -45,12 +51,6 @@ export default class View {
         viewCommands[viewCmd]();
     }
 
-    renderSearches(searches) {
-        const searchesStr = searches.map(search =>
-            `<li class="autocomplete_suggestion searches"data-value="${search}">${search} </li>`).join('');
-        this.suggestionsEl.insertAdjacentHTML('afterbegin', searchesStr);
-    }
-
     renderAutoComplete(term, suggestions) {
         this.emptyAutoComplete();
         const target = new RegExp(term, 'g');
@@ -60,8 +60,10 @@ export default class View {
         this.suggestionsEl.insertAdjacentHTML('afterbegin', suggestionsStr);
     }
 
-    updateAutoComplete(target) {
-        this.sel = target;
+    renderSearches(searches) {
+        const searchesStr = searches.map(search =>
+            `<li class="autocomplete_suggestion searches"data-value="${search}">${search} </li>`).join('');
+        this.suggestionsEl.insertAdjacentHTML('afterbegin', searchesStr);
     }
 
     enterAutoComplete() {
@@ -73,15 +75,15 @@ export default class View {
 
     moveAutoComplete(key) {
         this.sel = qs('.autocomplete_suggestion.selected');
-        let target;
-        if (this.sel) {
-            target = key === 40 ? this.sel.nextSibling : this.sel.previousSibling;
-            this.sel.classList.remove('selected');
-        } else {
-            target = key === 40 ? this.suggestionsEl.firstChild : this.suggestionsEl.lastChild;
-        }
-        target.classList.add('selected');
+        const [nextEl, prevEl] = this.sel ? [this.sel.nextSibling, this.sel.previousSibling] : [this.suggestionsEl.firstChild, this.suggestionsEl.lastChild];
+        const target = key === 40 ? nextEl : prevEl;
         this.updateAutoComplete(target);
+    }
+
+    updateAutoComplete(target) {
+        this.sel && this.sel.classList.remove('selected');
+        this.sel = target;
+        this.sel.classList.add('selected');
     }
 
     emptyAutoComplete() {
