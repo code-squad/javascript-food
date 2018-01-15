@@ -38,10 +38,10 @@ export default class Controller {
         return value.data;
     }
 
-    isValid(receivedTime, thresdholdHours) {
+    isValid(receivedTime, thresholdHours) {
         const currentTime = Date.now();
         const elapsedTime = (currentTime - receivedTime) / 1000 / 60 / 60;
-        return elapsedTime < thresdholdHours ? true : false;
+        return elapsedTime < thresholdHours ? true : false;
     }
 
     async checkLocalStorage(key) {
@@ -163,8 +163,8 @@ export default class Controller {
     async initInfiniteBanchan(targetView, url) {
         const foodData = await this.checkLocalStorage(url);
         targetView.render('banchan', foodData);
-        const [thresholdLeft, thresholdRight] = [-20 - (foodData.length * 2.5), -20 + (foodData.length * 2.5)];
-        targetView.bind('slides', this.resetInfiniteSlides.bind(targetView, thresholdLeft, thresholdRight));
+        const threshold = foodData.length * 2.5;
+        targetView.bind('slides', this.resetInfiniteSlides.bind(targetView, -20 - threshold, -20 + threshold));
     }
 
     moveInfiniteSlides(target, move) {

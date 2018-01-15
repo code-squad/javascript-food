@@ -37,10 +37,10 @@ export default class InfiniteView {
         bindCommands[bindCmd]();
     }
 
-    render(viewCmd, parameter) {
+    render(viewCmd, params) {
         const viewCommands = {
             banchan: () => {
-                this.renderBanchan(parameter);
+                this.renderBanchan(params);
             }
         };
 
