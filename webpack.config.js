@@ -11,6 +11,12 @@ module.exports = {
         loaders: [{
             test: /\-tpl.html$/,
             loader: 'handlebars-loader'
+        }, {
+            test: /\.js$/,
+            exclude: /(node_modules|bower_components)/,
+            use: {
+                loader: 'babel-loader'
+            }
         }]
     },
     devtool: '#inline-source-map'
