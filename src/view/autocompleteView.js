@@ -4,7 +4,7 @@ import {
     on,
     delegate
 } from '../helpers';
-export default class View {
+export default class AutoCompleteView {
     constructor() {
         this.searchEl = qs('#search_str');
         this.suggestionsEl = qs('.autocomplete_suggestions');
