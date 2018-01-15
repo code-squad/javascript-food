@@ -35,14 +35,24 @@ export default class Controller {
 
     setLocalStorage(key, value) {
         localStorage.setItem(key, JSON.stringify(value));
-        return value;
+        return value.data;
+    }
+
+    isValid(receivedTime, thresdholdHours) {
+        const currentTime = Date.now();
+        const elapsedTime = (currentTime - receivedTime) / 1000 / 60 / 60;
+        return elapsedTime < thresdholdHours ? true : false;
     }
 
     async checkLocalStorage(key) {
-        let cache = this.getLocalStorage(key);
-        if (cache) return cache;
-        const response = await request(key);
-        return response.hasOwnProperty('error') ? false : this.setLocalStorage(key, response);
+        const cache = this.getLocalStorage(key);
+        if (cache && this.isValid(cache.time, 6)) return cache.data;
+        const data = await request(key);
+        const value = {
+            data,
+            time: Date.now()
+        };
+        return data.hasOwnProperty('error') ? false : this.setLocalStorage(key, value);
     }
 
     setView() {
