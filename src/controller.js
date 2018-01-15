@@ -102,20 +102,20 @@ export default class Controller {
     }
 
     isString(key) {
-        return (!key || (key < 35 || key > 40) && key !== 13 && key !== 27) ? true : false;
+        return (!key || (key < 35 || key > 40) && key !== 13 && key !== 27);
     }
 
     isUpdown(key) {
         // down (40), up (38)
-        return (key === 40 || key === 38) ? true : false;
+        return (key === 40 || key === 38);
     }
 
     isESC(key) {
-        return key === 27 ? true : false;
+        return key === 27;
     }
 
     isEnter(key) {
-        return key === 13 ? true : false;
+        return key === 13;
     }
 
     async pressAutoComplete(term, key) {
