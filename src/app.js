@@ -2,9 +2,9 @@ import Controller from './controller';
 import {
     on
 } from './helpers';
-import CommonView from './commonView';
-import InfiniteSlideView from './infiniteSlideView';
-import AutomCompleteView from './autoCompleteView';
+import CommonView from './view/commonView';
+import InfiniteSlideView from './view/infiniteSlideView';
+import AutomCompleteView from './view/autoCompleteView';
 
 const urlList = {
     mainSlide: 'http://home.dotol.xyz/php/test_api.php',

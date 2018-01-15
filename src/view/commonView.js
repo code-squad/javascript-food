@@ -9,7 +9,7 @@ import {
     on,
     throttle,
     delegate
-} from './helpers';
+} from '../helpers';
 
 export default class View {
     constructor() {

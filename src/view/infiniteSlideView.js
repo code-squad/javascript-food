@@ -6,7 +6,7 @@ import {
     qsa,
     on,
     throttle
-} from './helpers';
+} from '../helpers';
 
 export default class InfiniteView {
     constructor(name) {

@@ -3,7 +3,7 @@ import {
     qs,
     on,
     delegate
-} from './helpers';
+} from '../helpers';
 export default class View {
     constructor() {
         this.searchEl = qs('#search_str');
