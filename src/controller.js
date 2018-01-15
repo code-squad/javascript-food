@@ -101,21 +101,39 @@ export default class Controller {
         requestAnimationFrame(animateScroll);
     }
 
+    isString(key) {
+        if (!key || (key < 35 || key > 40) && key !== 13 && key !== 27)
+            return true;
+        else
+            return false;
+    }
+
+    isUpdown(key) {
+        // down (40), up (38)
+        return (key === 40 || key === 38) ? true : false;
+    }
+
+    isESC(key) {
+        return key === 27 ? true : false;
+    }
+
+    isEnter(key) {
+        return key === 13 ? true : false;
+    }
+
     async pressAutoComplete(term, key) {
-        if (!key || (key < 35 || key > 40) && key !== 13 && key !== 27) {
+        if (this.isString(key)) {
             const suggestions = await this.checkLocalStorage(`http://crong.codesquad.kr:8080/ac/${term}`);
             suggestions && term ? this.automCompleteView.render('autoComplete', term, suggestions[1]) : this.automCompleteView.emptyAutoComplete();
-        }
-        // down (40), up (38)
-        else if (key === 40 || key === 38) {
+        } else if (this.isUpdown(key)) {
             this.automCompleteView.moveAutoComplete(key);
         }
         // esc
-        else if (key === 27) {
+        else if (this.isESC(key)) {
             this.automCompleteView.emptyAutoComplete();
         }
         // enter
-        else if (key === 13) {
+        else if (this.isEnter(key)) {
             this.automCompleteView.enterAutoComplete();
         }
     }
