@@ -102,10 +102,7 @@ export default class Controller {
     }
 
     isString(key) {
-        if (!key || (key < 35 || key > 40) && key !== 13 && key !== 27)
-            return true;
-        else
-            return false;
+        return (!key || (key < 35 || key > 40) && key !== 13 && key !== 27) ? true : false;
     }
 
     isUpdown(key) {
@@ -127,13 +124,9 @@ export default class Controller {
             suggestions && term ? this.automCompleteView.render('autoComplete', term, suggestions[1]) : this.automCompleteView.emptyAutoComplete();
         } else if (this.isUpdown(key)) {
             this.automCompleteView.moveAutoComplete(key);
-        }
-        // esc
-        else if (this.isESC(key)) {
+        } else if (this.isESC(key)) {
             this.automCompleteView.emptyAutoComplete();
-        }
-        // enter
-        else if (this.isEnter(key)) {
+        } else if (this.isEnter(key)) {
             this.automCompleteView.enterAutoComplete();
         }
     }
