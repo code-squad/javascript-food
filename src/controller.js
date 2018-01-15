@@ -38,10 +38,10 @@ export default class Controller {
         return value.data;
     }
 
-    isValid(receivedTime, thresholdHours) {
+    isValid(receivedTime, thresholdHour) {
         const currentTime = Date.now();
         const elapsedTime = (currentTime - receivedTime) / 1000 / 60 / 60;
-        return elapsedTime < thresholdHours ? true : false;
+        return elapsedTime < thresholdHour;
     }
 
     async checkLocalStorage(key) {
