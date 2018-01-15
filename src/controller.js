@@ -1,6 +1,13 @@
 import {
     request,
-    easeInQuad
+    getLocalStorage,
+    setLocalStorage,
+    isValid,
+    moveScroll,
+    isString,
+    isUpdown,
+    isESC,
+    isEnter
 } from './helpers';
 
 export default class Controller {
@@ -29,29 +36,14 @@ export default class Controller {
         });
     }
 
-    getLocalStorage(key) {
-        return JSON.parse(localStorage.getItem(key));
-    }
-
-    setLocalStorage(key, value) {
-        localStorage.setItem(key, JSON.stringify(value));
-        return value.data;
-    }
-
-    isValid(receivedTime, thresholdHour) {
-        const currentTime = Date.now();
-        const elapsedTime = (currentTime - receivedTime) / 1000 / 60 / 60;
-        return elapsedTime < thresholdHour;
-    }
-
     async checkLocalStorage(key) {
-        const cache = this.getLocalStorage(key);
-        if (cache && this.isValid(cache.time, 6)) return cache.data;
+        const cache = getLocalStorage(key);
+        if (cache && isValid(cache.time, 6)) return cache.data;
         const value = {
-            data : await request(key),
+            data: await request(key),
             time: Date.now()
         };
-        return value.data.hasOwnProperty('error') ? false : this.setLocalStorage(key, value);
+        return value.data.hasOwnProperty('error') ? false : setLocalStorage(key, value);
     }
 
     setView() {
@@ -80,68 +72,34 @@ export default class Controller {
     }
 
     moveScroller(direction) {
-        direction === 'up' ? this.moveScroll(0) : this.moveScroll(document.body.clientHeight);
-    }
-
-    moveScroll(to) {
-        const start = scrollY;
-        const change = to - start;
-        const duration = Math.abs(change / 4);
-        const increment = 20;
-        let currentTime = 0;
-
-        const animateScroll = () => {
-            currentTime += increment;
-            let newY = easeInQuad(currentTime, start, change, duration);
-            scrollTo(0, newY);
-            if (currentTime < duration) requestAnimationFrame(animateScroll);
-        };
-
-        requestAnimationFrame(animateScroll);
-    }
-
-    isString(key) {
-        return (!key || (key < 35 || key > 40) && key !== 13 && key !== 27);
-    }
-
-    isUpdown(key) {
-        // down (40), up (38)
-        return (key === 40 || key === 38);
-    }
-
-    isESC(key) {
-        return key === 27;
-    }
-
-    isEnter(key) {
-        return key === 13;
+        direction === 'up' ? moveScroll(0) : moveScroll(document.body.clientHeight);
     }
 
     async pressAutoComplete(term, key) {
-        if (this.isString(key)) {
+        if (isString(key)) {
             const suggestions = await this.checkLocalStorage(`http://crong.codesquad.kr:8080/ac/${term}`);
             suggestions && term ? this.automCompleteView.render('autoComplete', term, suggestions[1]) : this.automCompleteView.emptyAutoComplete();
-        } else if (this.isUpdown(key)) {
+        } else if (isUpdown(key)) {
             this.automCompleteView.moveAutoComplete(key);
-        } else if (this.isESC(key)) {
+        } else if (isESC(key)) {
             this.automCompleteView.emptyAutoComplete();
-        } else if (this.isEnter(key)) {
+        } else if (isEnter(key)) {
             this.automCompleteView.enterAutoComplete();
         }
     }
 
     submitSearches(keyword) {
         if (keyword) {
-            const searches = new Set(this.getLocalStorage('searches'));
+            const searches = new Set(getLocalStorage('searches'));
             searches.add(keyword);
-            this.setLocalStorage('searches', [...searches]);
+            setLocalStorage('searches', [...searches]);
             this.automCompleteView.emptySearchbar();
         }
     }
 
     async showSearches(check) {
         if (check) {
-            const searches = await this.getLocalStorage('searches');
+            const searches = await getLocalStorage('searches');
             this.automCompleteView.render('searches', searches.slice(-5).reverse());
         }
     }
