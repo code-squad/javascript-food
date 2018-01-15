@@ -97,12 +97,14 @@
                         <img src="https://cdn.bmf.kr/web/common/bmc-logo.png">
                     </a>
                 </h1>
-                <form class="searchbar">
-                    <input type="text" name="search_str" id="search_str" autocomplete="on">
-                    <button type="submit">
+                <div class="searchbar">
+                    <input type="text" name="search_str" id="search_str" autocomplete="off">
+                    <button class="search_btn" type="submit">
                         <span class="icon_search"></span>
                     </button>
-                </form>
+                    <ul class="autocomplete_suggestions"></ul>
+                </div>
+
                 <ul class="gnb_top">
                     <li class="link_best">
                         <a href="#">
@@ -547,7 +549,7 @@
             </div>
         </div>
 
-        <div class="side_food">
+        <div class="infinite_food side_food">
             <div class="infinite_food_content">
                 <div class="infinite_food_title">
                     <img src="https://cdn.bmf.kr/_data/files/category/category_17030000/d4b9fdb70ad303d186b8db2a82255402.png" alt="언제 먹어도 든든한 밑반찬">
@@ -570,7 +572,7 @@
             </div>
         </div>
 
-        <div class="main_food">
+        <div class="infinite_food main_food">
             <div class="infinite_food_content">
                 <div class="infinite_food_title">
                     <img src="https://cdn.bmf.kr/_data/files/category/category_17070000/e0aa0357fa3433b0c7704358c7d15770.png" alt="담기만 하면 완성되는 메인반찬">
@@ -593,7 +595,7 @@
             </div>
         </div>
 
-        <div class="course_food">
+        <div class="infinite_food course_food">
             <div class="infinite_food_content">
                 <div class="infinite_food_title">
                     <img src="https://cdn.bmf.kr/_data/files/category/category_17020000/95289193b248b212b52d4b2f383c77f1.png" alt="김이 모락모락 국.찌개">
@@ -633,7 +635,7 @@
             </li>
         </ul>
     </div>
-    <script type="text/javascript" src="dist/bundle.js"></script>
+    <script type="text/javascript" src="bundle.js"></script>
 </body>
 
 </html>

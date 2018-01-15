@@ -7,6 +7,7 @@ import {
     qs,
     qsa,
     on,
+    throttle,
     delegate
 } from './helpers';
 
@@ -26,18 +27,18 @@ export default class View {
     bind(bindCmd, handler) {
         const bindCommands = {
             slidesPrev: () => {
-                on(this.slidesPrevEl, 'click', () => handler(this.state, -1));
+                on(this.slidesPrevEl, 'click', throttle(() => handler(this.state, -1), 1000));
             },
             slidesNext: () => {
-                on(this.slidesNextEl, 'click', () => handler(this.state, 1));
+                on(this.slidesNextEl, 'click', throttle(() => handler(this.state, 1), 1000));
             },
             slidesDots: () => {
                 delegate('.slides_dots', '.slides_dots > li > a',
-                    'click', (e) => handler(this.state, +e.delegateTarget.textContent));
+                    'click', e => handler(this.state, +e.delegateTarget.textContent));
             },
             scroller: () => {
                 delegate('.page_up_down_list', '.page_up_down_list > li > a',
-                    'click', (e) => handler(e.delegateTarget.dataset.direction));
+                    'click', e => handler(e.delegateTarget.dataset.direction));
             },
             foodTab: () => {
                 delegate(this.foodTabEl, 'li > a', 'click', e => {
@@ -55,10 +56,10 @@ export default class View {
         bindCommands[bindCmd]();
     }
 
-    render(viewCmd, parameter) {
+    render(viewCmd, ...parameter) {
         const viewCommands = {
             bestBanchan: () => {
-                this.bestBanchan(parameter);
+                this.bestBanchan(...parameter);
             }
         };
 
@@ -72,7 +73,6 @@ export default class View {
         this.renderFoodBox(food);
         this.renderFoodTabList(food, Math.floor(Math.random() * 6));
     }
-
 
     renderFoodTab(food) {
         const foodTab = food.map(value => foodTabTemplate({
@@ -137,4 +137,5 @@ export default class View {
         this.slidesEl[slideIndex].style.backgroundImage = `url("${slideImg}")`;
         this.dotsEl[slideIndex].className = 'now';
     }
+
 }
