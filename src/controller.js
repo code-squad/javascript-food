@@ -47,12 +47,11 @@ export default class Controller {
     async checkLocalStorage(key) {
         const cache = this.getLocalStorage(key);
         if (cache && this.isValid(cache.time, 6)) return cache.data;
-        const data = await request(key);
         const value = {
-            data,
+            data : await request(key),
             time: Date.now()
         };
-        return data.hasOwnProperty('error') ? false : this.setLocalStorage(key, value);
+        return value.data.hasOwnProperty('error') ? false : this.setLocalStorage(key, value);
     }
 
     setView() {
