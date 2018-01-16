@@ -9,7 +9,7 @@ import {
     on,
     throttle,
     delegate
-} from './helpers';
+} from '../helpers';
 
 export default class View {
     constructor() {
@@ -56,10 +56,10 @@ export default class View {
         bindCommands[bindCmd]();
     }
 
-    render(viewCmd, ...parameter) {
+    render(viewCmd, ...params) {
         const viewCommands = {
             bestBanchan: () => {
-                this.bestBanchan(...parameter);
+                this.bestBanchan(...params);
             }
         };
 

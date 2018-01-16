@@ -146,7 +146,7 @@ export function throttle(func, limit) {
  * @return {Number} new scrollY
  */
 
-export function easeInOutQuad(t, b, c, d) {
+function easeInOutQuad(t, b, c, d) {
     t /= d / 2;
     if (t < 1) return c / 2 * t * t + b;
     t--;
@@ -163,7 +163,56 @@ export function easeInOutQuad(t, b, c, d) {
  * @return {Number} new scrollY
  */
 
-export function easeInQuad(t, b, c, d) {
+function easeInQuad(t, b, c, d) {
     t /= d / 2;
     return c / 2 * t * t + b;
+}
+
+export function getLocalStorage(key) {
+    return JSON.parse(localStorage.getItem(key));
+}
+
+export function setLocalStorage(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+    return value.data;
+}
+
+export function isValid(receivedTime, thresholdHour) {
+    const currentTime = Date.now();
+    const elapsedTime = (currentTime - receivedTime) / 1000 / 60 / 60;
+    return elapsedTime < thresholdHour;
+}
+
+export function moveScroll(to) {
+    const start = scrollY;
+    const change = to - start;
+    const duration = Math.abs(change / 4);
+    const increment = 20;
+    let currentTime = 0;
+
+    const animateScroll = () => {
+        currentTime += increment;
+        let newY = easeInQuad(currentTime, start, change, duration);
+        scrollTo(0, newY);
+        if (currentTime < duration) requestAnimationFrame(animateScroll);
+    };
+
+    requestAnimationFrame(animateScroll);
+}
+
+export function isString(key) {
+    return (!key || (key < 35 || key > 40) && key !== 13 && key !== 27);
+}
+
+export function isUpdown(key) {
+    // down (40), up (38)
+    return (key === 40 || key === 38);
+}
+
+export function isESC(key) {
+    return key === 27;
+}
+
+export function isEnter(key) {
+    return key === 13;
 }

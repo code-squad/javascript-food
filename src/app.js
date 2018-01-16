@@ -2,16 +2,16 @@ import Controller from './controller';
 import {
     on
 } from './helpers';
-import CommonView from './commonView';
-import InfiniteSlideView from './infiniteSlideView';
-import AutomCompleteView from './autoCompleteView';
+import CommonView from './view/commonView';
+import InfiniteSlideView from './view/infiniteSlideView';
+import AutomCompleteView from './view/autoCompleteView';
 
 const urlList = {
-    mainSlide: 'http://home.dotol.xyz/php/test_api.php',
-    bestBanchan: 'http://crong.codesquad.kr:8080/woowa/best',
-    side: 'http://crong.codesquad.kr:8080/woowa/side',
-    main: 'http://crong.codesquad.kr:8080/woowa/main',
-    course: 'http://crong.codesquad.kr:8080/woowa/soup'
+    mainSlide: 'http://52.79.148.74:3000/mainSlide',
+    bestBanchan: 'http://52.79.148.74:3000/best',
+    side: 'http://52.79.148.74:3000/side',
+    main: 'http://52.79.148.74:3000/main',
+    course: 'http://52.79.148.74:3000/soup'
 };
 
 const commonView = new CommonView();

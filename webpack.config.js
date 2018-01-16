@@ -11,6 +11,9 @@ module.exports = {
         loaders: [{
             test: /\-tpl.html$/,
             loader: 'handlebars-loader'
+        }, {
+            test: /\.js$/,
+            loader: 'babel-loader'
         }]
     },
     devtool: '#inline-source-map'

@@ -1,9 +1,10 @@
+import autocompleteTemplate from '../template/autocomplete-tpl.html';
 import {
     qs,
     on,
     delegate
-} from './helpers';
-export default class View {
+} from '../helpers';
+export default class AutoCompleteView {
     constructor() {
         this.searchEl = qs('#search_str');
         this.suggestionsEl = qs('.autocomplete_suggestions');
@@ -38,13 +39,13 @@ export default class View {
         bindCommands[bindCmd]();
     }
 
-    render(viewCmd, ...parameter) {
+    render(viewCmd, ...params) {
         const viewCommands = {
             autoComplete: () => {
-                this.renderAutoComplete(...parameter);
+                this.renderAutoComplete(...params);
             },
             searches: () => {
-                this.renderSearches(...parameter);
+                this.renderSearches(...params);
             }
         };
 
@@ -55,14 +56,20 @@ export default class View {
         this.emptyAutoComplete();
         const target = new RegExp(term, 'g');
         const suggestionsStr = suggestions.map(suggestion =>
-            `<li class="autocomplete_suggestion" data-value="${suggestion[0]}">
-            ${suggestion[0].replace(target, `<b>${term}</b>`)}</li>`).join('');
+            autocompleteTemplate({
+                keyword: suggestion[0],
+                renderKeyword: suggestion[0].replace(target, `<b>${term}</b>`)
+            })).join('');
         this.suggestionsEl.insertAdjacentHTML('afterbegin', suggestionsStr);
     }
 
     renderSearches(searches) {
         const searchesStr = searches.map(search =>
-            `<li class="autocomplete_suggestion searches"data-value="${search}">${search} </li>`).join('');
+            autocompleteTemplate({
+                class: 'searches',
+                keyword: search,
+                renderKeyword: search
+            })).join('');
         this.suggestionsEl.insertAdjacentHTML('afterbegin', searchesStr);
     }
 
