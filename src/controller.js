@@ -37,11 +37,11 @@ export default class Controller {
         });
     }
 
-    async checkLocalStorage(key) {
+    async checkLocalStorage(key, isJSONP) {
         const cache = getLocalStorage(key);
         if (cache && isValid(cache.time, 6)) return cache.data;
         const value = {
-            data: await request(key),
+            data: isJSONP ? (await fetchJSONP(key))[1] : await request(key),
             time: Date.now()
         };
         return value.data.hasOwnProperty('error') ? false : setLocalStorage(key, value);
@@ -79,9 +79,8 @@ export default class Controller {
     async pressAutoComplete(term, key, isSeleted) {
         if (isString(key)) {
             if (term) {
-                fetchJSONP(`https://ko.wikipedia.org/w/api.php?action=opensearch&search=${term}`)
-                    .then(response => response.json())
-                    .then((suggestions) => this.automCompleteView.render('autoComplete', term, suggestions[1]));
+                const suggestions = await this.checkLocalStorage(`https://ko.wikipedia.org/w/api.php?action=opensearch&search=${term}`, true);
+                this.automCompleteView.render('autoComplete', term, suggestions);
             } else {
                 this.automCompleteView.emptyAutoComplete();
             }
@@ -107,7 +106,7 @@ export default class Controller {
     async showSearches(check) {
         if (check) {
             const searches = await getLocalStorage('searches');
-            this.automCompleteView.render('searches', searches.slice(-5).reverse());
+            searches && this.automCompleteView.render('searches', searches.slice(-5).reverse());
         }
     }
 

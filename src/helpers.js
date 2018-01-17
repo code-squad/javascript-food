@@ -218,19 +218,16 @@ export function isEnter(key) {
 }
 
 export const fetchJSONP = (unique => url =>
-    new Promise(response => {
+    new Promise(resolve => {
         const script = document.createElement('script');
         const name = `_jsonp_${unique++}`;
-
         url += url.match(/\?/) ? `&callback=${name}` : `?callback=${name}`;
-
         script.src = url;
         window[name] = json => {
-            response(new Response(JSON.stringify(json)));
+            resolve(json);
             script.remove();
             delete window[name];
         };
-
         document.body.appendChild(script);
     })
 )(0);
