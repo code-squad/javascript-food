@@ -7,7 +7,8 @@ import {
     isString,
     isUpdown,
     isESC,
-    isEnter
+    isEnter,
+    fetchJSONP
 } from './helpers';
 
 export default class Controller {
@@ -77,8 +78,10 @@ export default class Controller {
 
     async pressAutoComplete(term, key) {
         if (isString(key)) {
-            const suggestions = await this.checkLocalStorage(`http://crong.codesquad.kr:8080/ac/${term}`);
-            suggestions && term ? this.automCompleteView.render('autoComplete', term, suggestions[1]) : this.automCompleteView.emptyAutoComplete();
+            !term && this.automCompleteView.emptyAutoComplete();
+            fetchJSONP(`https://ko.wikipedia.org/w/api.php?action=opensearch&search=${term}`)
+                .then(response => response.json())
+                .then((suggestions) => this.automCompleteView.render('autoComplete', term, suggestions[1]));
         } else if (isUpdown(key)) {
             this.automCompleteView.moveAutoComplete(key);
         } else if (isESC(key)) {

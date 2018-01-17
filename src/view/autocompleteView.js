@@ -54,11 +54,11 @@ export default class AutoCompleteView {
 
     renderAutoComplete(term, suggestions) {
         this.emptyAutoComplete();
-        const target = new RegExp(term, 'g');
+        const target = new RegExp(term, 'ig');
         const suggestionsStr = suggestions.map(suggestion =>
             autocompleteTemplate({
-                keyword: suggestion[0],
-                renderKeyword: suggestion[0].replace(target, `<b>${term}</b>`)
+                keyword: suggestion,
+                renderKeyword: suggestion.replace(target, `<b>${term}</b>`)
             })).join('');
         this.suggestionsEl.insertAdjacentHTML('afterbegin', suggestionsStr);
     }
