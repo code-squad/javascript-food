@@ -78,10 +78,13 @@ export default class Controller {
 
     async pressAutoComplete(term, key, isSeleted) {
         if (isString(key)) {
-            !term && this.automCompleteView.emptyAutoComplete();
-            fetchJSONP(`https://ko.wikipedia.org/w/api.php?action=opensearch&search=${term}`)
-                .then(response => response.json())
-                .then((suggestions) => this.automCompleteView.render('autoComplete', term, suggestions[1]));
+            if (term) {
+                fetchJSONP(`https://ko.wikipedia.org/w/api.php?action=opensearch&search=${term}`)
+                    .then(response => response.json())
+                    .then((suggestions) => this.automCompleteView.render('autoComplete', term, suggestions[1]));
+            } else {
+                this.automCompleteView.emptyAutoComplete();
+            }
         } else if (isUpdown(key)) {
             this.automCompleteView.moveAutoComplete(key);
         } else if (isESC(key)) {
