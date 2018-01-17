@@ -96,6 +96,7 @@ export default class Controller {
             const searches = new Set(getLocalStorage('searches'));
             searches.add(keyword);
             setLocalStorage('searches', [...searches]);
+            this.automCompleteView.emptyAutoComplete();
             this.automCompleteView.emptySearchbar();
         }
     }
