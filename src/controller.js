@@ -76,7 +76,7 @@ export default class Controller {
         direction === 'up' ? moveScroll(0) : moveScroll(document.body.clientHeight);
     }
 
-    async pressAutoComplete(term, key) {
+    async pressAutoComplete(term, key, isSeleted) {
         if (isString(key)) {
             !term && this.automCompleteView.emptyAutoComplete();
             fetchJSONP(`https://ko.wikipedia.org/w/api.php?action=opensearch&search=${term}`)
@@ -87,7 +87,7 @@ export default class Controller {
         } else if (isESC(key)) {
             this.automCompleteView.emptyAutoComplete();
         } else if (isEnter(key)) {
-            this.automCompleteView.enterAutoComplete();
+            isSeleted ? this.automCompleteView.enterAutoComplete() : this.submitSearches(term);
         }
     }
 

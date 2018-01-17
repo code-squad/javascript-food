@@ -14,7 +14,7 @@ export default class AutoCompleteView {
     bind(bindCmd, handler) {
         const bindCommands = {
             press: () => {
-                on(this.searchEl, 'keyup', e => handler(e.target.value, e.keyCode));
+                on(this.searchEl, 'keyup', e => handler(e.target.value, e.keyCode, this.sel));
             },
             submit: () => {
                 on(this.searchButtonEl, 'click', () => handler(this.searchEl.value));
@@ -76,6 +76,7 @@ export default class AutoCompleteView {
     enterAutoComplete() {
         if (this.sel && this.suggestionsEl.innerHTML) {
             this.searchEl.value = this.sel.dataset.value;
+            this.sel = null;
             this.emptyAutoComplete();
         }
     }
