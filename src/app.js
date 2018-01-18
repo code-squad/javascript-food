@@ -7,11 +7,11 @@ import InfiniteSlideView from './view/infiniteSlideView';
 import AutomCompleteView from './view/autoCompleteView';
 
 const urlList = {
-    mainSlide: 'http://52.79.148.74:3000/mainSlide',
-    bestBanchan: 'http://52.79.148.74:3000/best',
-    side: 'http://52.79.148.74:3000/side',
-    main: 'http://52.79.148.74:3000/main',
-    course: 'http://52.79.148.74:3000/soup'
+    mainSlide: 'https://52.79.148.74/mainSlide',
+    bestBanchan: 'https://52.79.148.74/best',
+    side: 'https://52.79.148.74/side',
+    main: 'https://52.79.148.74/main',
+    course: 'https://52.79.148.74/soup'
 };
 
 const commonView = new CommonView();
