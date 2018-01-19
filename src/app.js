@@ -7,11 +7,11 @@ import InfiniteSlideView from './view/infiniteSlideView';
 import AutomCompleteView from './view/autoCompleteView';
 
 const urlList = {
-    mainSlide: 'https://52.79.148.74/mainSlide',
-    bestBanchan: 'https://52.79.148.74/best',
-    side: 'https://52.79.148.74/side',
-    main: 'https://52.79.148.74/main',
-    course: 'https://52.79.148.74/soup'
+    mainSlide: 'http://home.dotol.xyz/php/test_api.php',
+    bestBanchan: 'http://crong.codesquad.kr:8080/woowa/best',
+    side: 'http://crong.codesquad.kr:8080/woowa/side',
+    main: 'http://crong.codesquad.kr:8080/woowa/main',
+    course: 'http://crong.codesquad.kr:8080/woowa/soup'
 };
 
 const commonView = new CommonView();
