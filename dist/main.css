@@ -868,6 +868,7 @@ span.ic {
     width: 50px;
     position: absolute;
     bottom: 0;
+    display: none;
 }
 
 .page_up_down_list>li>a {
