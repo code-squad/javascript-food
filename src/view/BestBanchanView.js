@@ -40,11 +40,11 @@ export default class {
     }
 
     bestBanchan(food) {
-        this.renderFoodTab(food);
-        this.renderFoodContainer(food);
-        this.renderFoodBoxList(food);
-        this.renderFoodBox(food);
-        this.renderFoodTabList(food, Math.floor(Math.random() * 6));
+        this.renderFoodTab(food)
+            .renderFoodContainer(food)
+            .renderFoodBoxList(food)
+            .renderFoodBox(food)
+            .renderSelectedFood(food, Math.floor(Math.random() * 6));
     }
 
     renderFoodTab(food) {
@@ -53,6 +53,7 @@ export default class {
             name: value.name
         })).join('');
         this.foodTabEl.insertAdjacentHTML('afterbegin', foodTab);
+        return this;
     }
 
     renderFoodContainer(food) {
@@ -60,6 +61,7 @@ export default class {
             category_id: value.category_id
         })).join('');
         qs('.best_food_container').insertAdjacentHTML('afterbegin', foodContainer);
+        return this;
     }
 
     renderFoodBoxList(food) {
@@ -77,6 +79,7 @@ export default class {
                 })).join('');
             this.foodBoxListEl[i].insertAdjacentHTML('afterbegin', foodBoxList);
         });
+        return this;
     }
 
     renderFoodBox(food) {
@@ -92,9 +95,10 @@ export default class {
                 }));
             });
         });
+        return this;
     }
 
-    renderFoodTabList(food, initNum) {
+    renderSelectedFood(food, initNum) {
         this.foodTabListEl = qsa('.best_food_tabs > li > a');
         this.foodTabListEl[initNum].className = 'now';
         this.foodBoxListEl[initNum].style.display = 'block';
