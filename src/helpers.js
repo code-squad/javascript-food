@@ -200,23 +200,6 @@ export function moveScroll(to) {
     requestAnimationFrame(animateScroll);
 }
 
-export function isString(key) {
-    return (!key || (key < 35 || key > 40) && key !== 13 && key !== 27);
-}
-
-export function isUpdown(key) {
-    // down (40), up (38)
-    return (key === 40 || key === 38);
-}
-
-export function isESC(key) {
-    return key === 27;
-}
-
-export function isEnter(key) {
-    return key === 13;
-}
-
 export const fetchJSONP = (unique => url =>
     new Promise(resolve => {
         const script = document.createElement('script');

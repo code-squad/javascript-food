@@ -5,20 +5,16 @@ import {
     setLocalStorage,
     isValid,
     moveScroll,
-    isString,
-    isUpdown,
-    isESC,
-    isEnter,
     fetchJSONP
 } from './helpers';
 
 export default class {
-    constructor(urlList, mainSlideView, bestBanchanView, scrollerView, automCompleteView, ...infiniteViews) {
+    constructor(urlList, mainSlideView, bestBanchanView, scrollerView, autoCompleteView, ...infiniteViews) {
         this.urlList = urlList;
         this.mainSlideView = mainSlideView;
         this.bestBanchanView = bestBanchanView;
         this.scrollerView = scrollerView;
-        this.automCompleteView = automCompleteView;
+        this.autoCompleteView = autoCompleteView;
         this.infiniteViews = infiniteViews;
     }
 
@@ -34,13 +30,10 @@ export default class {
 
     setView() {
         this.fetchMainSlide(this.urlList.mainSlide);
-        this.mainSlideView.bind('slidesPrev', this.moveSlides.bind(this));
-        this.mainSlideView.bind('slidesNext', this.moveSlides.bind(this));
-        this.mainSlideView.bind('slidesDots', this.currentSlide.bind(this));
-
+        this.bindMainSlide();
         this.fetchBestBanchan(this.urlList.bestBanchan);
 
-        this.scrollerView.bind('click', this.moveScroller.bind(this));
+        this.bindScroller();
 
         this.infiniteViews.forEach(infiniteView => {
             this.fetchInfiniteBanchan(infiniteView, this.urlList[infiniteView.state.name]);
@@ -48,14 +41,29 @@ export default class {
             infiniteView.bind('slidesNext', this.moveInfiniteSlides.bind(infiniteView));
         });
 
-        this.automCompleteView.bind('press', this.pressAutoComplete.bind(this));
-        this.automCompleteView.bind('submit', this.submitHistory.bind(this));
-        this.automCompleteView.bind('history', this.showHistory.bind(this));
-        this.automCompleteView.bind('click');
-        this.automCompleteView.bind('nonClick');
-        this.automCompleteView.bind('hover');
+        this.bindAutoComplete();
 
         delegate('body', 'a', 'click', e => e.preventDefault());
+    }
+
+    bindMainSlide() {
+        this.mainSlideView.bind('slidesPrev', this.moveSlides.bind(this));
+        this.mainSlideView.bind('slidesNext', this.moveSlides.bind(this));
+        this.mainSlideView.bind('slidesDots', this.currentSlide.bind(this));
+    }
+
+    bindScroller() {
+        this.scrollerView.bind('click', this.moveScroller.bind(this));
+        this.scrollerView.bind('hide', this.moveScroller.bind(this));
+    }
+
+    bindAutoComplete() {
+        this.autoCompleteView.bind('press', this.pressAutoComplete.bind(this));
+        this.autoCompleteView.bind('submit', this.submitHistory.bind(this));
+        this.autoCompleteView.bind('history', this.showHistory.bind(this));
+        this.autoCompleteView.bind('click');
+        this.autoCompleteView.bind('nonClick');
+        this.autoCompleteView.bind('hover');
     }
 
     async fetchMainSlide(url) {
@@ -82,19 +90,24 @@ export default class {
     }
 
     async pressAutoComplete(term, key, isSeleted) {
-        if (isString(key)) {
+        const isString = (!key || (key < 35 || key > 40) && key !== 13 && key !== 27);
+        const isUpdown = (key === 40 || key === 38);
+        const isESC = key === 27;
+        const isEnter = key === 13;
+
+        if (isString) {
             if (term) {
                 const suggestions = await this.checkLocalStorage(`https://ko.wikipedia.org/w/api.php?action=opensearch&search=${term}`, true);
-                this.automCompleteView.render('autoComplete', term, suggestions);
+                this.autoCompleteView.render('autoComplete', term, suggestions);
             } else {
-                this.automCompleteView.emptyAutoComplete();
+                this.autoCompleteView.emptyAutoComplete();
             }
-        } else if (isUpdown(key)) {
-            this.automCompleteView.moveAutoComplete(key);
-        } else if (isESC(key)) {
-            this.automCompleteView.emptyAutoComplete();
-        } else if (isEnter(key)) {
-            isSeleted ? this.automCompleteView.enterAutoComplete() : this.submitHistory(term);
+        } else if (isUpdown) {
+            this.autoCompleteView.moveAutoComplete(key);
+        } else if (isESC) {
+            this.autoCompleteView.emptyAutoComplete();
+        } else if (isEnter) {
+            isSeleted ? this.autoCompleteView.enterAutoComplete() : this.submitHistory(term);
         }
     }
 
@@ -103,15 +116,15 @@ export default class {
             const history = new Set(getLocalStorage('history'));
             history.add(keyword);
             setLocalStorage('history', [...history]);
-            this.automCompleteView.emptyAutoComplete();
-            this.automCompleteView.emptySearchbar();
+            this.autoCompleteView.emptyAutoComplete();
+            this.autoCompleteView.emptySearchbar();
         }
     }
 
     async showHistory(check) {
         if (check) {
             const history = await getLocalStorage('history');
-            history && this.automCompleteView.render('history', history.slice(-5).reverse());
+            history && this.autoCompleteView.render('history', history.slice(-5).reverse());
         }
     }
 
@@ -126,6 +139,7 @@ export default class {
         targetView.render('banchan', foodData);
         const threshold = foodData.length * 2.5;
         targetView.bind('slides', this.resetInfiniteSlides.bind(targetView, -20 - threshold, -20 + threshold));
+        return this;
     }
 
     moveInfiniteSlides(target, move) {
