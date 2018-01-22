@@ -48,10 +48,10 @@ export default class {
     }
 
     renderBanchan(food) {
-        this.renderFoodBoxList(this.state.el, food);
-        this.renderFoodBox(food, qsa(`.${this.state.name}_food .prd_box>a`));
-        this.renderSlides(this.state.el, qsa(`.${this.state.name}_food .prd_box`));
-        this.showSlides(this.state.el, this.state.direction, true);
+        this.renderFoodBoxList(this.state.el, food)
+            .renderFoodBox(food, qsa(`.${this.state.name}_food .prd_box>a`))
+            .renderSlides(this.state.el, qsa(`.${this.state.name}_food .prd_box`))
+            .showSlides(this.state.el, this.state.direction, true);
     }
 
     renderFoodBoxList(element, food) {
@@ -66,6 +66,7 @@ export default class {
                 won: item.s_price.slice(-1)
             })).join('');
         element.insertAdjacentHTML('afterbegin', foodBoxList);
+        return this;
     }
 
     renderFoodBox(food, prdBox) {
@@ -77,6 +78,7 @@ export default class {
                 delivery_type: item.delivery_type
             }));
         });
+        return this;
     }
 
     renderSlides(element, Slides) {
@@ -86,6 +88,7 @@ export default class {
             element.appendChild(Slide.cloneNode(true)));
         lastSlides.reverse().forEach(lastSlide =>
             element.insertBefore(lastSlide.cloneNode(true), element.childNodes[0]));
+        return this;
     }
 
     showSlides(element, direction, Immediately) {

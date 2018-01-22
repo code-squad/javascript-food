@@ -32,7 +32,6 @@ export default class {
         this.bindMainSlide().fetchMainSlide(this.urlList.mainSlide);
         this.fetchBestBanchan(this.urlList.bestBanchan);
         this.bindScroller();
-        this.fetchInfiniteSlide();
         this.infiniteViews.forEach(infiniteView => {
             infiniteView.bind('slidesPrev', this.moveInfiniteSlides.bind(infiniteView));
             infiniteView.bind('slidesNext', this.moveInfiniteSlides.bind(infiniteView));
