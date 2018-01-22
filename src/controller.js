@@ -29,20 +29,16 @@ export default class {
     }
 
     setView() {
-        this.fetchMainSlide(this.urlList.mainSlide);
-        this.bindMainSlide();
+        this.bindMainSlide().fetchMainSlide(this.urlList.mainSlide);
         this.fetchBestBanchan(this.urlList.bestBanchan);
-
         this.bindScroller();
-
+        this.fetchInfiniteSlide();
         this.infiniteViews.forEach(infiniteView => {
-            this.fetchInfiniteBanchan(infiniteView, this.urlList[infiniteView.state.name]);
             infiniteView.bind('slidesPrev', this.moveInfiniteSlides.bind(infiniteView));
             infiniteView.bind('slidesNext', this.moveInfiniteSlides.bind(infiniteView));
+            this.fetchInfiniteBanchan(infiniteView, this.urlList[infiniteView.state.name]);
         });
-
         this.bindAutoComplete();
-
         delegate('body', 'a', 'click', e => e.preventDefault());
     }
 
@@ -50,20 +46,7 @@ export default class {
         this.mainSlideView.bind('slidesPrev', this.moveSlides.bind(this));
         this.mainSlideView.bind('slidesNext', this.moveSlides.bind(this));
         this.mainSlideView.bind('slidesDots', this.currentSlide.bind(this));
-    }
-
-    bindScroller() {
-        this.scrollerView.bind('click', this.moveScroller.bind(this));
-        this.scrollerView.bind('hide', this.moveScroller.bind(this));
-    }
-
-    bindAutoComplete() {
-        this.autoCompleteView.bind('press', this.pressAutoComplete.bind(this));
-        this.autoCompleteView.bind('submit', this.submitHistory.bind(this));
-        this.autoCompleteView.bind('history', this.showHistory.bind(this));
-        this.autoCompleteView.bind('click');
-        this.autoCompleteView.bind('nonClick');
-        this.autoCompleteView.bind('hover');
+        return this;
     }
 
     async fetchMainSlide(url) {
@@ -84,6 +67,21 @@ export default class {
         this.mainSlideView.hideSlide(target.index);
         this.mainSlideView.showSlide(target.index = n, this.slideImgs[target.index]);
     }
+
+    bindScroller() {
+        this.scrollerView.bind('click', this.moveScroller.bind(this));
+        this.scrollerView.bind('hide', this.moveScroller.bind(this));
+    }
+
+    bindAutoComplete() {
+        this.autoCompleteView.bind('press', this.pressAutoComplete.bind(this));
+        this.autoCompleteView.bind('submit', this.submitHistory.bind(this));
+        this.autoCompleteView.bind('history', this.showHistory.bind(this));
+        this.autoCompleteView.bind('click');
+        this.autoCompleteView.bind('nonClick');
+        this.autoCompleteView.bind('hover');
+    }
+
 
     moveScroller(direction) {
         direction === 'up' ? moveScroll(0) : moveScroll(document.body.clientHeight);
