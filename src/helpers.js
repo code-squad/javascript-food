@@ -125,7 +125,7 @@ export function request(url) {
 
 export function throttle(func, limit) {
     let wait = false;
-    return () => {
+    return function () {
         if (!wait) {
             func.apply(null, arguments);
             wait = true;
