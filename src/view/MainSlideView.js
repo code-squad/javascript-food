@@ -28,12 +28,8 @@ export default class {
             },
             slidesDots: () => {
                 delegate('.slides_dots', '.slides_dots > li > a',
-                    'click', e => handler(this.state, +e.delegateTarget.textContent));
-            },
-            preventDefault: () => {
-                delegate('body', 'a', 'click', e => e.preventDefault());
+                    'click', throttle(e => handler(this.state, +e.delegateTarget.textContent), 1000));
             }
-
         };
 
         bindCommands[bindCmd]();

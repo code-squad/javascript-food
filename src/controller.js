@@ -1,5 +1,6 @@
 import {
     request,
+    delegate,
     getLocalStorage,
     setLocalStorage,
     isValid,
@@ -54,7 +55,7 @@ export default class {
         this.automCompleteView.bind('nonClick');
         this.automCompleteView.bind('hover');
 
-        this.mainSlideView.bind('preventDefault');
+        delegate('body', 'a', 'click', e => e.preventDefault());
     }
 
     async fetchMainSlide(url) {
