@@ -11,30 +11,14 @@ import {
     fetchJSONP
 } from './helpers';
 
-export default class Controller {
-    constructor(urlList, commonView, automCompleteView, ...infiniteViews) {
+export default class {
+    constructor(urlList, mainSlideView, bestBanchanView, scrollerView, automCompleteView, ...infiniteViews) {
         this.urlList = urlList;
-        this.commonView = commonView;
+        this.mainSlideView = mainSlideView;
+        this.bestBanchanView = bestBanchanView;
+        this.scrollerView = scrollerView;
         this.automCompleteView = automCompleteView;
-
-        commonView.bind('slidesPrev', this.moveSlides.bind(this));
-        commonView.bind('slidesNext', this.moveSlides.bind(this));
-        commonView.bind('slidesDots', this.currentSlide.bind(this));
-        commonView.bind('scroller', this.moveScroller.bind(this));
-
-        automCompleteView.bind('press', this.pressAutoComplete.bind(this));
-        automCompleteView.bind('submit', this.submitSearches.bind(this));
-        automCompleteView.bind('searches', this.showSearches.bind(this));
-        automCompleteView.bind('click');
-        automCompleteView.bind('nonClick');
-        automCompleteView.bind('hover');
-
-
-        infiniteViews.forEach(infiniteView => {
-            infiniteView.bind('slidesPrev', this.moveInfiniteSlides.bind(infiniteView));
-            infiniteView.bind('slidesNext', this.moveInfiniteSlides.bind(infiniteView));
-            this.initInfiniteBanchan(infiniteView, this.urlList[infiniteView.state.name]);
-        });
+        this.infiniteViews = infiniteViews;
     }
 
     async checkLocalStorage(key, isJSONP) {
@@ -48,28 +32,48 @@ export default class Controller {
     }
 
     setView() {
-        this.initSlide(this.urlList.mainSlide);
-        this.initBestBanchan(this.urlList.bestBanchan);
-        this.commonView.bind('preventDefault');
+        this.fetchMainSlide(this.urlList.mainSlide);
+        this.mainSlideView.bind('slidesPrev', this.moveSlides.bind(this));
+        this.mainSlideView.bind('slidesNext', this.moveSlides.bind(this));
+        this.mainSlideView.bind('slidesDots', this.currentSlide.bind(this));
+
+        this.fetchBestBanchan(this.urlList.bestBanchan);
+
+        this.scrollerView.bind('click', this.moveScroller.bind(this));
+
+        this.infiniteViews.forEach(infiniteView => {
+            this.fetchInfiniteBanchan(infiniteView, this.urlList[infiniteView.state.name]);
+            infiniteView.bind('slidesPrev', this.moveInfiniteSlides.bind(infiniteView));
+            infiniteView.bind('slidesNext', this.moveInfiniteSlides.bind(infiniteView));
+        });
+
+        this.automCompleteView.bind('press', this.pressAutoComplete.bind(this));
+        this.automCompleteView.bind('submit', this.submitHistory.bind(this));
+        this.automCompleteView.bind('history', this.showHistory.bind(this));
+        this.automCompleteView.bind('click');
+        this.automCompleteView.bind('nonClick');
+        this.automCompleteView.bind('hover');
+
+        this.mainSlideView.bind('preventDefault');
     }
 
-    async initSlide(url) {
+    async fetchMainSlide(url) {
         this.slideImgs = await this.checkLocalStorage(url);
         this.slidesEnd = this.slideImgs.length - 1;
-        this.commonView.showSlide(0, this.slideImgs[0]);
+        this.mainSlideView.showSlide(0, this.slideImgs[0]);
     }
 
     moveSlides(target, n) {
-        this.commonView.hideSlide(target.index);
+        this.mainSlideView.hideSlide(target.index);
         target.index += n;
         if (target.index > this.slidesEnd) target.index = 0;
         if (target.index < 0) target.index = this.slidesEnd;
-        this.commonView.showSlide(target.index, this.slideImgs[target.index]);
+        this.mainSlideView.showSlide(target.index, this.slideImgs[target.index]);
     }
 
     currentSlide(target, n) {
-        this.commonView.hideSlide(target.index);
-        this.commonView.showSlide(target.index = n, this.slideImgs[target.index]);
+        this.mainSlideView.hideSlide(target.index);
+        this.mainSlideView.showSlide(target.index = n, this.slideImgs[target.index]);
     }
 
     moveScroller(direction) {
@@ -89,34 +93,34 @@ export default class Controller {
         } else if (isESC(key)) {
             this.automCompleteView.emptyAutoComplete();
         } else if (isEnter(key)) {
-            isSeleted ? this.automCompleteView.enterAutoComplete() : this.submitSearches(term);
+            isSeleted ? this.automCompleteView.enterAutoComplete() : this.submitHistory(term);
         }
     }
 
-    submitSearches(keyword) {
+    submitHistory(keyword) {
         if (keyword) {
-            const searches = new Set(getLocalStorage('searches'));
-            searches.add(keyword);
-            setLocalStorage('searches', [...searches]);
+            const history = new Set(getLocalStorage('history'));
+            history.add(keyword);
+            setLocalStorage('history', [...history]);
             this.automCompleteView.emptyAutoComplete();
             this.automCompleteView.emptySearchbar();
         }
     }
 
-    async showSearches(check) {
+    async showHistory(check) {
         if (check) {
-            const searches = await getLocalStorage('searches');
-            searches && this.automCompleteView.render('searches', searches.slice(-5).reverse());
+            const history = await getLocalStorage('history');
+            history && this.automCompleteView.render('history', history.slice(-5).reverse());
         }
     }
 
-    async initBestBanchan(url) {
+    async fetchBestBanchan(url) {
         const banchan = await this.checkLocalStorage(url);
-        this.commonView.render('bestBanchan', banchan);
-        this.commonView.bind('foodTab');
+        this.bestBanchanView.render('bestBanchan', banchan);
+        this.bestBanchanView.bind('foodTab');
     }
 
-    async initInfiniteBanchan(targetView, url) {
+    async fetchInfiniteBanchan(targetView, url) {
         const foodData = await this.checkLocalStorage(url);
         targetView.render('banchan', foodData);
         const threshold = foodData.length * 2.5;

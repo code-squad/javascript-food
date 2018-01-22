@@ -4,7 +4,7 @@ import {
     on,
     delegate
 } from '../helpers';
-export default class AutoCompleteView {
+export default class {
     constructor() {
         this.searchEl = qs('#search_str');
         this.suggestionsEl = qs('.autocomplete_suggestions');
@@ -19,7 +19,7 @@ export default class AutoCompleteView {
             submit: () => {
                 on(this.searchButtonEl, 'click', () => handler(this.searchEl.value));
             },
-            searches: () => {
+            history: () => {
                 on(this.searchEl, 'click', () => handler(!this.suggestionsEl.innerHTML && !this.searchEl.value));
             },
             click: () => {

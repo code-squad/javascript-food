@@ -8,7 +8,7 @@ import {
     throttle
 } from '../helpers';
 
-export default class InfiniteView {
+export default class {
     constructor(name) {
         this.foodBoxEl = qs(`.${name}_food .infinite_food_box_list`);
         this.slidesPrevEl = qs(`.${name}_food .slides_prev`);
