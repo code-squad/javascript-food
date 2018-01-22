@@ -44,7 +44,7 @@ export default class {
             autoComplete: () => {
                 this.renderAutoComplete(...params);
             },
-            searches: () => {
+            history: () => {
                 this.renderSearches(...params);
             }
         };
@@ -55,22 +55,22 @@ export default class {
     renderAutoComplete(term, suggestions) {
         this.emptyAutoComplete();
         const target = new RegExp(term, 'ig');
-        const suggestionsStr = suggestions.map(suggestion =>
+        const suggestionsComponent = suggestions.map(suggestion =>
             autocompleteTemplate({
                 keyword: suggestion,
                 renderKeyword: suggestion.replace(target, `<b>${term}</b>`)
             })).join('');
-        this.suggestionsEl.insertAdjacentHTML('afterbegin', suggestionsStr);
+        this.suggestionsEl.insertAdjacentHTML('afterbegin', suggestionsComponent);
     }
 
     renderSearches(searches) {
-        const searchesStr = searches.map(search =>
+        const historyComponent = searches.map(search =>
             autocompleteTemplate({
                 class: 'searches',
                 keyword: search,
                 renderKeyword: search
             })).join('');
-        this.suggestionsEl.insertAdjacentHTML('afterbegin', searchesStr);
+        this.suggestionsEl.insertAdjacentHTML('afterbegin', historyComponent);
     }
 
     enterAutoComplete() {
