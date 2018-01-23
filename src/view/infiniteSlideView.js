@@ -35,19 +35,21 @@ export default class {
         };
 
         bindCommands[bindCmd]();
+        return this;
     }
 
-    render(viewCmd, params) {
+    render(viewCmd, ...params) {
         const viewCommands = {
             banchan: () => {
-                this.renderBanchan(params);
+                this.banchan(...params);
             }
         };
 
         viewCommands[viewCmd]();
+        return this;
     }
 
-    renderBanchan(food) {
+    banchan(food) {
         this.renderFoodBoxList(this.state.el, food)
             .renderFoodBox(food, qsa(`.${this.state.name}_food .prd_box>a`))
             .renderSlides(this.state.el, qsa(`.${this.state.name}_food .prd_box`))

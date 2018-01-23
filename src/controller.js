@@ -29,29 +29,25 @@ export default class {
     }
 
     setView() {
-        this.bindMainSlide().fetchMainSlide(this.urlList.mainSlide);
+        this.fetchMainSlide(this.urlList.mainSlide);
         this.fetchBestBanchan(this.urlList.bestBanchan);
-        this.bindScroller();
-        this.infiniteViews.forEach(infiniteView => {
-            infiniteView.bind('slidesPrev', this.moveInfiniteSlides.bind(infiniteView));
-            infiniteView.bind('slidesNext', this.moveInfiniteSlides.bind(infiniteView));
-            this.fetchInfiniteBanchan(infiniteView, this.urlList[infiniteView.state.name]);
-        });
+
+        this.scrollerView.bind('click', this.moveScroller.bind(this))
+            .bind('hide', this.moveScroller.bind(this));
+
+        this.infiniteViews.forEach(infiniteView =>
+            this.fetchInfiniteBanchan(infiniteView, this.urlList[infiniteView.state.name]));
         this.bindAutoComplete();
         delegate('body', 'a', 'click', e => e.preventDefault());
-    }
-
-    bindMainSlide() {
-        this.mainSlideView.bind('slidesPrev', this.moveSlides.bind(this));
-        this.mainSlideView.bind('slidesNext', this.moveSlides.bind(this));
-        this.mainSlideView.bind('slidesDots', this.currentSlide.bind(this));
-        return this;
     }
 
     async fetchMainSlide(url) {
         this.slideImgs = await this.checkLocalStorage(url);
         this.slidesEnd = this.slideImgs.length - 1;
-        this.mainSlideView.showSlide(0, this.slideImgs[0]);
+        this.mainSlideView.showSlide(0, this.slideImgs[0])
+            .bind('slidesPrev', this.moveSlides.bind(this))
+            .bind('slidesNext', this.moveSlides.bind(this))
+            .bind('slidesDots', this.currentSlide.bind(this));
     }
 
     moveSlides(target, n) {
@@ -63,22 +59,17 @@ export default class {
     }
 
     currentSlide(target, n) {
-        this.mainSlideView.hideSlide(target.index);
-        this.mainSlideView.showSlide(target.index = n, this.slideImgs[target.index]);
-    }
-
-    bindScroller() {
-        this.scrollerView.bind('click', this.moveScroller.bind(this));
-        this.scrollerView.bind('hide', this.moveScroller.bind(this));
+        this.mainSlideView.hideSlide(target.index)
+            .showSlide(target.index = n, this.slideImgs[target.index]);
     }
 
     bindAutoComplete() {
-        this.autoCompleteView.bind('press', this.pressAutoComplete.bind(this));
-        this.autoCompleteView.bind('submit', this.submitHistory.bind(this));
-        this.autoCompleteView.bind('history', this.showHistory.bind(this));
-        this.autoCompleteView.bind('click');
-        this.autoCompleteView.bind('nonClick');
-        this.autoCompleteView.bind('hover');
+        this.autoCompleteView.bind('press', this.pressAutoComplete.bind(this))
+            .bind('submit', this.submitHistory.bind(this))
+            .bind('history', this.showHistory.bind(this))
+            .bind('click')
+            .bind('nonClick')
+            .bind('hover');
     }
 
 
@@ -113,8 +104,7 @@ export default class {
             const history = new Set(getLocalStorage('history'));
             history.add(keyword);
             setLocalStorage('history', [...history]);
-            this.autoCompleteView.emptyAutoComplete();
-            this.autoCompleteView.emptySearchbar();
+            this.autoCompleteView.emptyAutoComplete().emptySearchbar();
         }
     }
 
@@ -126,17 +116,17 @@ export default class {
     }
 
     async fetchBestBanchan(url) {
-        const banchan = await this.checkLocalStorage(url);
-        this.bestBanchanView.render('bestBanchan', banchan);
-        this.bestBanchanView.bind('foodTab');
+        const foodData = await this.checkLocalStorage(url);
+        this.bestBanchanView.render('bestBanchan', foodData).bind('foodTab');
     }
 
     async fetchInfiniteBanchan(targetView, url) {
         const foodData = await this.checkLocalStorage(url);
-        targetView.render('banchan', foodData);
         const threshold = foodData.length * 2.5;
-        targetView.bind('slides', this.resetInfiniteSlides.bind(targetView, -20 - threshold, -20 + threshold));
-        return this;
+        targetView.render('banchan', foodData)
+            .bind('slides', this.resetInfiniteSlides.bind(targetView, -20 - threshold, -20 + threshold))
+            .bind('slidesPrev', this.moveInfiniteSlides.bind(targetView))
+            .bind('slidesNext', this.moveInfiniteSlides.bind(targetView));
     }
 
     moveInfiniteSlides(target, move) {

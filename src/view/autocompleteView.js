@@ -37,6 +37,7 @@ export default class {
         };
 
         bindCommands[bindCmd]();
+        return this;
     }
 
     render(viewCmd, ...params) {
@@ -50,6 +51,7 @@ export default class {
         };
 
         viewCommands[viewCmd]();
+        return this;
     }
 
     renderAutoComplete(term, suggestions) {
@@ -96,10 +98,12 @@ export default class {
 
     emptyAutoComplete() {
         this.suggestionsEl.innerHTML = '';
+        return this;
     }
 
     emptySearchbar() {
         this.searchEl.value = '';
+        return this;
     }
 
 }

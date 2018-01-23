@@ -79,6 +79,13 @@ export function delegate(elements, selector, type, callback, useCapture) {
     });
 }
 
+export function emit(element, event, data) {
+    const evt = new CustomEvent(event, {
+        detail: data
+    });
+    element.dispatchEvent(evt);
+}
+
 /**
  * Finds closest match and invokes callback.
  *

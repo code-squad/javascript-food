@@ -27,6 +27,7 @@ export default class {
         };
 
         bindCommands[bindCmd]();
+        return this;
     }
 
     render(viewCmd, ...params) {
@@ -37,6 +38,7 @@ export default class {
         };
 
         viewCommands[viewCmd]();
+        return this;
     }
 
     bestBanchan(food) {

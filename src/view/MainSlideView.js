@@ -33,17 +33,20 @@ export default class {
         };
 
         bindCommands[bindCmd]();
+        return this;
     }
 
     hideSlide(currentIndex) {
         this.slidesEl[currentIndex].className = 'fadeout';
         this.dotsEl[currentIndex].classList.remove('now');
+        return this;
     }
 
     showSlide(slideIndex, slideImg) {
         this.slidesEl[slideIndex].className = 'fadein';
         this.slidesEl[slideIndex].style.backgroundImage = `url("${slideImg}")`;
         this.dotsEl[slideIndex].className = 'now';
+        return this;
     }
 
 }
