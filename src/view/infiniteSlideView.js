@@ -2,35 +2,33 @@ import foodBoxInfiniteTemplate from '../template/foodBoxInfinite-tpl.html';
 import badgeTemplate from '../template/badge-tpl.html';
 import deliveryTypeTemplate from '../template/deliveryType-tpl.html';
 import {
-    qs,
-    qsa,
-    on,
     throttle
 } from '../helpers';
+import View from './View.js';
 
-export default class {
-    constructor(name) {
-        this.foodBoxEl = qs(`.${name}_food .infinite_food_box_list`);
-        this.slidesPrevEl = qs(`.${name}_food .slides_prev`);
-        this.slidesNextEl = qs(`.${name}_food .slides_next`);
+export default class extends View {
+    constructor(el) {
+        super(el);
+        this.foodBoxListEl = this.qs('.infinite_food_box_list');
 
         this.state = {
-            name,
-            el: this.foodBoxEl,
-            direction: -20
+            index: -20
         };
     }
 
-    bind(bindCmd, handler) {
+    bind(bindCmd) {
         const bindCommands = {
-            slides: () => {
-                on(this.foodBoxEl, 'transitionend', () => handler(this.state));
+            transitionend: () => {
+                this.on('transitionend', () => this.emit('@transitionend', {
+                    index: this.state.index
+                }));
             },
-            slidesPrev: () => {
-                on(this.slidesPrevEl, 'click', throttle(() => handler(this.state, 10), 600));
-            },
-            slidesNext: () => {
-                on(this.slidesNextEl, 'click', throttle(() => handler(this.state, -10), 600));
+            slidesNavi: () => {
+                this.delegate('.infinite_food_slides_navi > a', 'click',
+                    throttle(e => this.emit('@move', {
+                        index: this.state.index,
+                        direction: +e.delegateTarget.dataset.direction
+                    }), 1000));
             }
         };
 
@@ -50,10 +48,12 @@ export default class {
     }
 
     banchan(food) {
-        this.renderFoodBoxList(this.state.el, food)
-            .renderFoodBox(food, qsa(`.${this.state.name}_food .prd_box>a`))
-            .renderSlides(this.state.el, qsa(`.${this.state.name}_food .prd_box`))
-            .showSlides(this.state.el, this.state.direction, true);
+        this.renderFoodBoxList(this.foodBoxListEl, food)
+            .renderFoodBoxOption(food, this.qsa('.prd_box>a'))
+            .renderSlides(this.foodBoxListEl, this.qsa('.prd_box'))
+            .showSlides({
+                Immediately: true
+            });
     }
 
     renderFoodBoxList(element, food) {
@@ -71,7 +71,7 @@ export default class {
         return this;
     }
 
-    renderFoodBox(food, prdBox) {
+    renderFoodBoxOption(food, prdBox) {
         food.forEach((item, i) => {
             prdBox[i].insertAdjacentHTML('beforeend', badgeTemplate({
                 badge: item.badge
@@ -93,8 +93,16 @@ export default class {
         return this;
     }
 
-    showSlides(element, direction, Immediately) {
-        element.style.transitionDuration = Immediately ? '0s' : '0.5s';
-        element.style.transform = `translateX(${direction}%)`;
+    showSlides({
+        Immediately
+    }) {
+        this.foodBoxListEl.style.transitionDuration = Immediately ? '0s' : '0.5s';
+        this.foodBoxListEl.style.transform = `translateX(${this.state.index}%)`;
+        return this;
+    }
+
+    setIndex(index) {
+        this.state.index = index;
+        return this;
     }
 }

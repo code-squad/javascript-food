@@ -1,38 +1,46 @@
 import autocompleteTemplate from '../template/autocomplete-tpl.html';
 import {
-    qs,
-    on,
     delegate
 } from '../helpers';
-export default class {
-    constructor() {
-        this.searchEl = qs('#search_str');
-        this.suggestionsEl = qs('.autocomplete_suggestions');
-        this.searchButtonEl = qs('.search_btn');
+import View from './View.js';
+
+export default class extends View {
+    constructor(el) {
+        super(el);
+        this.searchEl = this.qs('#search_str');
+        this.suggestionsEl = this.qs('.autocomplete_suggestions');
+        this.searchButtonEl = this.qs('.search_btn');
     }
 
-    bind(bindCmd, handler) {
+    bind(bindCmd) {
         const bindCommands = {
             press: () => {
-                on(this.searchEl, 'keyup', e => handler(e.target.value, e.keyCode, this.sel));
+                this.on('keyup', e => this.emit('@press', {
+                    term: e.target.value,
+                    key: e.keyCode,
+                    isSeleted: !!this.sel
+                }));
             },
             submit: () => {
-                on(this.searchButtonEl, 'click', () => handler(this.searchEl.value));
+                this.delegate('.search_btn', 'click', () => this.emit('@submit', {
+                    keyword: this.searchEl.value
+                }));
             },
             history: () => {
-                on(this.searchEl, 'click', () => handler(!this.suggestionsEl.innerHTML && !this.searchEl.value));
+                this.delegate('#search_str', 'click',
+                    () => !this.isOpen() && !this.searchEl.value && this.emit('@history'));
             },
-            click: () => {
-                delegate(this.suggestionsEl, '.autocomplete_suggestion', 'click', e => {
-                    this.updateAutoComplete(e.delegateTarget);
-                    this.enterAutoComplete();
-                });
+            clickSuggestion: () => {
+                this.delegate('.autocomplete_suggestion', 'click',
+                    e => this.setSel(e.delegateTarget).setSearchbar());
             },
             nonClick: () => {
-                delegate('body', '*', 'click', e => e.target !== this.searchEl && this.emptyAutoComplete());
+                delegate('body', '*', 'click',
+                    e => e.target !== this.searchEl && this.emptyAutoComplete());
             },
             hover: () => {
-                delegate(this.suggestionsEl, '.autocomplete_suggestion', 'mouseover', e => this.updateAutoComplete(e.delegateTarget));
+                this.delegate('.autocomplete_suggestion', 'mouseover', e => this.setSel(e.delegateTarget))
+                    .delegate('.autocomplete_suggestion', 'mouseout', () => this.emptySel());
             }
         };
 
@@ -75,25 +83,29 @@ export default class {
         this.suggestionsEl.insertAdjacentHTML('afterbegin', historyComponent);
     }
 
-    enterAutoComplete() {
-        if (this.sel && this.suggestionsEl.innerHTML) {
+    setSearchbar() {
+        if (this.isOpen()) {
             this.searchEl.value = this.sel.dataset.value;
-            this.sel = null;
-            this.emptyAutoComplete();
+            this.emptySel().emptyAutoComplete();
         }
     }
 
     moveAutoComplete(key) {
-        this.sel = qs('.autocomplete_suggestion.selected');
+        this.sel = this.qs('.autocomplete_suggestion.selected');
         const [nextEl, prevEl] = this.sel ? [this.sel.nextSibling, this.sel.previousSibling] : [this.suggestionsEl.firstChild, this.suggestionsEl.lastChild];
         const target = key === 40 ? nextEl : prevEl;
-        this.updateAutoComplete(target);
+        this.emptySel().setSel(target);
     }
 
-    updateAutoComplete(target) {
-        this.sel && this.sel.classList.remove('selected');
+    setSel(target) {
         this.sel = target;
         this.sel.classList.add('selected');
+        return this;
+    }
+
+    emptySel() {
+        this.sel && this.sel.classList.remove('selected');
+        return this;
     }
 
     emptyAutoComplete() {
@@ -104,6 +116,10 @@ export default class {
     emptySearchbar() {
         this.searchEl.value = '';
         return this;
+    }
+
+    isOpen() {
+        return this.suggestionsEl.innerHTML;
     }
 
 }

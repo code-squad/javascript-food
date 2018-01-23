@@ -18,26 +18,22 @@ export default class {
         this.infiniteViews = infiniteViews;
     }
 
-    async checkLocalStorage(key, isJSONP) {
-        const cache = getLocalStorage(key);
-        if (cache && isValid(cache.time, 6)) return cache.data;
-        const value = {
-            data: isJSONP ? (await fetchJSONP(key))[1] : await request(key),
-            time: Date.now()
-        };
-        return value.data.hasOwnProperty('error') ? false : setLocalStorage(key, value);
-    }
-
     setView() {
         this.fetchMainSlide(this.urlList.mainSlide);
         this.fetchBestBanchan(this.urlList.bestBanchan);
 
-        this.scrollerView.bind('click', this.moveScroller.bind(this))
-            .bind('hide', this.moveScroller.bind(this));
+        this.scrollerView.bind('click').bind('hide')
+            .on('@move', e => this.moveScroller(e.detail.direction));
 
         this.infiniteViews.forEach(infiniteView =>
-            this.fetchInfiniteBanchan(infiniteView, this.urlList[infiniteView.state.name]));
-        this.bindAutoComplete();
+            this.fetchInfiniteBanchan(infiniteView, this.urlList[infiniteView.name]));
+
+        this.autoCompleteView.bind('press').bind('submit')
+            .bind('history').bind('clickSuggestion').bind('nonClick').bind('hover')
+            .on('@press', e => this.pressAutoComplete(e.detail))
+            .on('@submit', e => this.submitKeyword(e.detail.keyword))
+            .on('@history', () => this.showHistory());
+
         delegate('body', 'a', 'click', e => e.preventDefault());
     }
 
@@ -45,39 +41,37 @@ export default class {
         this.slideImgs = await this.checkLocalStorage(url);
         this.slidesEnd = this.slideImgs.length - 1;
         this.mainSlideView.showSlide(0, this.slideImgs[0])
-            .bind('slidesPrev', this.moveSlides.bind(this))
-            .bind('slidesNext', this.moveSlides.bind(this))
-            .bind('slidesDots', this.currentSlide.bind(this));
+            .bind('slidesNavi').bind('slidesDots')
+            .on('@selectDot', e => this.selectSlide(e.detail.index))
+            .on('@move', e => this.moveSlide(e.detail));
     }
 
-    moveSlides(target, n) {
-        this.mainSlideView.hideSlide(target.index);
-        target.index += n;
-        if (target.index > this.slidesEnd) target.index = 0;
-        if (target.index < 0) target.index = this.slidesEnd;
-        this.mainSlideView.showSlide(target.index, this.slideImgs[target.index]);
+    moveSlide({
+        index,
+        direction
+    }) {
+        index += direction;
+        if (index > this.slidesEnd) index = 0;
+        if (index < 0) index = this.slidesEnd;
+
+        this.mainSlideView.hideCurrentSlide().setIndex(index)
+            .showSlide(index, this.slideImgs[index]);
     }
 
-    currentSlide(target, n) {
-        this.mainSlideView.hideSlide(target.index)
-            .showSlide(target.index = n, this.slideImgs[target.index]);
+    selectSlide(index) {
+        this.mainSlideView.hideCurrentSlide().setIndex(index)
+            .showSlide(index, this.slideImgs[index]);
     }
-
-    bindAutoComplete() {
-        this.autoCompleteView.bind('press', this.pressAutoComplete.bind(this))
-            .bind('submit', this.submitHistory.bind(this))
-            .bind('history', this.showHistory.bind(this))
-            .bind('click')
-            .bind('nonClick')
-            .bind('hover');
-    }
-
 
     moveScroller(direction) {
         direction === 'up' ? moveScroll(0) : moveScroll(document.body.clientHeight);
     }
 
-    async pressAutoComplete(term, key, isSeleted) {
+    async pressAutoComplete({
+        term,
+        key,
+        isSeleted
+    }) {
         const isString = (!key || (key < 35 || key > 40) && key !== 13 && key !== 27);
         const isUpdown = (key === 40 || key === 38);
         const isESC = key === 27;
@@ -95,11 +89,11 @@ export default class {
         } else if (isESC) {
             this.autoCompleteView.emptyAutoComplete();
         } else if (isEnter) {
-            isSeleted ? this.autoCompleteView.enterAutoComplete() : this.submitHistory(term);
+            isSeleted ? this.autoCompleteView.setSearchbar() : this.submitKeyword(term);
         }
     }
 
-    submitHistory(keyword) {
+    submitKeyword(keyword) {
         if (keyword) {
             const history = new Set(getLocalStorage('history'));
             history.add(keyword);
@@ -108,11 +102,9 @@ export default class {
         }
     }
 
-    async showHistory(check) {
-        if (check) {
-            const history = await getLocalStorage('history');
-            history && this.autoCompleteView.render('history', history.slice(-5).reverse());
-        }
+    async showHistory() {
+        const history = await getLocalStorage('history');
+        history && this.autoCompleteView.render('history', history.slice(-5).reverse());
     }
 
     async fetchBestBanchan(url) {
@@ -123,20 +115,38 @@ export default class {
     async fetchInfiniteBanchan(targetView, url) {
         const foodData = await this.checkLocalStorage(url);
         const threshold = foodData.length * 2.5;
-        targetView.render('banchan', foodData)
-            .bind('slides', this.resetInfiniteSlides.bind(targetView, -20 - threshold, -20 + threshold))
-            .bind('slidesPrev', this.moveInfiniteSlides.bind(targetView))
-            .bind('slidesNext', this.moveInfiniteSlides.bind(targetView));
+        targetView.render('banchan', foodData).bind('transitionend').bind('slidesNavi')
+            .on('@move', e => this.moveInfiniteSlides.call(targetView, e.detail))
+            .on('@transitionend',
+                e => this.resetInfiniteSlides.call(targetView, threshold, e.detail.index));
     }
 
-    moveInfiniteSlides(target, move) {
-        this.showSlides(target.el, target.direction += move);
+    moveInfiniteSlides({
+        index,
+        direction
+    }) {
+        this.setIndex(index += direction).showSlides({
+            Immediately: false
+        });
     }
 
-    resetInfiniteSlides(thresholdLeft, thresholdRight, target) {
-        if (target.direction === thresholdLeft || target.direction === thresholdRight) {
-            this.showSlides(target.el, target.direction = -20, true);
+    resetInfiniteSlides(threshold, index) {
+        const [thresholdLeft, thresholdRight] = [-20 - threshold, -20 + threshold];
+        if (index === thresholdLeft || index === thresholdRight) {
+            this.setIndex(-20).showSlides({
+                Immediately: true
+            });
         }
+    }
+
+    async checkLocalStorage(key, isJSONP) {
+        const cache = getLocalStorage(key);
+        if (cache && isValid(cache.time, 6)) return cache.data;
+        const value = {
+            data: isJSONP ? (await fetchJSONP(key))[1] : await request(key),
+            time: Date.now()
+        };
+        return value.data.hasOwnProperty('error') ? false : setLocalStorage(key, value);
     }
 
 }

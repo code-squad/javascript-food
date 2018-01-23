@@ -3,21 +3,18 @@ import foodTabTemplate from '../template/foodTab-tpl.html';
 import containerTemplate from '../template/container-tpl.html';
 import badgeTemplate from '../template/badge-tpl.html';
 import deliveryTypeTemplate from '../template/deliveryType-tpl.html';
-import {
-    qs,
-    qsa,
-    delegate
-} from '../helpers';
+import View from './View.js';
 
-export default class {
-    constructor() {
-        this.foodTabEl = qs('.best_food_tabs');
+export default class extends View {
+    constructor(el) {
+        super(el);
+        this.foodTabEl = this.qs('.best_food_tabs');
     }
 
     bind(bindCmd) {
         const bindCommands = {
             foodTab: () => {
-                delegate(this.foodTabEl, 'li > a', 'click', e => {
+                this.delegate('li > a', 'click', e => {
                     Array.from(this.foodTabListEl).forEach(tab => tab.className =
                         tab === e.delegateTarget ? 'now' : '');
                     Array.from(this.foodBoxListEl).forEach(food => food.style.display =
@@ -42,10 +39,8 @@ export default class {
     }
 
     bestBanchan(food) {
-        this.renderFoodTab(food)
-            .renderFoodContainer(food)
-            .renderFoodBoxList(food)
-            .renderFoodBox(food)
+        this.renderFoodTab(food).renderFoodContainer(food)
+            .renderFoodBoxList(food).renderFoodBox(food)
             .renderSelectedFood(food, Math.floor(Math.random() * 6));
     }
 
@@ -59,15 +54,16 @@ export default class {
     }
 
     renderFoodContainer(food) {
+        const foodContainerEl = this.qs('.best_food_container');
         const foodContainer = food.map(value => containerTemplate({
             category_id: value.category_id
         })).join('');
-        qs('.best_food_container').insertAdjacentHTML('afterbegin', foodContainer);
+        foodContainerEl.insertAdjacentHTML('afterbegin', foodContainer);
         return this;
     }
 
     renderFoodBoxList(food) {
-        this.foodBoxListEl = qsa('.best_food_box_list');
+        this.foodBoxListEl = this.qsa('.best_food_box_list');
         food.forEach((value, i) => {
             const foodBoxList = value.items.map(item =>
                 foodBoxTemplate({
@@ -85,7 +81,7 @@ export default class {
     }
 
     renderFoodBox(food) {
-        const foodBoxEl = qsa('.best_food_box');
+        const foodBoxEl = this.qsa('.best_food_box');
         food.forEach((value, i) => {
             const len = value.items.length;
             value.items.forEach((item, j) => {
@@ -101,7 +97,7 @@ export default class {
     }
 
     renderSelectedFood(food, initNum) {
-        this.foodTabListEl = qsa('.best_food_tabs > li > a');
+        this.foodTabListEl = this.qsa('.best_food_tabs > li > a');
         this.foodTabListEl[initNum].className = 'now';
         this.foodBoxListEl[initNum].style.display = 'block';
     }

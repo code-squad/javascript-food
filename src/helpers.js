@@ -1,29 +1,4 @@
 /**
- * querySelector wrapper
- *
- * @param {string} selector Selector to query
- * @param {Element} [scope] Optional scope element for the selector
- */
-export function qs(selector, scope) {
-    return (scope || document).querySelector(selector);
-}
-export function qsa(selector, scope) {
-    return (scope || document).querySelectorAll(selector);
-}
-
-/**
- * addEventListener wrapper
- *
- * @param {Element|Window} element Target Element
- * @param {string} type Event name to bind to
- * @param {Function} callback Event callback
- * @param {boolean} useCapture Capture the event
- */
-export function on(element, type, callback, useCapture) {
-    element.addEventListener(type, callback, useCapture);
-}
-
-/**
  * Delegates event to a selector.
  *
  * @param {Element} element
@@ -77,13 +52,6 @@ export function delegate(elements, selector, type, callback, useCapture) {
     return Array.prototype.map.call(elements, function (element) {
         return _delegate(element, selector, type, callback, useCapture);
     });
-}
-
-export function emit(element, event, data) {
-    const evt = new CustomEvent(event, {
-        detail: data
-    });
-    element.dispatchEvent(evt);
 }
 
 /**

@@ -376,28 +376,10 @@ span.ic {
     text-decoration: underline;
 }
 
-.main_slides_wrap {
+.slides_container {
     position: relative;
     text-align: center;
     max-width: 1920px;
-    margin: 0 auto;
-}
-
-.slides_container {
-    position: relative;
-    height: 420px;
-}
-
-.bx_wrapper {
-    max-width: 100%;
-    margin: 0px auto;
-}
-
-.bx_viewport {
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-    height: 420px;
 }
 
 .main_slides_list {
@@ -487,15 +469,12 @@ span.ic {
 
 .best_food {
     background: #eee;
-    overflow: auto;
     text-align: center;
 }
 
 .best_food_content {
-    position: relative;
     width: 980px;
     margin: 0 auto;
-    overflow: hidden;
 }
 
 .best_food_title {

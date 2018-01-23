@@ -1,24 +1,21 @@
-import {
-    on,
-    qs,
-    delegate
-} from '../helpers';
+import View from './View.js';
 
-export default class {
-    constructor() {
-        this.updownButton = qs('.page_up_down_list');
+export default class extends View {
+    constructor(el) {
+        super(el);
     }
 
-    bind(bindCmd, handler) {
+    bind(bindCmd) {
         const bindCommands = {
             click: () => {
-                delegate(this.updownButton, '.page_up_down_list > li > a',
-                    'click', e => handler(e.delegateTarget.dataset.direction));
+                this.delegate('.page_up_down_list > li > a',
+                    'click', e => this.emit('@move', {
+                        direction: e.delegateTarget.dataset.direction
+                    }));
             },
             hide: () => {
-                on(window, 'scroll', () => {
-                    this.updownButton.style.display = window.scrollY > 90 ? 'block' : 'none';
-                });
+                window.addEventListener('scroll',
+                    () => window.scrollY > 90 ? this.show() : this.hide());
             }
         };
 
