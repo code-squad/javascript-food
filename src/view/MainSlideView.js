@@ -1,3 +1,4 @@
+import mainSlideTemplate from '../template/mainSlide-tpl.html';
 import {
     throttle
 } from '../helpers';
@@ -8,8 +9,6 @@ export default class extends View {
         super(el);
         this.slidesPrevEl = this.qs('.slides_prev');
         this.slidesNextEl = this.qs('.slides_next');
-        this.slidesEl = this.qsa('.main_slides_list > li');
-        this.dotsEl = this.qsa('.slides_dots > li > a');
 
         this.state = {
             index: 0
@@ -37,16 +36,41 @@ export default class extends View {
         return this;
     }
 
+    render(viewCmd, ...params) {
+        const viewCommands = {
+            mainSlide: () => {
+                this.mainSlide(...params);
+            }
+        };
+
+        viewCommands[viewCmd]();
+        return this;
+    }
+
+    mainSlide(slideImgs) {
+        this.renderMainSlide(slideImgs);
+        this.slidesEl = this.qsa('.main_slides_list > li');
+        this.dotsEl = this.qsa('.slides_dots > li > a');
+        this.showSlide();
+    }
+
+    renderMainSlide(slideImgs) {
+        const mainSlideStr = mainSlideTemplate({
+            slide: slideImgs
+        });
+        this.el.insertAdjacentHTML('afterbegin', mainSlideStr);
+        return this;
+    }
+
     hideCurrentSlide() {
         this.slidesEl[this.state.index].className = 'fadeout';
         this.dotsEl[this.state.index].classList.remove('now');
         return this;
     }
 
-    showSlide(index, slideImg) {
-        this.slidesEl[index].className = 'fadein';
-        this.slidesEl[index].style.backgroundImage = `url("${slideImg}")`;
-        this.dotsEl[index].className = 'now';
+    showSlide() {
+        this.slidesEl[this.state.index].className = 'fadein';
+        this.dotsEl[this.state.index].className = 'now';
         return this;
     }
 

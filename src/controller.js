@@ -39,8 +39,7 @@ export default class {
 
     async fetchMainSlide(url) {
         this.slideImgs = await this.checkLocalStorage(url);
-        this.slidesEnd = this.slideImgs.length - 1;
-        this.mainSlideView.showSlide(0, this.slideImgs[0])
+        this.mainSlideView.render('mainSlide', this.slideImgs)
             .bind('slidesNavi').bind('slidesDots')
             .on('@selectDot', e => this.selectSlide(e.detail.index))
             .on('@move', e => this.moveSlide(e.detail));
@@ -50,17 +49,16 @@ export default class {
         index,
         direction
     }) {
+        const slidesEnd = this.slideImgs.length - 1;
         index += direction;
-        if (index > this.slidesEnd) index = 0;
-        if (index < 0) index = this.slidesEnd;
+        if (index > slidesEnd) index = 0;
+        if (index < 0) index = slidesEnd;
 
-        this.mainSlideView.hideCurrentSlide().setIndex(index)
-            .showSlide(index, this.slideImgs[index]);
+        this.selectSlide(index);
     }
 
     selectSlide(index) {
-        this.mainSlideView.hideCurrentSlide().setIndex(index)
-            .showSlide(index, this.slideImgs[index]);
+        this.mainSlideView.hideCurrentSlide().setIndex(index).showSlide();
     }
 
     moveScroller(direction) {
