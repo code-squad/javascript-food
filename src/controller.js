@@ -90,7 +90,7 @@ export default class {
     }
 
     async fetchAutoComplete(term) {
-        const suggestions = await this.checkLocalStorage(`https://ko.wikipedia.org/w/api.php?action=opensearch&search=${term}`, true);
+        const suggestions = await this.checkLocalStorage(this.urlList.autoComplete + term, true);
         this.autoCompleteView.emptyAutoComplete().render('autoComplete', term, suggestions);
     }
 

@@ -10,7 +10,8 @@ const urlList = {
     bestBanchan: 'http://crong.codesquad.kr:8080/woowa/best',
     side_food: 'http://crong.codesquad.kr:8080/woowa/side',
     main_food: 'http://crong.codesquad.kr:8080/woowa/main',
-    course_food: 'http://crong.codesquad.kr:8080/woowa/soup'
+    course_food: 'http://crong.codesquad.kr:8080/woowa/soup',
+    autoComplete: 'https://ko.wikipedia.org/w/api.php?action=opensearch&search='
 };
 
 const mainSlideView = new MainSlideView('.slides_container');
