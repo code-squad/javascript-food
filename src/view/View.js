@@ -3,7 +3,6 @@ export default class {
         if (!el) throw el;
         this.name = el.slice(1);
         this.el = document.querySelector(el);
-        return this;
     }
 
     qs(selector) {

@@ -63,8 +63,7 @@ export default class extends View {
     }
 
     renderAutoComplete(term, suggestions) {
-        this.emptyAutoComplete();
-        const target = new RegExp(term, 'ig');
+        const target = new RegExp(term, 'i');
         const suggestionsComponent = suggestions.map(suggestion =>
             autocompleteTemplate({
                 keyword: suggestion,
@@ -84,17 +83,21 @@ export default class extends View {
     }
 
     setSearchbar() {
-        if (this.isOpen()) {
-            this.searchEl.value = this.sel.dataset.value;
-            this.emptySel().emptyAutoComplete();
-        }
+        this.searchEl.value = this.sel.dataset.value;
+        this.emptySel().emptyAutoComplete();
+        return this;
     }
 
-    moveAutoComplete(key) {
-        this.sel = this.qs('.autocomplete_suggestion.selected');
-        const [nextEl, prevEl] = this.sel ? [this.sel.nextSibling, this.sel.previousSibling] : [this.suggestionsEl.firstChild, this.suggestionsEl.lastChild];
-        const target = key === 40 ? nextEl : prevEl;
+    upSel() {
+        const target = this.sel ? this.sel.previousSibling : this.suggestionsEl.lastChild;
         this.emptySel().setSel(target);
+        return this;
+    }
+
+    downSel(){
+        const target = this.sel ? this.sel.nextSibling : this.suggestionsEl.firstChild;
+        this.emptySel().setSel(target);
+        return this;
     }
 
     setSel(target) {
@@ -105,6 +108,7 @@ export default class extends View {
 
     emptySel() {
         this.sel && this.sel.classList.remove('selected');
+        this.sel = null;
         return this;
     }
 

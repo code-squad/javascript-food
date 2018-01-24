@@ -22,14 +22,14 @@ export default class {
         this.fetchMainSlide(this.urlList.mainSlide);
         this.fetchBestBanchan(this.urlList.bestBanchan);
 
-        this.scrollerView.bind('click').bind('hide')
-            .on('@move', e => this.moveScroller(e.detail.direction));
-
         this.infiniteViews.forEach(infiniteView =>
             this.fetchInfiniteBanchan(infiniteView, this.urlList[infiniteView.name]));
 
-        this.autoCompleteView.bind('press').bind('submit')
-            .bind('history').bind('clickSuggestion').bind('nonClick').bind('hover')
+        this.scrollerView.bind('click').bind('hide')
+            .on('@move', e => this.moveScroller(e.detail.direction));
+
+        this.autoCompleteView.bind('press').bind('submit').bind('history')
+            .bind('clickSuggestion').bind('nonClick').bind('hover')
             .on('@press', e => this.pressAutoComplete(e.detail))
             .on('@submit', e => this.submitKeyword(e.detail.keyword))
             .on('@history', () => this.showHistory());
@@ -67,30 +67,33 @@ export default class {
         direction === 'up' ? moveScroll(0) : moveScroll(document.body.clientHeight);
     }
 
-    async pressAutoComplete({
+    pressAutoComplete({
         term,
         key,
         isSeleted
     }) {
-        const isString = (!key || (key < 35 || key > 40) && key !== 13 && key !== 27);
-        const isUpdown = (key === 40 || key === 38);
-        const isESC = key === 27;
-        const isEnter = key === 13;
+        const isUp = (key) => key === 38;
+        const isdown = (key) => key === 40;
+        const isESC = (key) => key === 27;
+        const isEnter = (key) => key === 13;
+        const isString = (key) => key < 35 || key > 40;
 
-        if (isString) {
-            if (term) {
-                const suggestions = await this.checkLocalStorage(`https://ko.wikipedia.org/w/api.php?action=opensearch&search=${term}`, true);
-                this.autoCompleteView.render('autoComplete', term, suggestions);
-            } else {
-                this.autoCompleteView.emptyAutoComplete();
-            }
-        } else if (isUpdown) {
-            this.autoCompleteView.moveAutoComplete(key);
-        } else if (isESC) {
+        if (isUp(key)) {
+            this.autoCompleteView.upSel();
+        } else if (isdown(key)) {
+            this.autoCompleteView.downSel();
+        } else if (isESC(key)) {
             this.autoCompleteView.emptyAutoComplete();
-        } else if (isEnter) {
+        } else if (isEnter(key)) {
             isSeleted ? this.autoCompleteView.setSearchbar() : this.submitKeyword(term);
+        } else if (isString(key)) {
+            term ? this.fetchAutoComplete(term) : this.autoCompleteView.emptyAutoComplete();
         }
+    }
+
+    async fetchAutoComplete(term) {
+        const suggestions = await this.checkLocalStorage(`https://ko.wikipedia.org/w/api.php?action=opensearch&search=${term}`, true);
+        this.autoCompleteView.emptyAutoComplete().render('autoComplete', term, suggestions);
     }
 
     submitKeyword(keyword) {
