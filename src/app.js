@@ -15,9 +15,9 @@ const urlList = {
     autoComplete: 'https://ko.wikipedia.org/w/api.php?action=opensearch&search='
 };
 
-const mainSlideView = new MainSlideView('.slides_container');
+const mainSlideView = new MainSlideView('.main_slide');
 const bestBanchanView = new BestBanchanView('.best_food');
-const scrollerView = new ScrollerView('.page_up_down_list');
+const scrollerView = new ScrollerView('.scroller');
 const sideBanchanView = new InfiniteSlideView('.side_food');
 const mainBanchanView = new InfiniteSlideView('.main_food');
 const courseBanchanView = new InfiniteSlideView('.course_food');

@@ -8,7 +8,7 @@ export default class extends View {
     bind(bindCmd) {
         const bindCommands = {
             click: () => {
-                this.delegate('.page_up_down_list > li > a',
+                this.delegate('.scroller > li > a',
                     'click', e => this.emit('@move', {
                         direction: e.delegateTarget.dataset.direction
                     }));

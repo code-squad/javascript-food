@@ -107,295 +107,6 @@ a {
 }
 
 
-/* components styles */
-
-.food {
-    position: relative;
-    overflow: hidden;
-    margin: 0 auto;
-}
-
-.lnb_wrap {
-    position: relative;
-    background: #fff;
-    border-bottom: 1px solid #e9e9e9;
-}
-
-.lnb_content {
-    background: #fff;
-    height: 36px;
-    letter-spacing: -0.2px;
-    width: 980px;
-    margin: 0 auto;
-}
-
-.link_app {
-    float: left;
-    height: 100%;
-}
-
-.link_app>a {
-    display: block;
-    font-size: 12px;
-    height: 100%;
-    padding: 10px 11px 9px;
-    text-align: center;
-    color: #666;
-}
-
-.link_app>a:hover {
-    color: #2ac1bc;
-}
-
-.lnb_list {
-    float: right;
-    height: 100%;
-    position: relative;
-}
-
-.lnb_list>li {
-    float: left;
-    height: 100%;
-    position: relative;
-}
-
-.lnb_list>li>a {
-    display: block;
-    font-size: 12px;
-    height: 100%;
-    padding: 10px 10px 9px 10px;
-    text-align: center;
-    color: #666;
-    background: url(https://cdn.bmf.kr/web/common/util_bar.gif) no-repeat 0 12px;
-}
-
-.lnb_list>li>a:hover {
-    color: #2ac1bc;
-}
-
-.util_cart a {
-    color: #333;
-    font-weight: bold;
-}
-
-span.ic {
-    display: inline-block;
-    zoom: 1;
-    width: 7px;
-    height: 11px;
-    background: url(https://cdn.bmf.kr/web/common/bul_arr_down.png) no-repeat center 1px;
-    margin-left: 4px;
-}
-
-.header_wrap {
-    position: relative;
-    height: 98px;
-    width: 980px;
-    margin: 0 auto;
-}
-
-.logo {
-    float: left;
-    margin: 16px 0 0 5px;
-}
-
-.searchbar {
-    position: relative;
-    float: left;
-    margin: 30px 0 0 46px;
-}
-
-.searchbar input {
-    width: 210px;
-    height: 40px;
-    color: rgb(136, 136, 136);
-    border-width: 1px;
-    border-style: solid;
-    border-color: rgb(207, 208, 210);
-    padding: 0px 38px 0px 15px;
-}
-
-.searchbar button {
-    background: url(https://cdn.bmf.kr/web/common/ic_search.png) no-repeat center 0;
-    width: 38px;
-    height: 38px;
-    position: absolute;
-    top: 1px;
-    right: 1px;
-    border: 0;
-}
-
-.autocomplete_suggestions {
-    width: 210px;
-    text-align: left;
-    cursor: pointer;
-    z-index: 9999;
-    background: #fff;
-    box-shadow: -1px 1px 3px rgba(0, 0, 0, .1);
-    display: block;
-    position: absolute;
-    overflow: hidden;
-}
-
-.autocomplete_suggestion {
-    position: relative;
-    padding: 6px 0 3px 25px;
-    line-height: 23px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-size: 1.2em;
-    color: #333;
-}
-
-.autocomplete_suggestion b {
-    font-weight: bold;
-    color: #fe1a1a;
-}
-
-.autocomplete_suggestion.selected {
-    background: #f0f0f0bd;
-}
-
-.autocomplete_suggestion.searches {
-    color: #52188c;
-}
-
-.gnb_top {
-    overflow: hidden;
-    float: right;
-    margin-right: 5px;
-}
-
-.gnb_top>li {
-    float: left;
-}
-
-.gnb_top>li>a {
-    display: block;
-    height: 48px;
-    margin: 25px 0 25px 50px;
-}
-
-.navi_wrap {
-    position: relative;
-    z-index: 1;
-    background: #483f35;
-}
-
-.navi_content {
-    width: 980px;
-    height: 52px;
-    margin: 0 auto;
-}
-
-.gnb>li {
-    width: 124px;
-    height: 52px;
-    float: left;
-    position: relative;
-    text-align: left;
-}
-
-.gnb>li:first-child {
-    width: 100px;
-}
-
-.gnb>li:nth-child(7) {
-    width: 120px;
-}
-
-.gnb>li:nth-child(8) {
-    width: 140px;
-    background: #362d25;
-    text-align: center;
-}
-
-.gnb>li:first-child a {
-    text-align: left;
-}
-
-.gnb>li:nth-child(8) a {
-    padding: 6px 20px 3px 0;
-    text-align: right;
-}
-
-.gnb>li>a {
-    display: block;
-    padding: 5px 0 0 1px;
-}
-
-.gnb>li>a>span {
-    display: inline-block;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-    height: 47px;
-    padding: 11px 25px 0px;
-}
-
-.gnb>li:hover>a>span,
-.gnb>li:focus>a>span {
-    background: #fff;
-    color: #2ac1bc;
-}
-
-.gnb>li:hover>ul,
-.gnb>li:focus>ul {
-    display: block;
-}
-
-.sub_list {
-    display: none;
-    width: 162px;
-    position: absolute;
-    left: 0;
-    top: 52px;
-    padding: 20px 0 31px;
-    background: #fff;
-    border: 1px solid rgba(72, 63, 53, 0.6);
-    border-top: 0;
-}
-
-.sub_list a {
-    display: block;
-    color: #555;
-    font-size: 14px;
-    line-height: 20px;
-    padding: 6px 0 3px 25px;
-}
-
-.sub_list a:hover>span,
-.sub_list a:focus>span {
-    font-size: 16px;
-    color: #2ac1bc;
-    font-weight: bold;
-    text-decoration: underline;
-}
-
-.slides_container {
-    position: relative;
-    text-align: center;
-    max-width: 1920px;
-}
-
-.main_slides_list {
-    width: auto;
-    position: relative;
-    overflow: hidden;
-    height: 420px;
-}
-
-.main_slides_list li {
-    float: left;
-    position: absolute;
-    display: block;
-    width: 100%;
-    background: no-repeat center top;
-}
-
-
 /* Fading animation */
 
 .fadein {
@@ -408,350 +119,561 @@ span.ic {
     transition: opacity 2s;
 }
 
-.main_slides_list>li>a {
-    display: block;
-    width: 980px;
-    height: 420px;
-    margin: 0 auto;
+
+/* components styles */
+
+.food {
+    position: relative;
     overflow: hidden;
+    margin: 0 auto;
 }
 
-.slides_navi>a {
-    width: 60px;
-    height: 92px;
+.lnb_wrap {
+    position: relative;
+    background: #fff;
+    border-bottom: 1px solid #e9e9e9;
+    >.lnb_content {
+        background: #fff;
+        height: 36px;
+        letter-spacing: -0.2px;
+        width: 980px;
+        margin: 0 auto;
+        span.ic {
+            display: inline-block;
+            zoom: 1;
+            width: 7px;
+            height: 11px;
+            background: url(https://cdn.bmf.kr/web/common/bul_arr_down.png) no-repeat center 1px;
+            margin-left: 4px;
+        }
+    }
+}
+
+.link_app {
+    float: left;
+    height: 100%;
+    >a {
+        display: block;
+        font-size: 12px;
+        height: 100%;
+        padding: 10px 11px 9px;
+        text-align: center;
+        color: #666;
+        &:hover {
+            color: #2ac1bc;
+        }
+    }
+}
+
+.lnb_list {
+    float: right;
+    height: 100%;
+    >li {
+        float: left;
+        height: 100%;
+        &.util_cart>a {
+            color: #333;
+            font-weight: bold;
+        }
+        >a {
+            display: block;
+            font-size: 12px;
+            height: 100%;
+            padding: 10px 10px 9px 10px;
+            text-align: center;
+            color: #666;
+            background: url(https://cdn.bmf.kr/web/common/util_bar.gif) no-repeat 0 12px;
+            &:hover {
+                color: #2ac1bc;
+            }
+        }
+    }
+}
+
+.header_wrap {
+    position: relative;
+    height: 98px;
+    width: 980px;
+    margin: 0 auto;
+    >.logo {
+        float: left;
+        margin: 16px 0 0 5px;
+    }
+}
+
+.searchbar {
+    position: relative;
+    float: left;
+    margin: 30px 0 0 46px;
+    >input {
+        width: 210px;
+        height: 40px;
+        color: rgb(136, 136, 136);
+        border: 1px solid rgb(207, 208, 210);
+        padding: 0px 38px 0px 15px;
+    }
+    >button {
+        background: url(https://cdn.bmf.kr/web/common/ic_search.png) no-repeat center 0;
+        width: 38px;
+        height: 38px;
+        position: absolute;
+        top: 1px;
+        right: 1px;
+        border: 0;
+        cursor: pointer;
+        &:hover {
+            background-position: center 100%;
+        }
+    }
+}
+
+.autocomplete_suggestions {
+    width: 210px;
+    text-align: left;
+    cursor: pointer;
+    z-index: 9999;
+    background: #fff;
+    box-shadow: -1px 1px 3px rgba(0, 0, 0, .1);
+    display: block;
     position: absolute;
-    top: 50%;
-    margin-top: -46px;
-    background: url(https://cdn.bmf.kr/web/common/main_slides_navi.png) no-repeat center center;
+    overflow: hidden;
+    >.autocomplete_suggestion {
+        position: relative;
+        padding: 6px 0 3px 25px;
+        line-height: 23px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 1.2em;
+        color: #333;
+        b {
+            font-weight: bold;
+            color: #fe1a1a;
+        }
+        &.selected {
+            background: #f0f0f0bd;
+        }
+        &.searches {
+            color: #52188c;
+        }
+    }
 }
 
-.slides_navi>.slides_prev {
-    right: 50%;
-    margin-right: 530px;
-    background-position: left center;
+.gnb_top {
+    overflow: hidden;
+    float: right;
+    margin-right: 5px;
+    >li {
+        float: left;
+        >a {
+            display: block;
+            height: 48px;
+            margin: 25px 0 25px 50px;
+        }
+    }
 }
 
-.slides_navi>.slides_next {
-    left: 50%;
-    margin-left: 530px;
-    background-position: right center;
+.navi_wrap {
+    position: relative;
+    z-index: 1;
+    background: #483f35;
+    >.navi_content {
+        width: 980px;
+        height: 52px;
+        margin: 0 auto;
+    }
+}
+
+.gnb>li {
+    width: 124px;
+    height: 52px;
+    float: left;
+    position: relative;
+    text-align: left;
+    >a {
+        display: block;
+        padding: 5px 0 0 1px;
+        >span {
+            display: inline-block;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            height: 47px;
+            padding: 11px 25px 0px;
+        }
+    }
+    &:first-child {
+        width: 100px;
+    }
+    &:nth-child(7) {
+        width: 120px;
+    }
+    &:nth-child(8) {
+        width: 140px;
+        background: #362d25;
+        text-align: center;
+    }
+    &:hover,
+    &:focus {
+        >a>span {
+            background: #fff;
+            color: #2ac1bc;
+        }
+        >ul {
+            display: block;
+        }
+    }
+}
+
+.sub_list {
+    display: none;
+    width: 162px;
+    position: absolute;
+    left: 0;
+    top: 52px;
+    padding: 20px 0 31px;
+    background: #fff;
+    border: 1px solid rgba(72, 63, 53, 0.6);
+    border-top: 0;
+    a {
+        display: block;
+        color: #555;
+        font-size: 14px;
+        line-height: 20px;
+        padding: 6px 0 3px 25px;
+        text-align: left;
+        &:hover>span,
+        &:focus>span {
+            font-size: 16px;
+            color: #2ac1bc;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+    }
+}
+
+.main_slide {
+    position: relative;
+    text-align: center;
+    max-width: 1920px;
+}
+
+.main_slides_list {
+    width: auto;
+    position: relative;
+    overflow: hidden;
+    height: 420px;
+    >li {
+        float: left;
+        position: absolute;
+        display: block;
+        width: 100%;
+        background: no-repeat center top;
+        >a {
+            display: block;
+            width: 980px;
+            height: 420px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+    }
+}
+
+.slides_navi {
+    >a {
+        width: 60px;
+        height: 92px;
+        position: absolute;
+        top: 50%;
+        margin-top: -46px;
+        background: url(https://cdn.bmf.kr/web/common/main_slides_navi.png) no-repeat center center;
+    }
+    >.slides_prev {
+        right: 50%;
+        margin-right: 530px;
+        background-position: left center;
+    }
+    >.slides_next {
+        left: 50%;
+        margin-left: 530px;
+        background-position: right center;
+    }
 }
 
 .slides_dots {
     position: relative;
     bottom: 40px;
     height: 0;
-}
-
-.slides_dots li {
-    display: inline-block;
-    vertical-align: top;
-    padding: 0 4px;
-}
-
-.slides_dots li a {
-    display: block;
-    width: 10px;
-    height: 0;
-    padding-top: 10px;
-    overflow: hidden;
-    background: #FFF;
-    border-radius: 50%;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
-    opacity: 0.6;
-}
-
-.slides_dots>li>a.now {
-    opacity: 1;
+    >li {
+        display: inline-block;
+        vertical-align: top;
+        padding: 0 4px;
+        >a {
+            display: block;
+            width: 10px;
+            height: 0;
+            padding-top: 10px;
+            overflow: hidden;
+            background: #FFF;
+            border-radius: 50%;
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+            opacity: 0.6;
+            &.now {
+                opacity: 1;
+            }
+        }
+    }
 }
 
 .best_food {
     background: #eee;
     text-align: center;
-}
-
-.best_food_content {
-    width: 980px;
-    margin: 0 auto;
-}
-
-.best_food_title {
-    padding: 40px 0 30px;
-    position: relative;
+    >.best_food_content {
+        width: 980px;
+        margin: 0 auto;
+        >.best_food_title {
+            padding: 40px 0 30px;
+            position: relative;
+        }
+    }
 }
 
 .best_food_tabs {
     height: 48px;
-}
-
-.best_food_tabs>li {
-    display: inline-block;
-    background-color: #fff;
-    height: 48px;
-}
-
-.best_food_tabs>li:focus>a,
-.best_food_tabs>li:hover>a,
-.best_food_tabs>li>a.now {
-    background: #1fcbc7;
-    color: #fff;
-}
-
-.best_food_tabs>li>a {
-    display: block;
-    width: 159px;
-    padding-top: 17px;
-    font-weight: bold;
-    height: 100%;
-    font-size: 15px;
-    line-height: 1.2;
-    color: #777;
+    >li {
+        display: inline-block;
+        background-color: #fff;
+        height: 48px;
+        >a {
+            display: block;
+            width: 159px;
+            padding-top: 17px;
+            font-weight: bold;
+            height: 100%;
+            font-size: 15px;
+            line-height: 1.2;
+            color: #777;
+        }
+        &:focus>a,
+        &:hover>a,
+        >a.now {
+            background: #1fcbc7;
+            color: #fff;
+        }
+    }
 }
 
 .best_food_container {
     overflow: hidden;
     padding-bottom: 45px;
-}
-
-.best_food_box_list {
-    display: none;
-    overflow: hidden;
-    width: 960px;
-    margin-top: 25px;
-    margin-left: 10px;
-}
-
-.best_food_box_wrap {
-    position: relative;
-    float: left;
-    margin: 0 24px 10px 0;
-    color: #000;
-    background: #fff;
+    >.best_food_box_list {
+        display: none;
+        overflow: hidden;
+        width: 960px;
+        margin-top: 25px;
+        margin-left: 10px;
+        >.best_food_box_wrap {
+            position: relative;
+            float: left;
+            margin: 0 24px 10px 0;
+            color: #000;
+            background: #fff;
+            &:last-child {
+                margin: 0;
+            }
+        }
+    }
 }
 
 .food_img_hover {
     display: none;
+    >ul {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        >li {
+            margin: 0 15px 8px;
+            font-size: 20px;
+            color: #fff;
+            font-weight: bold;
+            text-align: center;
+            >span {
+                display: inline-block;
+                padding: 13px 0 4px;
+            }
+            &:last-child>span {
+                background: url(https://cdn.bmf.kr/web/main/delivery_line.png) repeat-x 0 0;
+            }
+        }
+    }
 }
 
-.food_img_hover>div {
-    height: 100%;
+%badge_list_style {
+    height: 24px;
+    display: flex;
+    justify-content: space-around;
+    >.badge {
+        padding: 4px 2px 5px;
+        margin-right: 3px;
+        color: #fff;
+        background: #a974bf;
+        width: 62px;
+    }
 }
 
-.food_img_hover ul {
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
+%food_price_style {
+    >.old_price {
+        text-decoration: line-through;
+        font-size: 14px;
+        color: #888;
+        vertical-align: middle;
+    }
+    >.new_price {
+        font-family: 'Montserrat', sans-serif;
+        letter-spacing: -2px;
+        margin-left: 9px;
+        color: #2ac1bc;
+        font-size: 26px;
+        font-weight: bold;
+        vertical-align: middle;
+        >.won {
+            margin-left: -6px;
+            font-size: 15px;
+            font-weight: bold;
+            top: -3px;
+        }
+    }
 }
 
-.food_img_hover li {
-    margin: 0 15px 8px;
-    font-size: 20px;
-    color: #fff;
-    font-weight: bold;
-    text-align: center;
-}
-
-.food_img_hover span {
-    display: inline-block;
-    padding: 13px 0 4px;
-}
-
-.food_img_hover li:last-child>span {
-    background: url(https://cdn.bmf.kr/web/main/delivery_line.png) repeat-x 0 0;
-}
-
-.best_food_box_wrap:hover .food_img_hover,
-.best_food_box_wrap:focus .food_img_hover {
+%food_hover_style {
     display: block;
     position: absolute;
     top: 0;
     left: 0;
-    width: 304px;
-    height: 304px;
+    width: 100%;
+    height: 100%;
     background: rgba(0, 0, 0, 0.6);
-}
-
-.best_food_box_wrap:last-child {
-    margin: 0;
 }
 
 .best_food_box {
     width: 304px;
     height: 429px;
-}
-
-.food_img>img {
-    max-width: 100%;
-    position: relative;
-}
-
-.badge_list {
-    position: absolute;
-    top: 273px;
-    width: 100%;
-    height: 22px;
-    margin: 0 0 10px 10px;
-}
-
-.badge {
-    float: left;
-    margin-right: 3px;
-    padding: 4px 2px 5px;
-    color: #fff;
-    background: #a974bf;
-    width: 62px;
-    height: 100%;
-    text-align: center;
-}
-
-.food_detail {
-    padding: 18px 20px 15px;
-    height: 90px;
-    text-align: left;
-}
-
-.food_title {
-    letter-spacing: -1.2px;
-    font-size: 17px;
-    margin-bottom: 6px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.food_description {
-    margin-bottom: 20px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.food_price {
-    float: right;
-}
-
-.old_price {
-    text-decoration: line-through;
-    font-size: 14px;
-    color: #888;
-    vertical-align: middle;
-}
-
-.new_price {
-    font-family: 'Montserrat', sans-serif;
-    letter-spacing: -2px;
-    margin-left: 9px;
-    color: #2ac1bc;
-    font-size: 26px;
-    font-weight: bold;
-    vertical-align: middle;
-}
-
-.won {
-    margin-left: -6px;
-    font-size: 15px;
-    font-weight: bold;
-    top: -3px;
+    &:hover .food_img_hover,
+    &:focus .food_img_hover {
+        @extend %food_hover_style;
+        height: 304px;
+    }
+    >.food_img>img {
+        max-width: 100%;
+        position: relative;
+    }
+    >.badge_list {
+        @extend %badge_list_style;
+        position: absolute;
+        top: 273px;
+        justify-content: flex-start;
+        margin: 0 0 10px 10px;
+    }
+    >.food_detail {
+        padding: 18px 20px 15px;
+        height: 90px;
+        text-align: left;
+        >.food_title {
+            letter-spacing: -1.2px;
+            font-size: 17px;
+            margin-bottom: 6px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        >.food_description {
+            margin-bottom: 20px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        >.food_price {
+            float: right;
+            @extend %food_price_style;
+        }
+    }
 }
 
 .infinite_food {
-    overflow: auto;
     text-align: center;
     position: relative;
+    >.infinite_food_content {
+        width: 980px;
+        height: 670px;
+        margin: 0 auto;
+        overflow: hidden;
+        >.infinite_food_title {
+            margin: 70px 0 37px;
+        }
+        >.infinite_food_container {
+            height: 346px;
+            overflow: hidden;
+            >.infinite_food_box_list {
+                width: 1000%;
+            }
+        }
+        .infinite_btn {
+            display: block;
+            margin: 38px auto;
+            padding: 15px 0 17px;
+            width: 980px;
+            text-align: center;
+            font-size: 15px;
+            color: #333;
+            border: 1px solid #d7d7d7;
+            >span {
+                padding-right: 14px;
+                background: url(https://cdn.bmf.kr/web/main/btn_arr_more.png) no-repeat right;
+            }
+        }
+    }
 }
 
-.infinite_food_content {
-    position: relative;
-    background: #fff;
-    width: 980px;
-    height: 670px;
-    margin: 0 auto;
-    overflow: hidden;
+.infinite_food_slides_navi {
+    >a {
+        position: absolute;
+        top: 257px;
+        width: 28px;
+        height: 52px;
+        background: url(https://cdn.bmf.kr/web/common/btn_prds_thumb_slides_navi.png) no-repeat center center;
+    }
+    >.slides_prev {
+        left: 50%;
+        margin-left: -558px;
+        background-position: left top;
+        &:hover,
+        &:focus {
+            background-position: left -52px;
+        }
+    }
+    >.slides_next {
+        right: 50%;
+        margin-right: -558px;
+        background-position: right top;
+        &:hover,
+        &:focus {
+            background-position: right -52px;
+        }
+    }
 }
 
-.infinite_food_title {
-    margin: 70px 0 37px;
-    position: relative;
-}
-
-.infinite_food_container {
-    height: 346px;
-    overflow: hidden;
-}
-
-.infinite_food_box_list {
-    width: 1000%;
-    position: relative;
-    overflow: hidden;
-    transform: translateX(-10%);
-}
-
-.infinite_food_slides_navi>a {
-    position: absolute;
-    top: 257px;
-    width: 28px;
-    height: 52px;
-    background: url(https://cdn.bmf.kr/web/common/btn_prds_thumb_slides_navi.png) no-repeat center center;
-}
-
-.infinite_food_slides_navi>.slides_prev {
-    left: 50%;
-    margin-left: -558px;
-    background-position: left top;
-}
-
-.infinite_food_slides_navi>.slides_prev:hover,
-.infinite_food_slides_navi>.slides_prev:focus {
-    background-position: left -52px;
-}
-
-.infinite_food_slides_navi>.slides_next {
-    right: 50%;
-    margin-right: -558px;
-    background-position: right top;
-}
-
-.infinite_food_slides_navi>.slides_next:hover,
-.infinite_food_slides_navi>.slides_next:focus {
-    background-position: right -52px;
-}
-
-.infinite_btn {
-    display: block;
-    margin: 38px auto;
-    padding: 15px 0 17px;
-    width: 980px;
-    text-align: center;
-    font-size: 15px;
-    color: #333;
-    border: 1px solid #d7d7d7;
-}
-
-.infinite_btn span {
-    padding-right: 14px;
-    background: url(https://cdn.bmf.kr/web/main/btn_arr_more.png) no-repeat right;
-}
-
-.side_food .infinite_food_banner {
-    background: url(https://cdn.bmf.kr/banner/main_event/171214/1513243712683_1e0a6312599e.jpg) no-repeat center top #fff;
-    height: 140px;
-}
-
-.main_food .infinite_food_banner {
-    background: url(https://cdn.bmf.kr/banner/main_event/170628/1498639751272_e6cadbda65b4.jpg) no-repeat center top #fff;
-    height: 140px;
-}
-
-.course_food .infinite_food_banner {
-    background: url(https://cdn.bmf.kr/banner/main_event/170425/1493082744401_ba9831e4e2bb.png) no-repeat center top #fff;
-    height: 140px;
-}
-
-.infinite_food_banner a {
-    display: block;
-    width: 980px;
-    height: 140px;
-    margin: 0 auto;
+@each $food,
+$img in (side_food:'https://cdn.bmf.kr/banner/main_event/171214/1513243712683_1e0a6312599e.jpg', main_food:'https://cdn.bmf.kr/banner/main_event/170628/1498639751272_e6cadbda65b4.jpg', course_food:'https://cdn.bmf.kr/banner/main_event/170425/1493082744401_ba9831e4e2bb.png') {
+    .#{$food} .infinite_food_banner {
+        background-image: url(#{$img});
+        >a {
+            display: block;
+            width: 980px;
+            height: 140px;
+            margin: 0 auto;
+        }
+    }
 }
 
 .thumb_img {
@@ -759,19 +681,17 @@ span.ic {
     height: 215px;
     border-radius: 50%;
     overflow: hidden;
-}
-
-.thumb_img>p>img {
-    max-width: 100%;
-}
-
-.circle_mask {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: url(https://cdn.bmf.kr/web/common/circle_mask.png) no-repeat center center;
-    width: 215px;
-    height: 215px;
+    >p>img {
+        max-width: 100%;
+    }
+    >.circle_mask {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: url(https://cdn.bmf.kr/web/common/circle_mask.png) no-repeat center center;
+        width: 215px;
+        height: 215px;
+    }
 }
 
 .prd_box {
@@ -780,94 +700,63 @@ span.ic {
     position: relative;
     width: 215px;
     margin: 0px 15px 8px;
+    &:hover .food_img_hover,
+    &:focus .food_img_hover {
+        @extend %food_hover_style;
+    }
+    >a>.badge_list {
+        @extend %badge_list_style;
+    }
 }
 
-.prd_box>a>dl {
+.prd_detail {
     padding: 18px 10px 12px 10px;
-}
-
-.prd_title {
-    color: #000;
-    letter-spacing: -1.2px;
-    font-size: 16px;
-    margin-bottom: 5px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.prd_description {
-    font-size: 13px;
-    letter-spacing: -1.2px;
-    margin-bottom: 5px;
-    color: #666;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.prd_price>.old_price {
-    font-size: 13px;
-}
-
-.prd_box>a>.badge_list {
-    position: relative;
-    top: 0;
-    height: 24px;
-    text-align: center;
-    margin: 0;
-}
-
-.prd_box>a>.badge_list>.badge {
-    float: none;
-    margin: 0 auto;
-}
-
-.prd_box:hover .food_img_hover,
-.prd_box:focus .food_img_hover {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
+    >.prd_title {
+        color: #000;
+        letter-spacing: -1.2px;
+        font-size: 16px;
+        margin-bottom: 5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    >.prd_description {
+        font-size: 13px;
+        letter-spacing: -1.2px;
+        margin-bottom: 5px;
+        color: #666;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    >.prd_price {
+        @extend %food_price_style;
+    }
 }
 
 .scroller {
+    display: none;
     position: fixed;
     bottom: 70px;
     left: 79%;
-}
-
-.page_up_down_list {
-    width: 50px;
-    position: absolute;
-    bottom: 0;
-    display: none;
-}
-
-.page_up_down_list>li>a {
-    display: block;
-    width: 50px;
-    height: 50px;
-    background: url(https://cdn.bmf.kr/web/common/btn_page_up_down_new.png) no-repeat;
-}
-
-.page_up_down_list>.page_up>a {
-    background-position: 0 top;
-}
-
-.page_up_down_list>.page_up>a:hover,
-.page_up_down_list>.page_up>a:focus {
-    background-position: -50px top;
-}
-
-.page_up_down_list>.page_down>a {
-    background-position: 0 -50px;
-}
-
-.page_up_down_list>.page_down>a:hover,
-.page_up_down_list>.page_down>a:focus {
-    background-position: -50px -50px;
+    >li>a {
+        display: block;
+        width: 50px;
+        height: 50px;
+        background: url(https://cdn.bmf.kr/web/common/btn_page_up_down_new.png) no-repeat;
+    }
+    >.page_up>a {
+        background-position: 0 top;
+        &:hover,
+        &:focus {
+            background-position: -50px top;
+        }
+    }
+    >.page_down>a {
+        background-position: 0 -50px;
+        &:hover,
+        &:focus {
+            background-position: -50px -50px;
+        }
+    }
 }
