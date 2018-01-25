@@ -18,7 +18,7 @@ export default class extends View {
                     Array.from(this.foodTabListEl).forEach(tab => tab.className =
                         tab === e.delegateTarget ? 'now' : '');
                     Array.from(this.foodBoxListEl).forEach(food => food.style.display =
-                        e.delegateTarget.dataset.category_id === food.dataset.category_id ? 'block' : 'none');
+                        e.delegateTarget.dataset.category_id === food.dataset.category_id ? 'flex' : 'none');
                 });
             }
         };
@@ -99,7 +99,7 @@ export default class extends View {
     renderSelectedFood(food, initNum) {
         this.foodTabListEl = this.qsa('.best_food_tabs > li > a');
         this.foodTabListEl[initNum].className = 'now';
-        this.foodBoxListEl[initNum].style.display = 'block';
+        this.foodBoxListEl[initNum].style.display = 'flex';
     }
 
 }

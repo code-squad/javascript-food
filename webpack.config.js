@@ -16,23 +16,10 @@ module.exports = {
             loader: 'babel-loader'
         }, {
             test: /\.css$/,
-            use: [
-                'style-loader',
-                {
-                    loader: 'css-loader',
-                },
-            ]
+            use: ['style-loader', 'css-loader']
         }, {
             test: /\.scss/,
-            use: [
-                'style-loader',
-                {
-                    loader: 'css-loader',
-                },
-                {
-                    loader: 'sass-loader'
-                }
-            ]
+            use: ['style-loader', 'css-loader', 'sass-loader']
         }]
     },
     devtool: '#inline-source-map'
