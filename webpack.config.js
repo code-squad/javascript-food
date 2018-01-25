@@ -14,6 +14,25 @@ module.exports = {
         }, {
             test: /\.js$/,
             loader: 'babel-loader'
+        }, {
+            test: /\.css$/,
+            use: [
+                'style-loader',
+                {
+                    loader: 'css-loader',
+                },
+            ]
+        }, {
+            test: /\.scss/,
+            use: [
+                'style-loader',
+                {
+                    loader: 'css-loader',
+                },
+                {
+                    loader: 'sass-loader'
+                }
+            ]
         }]
     },
     devtool: '#inline-source-map'
