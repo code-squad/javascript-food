@@ -7,8 +7,6 @@ import View from './View.js';
 export default class extends View {
     constructor(el) {
         super(el);
-        this.slidesPrevEl = this.qs('.slides_prev');
-        this.slidesNextEl = this.qs('.slides_next');
 
         this.state = {
             index: 0
@@ -48,21 +46,20 @@ export default class extends View {
     }
 
     mainSlide(slideImgs) {
-        this.renderMainSlide(slideImgs);
-        this.slidesEl = this.qsa('.main_slides_list > li');
-        this.dotsEl = this.qsa('.slides_dots > li > a');
-        this.showSlide();
+        this.renderMainSlide(slideImgs).showSlide();
     }
 
     renderMainSlide(slideImgs) {
         const mainSlideStr = mainSlideTemplate({
-            slide: slideImgs
+            slideImgs
         });
         this.el.insertAdjacentHTML('afterbegin', mainSlideStr);
+        this.slidesEl = this.qsa('.main_slides_list > li');
+        this.dotsEl = this.qsa('.slides_dots > li > a');
         return this;
     }
 
-    hideCurrentSlide() {
+    hideSlide() {
         this.slidesEl[this.state.index].className = 'fadeout';
         this.dotsEl[this.state.index].classList.remove('now');
         return this;

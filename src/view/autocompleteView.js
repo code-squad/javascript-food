@@ -18,7 +18,7 @@ export default class extends View {
                 this.on('keyup', e => this.emit('@press', {
                     term: e.target.value,
                     key: e.keyCode,
-                    isSeleted: !!this.sel
+                    isSelected: !!this.sel
                 }));
             },
             submit: () => {
@@ -75,7 +75,7 @@ export default class extends View {
     renderSearches(searches) {
         const historyComponent = searches.map(search =>
             autocompleteTemplate({
-                class: 'searches',
+                class: 'history',
                 keyword: search,
                 renderKeyword: search
             })).join('');
@@ -88,13 +88,18 @@ export default class extends View {
         return this;
     }
 
+    emptySearchbar() {
+        this.searchEl.value = '';
+        return this;
+    }
+
     upSel() {
         const target = this.sel ? this.sel.previousSibling : this.suggestionsEl.lastChild;
         this.emptySel().setSel(target);
         return this;
     }
 
-    downSel(){
+    downSel() {
         const target = this.sel ? this.sel.nextSibling : this.suggestionsEl.firstChild;
         this.emptySel().setSel(target);
         return this;
@@ -117,10 +122,6 @@ export default class extends View {
         return this;
     }
 
-    emptySearchbar() {
-        this.searchEl.value = '';
-        return this;
-    }
 
     isOpen() {
         return this.suggestionsEl.innerHTML;

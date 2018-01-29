@@ -8,7 +8,6 @@ import View from './View.js';
 export default class extends View {
     constructor(el) {
         super(el);
-        this.foodTabEl = this.qs('.best_food_tabs');
     }
 
     bind(bindCmd) {
@@ -45,11 +44,12 @@ export default class extends View {
     }
 
     renderFoodTab(food) {
+        const foodTabEl = this.qs('.best_food_tabs');
         const foodTab = food.map(value => foodTabTemplate({
             category_id: value.category_id,
             name: value.name
         })).join('');
-        this.foodTabEl.insertAdjacentHTML('afterbegin', foodTab);
+        foodTabEl.insertAdjacentHTML('afterbegin', foodTab);
         return this;
     }
 

@@ -23,7 +23,7 @@ export default class {
         this.fetchBestBanchan(this.urlList.bestBanchan);
 
         this.infiniteViews.forEach(infiniteView =>
-            this.fetchInfiniteBanchan(infiniteView, this.urlList[infiniteView.name]));
+            this.fetchInfiniteSlide(infiniteView, this.urlList[infiniteView.name]));
 
         this.scrollerView.bind('click').bind('hide')
             .on('@move', e => this.moveScroller(e.detail.direction));
@@ -32,7 +32,7 @@ export default class {
             .bind('clickSuggestion').bind('nonClick').bind('hover')
             .on('@press', e => this.pressAutoComplete(e.detail))
             .on('@submit', e => this.submitKeyword(e.detail.keyword))
-            .on('@history', () => this.showHistory());
+            .on('@history', () => this.fetchHistory());
 
         delegate('body', 'a', 'click', e => e.preventDefault());
     }
@@ -58,7 +58,7 @@ export default class {
     }
 
     selectSlide(index) {
-        this.mainSlideView.hideCurrentSlide().setIndex(index).showSlide();
+        this.mainSlideView.hideSlide().setIndex(index).showSlide();
     }
 
     moveScroller(direction) {
@@ -68,7 +68,7 @@ export default class {
     pressAutoComplete({
         term,
         key,
-        isSeleted
+        isSelected
     }) {
         const isUp = (key) => key === 38;
         const isdown = (key) => key === 40;
@@ -83,7 +83,7 @@ export default class {
         } else if (isESC(key)) {
             this.autoCompleteView.emptyAutoComplete();
         } else if (isEnter(key)) {
-            isSeleted ? this.autoCompleteView.setSearchbar() : this.submitKeyword(term);
+            isSelected ? this.autoCompleteView.setSearchbar() : this.submitKeyword(term);
         } else if (isString(key)) {
             term ? this.fetchAutoComplete(term) : this.autoCompleteView.emptyAutoComplete();
         }
@@ -103,7 +103,7 @@ export default class {
         }
     }
 
-    async showHistory() {
+    async fetchHistory() {
         const history = await getLocalStorage('history');
         history && this.autoCompleteView.render('history', history.slice(-5).reverse());
     }
@@ -113,7 +113,7 @@ export default class {
         this.bestBanchanView.render('bestBanchan', foodData).bind('foodTab');
     }
 
-    async fetchInfiniteBanchan(targetView, url) {
+    async fetchInfiniteSlide(targetView, url) {
         const foodData = await this.checkLocalStorage(url);
         const threshold = foodData.length * 2.5;
         targetView.render('banchan', foodData).bind('transitionend').bind('slidesNavi')

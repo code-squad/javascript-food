@@ -1,4 +1,4 @@
-import './style.scss';
+import './css/style.scss';
 import Controller from './controller';
 import MainSlideView from './view/MainSlideView';
 import BestBanchanView from './view/BestBanchanView';

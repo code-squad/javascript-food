@@ -48,15 +48,13 @@ export default class extends View {
     }
 
     banchan(food) {
-        this.renderFoodBoxList(this.foodBoxListEl, food)
-            .renderFoodBoxOption(food, this.qsa('.prd_box>a'))
-            .renderSlides(this.foodBoxListEl, this.qsa('.prd_box'))
-            .showSlides({
+        this.renderFoodBoxList(food).renderFoodBoxOption(food)
+            .renderSlides().showSlides({
                 Immediately: true
             });
     }
 
-    renderFoodBoxList(element, food) {
+    renderFoodBoxList(food) {
         const foodBoxList = food.map(item =>
             foodBoxInfiniteTemplate({
                 image: item.image,
@@ -67,11 +65,12 @@ export default class extends View {
                 new_price: item.s_price.slice(0, -1),
                 won: item.s_price.slice(-1)
             })).join('');
-        element.insertAdjacentHTML('afterbegin', foodBoxList);
+        this.foodBoxListEl.insertAdjacentHTML('afterbegin', foodBoxList);
         return this;
     }
 
-    renderFoodBoxOption(food, prdBox) {
+    renderFoodBoxOption(food) {
+        const prdBox = this.qsa('.prd_box>a');
         food.forEach((item, i) => {
             prdBox[i].insertAdjacentHTML('beforeend', badgeTemplate({
                 badge: item.badge
@@ -83,13 +82,14 @@ export default class extends View {
         return this;
     }
 
-    renderSlides(element, Slides) {
-        const lastSlides = Array.from(Slides).slice(-4);
+    renderSlides() {
+        const slides = this.qsa('.prd_box');
+        const lastSlides = Array.from(slides).slice(-4);
 
-        Slides.forEach(Slide =>
-            element.appendChild(Slide.cloneNode(true)));
+        slides.forEach(slide =>
+            this.foodBoxListEl.appendChild(slide.cloneNode(true)));
         lastSlides.reverse().forEach(lastSlide =>
-            element.insertBefore(lastSlide.cloneNode(true), element.childNodes[0]));
+            this.foodBoxListEl.insertBefore(lastSlide.cloneNode(true), this.foodBoxListEl.childNodes[0]));
         return this;
     }
 
