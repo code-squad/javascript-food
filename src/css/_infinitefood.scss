@@ -1,0 +1,135 @@
+.infinite_food {
+    text-align: center;
+    position: relative;
+    >.infinite_food_content {
+        width: 980px;
+        height: 670px;
+        margin: 0 auto;
+        overflow: hidden;
+        >.infinite_food_title {
+            margin: 70px 0 37px;
+        }
+        >.infinite_food_container {
+            height: 346px;
+            overflow: hidden;
+            >.infinite_food_box_list {
+                width: 1000%;
+                display: flex;
+                justify-content: flex-start;
+            }
+        }
+        .infinite_btn {
+            display: block;
+            margin: 38px auto;
+            padding: 15px 0 17px;
+            width: 980px;
+            text-align: center;
+            font-size: 15px;
+            color: #333;
+            border: 1px solid #d7d7d7;
+            >span {
+                padding-right: 14px;
+                background: url(https://cdn.bmf.kr/web/main/btn_arr_more.png) no-repeat right;
+            }
+        }
+    }
+}
+
+.infinite_food_slides_navi {
+    >a {
+        position: absolute;
+        top: 257px;
+        width: 28px;
+        height: 52px;
+        background: url(https://cdn.bmf.kr/web/common/btn_prds_thumb_slides_navi.png) no-repeat center center;
+    }
+    >.slides_prev {
+        left: 50%;
+        margin-left: -558px;
+        background-position: left top;
+        &:hover,
+        &:focus {
+            background-position: left -52px;
+        }
+    }
+    >.slides_next {
+        right: 50%;
+        margin-right: -558px;
+        background-position: right top;
+        &:hover,
+        &:focus {
+            background-position: right -52px;
+        }
+    }
+}
+
+@each $food,
+$img in (side_food:'https://cdn.bmf.kr/banner/main_event/171214/1513243712683_1e0a6312599e.jpg', main_food:'https://cdn.bmf.kr/banner/main_event/170628/1498639751272_e6cadbda65b4.jpg', course_food:'https://cdn.bmf.kr/banner/main_event/170425/1493082744401_ba9831e4e2bb.png') {
+    .#{$food} .infinite_food_banner {
+        background-image: url(#{$img});
+        >a {
+            display: block;
+            width: 980px;
+            height: 140px;
+            margin: 0 auto;
+        }
+    }
+}
+
+.thumb_img {
+    position: relative;
+    height: 215px;
+    border-radius: 50%;
+    overflow: hidden;
+    >p>img {
+        max-width: 100%;
+    }
+    >.circle_mask {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: url(https://cdn.bmf.kr/web/common/circle_mask.png) no-repeat center center;
+        width: 215px;
+        height: 215px;
+    }
+}
+
+.prd_box {
+    position: relative;
+    width: 215px;
+    margin: 0px 15px 8px;
+    &:hover .food_img_hover,
+    &:focus .food_img_hover {
+        @extend %food_hover_style;
+    }
+    >a>.badge_list {
+        justify-content: center;
+        @extend %badge_list_style;
+    }
+}
+
+.prd_detail {
+    padding: 18px 10px 12px 10px;
+    >.prd_title {
+        color: #000;
+        letter-spacing: -1.2px;
+        font-size: 16px;
+        margin-bottom: 5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    >.prd_description {
+        font-size: 13px;
+        letter-spacing: -1.2px;
+        margin-bottom: 5px;
+        color: #666;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    >.prd_price {
+        justify-content: center;
+        @extend %food_price_style;
+    }
+}
