@@ -105,6 +105,9 @@ $img in (side_food:'https://cdn.bmf.kr/banner/main_event/171214/1513243712683_1e
     >a>.badge_list {
         justify-content: center;
         @extend %badge_list_style;
+        >.badge {
+            padding: 0;
+        }
     }
 }
 
