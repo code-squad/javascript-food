@@ -116,24 +116,75 @@ export default class {
     async fetchInfiniteSlide(targetView, url) {
         const foodData = await this.checkLocalStorage(url);
         const threshold = foodData.length * 2.5;
-        targetView.render('banchan', foodData).bind('transitionend').bind('slidesNavi')
-            .on('@move', e => this.moveInfiniteSlides.call(targetView, e.detail))
-            .on('@transitionend',
-                e => this.resetInfiniteSlides.call(targetView, threshold, e.detail.index));
+        targetView.setThreshold(threshold)
+            .render('banchan', foodData).bind('transitionend')
+            .bind('slidesNavi').bind('touch')
+            .on('@move', e => this.moveInfiniteSlides.call(targetView, e.detail.direction))
+            .on('@transitionend', () => this.resetInfiniteSlides.call(targetView))
+            .on('@touchmove', e => this.checkMoveType.call(targetView, e.detail.x, e.detail.y))
+            .on('@touchend', e => {
+                targetView.state.moveType < 0 && this.checkMoveType.call(targetView, e.detail.x, e.detail.y);
+                this.checkDistance.call(targetView);
+            });
     }
 
-    moveInfiniteSlides({
-        index,
-        direction
-    }) {
-        this.setIndex(index += direction).showSlides({
+    checkDistance() {
+        let {
+            index,
+            startIndex
+        } = this.state;
+        const Hdistance = startIndex - index;
+        if (Hdistance > 0.5) {
+            this.setIndex(startIndex - 10).showSlides({
+                Immediately: false
+            });
+        } else if (Hdistance < -0.5) {
+            this.setIndex(startIndex + 10).showSlides({
+                Immediately: false
+            });
+        } else {
+            this.setIndex(startIndex).showSlides({
+                Immediately: false
+            });
+        }
+        this.initTouchInfo();
+    }
+
+    checkMoveType(x, y) {
+        const {
+            startX,
+            startY,
+            startIndex,
+            HSlope
+        } = this.state;
+        const Hdistance = (startX - x) / 100;
+        this.setIndex(startIndex - Hdistance).showSlides({
+            Immediately: true
+        });
+
+        const moveX = Math.abs(startX - x);
+        const moveY = Math.abs(startY - y);
+        const distance = moveX + moveY;
+        if (distance < 25) {
+            return this;
+        }
+        const slope = parseFloat((moveY / moveX).toFixed(2), 10);
+        slope > HSlope ? this.setMoveType(1) : this.setMoveType(0);
+    }
+
+    moveInfiniteSlides(direction) {
+        this.setIndex(this.state.index += direction).showSlides({
             Immediately: false
         });
     }
 
-    resetInfiniteSlides(threshold, index) {
-        const [thresholdLeft, thresholdRight] = [-20 - threshold, -20 + threshold];
-        if (index === thresholdLeft || index === thresholdRight) {
+    resetInfiniteSlides() {
+        const {
+            index,
+            thresholdL,
+            thresholdR
+        } = this.state;
+        if (index <= thresholdL || index >= thresholdR) {
             this.setIndex(-20).showSlides({
                 Immediately: true
             });
