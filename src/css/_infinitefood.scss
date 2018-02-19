@@ -1,5 +1,6 @@
 .infinite_food {
     text-align: center;
+    overflow: hidden;
     position: relative;
     >.infinite_food_content {
         width: 980px;
@@ -34,6 +35,8 @@
         }
     }
 }
+
+
 
 .infinite_food_slides_navi {
     >a {

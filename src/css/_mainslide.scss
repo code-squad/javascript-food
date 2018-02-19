@@ -1,5 +1,6 @@
 .main_slide {
     position: relative;
+    overflow: hidden;
     text-align: center;
     max-width: 1920px;
 }
@@ -40,6 +41,7 @@
         background-position: right center;
     }
 }
+
 
 .slides_dots {
     position: relative;

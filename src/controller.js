@@ -124,30 +124,24 @@ export default class {
             .on('@touchmove', e => this.checkMoveType.call(targetView, e.detail.x, e.detail.y))
             .on('@touchend', e => {
                 targetView.state.moveType < 0 && this.checkMoveType.call(targetView, e.detail.x, e.detail.y);
-                this.checkDistance.call(targetView);
+                this.checkDistance(targetView);
+                targetView.initTouchInfo();
             });
     }
 
-    checkDistance() {
+    checkDistance(targetView) {
         let {
             index,
             startIndex
-        } = this.state;
+        } = targetView.state;
         const Hdistance = startIndex - index;
-        if (Hdistance > 0.5) {
-            this.setIndex(startIndex - 10).showSlides({
-                Immediately: false
-            });
-        } else if (Hdistance < -0.5) {
-            this.setIndex(startIndex + 10).showSlides({
-                Immediately: false
-            });
+        if (Hdistance > 2) {
+            this.moveInfiniteSlides.call(targetView, Hdistance - 10);
+        } else if (Hdistance < -2) {
+            this.moveInfiniteSlides.call(targetView, Hdistance + 10);
         } else {
-            this.setIndex(startIndex).showSlides({
-                Immediately: false
-            });
+            this.moveInfiniteSlides.call(targetView, Hdistance);
         }
-        this.initTouchInfo();
     }
 
     checkMoveType(x, y) {
