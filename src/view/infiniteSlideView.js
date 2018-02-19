@@ -42,10 +42,15 @@ export default class extends View {
                     this.state.startTime = e.timeStamp;
                     this.state.startEvent = true;
                 }, 1000));
-                this.on('touchmove', e => this.state.startEvent && this.emit('@touchmove', {
-                    x: e.changedTouches[0].pageX,
-                    y: e.changedTouches[0].pageY
-                }));
+                this.on('touchmove', e => {
+                    if (this.state.startEvent) {
+                        this.emit('@touchmove', {
+                            x: e.changedTouches[0].pageX,
+                            y: e.changedTouches[0].pageY
+                        });
+                        this.state.moveType === 0 && e.preventDefault();
+                    }
+                });
                 this.on('touchend', e => this.state.startEvent && this.emit('@touchend', {
                     x: e.changedTouches[0].pageX,
                     y: e.changedTouches[0].pageY
