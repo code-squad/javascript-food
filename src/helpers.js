@@ -80,7 +80,7 @@ function listener(element, selector, type, callback) {
  * @param {String} url
  * @return {Object}
  */
-export function request(url) {
+function request(url) {
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
         xhr.open('get', url, true);
@@ -152,7 +152,7 @@ export function setLocalStorage(key, value) {
     return value.data;
 }
 
-export function isValid(receivedTime, thresholdHour) {
+function isValid(receivedTime, thresholdHour) {
     const currentTime = Date.now();
     const elapsedTime = (currentTime - receivedTime) / 1000 / 60 / 60;
     return elapsedTime < thresholdHour;
@@ -175,7 +175,7 @@ export function moveScroll(to) {
     requestAnimationFrame(animateScroll);
 }
 
-export const fetchJSONP = (unique => url =>
+const fetchJSONP = (unique => url =>
     new Promise(resolve => {
         const script = document.createElement('script');
         const name = `_jsonp_${unique++}`;
@@ -189,3 +189,13 @@ export const fetchJSONP = (unique => url =>
         document.body.appendChild(script);
     })
 )(0);
+
+export async function checkLocalStorage(key, isJSONP) {
+    const cache = getLocalStorage(key);
+    if (cache && isValid(cache.time, 6)) return cache.data;
+    const value = {
+        data: isJSONP ? (await fetchJSONP(key))[1] : await request(key),
+        time: Date.now()
+    };
+    return value.data.hasOwnProperty('error') ? false : setLocalStorage(key, value);
+}

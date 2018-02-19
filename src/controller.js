@@ -1,11 +1,9 @@
 import {
-    request,
     delegate,
     getLocalStorage,
     setLocalStorage,
-    isValid,
     moveScroll,
-    fetchJSONP
+    checkLocalStorage
 } from './helpers';
 
 export default class {
@@ -38,7 +36,7 @@ export default class {
     }
 
     async fetchMainSlide(url) {
-        this.slideImgs = await this.checkLocalStorage(url);
+        this.slideImgs = await checkLocalStorage(url);
         this.mainSlideView.render('mainSlide', this.slideImgs)
             .bind('slidesNavi').bind('slidesDots')
             .on('@selectDot', e => this.selectSlide(e.detail.index))
@@ -90,7 +88,7 @@ export default class {
     }
 
     async fetchAutoComplete(term) {
-        const suggestions = await this.checkLocalStorage(this.urlList.autoComplete + term, true);
+        const suggestions = await checkLocalStorage(this.urlList.autoComplete + term, true);
         this.autoCompleteView.emptyAutoComplete().render('autoComplete', term, suggestions);
     }
 
@@ -109,12 +107,12 @@ export default class {
     }
 
     async fetchBestBanchan(url) {
-        const foodData = await this.checkLocalStorage(url);
+        const foodData = await checkLocalStorage(url);
         this.bestBanchanView.render('bestBanchan', foodData).bind('foodTab');
     }
 
     async fetchInfiniteSlide(targetView, url) {
-        const foodData = await this.checkLocalStorage(url);
+        const foodData = await checkLocalStorage(url);
         const threshold = foodData.length * 2.5;
         targetView.setThreshold(threshold)
             .render('banchan', foodData).bind('transitionend')
@@ -167,9 +165,8 @@ export default class {
     }
 
     moveInfiniteSlides(direction) {
-        this.setIndex(this.state.index += direction).showSlides({
-            Immediately: false
-        });
+        this.setIndex(this.state.index += direction)
+        .showSlides({Immediately: false});
     }
 
     resetInfiniteSlides() {
@@ -179,20 +176,8 @@ export default class {
             thresholdR
         } = this.state;
         if (index <= thresholdL || index >= thresholdR) {
-            this.setIndex(-20).showSlides({
-                Immediately: true
-            });
+            this.setIndex(-20).showSlides({Immediately: true});
         }
-    }
-
-    async checkLocalStorage(key, isJSONP) {
-        const cache = getLocalStorage(key);
-        if (cache && isValid(cache.time, 6)) return cache.data;
-        const value = {
-            data: isJSONP ? (await fetchJSONP(key))[1] : await request(key),
-            time: Date.now()
-        };
-        return value.data.hasOwnProperty('error') ? false : setLocalStorage(key, value);
     }
 
 }
