@@ -7,11 +7,11 @@ import InfiniteSlideView from './view/InfiniteSlideView';
 import AutomCompleteView from './view/AutoCompleteView';
 
 const urlList = {
-    mainSlide: 'http://home.dotol.xyz/php/test_api.php',
-    bestBanchan: 'http://crong.codesquad.kr:8080/woowa/best',
-    side_food: 'http://crong.codesquad.kr:8080/woowa/side',
-    main_food: 'http://crong.codesquad.kr:8080/woowa/main',
-    course_food: 'http://crong.codesquad.kr:8080/woowa/soup',
+    mainSlide: 'https://cdn.rawgit.com/sphilee/javascript-food/master/public/mainSlide.json',
+    bestBanchan: 'https://cdn.rawgit.com/sphilee/javascript-food/master/public/best.json',
+    side_food: 'https://cdn.rawgit.com/sphilee/javascript-food/master/public/side.json',
+    main_food: 'https://cdn.rawgit.com/sphilee/javascript-food/master/public/main.json',
+    course_food: 'https://cdn.rawgit.com/sphilee/javascript-food/master/public/soup.json',
     autoComplete: 'https://ko.wikipedia.org/w/api.php?action=opensearch&search='
 };
 
