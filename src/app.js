@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import './css/style.scss';
 import Controller from './controller';
 import MainSlideView from './view/MainSlideView';
