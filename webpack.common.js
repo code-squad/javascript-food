@@ -1,6 +1,7 @@
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require('webpack');
 module.exports = {
     entry: {
@@ -16,6 +17,7 @@ module.exports = {
             template: './src/index.html',
             filename: 'index.html'
         }),
+        new ExtractTextPlugin('style.css'),
         new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin()
     ],
@@ -37,7 +39,10 @@ module.exports = {
             use: ['style-loader', 'css-loader']
         }, {
             test: /\.scss/,
-            use: ['style-loader', 'css-loader', 'sass-loader']
+            use: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                use:  ['css-loader', 'sass-loader']
+              })
         }, {
             test: /\.(ico|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
             loader: 'url-loader',
