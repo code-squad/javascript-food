@@ -13,6 +13,7 @@ module.exports = {
             name: 'common'
         }),
         new HtmlWebpackPlugin({
+            title: 'Caching',
             chunks: ['app', 'common'],
             template: './src/index.html',
             filename: 'index.html'
@@ -23,7 +24,7 @@ module.exports = {
     ],
     output: {
         path: path.resolve(__dirname, 'docs'),
-        filename: '[name].bundle.js',
+        filename: '[name].[hash].js',
         publicPath: "./"
     },
     module: {
