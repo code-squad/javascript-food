@@ -1,4 +1,7 @@
-![](https://i.imgur.com/hE095VF.gif)
+## JavaScript Level 3 Project.
 <p align="center">
-  <a href="http://sphilee.me/javascript-food/">Demo</a>
+  <img src="static/bmc.gif">
 </p>
+
+### DEMO
+- [Page](https://sphilee.github.io/javascript-food/)
