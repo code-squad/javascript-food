@@ -1,0 +1,14 @@
+<ul class="main_slides_list">
+    {{#each slideImgs}}
+    <li class="fadeout" style='background-image: url({{this}})'>
+        <a href="#"></a>
+    </li>
+    {{/each}}
+</ul>
+<ul class="slides_dots">
+    {{#each slideImgs}}
+    <li>
+        <a href="#">{{@index}}</a>
+    </li>
+    {{/each}}
+</ul>

@@ -1,0 +1,48 @@
+$hover_color: #2ac1bc;
+
+%badge_list_style {
+    height: 24px;
+    display: flex;
+    >.badge {
+        padding: 4px 2px 5px;
+        margin-right: 3px;
+        color: #fff;
+        background: #a974bf;
+        width: 62px;
+    }
+}
+
+%food_price_style {
+    display: flex;
+    align-items: center;
+    >.old_price {
+        text-decoration: line-through;
+        font-size: 14px;
+        color: #888;
+    }
+    >.new_price {
+        font-family: 'Montserrat', sans-serif;
+        letter-spacing: -2px;
+        margin-left: 9px;
+        color: $hover_color;
+        font-size: 26px;
+        font-weight: bold;
+        vertical-align: middle;
+        >.won {
+            margin-left: -6px;
+            font-size: 15px;
+            font-weight: bold;
+            top: -3px;
+        }
+    }
+}
+
+%food_hover_style {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+}

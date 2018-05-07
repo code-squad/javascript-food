@@ -1,0 +1,81 @@
+.main_slide {
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    max-width: 1920px;
+}
+
+.main_slides_list {
+    position: relative;
+    height: 420px;
+    >li {
+        position: absolute;
+        width: 100%;
+        background: no-repeat center top;
+        >a {
+            display: block;
+            width: 980px;
+            height: 420px;
+            margin: 0 auto;
+        }
+    }
+}
+
+.slides_navi {
+    >a {
+        width: 60px;
+        height: 92px;
+        position: absolute;
+        top: 50%;
+        margin-top: -46px;
+        background: url(https://cdn.bmf.kr/web/common/main_slides_navi.png) no-repeat center center;
+    }
+    >.slides_prev {
+        right: 50%;
+        margin-right: 530px;
+        background-position: left center;
+    }
+    >.slides_next {
+        left: 50%;
+        margin-left: 530px;
+        background-position: right center;
+    }
+}
+
+
+.slides_dots {
+    position: relative;
+    bottom: 40px;
+    height: 0;
+    >li {
+        display: inline-block;
+        vertical-align: top;
+        padding: 0 4px;
+        >a {
+            display: block;
+            width: 10px;
+            height: 0;
+            padding-top: 10px;
+            overflow: hidden;
+            background: #FFF;
+            border-radius: 50%;
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+            opacity: 0.6;
+            &.now {
+                opacity: 1;
+            }
+        }
+    }
+}
+
+/* Fading animation */
+
+.fadein {
+    opacity: 1;
+    transition: opacity 2s;
+}
+
+.fadeout {
+    opacity: 0;
+    transition: opacity 2s;
+}

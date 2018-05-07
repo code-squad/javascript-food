@@ -1,29 +1,4 @@
 /**
- * querySelector wrapper
- *
- * @param {string} selector Selector to query
- * @param {Element} [scope] Optional scope element for the selector
- */
-export function qs(selector, scope) {
-    return (scope || document).querySelector(selector);
-}
-export function qsa(selector, scope) {
-    return (scope || document).querySelectorAll(selector);
-}
-
-/**
- * addEventListener wrapper
- *
- * @param {Element|Window} element Target Element
- * @param {string} type Event name to bind to
- * @param {Function} callback Event callback
- * @param {boolean} useCapture Capture the event
- */
-export function on(element, type, callback, useCapture) {
-    element.addEventListener(type, callback, useCapture);
-}
-
-/**
  * Delegates event to a selector.
  *
  * @param {Element} element
@@ -105,7 +80,7 @@ function listener(element, selector, type, callback) {
  * @param {String} url
  * @return {Object}
  */
-export function request(url) {
+function request(url) {
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
         xhr.open('get', url, true);
@@ -125,7 +100,7 @@ export function request(url) {
 
 export function throttle(func, limit) {
     let wait = false;
-    return () => {
+    return function () {
         if (!wait) {
             func.apply(null, arguments);
             wait = true;
@@ -177,7 +152,7 @@ export function setLocalStorage(key, value) {
     return value.data;
 }
 
-export function isValid(receivedTime, thresholdHour) {
+function isValid(receivedTime, thresholdHour) {
     const currentTime = Date.now();
     const elapsedTime = (currentTime - receivedTime) / 1000 / 60 / 60;
     return elapsedTime < thresholdHour;
@@ -200,19 +175,27 @@ export function moveScroll(to) {
     requestAnimationFrame(animateScroll);
 }
 
-export function isString(key) {
-    return (!key || (key < 35 || key > 40) && key !== 13 && key !== 27);
-}
+const fetchJSONP = (unique => url =>
+    new Promise(resolve => {
+        const script = document.createElement('script');
+        const name = `_jsonp_${unique++}`;
+        url += url.match(/\?/) ? `&callback=${name}` : `?callback=${name}`;
+        script.src = url;
+        window[name] = json => {
+            resolve(json);
+            script.remove();
+            delete window[name];
+        };
+        document.body.appendChild(script);
+    })
+)(0);
 
-export function isUpdown(key) {
-    // down (40), up (38)
-    return (key === 40 || key === 38);
-}
-
-export function isESC(key) {
-    return key === 27;
-}
-
-export function isEnter(key) {
-    return key === 13;
+export async function checkLocalStorage(key, isJSONP) {
+    const cache = getLocalStorage(key);
+    if (cache && isValid(cache.time, 6)) return cache.data;
+    const value = {
+        data: isJSONP ? (await fetchJSONP(key))[1] : await request(key),
+        time: Date.now()
+    };
+    return value.data.hasOwnProperty('error') ? false : setLocalStorage(key, value);
 }

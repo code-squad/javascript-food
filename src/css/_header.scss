@@ -1,0 +1,76 @@
+
+.lnb_wrap {
+    position: relative;
+    background: #fff;
+    border-bottom: 1px solid #e9e9e9;
+    >.lnb_content {
+        display: flex;
+        justify-content: space-between;
+        background: #fff;
+        height: 36px;
+        letter-spacing: -0.2px;
+        width: 980px;
+        margin: 0 auto;
+        span.ic {
+            display: inline-block;
+            zoom: 1;
+            width: 7px;
+            height: 11px;
+            background: url(https://cdn.bmf.kr/web/common/bul_arr_down.png) no-repeat center 1px;
+            margin-left: 4px;
+        }
+    }
+}
+
+.link_app>a {
+    display: block;
+    font-size: 12px;
+    height: 100%;
+    padding: 10px 11px 9px;
+    text-align: center;
+    color: #666;
+    &:hover {
+        color: $hover_color;
+    }
+}
+
+.lnb_list {
+    display: flex;
+    >li>a {
+        display: block;
+        font-size: 12px;
+        padding: 10px 10px 9px 10px;
+        color: #666;
+        background: url(https://cdn.bmf.kr/web/common/util_bar.gif) no-repeat 0 12px;
+        &:hover {
+            color: $hover_color;
+        }
+    }
+    >li:first-child>a {
+        background: none;
+    }
+    >li:last-child>a {
+        color: #333;
+        font-weight: bold;
+    }
+}
+
+.header_wrap {
+    display: flex;
+    height: 98px;
+    width: 980px;
+    margin: 0 auto;
+    >.logo {
+        margin: 16px 0 0 5px;
+    }
+}
+
+
+.gnb_top {
+    display: flex;
+    margin: 0 5px 0 auto;
+    >li>a {
+        display: block;
+        margin: 25px 0 25px 50px;
+    }
+}

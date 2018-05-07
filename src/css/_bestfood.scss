@@ -1,0 +1,124 @@
+
+.best_food {
+    background: #eee;
+    text-align: center;
+    >.best_food_content {
+        width: 980px;
+        margin: 0 auto;
+        >.best_food_title {
+            padding: 40px 0 30px;
+            position: relative;
+        }
+    }
+}
+
+.best_food_tabs {
+    height: 48px;
+    >li {
+        display: inline-block;
+        background-color: #fff;
+        height: 48px;
+        >a {
+            display: block;
+            width: 159px;
+            padding-top: 17px;
+            font-weight: bold;
+            height: 100%;
+            font-size: 15px;
+            line-height: 1.2;
+            color: #777;
+        }
+        &:focus>a,
+        &:hover>a,
+        >a.now {
+            background: #1fcbc7;
+            color: #fff;
+        }
+    }
+}
+
+.best_food_container {
+    padding-bottom: 45px;
+    >.best_food_box_list {
+        display: none;
+        width: 960px;
+        margin-top: 25px;
+        margin-left: 10px;
+        >.best_food_box_wrap {
+            position: relative;
+            margin: 0 24px 10px 0;
+            color: #000;
+            background: #fff;
+            &:last-child {
+                margin: 0;
+            }
+        }
+    }
+}
+
+.food_img_hover {
+    display: none;
+    >ul {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        >li {
+            margin: 0 15px 8px;
+            font-size: 20px;
+            color: #fff;
+            font-weight: bold;
+            text-align: center;
+            >span {
+                display: inline-block;
+                padding: 13px 0 4px;
+            }
+            &:last-child>span {
+                background: url(https://cdn.bmf.kr/web/main/delivery_line.png) repeat-x 0 0;
+            }
+        }
+    }
+}
+
+.best_food_box {
+    width: 304px;
+    height: 429px;
+    &:hover .food_img_hover,
+    &:focus .food_img_hover {
+        @extend %food_hover_style;
+        height: 304px;
+    }
+    >.food_img>img {
+        max-width: 100%;
+        position: relative;
+    }
+    >.badge_list {
+        @extend %badge_list_style;
+        position: absolute;
+        top: 273px;
+        justify-content: flex-start;
+        margin: 0 0 10px 10px;
+    }
+    >.food_detail {
+        padding: 18px 20px 15px;
+        height: 90px;
+        text-align: left;
+        >.food_title {
+            letter-spacing: -1.2px;
+            font-size: 17px;
+            margin-bottom: 6px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        >.food_description {
+            margin-bottom: 20px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        >.food_price {
+            justify-content: flex-end;
+            @extend %food_price_style;
+        }
+    }
+}
