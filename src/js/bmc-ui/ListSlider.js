@@ -5,16 +5,15 @@
  */
 
 class ListSlider extends Slider {
-  constructor({ wrapperElem, renderer, dom, itemCountPerGroup }) {
+  constructor({ wrapperElem, helpers, itemCountPerGroup, reqUrlItemAll }) {
     super();
 
-    this.dom = dom;
-    this.renderer = renderer;
+    this.helpers = helpers;
     this._bindElemProps(wrapperElem);
     this._bindUIProps();
     this.itemCountPerGroup = itemCountPerGroup;
-
-    this.init();
+    this.reqUrlItemAll = reqUrlItemAll;
+    this.resJSON = null;
   }
 
   /* data */
@@ -58,20 +57,40 @@ class ListSlider extends Slider {
   /* init */
 
   async init() {
-    const needClientSideRendering = !this.contentItems.length;
-    
-    if (needClientSideRendering) {
-      await this._render();
-      this._bindPropsAfterRender();    
+    const needTemplateRendering = !this.contentItems.length;
+    const hasTemplateRenderer = (typeof this.renderer === 'object');
+
+    if (needTemplateRendering && hasTemplateRenderer) {
+      this.resJSON = await this._getRequestData(this.reqUrlItemAll);
+      this._renderItemAll();
+      this._bindPropsAfterRender();
     }
     this.activeElements(0, true);
     this.registerEvents();
   }
-  async _render() {
-    await this.renderer.renderUI({
-      wrapper: this.contentBox,
-      remodelData: this._remodelRenderData.bind(this)
+  _renderItemAll() {
+    const data = this.resJSON;
+
+    this.renderer.renderDOM({
+      data: data,
+      appendFn: (resultHTML) => { this.contentBox.innerHTML = resultHTML; }
     });
+  }
+  // 공통
+  async _getRequestData(reqUrl) {
+    const res = await fetch(reqUrl);
+    let resJSON = await res.json();
+    if (typeof this._remodelRenderData === 'function') {
+      resJSON = this._remodelRenderData(resJSON);
+    }
+    return resJSON;
+  }
+  // 공통
+  addModule(name, value) {
+    const hasModule = !!this[name];
+    if (hasModule) { return false; }
+    this[name] = value;
+    return true;
   }
 
   /* ui */
@@ -88,7 +107,7 @@ class ListSlider extends Slider {
   /* event */
   
   registerEvents() {
-    this.dom.setIndex(this.contentItems);    
+    this.helpers.setIndexToDom(this.contentItems);    
     this.directionBtnBox.addEventListener('click', (e) => e.preventDefault());
     this.directionBtnBox.addEventListener('click', this._onClickDirectionBtn.bind(this));
   }
