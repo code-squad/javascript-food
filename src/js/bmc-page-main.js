@@ -2,16 +2,22 @@
 
 window.bmcPage || (window.bmcPage = {});
 
-bmcPage.index = (function(ajax, animation, helpers, TemplateRenderer, Tab, VisualSlider, ListSlider) {
+bmcPage.index = (function(ajax, animation, helpers, TemplateRenderer, UI, Tab, VisualSlider, ListSlider, PageScroller, AutoCompleteSearcher) {
 
   /* data */
 
   const urlInfo = {
-    domain: 'https://github.com/lumiloves/javascript-food/blob/master/src/data',
-    bestDish: '/best.json',
-    sideDish: '/side.json',
-    mainDish: '/main.json',
-    soup: '/soup.json'
+    domain: 'http://crong.codesquad.kr:8080',
+    bestDish: '/woowa/best',
+    sideDish: '/woowa/side',    
+    mainDish: '/woowa/main',
+    soup: '/woowa/soup'
+
+    // domain: 'https://github.com/lumiloves/javascript-food/blob/master/src/data',
+    // bestDish: '/best.json',
+    // sideDish: '/side.json',
+    // mainDish: '/main.json',
+    // soup: '/soup.json'
   };
 
 
@@ -30,7 +36,7 @@ bmcPage.index = (function(ajax, animation, helpers, TemplateRenderer, Tab, Visua
     helpers: helpers,    
     reqUrlItemAll: urlInfo.domain + urlInfo.bestDish
   });
-  const oTabRenderer_bestDish = new TemplateRenderer({
+  const oTab_bestDish_renderer = new TemplateRenderer({
     templateHTML: document.querySelector('[data-template-html="best-seller__tab-content-item"]').innerHTML
   });
 
@@ -46,26 +52,31 @@ bmcPage.index = (function(ajax, animation, helpers, TemplateRenderer, Tab, Visua
       reqUrlItemAll: url
     });
   });
-  const oListSliderRenderer_dish = new TemplateRenderer({
+  const oListSlider_dish_renderer = new TemplateRenderer({
     templateHTML: document.querySelector('[data-template-html="side-dish__content-box"]').innerHTML
   });
 
-  
+  const oPageScroller = new PageScroller({
+    wrapperElem: document.querySelector('#scroll-btns')
+  });
+
   /* initIndexPage */
 
   function initIndexPage() {
     oVisualSlider_promotion.init();
 
-    oTab_bestDish.addModule('renderer', oTabRenderer_bestDish);
+    oTab_bestDish.addModule({ renderer: oTab_bestDish_renderer });
     oTab_bestDish.init();
 
     oListSliderArr_dish.forEach((oListSlider_dish) => {
-      oListSlider_dish.addModule('renderer', oListSliderRenderer_dish);
+      oListSlider_dish.addModule({ renderer: oListSlider_dish_renderer });
       oListSlider_dish.init();
     });
+
+    oPageScroller.init();
   }
 
   return {
     init: initIndexPage
   }
-})(ajax, animation, helpers, TemplateRenderer, Tab, VisualSlider, ListSlider);
+})(ajax, animation, helpers, TemplateRenderer, UI, Tab, VisualSlider, ListSlider, PageScroller, AutoCompleteSearcher);
