@@ -1,0 +1,115 @@
+@import "./utils.scss";
+
+
+.header__user-menu {
+  @extend %side-padding;
+
+  & .link-item {
+    padding: 10px;
+    
+  }
+  background: #fff;
+  height: 36px;
+  overflow: visible;
+  letter-spacing: -0.2px;
+  font-size: 12px;
+  border-bottom: 1px solid #e9e9e9;
+}
+
+.dropdown {
+  float: left;
+  padding: 10px;
+}
+.header__user-menu-list {
+  position: relative;;
+  margin: 0;
+}
+
+.header__user-menu-list-item {
+  float: right;
+  padding: 10px;
+}
+
+// body
+.header__body {
+  @extend %side-padding;
+  @extend %clearfix;
+}
+.header__body-title {
+  margin: 0;
+  & .logo {
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+}
+
+//search
+.search-form {
+  margin: 30px 0 0 46px;
+  position: relative;
+}
+
+.search-input {
+  width: 210px;
+  height: 40px;
+  color: rgb(136, 136, 136);
+  font-family: Verdana, 나눔고딕, Nanum, "Malgun Gothic", sans-serif;
+  box-sizing: border-box;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(207, 208, 210);
+  border-image: initial;
+  padding: 0px 38px 0px 15px;
+}
+
+.search-button {
+  width: 40px;
+  height: 40px;
+  background: url(../../assets/images/search-icon.png) no-repeat center 0;
+  position: absolute;
+  box-sizing: border-box;
+  top: 0;
+  right: 0;
+  text-indent: -3000px;
+}
+
+// special menu
+.header__body-special-menu {
+  float: right;
+  margin-right: 5px;
+  & .link-item a{
+    display: block;
+    height: 48px;
+    margin: 25px 0 25px 50px
+  }
+}
+
+.header__main-menu {
+  width: 100%;
+  @extend %side-padding;
+  @extend %clearfix;
+  background: #483f35;
+  height: 52px;
+}
+.header__main-menu-list {
+
+  width: 100%;
+
+  & .list-item {
+    float: left;
+    width: 12.5%;
+  } 
+  a {
+    display: block;
+    padding: 5px 0 0 1px;
+  } 
+  span {
+    display: inline-block;
+    height: 36px;
+    padding: 11px 25px 0;
+    text-align: center;
+    letter-spacing: 0;
+    cursor: pointer;
+    color: #fff;
+  }
+}

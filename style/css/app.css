@@ -1,0 +1,303 @@
+@charset "UTF-8";
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+*, *:after, *:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Nanum Gothic', sans-serif;
+}
+
+ul {
+  padding-left: 0;
+  margin: 0;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.wrapper {
+  min-width: 1000px;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.header__user-menu, .header__body, .header__main-menu {
+  padding-left: 6.36%;
+  padding-right: 6.36%;
+}
+
+.header__body:after, .header__main-menu:after, .grid:after {
+  display: block;
+  clear: both;
+  content: '';
+}
+
+.header__user-menu {
+  background: #fff;
+  height: 36px;
+  overflow: visible;
+  letter-spacing: -0.2px;
+  font-size: 12px;
+  border-bottom: 1px solid #e9e9e9;
+}
+
+.header__user-menu .link-item {
+  padding: 10px;
+}
+
+.dropdown {
+  float: left;
+  padding: 10px;
+}
+
+.header__user-menu-list {
+  position: relative;
+  margin: 0;
+}
+
+.header__user-menu-list-item {
+  float: right;
+  padding: 10px;
+}
+
+.header__body-title {
+  margin: 0;
+}
+
+.header__body-title .logo {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.search-form {
+  margin: 30px 0 0 46px;
+  position: relative;
+}
+
+.search-input {
+  width: 210px;
+  height: 40px;
+  color: #888888;
+  font-family: Verdana, 나눔고딕, Nanum, "Malgun Gothic", sans-serif;
+  box-sizing: border-box;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #cfd0d2;
+  border-image: initial;
+  padding: 0px 38px 0px 15px;
+}
+
+.search-button {
+  width: 40px;
+  height: 40px;
+  background: url(../../assets/images/search-icon.png) no-repeat center 0;
+  position: absolute;
+  box-sizing: border-box;
+  top: 0;
+  right: 0;
+  text-indent: -3000px;
+}
+
+.header__body-special-menu {
+  float: right;
+  margin-right: 5px;
+}
+
+.header__body-special-menu .link-item a {
+  display: block;
+  height: 48px;
+  margin: 25px 0 25px 50px;
+}
+
+.header__main-menu {
+  width: 100%;
+  background: #483f35;
+  height: 52px;
+}
+
+.header__main-menu-list {
+  width: 100%;
+}
+
+.header__main-menu-list .list-item {
+  float: left;
+  width: 12.5%;
+}
+
+.header__main-menu-list a {
+  display: block;
+  padding: 5px 0 0 1px;
+}
+
+.header__main-menu-list span {
+  display: inline-block;
+  height: 36px;
+  padding: 11px 25px 0;
+  text-align: center;
+  letter-spacing: 0;
+  cursor: pointer;
+  color: #fff;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.header__user-menu, .header__body, .header__main-menu {
+  padding-left: 6.36%;
+  padding-right: 6.36%;
+}
+
+.header__body:after, .header__main-menu:after, .grid:after {
+  display: block;
+  clear: both;
+  content: '';
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.header__user-menu, .header__body, .header__main-menu {
+  padding-left: 6.36%;
+  padding-right: 6.36%;
+}
+
+.header__body:after, .header__main-menu:after, .grid:after {
+  display: block;
+  clear: both;
+  content: '';
+}
+
+.grid {
+  margin: 0 0 20px 0;
+}
+
+[class*='col-'] {
+  float: left;
+  padding-right: 20px;
+}
+
+.grid [class*='col-']:last-of-type {
+  padding-right: 0;
+}
+
+.col-1 {
+  width: 8.33333%;
+}
+
+.offset-1 {
+  margin-left: 8.33333%;
+}
+
+.col-2 {
+  width: 16.66667%;
+}
+
+.offset-2 {
+  margin-left: 16.66667%;
+}
+
+.col-3 {
+  width: 25%;
+}
+
+.offset-3 {
+  margin-left: 25%;
+}
+
+.col-4 {
+  width: 33.33333%;
+}
+
+.offset-4 {
+  margin-left: 33.33333%;
+}
+
+.col-5 {
+  width: 41.66667%;
+}
+
+.offset-5 {
+  margin-left: 41.66667%;
+}
+
+.col-6 {
+  width: 50%;
+}
+
+.offset-6 {
+  margin-left: 50%;
+}
+
+.col-7 {
+  width: 58.33333%;
+}
+
+.offset-7 {
+  margin-left: 58.33333%;
+}
+
+.col-8 {
+  width: 66.66667%;
+}
+
+.offset-8 {
+  margin-left: 66.66667%;
+}
+
+.col-9 {
+  width: 75%;
+}
+
+.offset-9 {
+  margin-left: 75%;
+}
+
+.col-10 {
+  width: 83.33333%;
+}
+
+.offset-10 {
+  margin-left: 83.33333%;
+}
+
+.col-11 {
+  width: 91.66667%;
+}
+
+.offset-11 {
+  margin-left: 91.66667%;
+}
+
+.col-12 {
+  width: 100%;
+}
+
+.offset-12 {
+  margin-left: 100%;
+}

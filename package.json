@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "lite-server",
     "lint": "./node_modules/.bin/eslint --init",
-    "sass": "node-sass --output-style nested style/sass --output style/css",
+    "sass": "node-sass --output-style expanded style/sass --source-map true --source-map-contents --output style/css --watch",
     "test": "echo \"Error: no test specified\" &w& exit 1"
   },
   "repository": {
