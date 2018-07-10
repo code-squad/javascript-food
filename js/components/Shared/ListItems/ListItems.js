@@ -1,6 +1,6 @@
-import { qs } from '../../helper/helper';
+import { qs } from '../../../helper/helper';
 
-export default class Links {
+export default class ListItems {
   constructor(selector, linkList, template) {
     this.linkListEl = qs(selector);
     this.linkList = linkList;

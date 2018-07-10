@@ -1,14 +1,24 @@
-// import { Header } from './components/Header/Header.js';
-// import { Footer } from './components/Footer/Footer.js';
-// import { Links } from './components/Shared/Links.js';
-// import { $on } from './helper/helper.js';
-// import { userMenuText } from './assets/userMenuText.js';
-// import { userMenuTemplate, headerTemplate } from './template/index.js';
+import { $on, qs } from './helper/helper.js';
+import { userMenuLinkText, mainMenuLinkText, specialMenuLinkText } from '../assets/data/menuLinkText.js';
+import { textLinkTemplate, specialMenuTemplate } from '../template/linkListTemplate.js';
+class ListItems {
+  constructor(selector) {
+    this.ListItemsEl = qs(selector);
+  }
 
-// const test = new Links('.header__user-menu-list', userMenuText, userMenuTemplate)
+  render(template, data) {
+    this.ListItemsEl.innerHTML = template(data);
+  }
+}
 
-// const headerView = new Header('.header')
+const userMenuListEl = new ListItems('.header__user-menu-list');
+const specialMenuListEL = new ListItems('.header__body-special-menu');
+const mainMenuListEl = new ListItems('.header__main-menu-list');
 
-// $on(document, 'DOMContentLoaded', ()=>{
-//   headerView.render(headerTemplate,)
-// })
+
+
+$on(document, 'DOMContentLoaded', () => {
+  userMenuListEl.render(textLinkTemplate, userMenuLinkText);
+  mainMenuListEl.render(textLinkTemplate, mainMenuLinkText);
+  specialMenuListEL.render(specialMenuTemplate, specialMenuLinkText);
+});

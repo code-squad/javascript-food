@@ -26,7 +26,7 @@ a {
 }
 
 .wrapper {
-  min-width: 1000px;
+  min-width: 1060px;
 }
 
 .left {
@@ -57,22 +57,18 @@ a {
   border-bottom: 1px solid #e9e9e9;
 }
 
-.header__user-menu .link-item {
-  padding: 10px;
-}
-
-.dropdown {
-  float: left;
-  padding: 10px;
-}
-
 .header__user-menu-list {
   position: relative;
   margin: 0;
 }
 
-.header__user-menu-list-item {
-  float: right;
+.header__user-menu-list .list-item {
+  float: left;
+  padding: 10px;
+}
+
+.dropdown {
+  float: left;
   padding: 10px;
 }
 
@@ -301,3 +297,5 @@ a {
 .offset-12 {
   margin-left: 100%;
 }
+
+/*# sourceMappingURL=app.css.map */
