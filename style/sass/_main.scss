@@ -1,8 +1,12 @@
 @import "./_utils.scss";
 
+
+
+
 .main__sub-banners--wrapper {
-  @extend %side-padding;
   @extend %clearfix;
+  width: 980px;
+  margin: 0 auto;
   padding-top: 50px;
   padding-bottom: 60px;
 }
@@ -14,3 +18,4 @@
 .main__sub-banner-regular-delivary {
   margin-right: 10px;
 }
+
