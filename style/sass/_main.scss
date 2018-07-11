@@ -1,0 +1,16 @@
+@import "./_utils.scss";
+
+.main__sub-banners--wrapper {
+  @extend %side-padding;
+  @extend %clearfix;
+  padding-top: 50px;
+  padding-bottom: 60px;
+}
+
+.main__sub-banner-new-product {
+  margin-right: 20px;
+  margin-left: 10px;
+}
+.main__sub-banner-regular-delivary {
+  margin-right: 10px;
+}

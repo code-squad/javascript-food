@@ -37,12 +37,12 @@ a {
   float: right;
 }
 
-.header__user-menu, .header__body, .header__main-menu {
+.header__user-menu, .header__body, .header__main-menu, .main__sub-banners--wrapper {
   padding-left: 6.36%;
   padding-right: 6.36%;
 }
 
-.header__body:after, .header__main-menu:after, .grid:after {
+.header__body:after, .header__main-menu:after, .main__sub-banners--wrapper:after, .grid:after {
   display: block;
   clear: both;
   content: '';
@@ -159,12 +159,45 @@ a {
   float: right;
 }
 
-.header__user-menu, .header__body, .header__main-menu {
+.header__user-menu, .header__body, .header__main-menu, .main__sub-banners--wrapper {
   padding-left: 6.36%;
   padding-right: 6.36%;
 }
 
-.header__body:after, .header__main-menu:after, .grid:after {
+.header__body:after, .header__main-menu:after, .main__sub-banners--wrapper:after, .grid:after {
+  display: block;
+  clear: both;
+  content: '';
+}
+
+.main__sub-banners--wrapper {
+  padding-top: 50px;
+  padding-bottom: 60px;
+}
+
+.main__sub-banner-new-product {
+  margin-right: 20px;
+  margin-left: 10px;
+}
+
+.main__sub-banner-regular-delivary {
+  margin-right: 10px;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.header__user-menu, .header__body, .header__main-menu, .main__sub-banners--wrapper {
+  padding-left: 6.36%;
+  padding-right: 6.36%;
+}
+
+.header__body:after, .header__main-menu:after, .main__sub-banners--wrapper:after, .grid:after {
   display: block;
   clear: both;
   content: '';
@@ -178,12 +211,12 @@ a {
   float: right;
 }
 
-.header__user-menu, .header__body, .header__main-menu {
+.header__user-menu, .header__body, .header__main-menu, .main__sub-banners--wrapper {
   padding-left: 6.36%;
   padding-right: 6.36%;
 }
 
-.header__body:after, .header__main-menu:after, .grid:after {
+.header__body:after, .header__main-menu:after, .main__sub-banners--wrapper:after, .grid:after {
   display: block;
   clear: both;
   content: '';
