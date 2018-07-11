@@ -1,11 +1,12 @@
 @import "./_utils.scss";
 
-$tabs: 6;
 
 .wrapper__best-seler {
-  @extend %side-padding;
+
+ 
   background-color: #eee;
   padding-bottom: 40px;
+
   & .head-line {
     padding-top: 40px;
     padding-bottom: 42px;
@@ -27,16 +28,73 @@ $tabs: 6;
   margin: 0;
 }
 
+.tab-best {
+  width: 980px;
+  margin: 0 auto;
+}
 
 .tab-button-list {
   @extend %clearfix;
-  float: left;
-  width: 100%;
+  
+  font-family: "Noto Sans KR Bold", sans-serif;
+  margin-bottom: 23px;
 
   & .list-item {
     float: left;
-    width: 100%/$tabs;
+    width: 159px;
+    margin-right: 1px;
     height: 48px;
-  } 
- 
+    background-color: #fff;
+    padding-top: 15px;
+    line-height: 1.2;
+    color: #777;
+    text-align: center;
+  }  
+  .list-item:hover {
+    background-color: #1fcbc7;
+    color: #fff;
+  }
 }
+
+// tab Card
+.tab-card-list {
+  @extend %clearfix;
+}
+
+.tab-card {
+  overflow: hidden;
+  width: 304px;
+  min-height: 440px;
+  margin-right: 24px;
+  background: #fff;
+  border-bottom: 1px solid #d7d7d7;
+  &:last-of-type {
+    margin-right: 0;
+  }
+}
+
+
+.tab-card-img {
+  max-width: 100%;
+}
+
+.tab-card__content-box {
+  padding: 16px;
+  text-align: left;
+
+  & .title {
+    margin-top: 0;
+    font-size: 17px;
+    margin-bottom: 6px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+  }
+  .description {
+    margin-top: 0;
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 7px;
+  }
+}
+
