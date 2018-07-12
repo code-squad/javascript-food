@@ -13,9 +13,40 @@ style, bundle, webserver, test
 * express -> 웹 서버를 띄워서 데이터를 주고 하기 위해 
 * jest -> test 
 
+### 피드백
+애니메이션 구현사항 보고 잘 구현
+바벨, 웹팩-> ie9/10 모듈/번들 css Animation!->앱 라이크한 애니매이션 (transition transform)
+공식 문서로 보고 적용할 것
+
+비동기 
+Ajax cross domain / 서버에서 해결하는 것을 해보기 /  cors
+헤더값 설정 
+jsonp /script실행
+* xhr HTTPReqeust
+
+AJAX!!!
+비동기 충분히 이해하고 -> 프로미스 패턴 -> fetch/ axios -> async await -> Error처리 -> Generator 
+
+cf)
+xml/json 파싱이 어렵 데이터 큼 아직 둘다 쓰임 
+graphql
+
 templateRendering 
 es6 
 promise 
+fp curying, pipe, 
+
+패턴 보다 -> 협력 / 의존성 으로 풀어서 얘기 
+브라우저 호환성 !/ 세련된 정확한 인터렉션 -> 더 낫게 하기 위한 고민/적용
+
+자동검색
+디바운스  시간/
+쓰로트링  스크롤 ex) 100ms마다 실행해라 
+
+모바일 웹 터치이벤트 <-> 클릭
+
+슬라이더
+dom조작 
 
 #### rough Mark up 
 ```

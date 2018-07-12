@@ -37,15 +37,24 @@ a {
   float: right;
 }
 
-.header__user-menu, .header__body, .header__main-menu {
+.wrapper__header-user-menu, .wrapper__header-body, .wrapper__header-main-menu {
   padding-left: 6.36%;
   padding-right: 6.36%;
 }
 
-.header__body:after, .header__main-menu:after, .main__sub-banners--wrapper:after, .tab-button-list:after, .tab-card-list:after, .grid:after {
+.header__body:after, .header__user-menu:after, .header__main-menu:after, .main__sub-banners--wrapper:after, .tab-button-list:after, .tab-card-list:after, .grid:after {
   display: block;
   clear: both;
   content: '';
+}
+
+.header__body, .header__user-menu, .header__main-menu {
+  width: 980px;
+  margin: 0 auto;
+}
+
+.wrapper__header-user-menu, .wrapper__header-body, .wrapper__header-main-menu {
+  border-bottom: 1px solid #e9e9e9;
 }
 
 .header__user-menu {
@@ -54,7 +63,6 @@ a {
   overflow: visible;
   letter-spacing: -0.2px;
   font-size: 12px;
-  border-bottom: 1px solid #e9e9e9;
 }
 
 .header__user-menu-list {
@@ -110,6 +118,11 @@ a {
   text-indent: -3000px;
 }
 
+.wrapper__header-main-menu {
+  background: #483f35;
+  height: 52px;
+}
+
 .header__body-special-menu {
   float: right;
   margin-right: 5px;
@@ -119,12 +132,6 @@ a {
   display: block;
   height: 48px;
   margin: 25px 0 25px 50px;
-}
-
-.header__main-menu {
-  width: 100%;
-  background: #483f35;
-  height: 52px;
 }
 
 .header__main-menu-list {
@@ -159,12 +166,12 @@ a {
   float: right;
 }
 
-.header__user-menu, .header__body, .header__main-menu {
+.wrapper__header-user-menu, .wrapper__header-body, .wrapper__header-main-menu {
   padding-left: 6.36%;
   padding-right: 6.36%;
 }
 
-.header__body:after, .header__main-menu:after, .main__sub-banners--wrapper:after, .tab-button-list:after, .tab-card-list:after, .grid:after {
+.header__body:after, .header__user-menu:after, .header__main-menu:after, .main__sub-banners--wrapper:after, .tab-button-list:after, .tab-card-list:after, .grid:after {
   display: block;
   clear: both;
   content: '';
@@ -194,12 +201,12 @@ a {
   float: right;
 }
 
-.header__user-menu, .header__body, .header__main-menu {
+.wrapper__header-user-menu, .wrapper__header-body, .wrapper__header-main-menu {
   padding-left: 6.36%;
   padding-right: 6.36%;
 }
 
-.header__body:after, .header__main-menu:after, .main__sub-banners--wrapper:after, .tab-button-list:after, .tab-card-list:after, .grid:after {
+.header__body:after, .header__user-menu:after, .header__main-menu:after, .main__sub-banners--wrapper:after, .tab-button-list:after, .tab-card-list:after, .grid:after {
   display: block;
   clear: both;
   content: '';
@@ -312,12 +319,12 @@ a {
   float: right;
 }
 
-.header__user-menu, .header__body, .header__main-menu {
+.wrapper__header-user-menu, .wrapper__header-body, .wrapper__header-main-menu {
   padding-left: 6.36%;
   padding-right: 6.36%;
 }
 
-.header__body:after, .header__main-menu:after, .main__sub-banners--wrapper:after, .tab-button-list:after, .tab-card-list:after, .grid:after {
+.header__body:after, .header__user-menu:after, .header__main-menu:after, .main__sub-banners--wrapper:after, .tab-button-list:after, .tab-card-list:after, .grid:after {
   display: block;
   clear: both;
   content: '';
@@ -331,12 +338,12 @@ a {
   float: right;
 }
 
-.header__user-menu, .header__body, .header__main-menu {
+.wrapper__header-user-menu, .wrapper__header-body, .wrapper__header-main-menu {
   padding-left: 6.36%;
   padding-right: 6.36%;
 }
 
-.header__body:after, .header__main-menu:after, .main__sub-banners--wrapper:after, .tab-button-list:after, .tab-card-list:after, .grid:after {
+.header__body:after, .header__user-menu:after, .header__main-menu:after, .main__sub-banners--wrapper:after, .tab-button-list:after, .tab-card-list:after, .grid:after {
   display: block;
   clear: both;
   content: '';

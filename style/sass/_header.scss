@@ -1,18 +1,26 @@
 @import "./utils.scss";
 
-// .header {
-//   width: 980px;
-//   margin: 0 auto;
-// }
+%contentsAlign {
+  width: 980px;
+  margin: 0 auto;
+}
+
+
+.wrapper__header-user-menu, .wrapper__header-body, .wrapper__header-main-menu {
+  @extend %side-padding;
+  border-bottom: 1px solid #e9e9e9;
+}
+.header__body, .header__user-menu, .header__main-menu{
+  @extend %contentsAlign;
+  @extend %clearfix;
+}
 
 .header__user-menu {
-  @extend %side-padding;
   background: #fff;
   height: 36px;
   overflow: visible;
   letter-spacing: -0.2px;
   font-size: 12px;
-  border-bottom: 1px solid #e9e9e9;
 }
 
 .header__user-menu-list {
@@ -31,10 +39,7 @@
 
 
 // body
-.header__body {
-  @extend %side-padding;
-  @extend %clearfix;
-}
+
 .header__body-title {
   margin: 0;
   & .logo {
@@ -74,6 +79,12 @@
 }
 
 // special menu
+
+.wrapper__header-main-menu {
+  background: #483f35;
+  height: 52px;
+}
+
 .header__body-special-menu {
   float: right;
   margin-right: 5px;
@@ -84,13 +95,8 @@
   }
 }
 
-.header__main-menu {
-  width: 100%;
-  @extend %side-padding;
-  @extend %clearfix;
-  background: #483f35;
-  height: 52px;
-}
+
+
 .header__main-menu-list {
 
   width: 100%;
