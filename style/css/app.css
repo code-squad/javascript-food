@@ -215,7 +215,7 @@ a {
   padding-bottom: 42px;
 }
 
-.best-seler-title {
+.title {
   font-size: 18px;
   color: #999;
   margin-top: 0;
@@ -223,7 +223,7 @@ a {
   text-align: center;
 }
 
-.best-title-description {
+.description {
   text-align: center;
   font-size: 34px;
   margin: 0;
@@ -292,6 +292,16 @@ a {
   font-size: 13px;
   color: #666;
   margin-bottom: 7px;
+}
+
+.wrapper__list-slider {
+  width: 980px;
+  margin: 0 auto;
+}
+
+.wrapper__list-slider .head-line {
+  padding-top: 70px;
+  padding-bottom: 32px;
 }
 
 .left {
