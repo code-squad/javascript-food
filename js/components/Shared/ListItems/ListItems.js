@@ -1,14 +1,10 @@
-import { qs } from '../../../helper/helper';
-
+import { qs } from '../../../helper/helper.js';
 export default class ListItems {
-  constructor(selector, linkList, template) {
-    this.linkListEl = qs(selector);
-    this.linkList = linkList;
-    this.template = template;
+  constructor(selector) {
+    this.ListItemsEl = qs(selector);
   }
 
-  render() {
-    const { linkList } = this;
-    this.linkListEl.innerHTML = this.template(linkList);
+  render(template, data) {
+    this.ListItemsEl.innerHTML = template(data);
   }
 }
