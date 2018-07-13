@@ -25,6 +25,10 @@ a {
   color: inherit;
 }
 
+.hide {
+  display: none;
+}
+
 .wrapper {
   min-width: 1060px;
 }
@@ -53,11 +57,12 @@ a {
   margin: 0 auto;
 }
 
-.wrapper__header-user-menu, .wrapper__header-body, .wrapper__header-main-menu {
+.wrapper__header-user-menu {
   border-bottom: 1px solid #e9e9e9;
 }
 
 .header__user-menu {
+  position: relative;
   background: #fff;
   height: 36px;
   overflow: visible;
@@ -75,9 +80,61 @@ a {
   padding: 10px;
 }
 
+.header__user-menu-list .list-item :hover {
+  color: #2ac1bc;
+}
+
 .dropdown {
   float: left;
   padding: 10px;
+}
+
+.dropdown:hover {
+  color: #2ac1bc;
+}
+
+.dropdown:hover .ic-dropdown {
+  background-position: center -13px;
+}
+
+.ic-dropdown {
+  width: 7px;
+  height: 14px;
+  display: inline-block;
+  margin-left: 4px;
+  background: url(../../assets/images/arr_down.png) no-repeat center 1px;
+}
+
+.dropdown-download {
+  width: 164px;
+  padding: 10px;
+  position: absolute;
+  background-color: #fff;
+  top: 31px;
+  border: 1px solid #e9e9e9;
+  z-index: 30000;
+}
+
+.dropdown-download li {
+  height: 30px;
+  font-size: 12px;
+  color: #666;
+  padding: 6px 10px 7px 36px;
+  text-align: left;
+  background: url(../../assets/images/ic_app_download.png) no-repeat 16px 0px;
+}
+
+.dropdown-download :hover {
+  color: #2ac1bc;
+  text-decoration-line: underline;
+}
+
+.dropdown-download .appstore {
+  background-position-y: 4px;
+}
+
+.dropdown-download .playstore {
+  background-position-y: -24px;
 }
 
 .header__body-title {
@@ -108,6 +165,7 @@ a {
 }
 
 .search-button {
+  border: none;
   width: 40px;
   height: 40px;
   background: url(../../assets/images/search-icon.png) no-repeat center 0;
