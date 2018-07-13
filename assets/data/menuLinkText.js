@@ -27,10 +27,6 @@ export const userMenuLinkText = [
     text: '장바구니',
     url: '#',
   },
-  {
-    text: '브랜드관',
-    url: '#',
-  },
 ];
 
 export const mainMenuLinkText = [
