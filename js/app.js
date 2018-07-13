@@ -21,4 +21,5 @@ $on(document, 'DOMContentLoaded', () => {
   mainMenuListEl.render(textLinkTemplate, mainMenuLinkText);
   specialMenuListEL.render(specialMenuTemplate, specialMenuLinkText);
   appDownLoadEl.render(dropdownTemplate, appDownLoad);
+  
 });
