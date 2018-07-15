@@ -14,12 +14,11 @@ const userMenuListEl = new ListItems('.header__user-menu-list');
 const specialMenuListEL = new ListItems('.header__body-special-menu');
 const mainMenuListEl = new ListItems('.header__main-menu-list');
 // dropdown
-const appDownLoadEl = new Dropdown('.dropdown-download');
+const appDownLoadEl = new Dropdown('.dropdown-download', '#dropdown-download-trigger');
 
 $on(document, 'DOMContentLoaded', () => {
   userMenuListEl.render(textLinkTemplate, userMenuLinkText);
   mainMenuListEl.render(textLinkTemplate, mainMenuLinkText);
   specialMenuListEL.render(specialMenuTemplate, specialMenuLinkText);
   appDownLoadEl.render(dropdownTemplate, appDownLoad);
-  
 });
