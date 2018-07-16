@@ -1,0 +1,28 @@
+{
+  "name": "javascript-food",
+  "version": "1.0.0",
+  "description": "baeMinchan copy by dali:D",
+  "main": "index.js",
+  "scripts": {
+    "dev": "lite-server",
+    "lint": "./node_modules/.bin/eslint --init",
+    "sass": "node-sass --output-style expanded style/sass --source-map true --source-map-contents --output style/css --watch",
+    "test": "echo \"Error: no test specified\" &w& exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amorfati0310/javascript-food.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amorfati0310/javascript-food/issues"
+  },
+  "homepage": "https://github.com/amorfati0310/javascript-food#readme",
+  "devDependencies": {
+    "jest": "^23.3.0",
+    "node-sass": "^4.9.2",
+    "webpack": "^4.15.1"
+  }
+}

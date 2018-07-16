@@ -1,0 +1,31 @@
+
+@import "./utils.scss";
+
+$grid-columns: 12;
+$pad: 20px;
+
+
+.grid {
+  margin: 0 0 $pad 0;
+  @extend %clearfix;
+}
+
+[class*='col-'] {
+  float: left;
+  padding-right: $pad;
+  .grid &:last-of-type {
+    padding-right: 0;
+  }
+}
+
+
+@for $i from 1 through $grid-columns {
+ 
+  .col-#{$i} { 
+      width: 100% / $grid-columns * $i;
+  }
+  .offset-#{$i} { 
+    margin-left: 100% / $grid-columns * $i;
+  }
+
+}

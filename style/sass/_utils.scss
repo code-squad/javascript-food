@@ -1,0 +1,19 @@
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+
+%side-padding {
+  padding-left: 6.36%;
+  padding-right: 6.36%;
+}
+
+%clearfix:after {
+  display:block;
+  clear:both;
+  content:'';
+}
+
+
