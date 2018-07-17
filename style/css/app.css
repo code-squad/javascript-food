@@ -210,11 +210,11 @@ a {
 
 .header__main-menu-list .list-item {
   float: left;
-  width: 12.5%;
+  width: 140px;
   position: relative;
 }
 
-.header__main-menu-list .list-item:hover .main-menu {
+.header__main-menu-list .list-item:hover .main-menu span {
   background-color: #fff;
   color: #2ac1bc;
   font-weight: bold;
@@ -240,14 +240,6 @@ a {
   cursor: pointer;
   font-size: 16px;
   font-family: NanumBold, 맑은고딕, "Malgun Gothic", sans-serif;
-}
-
-.header__main-menu-list .main-menu:hover {
-  background-color: #fff;
-}
-
-.header__main-menu-list .main-menu:hover + .sub-menu-list {
-  display: block;
 }
 
 .sub-menu-list {

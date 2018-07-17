@@ -156,10 +156,10 @@
 
   & .list-item {
     float: left;
-    width: 12.5%;
+    width: 140px;
     position: relative;
       &:hover {
-      .main-menu {
+      .main-menu span{
         // 요거 중복 많이 됨 따로 빼기
         background-color: #fff;
         color: #2ac1bc;
@@ -186,14 +186,6 @@
     cursor: pointer;
     font-size: 16px;
     font-family: NanumBold, 맑은고딕, "Malgun Gothic", sans-serif;
-  }
-
-  .main-menu:hover {
-    background-color: #fff;
-    
-    + .sub-menu-list {
-      display: block;
-    }
   }
 }
 

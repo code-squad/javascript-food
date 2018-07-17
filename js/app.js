@@ -12,13 +12,25 @@ import Dropdown from '../js/components/Shared/Dropdown.js';
 const appDownLoadEl = new Dropdown('.dropdown-download', '#dropdown-download-trigger');
 
 const renderDataList = [
-  ['.header__user-menu-list', textLinkTemplate, userMenuLinkText],
-  ['.header__main-menu-list', mainMenuTemplate, mainMenuLinkText],
-  ['.header__body-special-menu', specialMenuTemplate, specialMenuLinkText],
+  {
+    selector: '.header__user-menu-list',
+    template: textLinkTemplate,
+    data: userMenuLinkText,
+  },
+  {
+    selector: '.header__main-menu-list',
+    template: mainMenuTemplate,
+    data: mainMenuLinkText,
+  },
+  {
+    selector: '.header__body-special-menu',
+    template: specialMenuTemplate,
+    data: specialMenuLinkText,
+  },
 ];
 
 $on(document, 'DOMContentLoaded', () => {
-  renderDataList.forEach(v=>renderer(...v))
+  renderDataList.forEach(v=>renderer(v))
   // renderer('.header__user-menu-list', textLinkTemplate, userMenuLinkText);
   // renderer('.header__main-menu-list', mainMenuTemplate, mainMenuLinkText);
   // renderer('.header__body-special-menu', specialMenuTemplate, specialMenuLinkText);
