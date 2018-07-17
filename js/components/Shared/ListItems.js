@@ -1,4 +1,4 @@
-import { qs } from '../../../helper/helper.js';
+import { qs } from '../../helper/helper.js';
 export default class ListItems {
   constructor(selector) {
     this.ListItemsEl = qs(selector);

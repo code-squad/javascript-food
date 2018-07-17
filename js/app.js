@@ -6,8 +6,8 @@ import { appDownLoad } from '../assets/data/dropdownText.js';
 import { textLinkTemplate, specialMenuTemplate } from '../template/linkListTemplate.js';
 import { dropdownTemplate } from '../template/dropdownTemplate.js';
 
-import ListItems from '../js/components/Shared/ListItems/ListItems.js';
-import Dropdown from '../js/components/Shared/Dropdown/Dropdown.js';
+import ListItems from '../js/components/Shared/ListItems.js';
+import Dropdown from '../js/components/Shared/Dropdown.js';
 
 
 const userMenuListEl = new ListItems('.header__user-menu-list');
