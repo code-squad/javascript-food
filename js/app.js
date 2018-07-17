@@ -1,4 +1,4 @@
-import { $on, qs } from './helper/helper.js';
+import { $on, qs, renderer } from './helper/helper.js';
 
 import { userMenuLinkText, mainMenuLinkText, specialMenuLinkText } from '../assets/data/menuLinkText.js';
 import { appDownLoad } from '../assets/data/dropdownText.js';
@@ -6,19 +6,21 @@ import { appDownLoad } from '../assets/data/dropdownText.js';
 import { textLinkTemplate, specialMenuTemplate, mainMenuTemplate } from '../template/linkListTemplate.js';
 import { dropdownTemplate } from '../template/dropdownTemplate.js';
 
-import ListItems from '../js/components/Shared/ListItems.js';
 import Dropdown from '../js/components/Shared/Dropdown.js';
 
-
-const userMenuListEl = new ListItems('.header__user-menu-list');
-const specialMenuListEL = new ListItems('.header__body-special-menu');
-const mainMenuListEl = new ListItems('.header__main-menu-list');
 // dropdown
 const appDownLoadEl = new Dropdown('.dropdown-download', '#dropdown-download-trigger');
 
+const renderDataList = [
+  ['.header__user-menu-list', textLinkTemplate, userMenuLinkText],
+  ['.header__main-menu-list', mainMenuTemplate, mainMenuLinkText],
+  ['.header__body-special-menu', specialMenuTemplate, specialMenuLinkText],
+];
+
 $on(document, 'DOMContentLoaded', () => {
-  userMenuListEl.render(textLinkTemplate, userMenuLinkText);
-  mainMenuListEl.render(mainMenuTemplate, mainMenuLinkText);
-  specialMenuListEL.render(specialMenuTemplate, specialMenuLinkText);
+  renderDataList.forEach(v=>renderer(...v))
+  // renderer('.header__user-menu-list', textLinkTemplate, userMenuLinkText);
+  // renderer('.header__main-menu-list', mainMenuTemplate, mainMenuLinkText);
+  // renderer('.header__body-special-menu', specialMenuTemplate, specialMenuLinkText);
   appDownLoadEl.render(dropdownTemplate, appDownLoad);
 });
