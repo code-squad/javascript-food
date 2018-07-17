@@ -29,6 +29,18 @@ a {
   display: none;
 }
 
+.blind {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  font-size: 0;
+  line-height: 0;
+  margin-top: -1px;
+}
+
 .wrapper {
   min-width: 1060px;
 }
@@ -235,11 +247,16 @@ a {
   content: '';
 }
 
+.main__banner {
+  position: relative;
+}
+
 .main__sub-banners--wrapper {
   width: 980px;
   margin: 0 auto;
   padding-top: 50px;
   padding-bottom: 60px;
+  position: relative;
 }
 
 .main__sub-banner-new-product {
@@ -297,6 +314,7 @@ a {
 .tab-best {
   width: 980px;
   margin: 0 auto;
+  position: relative;
 }
 
 .tab-button-list {
@@ -360,6 +378,7 @@ a {
 }
 
 .wrapper__list-slider {
+  position: relative;
   width: 980px;
   margin: 0 auto;
 }
