@@ -158,16 +158,18 @@
     float: left;
     width: 12.5%;
     position: relative;
-    &:hover {
-    .main-menu {
-      background-color: #fff;
-      color: #2ac1bc;
-      font-weight: bold;
-    }
-    .sub-menu-list {
-      display: block;
-    }
-  } 
+      &:hover {
+      .main-menu {
+        // 요거 중복 많이 됨 따로 빼기
+        background-color: #fff;
+        color: #2ac1bc;
+        font-weight: bold;
+      }
+      .sub-menu-list {
+        display: block;
+      }
+    } 
+  }
  
   .main-menu {
     display: block;
@@ -188,30 +190,26 @@
 
   .main-menu:hover {
     background-color: #fff;
-    color: #2ac1bc;
+    
     + .sub-menu-list {
       display: block;
     }
   }
-  .sub-menu-list {
-    display: none;
-    z-index: 1000;
-    width: 162px;
-    position: absolute;
-    left: 0;
-    top: 52px;
-    padding: 20px 0 31px;
-    font-family: "Nanum", sans-serif;
-    background: #fff;
-    border: 1px solid rgba(72,63,53,0.6);
-    border-top: none;
-    }
-    span:hover {
-      background-color: #fff;
-      color: #2ac1bc;
-    } 
-  }
-  
+}
+
+.sub-menu-list {
+  display: none;
+  z-index: 1000;
+  width: 162px;
+  position: absolute;
+  left: 0;
+  top: 52px;
+  padding: 20px 0 31px;
+  font-family: "Nanum", sans-serif;
+  background: #fff;
+  border: 1px solid rgba(72,63,53,0.6);
+  border-top: none;
+
   .sub-list-item span {
     display: block;
     color: #555;
@@ -220,4 +218,10 @@
     padding: 6px 0 3px 25px;
     letter-spacing: 0;
   }
+
+  & span:hover {
+    background-color: #fff;
+    color: #2ac1bc;
+    text-decoration: underline;
+  } 
 }

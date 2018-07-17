@@ -224,13 +224,13 @@ a {
   display: block;
 }
 
-.header__main-menu-list .list-item .main-menu {
+.header__main-menu-list .main-menu {
   display: block;
   padding: 5px 0 0 1px;
   color: #fff;
 }
 
-.header__main-menu-list .list-item .main-menu span {
+.header__main-menu-list .main-menu span {
   box-sizing: content-box;
   display: inline-block;
   height: 36px;
@@ -242,16 +242,15 @@ a {
   font-family: NanumBold, 맑은고딕, "Malgun Gothic", sans-serif;
 }
 
-.header__main-menu-list .list-item .main-menu:hover {
+.header__main-menu-list .main-menu:hover {
   background-color: #fff;
-  color: #2ac1bc;
 }
 
-.header__main-menu-list .list-item .main-menu:hover + .sub-menu-list {
+.header__main-menu-list .main-menu:hover + .sub-menu-list {
   display: block;
 }
 
-.header__main-menu-list .list-item .sub-menu-list {
+.sub-menu-list {
   display: none;
   z-index: 1000;
   width: 162px;
@@ -265,18 +264,19 @@ a {
   border-top: none;
 }
 
-.header__main-menu-list .list-item span:hover {
-  background-color: #fff;
-  color: #2ac1bc;
-}
-
-.header__main-menu-list .sub-list-item span {
+.sub-menu-list .sub-list-item span {
   display: block;
   color: #555;
   font-size: 14px;
   line-height: 1.4em;
   padding: 6px 0 3px 25px;
   letter-spacing: 0;
+}
+
+.sub-menu-list span:hover {
+  background-color: #fff;
+  color: #2ac1bc;
+  text-decoration: underline;
 }
 
 .left {
