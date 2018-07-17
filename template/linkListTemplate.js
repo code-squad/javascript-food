@@ -8,6 +8,26 @@ export const textLinkTemplate = (data) => {
   return templateResult;
 };
 
+const mainSubMenuTemplate = (data)=>{
+  return data.reduce((ac, c) => ac +=
+   `<li class="sub-list-item">
+      <a href="${c.url}">
+        <span>${c.text}</span>
+        </a>
+    </li>`, '');
+}
+
+export const mainMenuTemplate = (data) => {
+  const templateResult = data.reduce((ac, {url, text, subMenuList}) => {
+    const subMenuTemplate = mainSubMenuTemplate(subMenuList)
+    return ac +=`<li class="list-item">
+            <a class="main-menu" href="${url}">
+              <span >${text}</span>
+            </a>
+          <ul class="sub-menu-list">${subMenuTemplate}</ul>
+        </li>`}, '');
+  return templateResult;
+};
 
 export const specialMenuTemplate = (data) => {
   const templateResult = data.reduce((ac, c) => ac +=

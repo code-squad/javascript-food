@@ -29,42 +29,81 @@ export const userMenuLinkText = [
   },
 ];
 
-export const mainMenuLinkText = [
+const sideDish = [
   {
-    text: '밑반찬',
+    text: '나물무침',
     url: '#',
   },
   {
-    text: '국찌개',
+    text: '볶음',
     url: '#',
   },
   {
-    text: '밑반찬',
+    text: '조림',
     url: '#',
   },
   {
-    text: '메인반찬',
+    text: '김치',
     url: '#',
   },
   {
-    text: '아이반찬',
+    text: '전',
     url: '#',
   },
   {
-    text: '장기식단',
+    text: '장아찌.피클',
     url: '#',
   },
   {
-    text: '간편식',
+    text: '젓갈.장소스',
     url: '#',
   },
   {
-    text: '브랜드관',
+    text: '세트',
     url: '#',
   },
 ];
 
-export const specialMenuLinkText= [
+
+export const mainMenuLinkText = [
+  {
+    text: '밑반찬',
+    url: '#',
+    subMenuList: sideDish,
+  },
+  {
+    text: '국찌개',
+    url: '#',
+    subMenuList: sideDish,
+  },
+  {
+    text: '메인반찬',
+    url: '#',
+    subMenuList: sideDish,
+  },
+  {
+    text: '아이반찬',
+    url: '#',
+    subMenuList: sideDish,
+  },
+  {
+    text: '장기식단',
+    url: '#',
+    subMenuList: sideDish,
+  },
+  {
+    text: '간편식',
+    url: '#',
+    subMenuList: sideDish,
+  },
+  {
+    text: '브랜드관',
+    url: '#',
+    subMenuList: sideDish,
+  },
+];
+
+export const specialMenuLinkText = [
   {
     url: 'https://www.baeminchan.com/best30/list.php',
     imgUrl: 'https://cdn.bmf.kr/banner/p_gnb1/180410/1523352994426_e20d5cc1c0a6.png',

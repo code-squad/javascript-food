@@ -211,21 +211,72 @@ a {
 .header__main-menu-list .list-item {
   float: left;
   width: 12.5%;
+  position: relative;
 }
 
-.header__main-menu-list a {
+.header__main-menu-list .list-item:hover .main-menu {
+  background-color: #fff;
+  color: #2ac1bc;
+  font-weight: bold;
+}
+
+.header__main-menu-list .list-item:hover .sub-menu-list {
+  display: block;
+}
+
+.header__main-menu-list .list-item .main-menu {
   display: block;
   padding: 5px 0 0 1px;
+  color: #fff;
 }
 
-.header__main-menu-list span {
+.header__main-menu-list .list-item .main-menu span {
+  box-sizing: content-box;
   display: inline-block;
   height: 36px;
-  padding: 11px 25px 0;
+  padding: 11px 25px 0px;
   text-align: center;
   letter-spacing: 0;
   cursor: pointer;
-  color: #fff;
+  font-size: 16px;
+  font-family: NanumBold, 맑은고딕, "Malgun Gothic", sans-serif;
+}
+
+.header__main-menu-list .list-item .main-menu:hover {
+  background-color: #fff;
+  color: #2ac1bc;
+}
+
+.header__main-menu-list .list-item .main-menu:hover + .sub-menu-list {
+  display: block;
+}
+
+.header__main-menu-list .list-item .sub-menu-list {
+  display: none;
+  z-index: 1000;
+  width: 162px;
+  position: absolute;
+  left: 0;
+  top: 52px;
+  padding: 20px 0 31px;
+  font-family: "Nanum", sans-serif;
+  background: #fff;
+  border: 1px solid rgba(72, 63, 53, 0.6);
+  border-top: none;
+}
+
+.header__main-menu-list .list-item span:hover {
+  background-color: #fff;
+  color: #2ac1bc;
+}
+
+.header__main-menu-list .sub-list-item span {
+  display: block;
+  color: #555;
+  font-size: 14px;
+  line-height: 1.4em;
+  padding: 6px 0 3px 25px;
+  letter-spacing: 0;
 }
 
 .left {

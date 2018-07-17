@@ -157,18 +157,67 @@
   & .list-item {
     float: left;
     width: 12.5%;
+    position: relative;
+    &:hover {
+    .main-menu {
+      background-color: #fff;
+      color: #2ac1bc;
+      font-weight: bold;
+    }
+    .sub-menu-list {
+      display: block;
+    }
   } 
-  a {
+ 
+  .main-menu {
     display: block;
     padding: 5px 0 0 1px;
+    color: #fff;
   } 
-  span {
+  .main-menu span {
+    box-sizing: content-box;
     display: inline-block;
     height: 36px;
-    padding: 11px 25px 0;
+    padding: 11px 25px 0px;
     text-align: center;
     letter-spacing: 0;
     cursor: pointer;
-    color: #fff;
+    font-size: 16px;
+    font-family: NanumBold, 맑은고딕, "Malgun Gothic", sans-serif;
+  }
+
+  .main-menu:hover {
+    background-color: #fff;
+    color: #2ac1bc;
+    + .sub-menu-list {
+      display: block;
+    }
+  }
+  .sub-menu-list {
+    display: none;
+    z-index: 1000;
+    width: 162px;
+    position: absolute;
+    left: 0;
+    top: 52px;
+    padding: 20px 0 31px;
+    font-family: "Nanum", sans-serif;
+    background: #fff;
+    border: 1px solid rgba(72,63,53,0.6);
+    border-top: none;
+    }
+    span:hover {
+      background-color: #fff;
+      color: #2ac1bc;
+    } 
+  }
+  
+  .sub-list-item span {
+    display: block;
+    color: #555;
+    font-size: 14px;
+    line-height: 1.4em;
+    padding: 6px 0 3px 25px;
+    letter-spacing: 0;
   }
 }
