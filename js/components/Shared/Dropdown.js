@@ -1,27 +1,21 @@
-import { qs, $on } from '../../helper/helper.js';
+import { qs, $on } from "../../helper/helper.js";
 
 export default class Dropdown {
   constructor(selector, triggerSelector) {
     this.dropdwonEl = qs(selector);
-    this.showState = false;
-    this.setDisplay();
-    if(triggerSelector){
-      this.bindEvents(qs(triggerSelector))
-    }
+    this.bindEvents(qs(triggerSelector));
+    this.dropdwonEl.style.visibility = "hidden";
   }
 
   render(template, data) {
     this.dropdwonEl.innerHTML = template(data);
   }
-  bindEvents(el){
-    $on(el,'click',this.toggleShowState.bind(this));
+  bindEvents(el) {
+    $on(el, "click", this.toggleDisplay.bind(this));
   }
-  toggleShowState(){
-    this.showState = !this.showState;
-    this.setDisplay()
-  }
-  setDisplay(){
-    if(this.showState) this.dropdwonEl.style.display = "block"
-    else this.dropdwonEl.style.display = "none"
+  toggleDisplay() {
+    const visibility = this.dropdwonEl.style.visibility === "visible";
+    if (visibility) this.dropdwonEl.style.visibility = "hidden";
+    else this.dropdwonEl.style.visibility = "visible";
   }
 }
