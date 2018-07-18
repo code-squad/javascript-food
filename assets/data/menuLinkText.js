@@ -1,3 +1,35 @@
+const dropdownList = [{
+  className: 'a',
+  url: '#',
+  text: '주문현황',
+},
+{
+  className: 'a',
+  url: '#',
+  text: '1:1 문의',
+},
+{
+  className: 'a',
+  url: '#',
+  text: '교환반품',
+},
+{
+  className: 'a',
+  url: '#',
+  text: '등급별 혜택 쿠폰함',
+},
+{
+  className: 'a',
+  url: '#',
+  text: '포인트',
+},
+{
+  className: 'a',
+  url: '#',
+  text: '내 정보 관리',
+},
+]
+
 export const userMenuLinkText = [
   {
     text: '로그인',
@@ -10,10 +42,14 @@ export const userMenuLinkText = [
   {
     text: '마이페이지',
     url: '#',
+    dropdown: true,
+    dropdownList: [],
   },
   {
     text: '고객센터',
     url: '#',
+    dropdown: true,
+    dropdownList: [],
   },
   {
     text: '새벽배송 지연검색',

@@ -3,7 +3,7 @@ import { $on, qs, renderer } from './helper/helper.js';
 import { userMenuLinkText, mainMenuLinkText, specialMenuLinkText } from '../assets/data/menuLinkText.js';
 import { appDownLoad } from '../assets/data/dropdownText.js';
 
-import { textLinkTemplate, specialMenuTemplate, mainMenuTemplate } from '../template/linkListTemplate.js';
+import { userMenuTemplate, specialMenuTemplate, mainMenuTemplate } from '../template/linkListTemplate.js';
 import { dropdownTemplate } from '../template/dropdownTemplate.js';
 
 import Dropdown from '../js/components/Shared/Dropdown.js';
@@ -14,7 +14,7 @@ const appDownLoadEl = new Dropdown('.dropdown-download', '#dropdown-download-tri
 const renderDataList = [
   {
     selector: '.header__user-menu-list',
-    template: textLinkTemplate,
+    template: userMenuTemplate,
     data: userMenuLinkText,
   },
   {
@@ -31,8 +31,5 @@ const renderDataList = [
 
 $on(document, 'DOMContentLoaded', () => {
   renderDataList.forEach(v=>renderer(v))
-  // renderer('.header__user-menu-list', textLinkTemplate, userMenuLinkText);
-  // renderer('.header__main-menu-list', mainMenuTemplate, mainMenuLinkText);
-  // renderer('.header__body-special-menu', specialMenuTemplate, specialMenuLinkText);
   appDownLoadEl.render(dropdownTemplate, appDownLoad);
 });

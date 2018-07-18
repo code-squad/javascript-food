@@ -1,5 +1,17 @@
-export const textLinkTemplate = (data) => {
+import { dropdownTemplate } from './dropdownTemplate.js';
+
+export const userMenuTemplate = (data) => {
   const templateResult = data.reduce((ac, c) => ac +=
+  c.dropdown ?
+    `<li class="list-item">
+    <a href="${c.url}">
+        <span>${c.text}</span>
+    </a>
+    <ul class="dropdown">
+      ${dropdownTemplate(c.dropdownList)}
+    </ul>
+  </li>`
+  :
    `<li class="list-item">
         <a href="${c.url}">
             <span>${c.text}</span>
