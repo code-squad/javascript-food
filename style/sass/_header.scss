@@ -10,44 +10,30 @@
   border-bottom: 1px solid #e9e9e9;
 }
 
-.wrapper__header-user-menu, .wrapper__header-body, .wrapper__header-main-menu {
+.wrapper__header-user-menu,
+.wrapper__header-body,
+.wrapper__header-main-menu {
   @extend %side-padding;
 }
-.header__body, .header__user-menu, .header__main-menu{
+.header__body,
+.header__user-menu,
+.header__main-menu {
   @extend %contentsAlign;
   @extend %clearfix;
 }
 
 // user-menu
 
-
-.header__user-menu {
-  position: relative;
-  background: #fff;
-  height: 36px;
-  overflow: visible;
-  letter-spacing: -0.2px;
-  font-size: 12px;
-}
-
-.header__user-menu-list {
-  position: relative;;
-  margin: 0;
-  & .list-item {
-    float: left;
-    padding: 10px;
-    :hover {
-      color: #2ac1bc
-    }
-  }
-}
-
+// drop-down
 .dropdown {
-  float: left;
-  padding: 10px;
+  display: none;
+}
+
+.dropdown-trigger {
+  color: #666;
   &:hover {
     color: #2ac1bc;
-    .ic-dropdown {    
+    .ic-dropdown {
       background-position: center -13px;
     }
   }
@@ -61,7 +47,20 @@
   background: url(../../assets/images/arr_down.png) no-repeat center 1px;
 }
 
-.dropdown-download {
+.drop-down-donwload-box {
+  float: left;
+  & #dropdown-download-trigger {
+    padding: 11px;
+    display: block;
+    text-align: center;
+  }
+  ul {
+    width: 164px;
+    padding: 10px;
+  }
+}
+
+#dropdown-download {
   width: 164px;
   padding: 10px;
   position: absolute;
@@ -76,7 +75,8 @@
     padding: 6px 10px 7px 36px;
     text-align: left;
     background: url(../../assets/images/ic_app_download.png) no-repeat 16px 0px;
-  }:hover {
+  }
+  :hover {
     color: #2ac1bc;
     text-decoration-line: underline;
   }
@@ -86,9 +86,50 @@
   .playstore {
     background-position-y: -24px;
   }
- 
 }
 
+.header__user-menu {
+  position: relative;
+  background: #fff;
+  height: 36px;
+  overflow: visible;
+  letter-spacing: -0.2px;
+  font-size: 12px;
+}
+
+.header__user-menu-list {
+  position: relative;
+  margin: 0;
+  & .list-item {
+    float: left;
+    padding: 10px;
+    :hover {
+      color: #2ac1bc;
+    }
+  }
+}
+
+#dropdown-my-page,
+#dropdown-client-center {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  width: 124px;
+  position: absolute;
+  z-index: 3000;
+  position: absolute;
+  background-color: #fff;
+  top: 31px;
+  border: 1px solid #e9e9e9;
+  & a {
+    box-sizing: content-box;
+    padding: 6px 10px 7px 12px;
+    text-align: left;
+    display: block;
+    height: 17px;
+    font-size: 12px;
+    color: #666;
+  }
+}
 
 // body
 
@@ -141,34 +182,76 @@
 .header__body-special-menu {
   float: right;
   margin-right: 5px;
-  & .link-item a{
+  & .link-item a {
     display: block;
     height: 48px;
-    margin: 25px 0 25px 50px
+    margin: 25px 0 25px 50px;
   }
 }
 
-
-
 .header__main-menu-list {
-
   width: 100%;
 
   & .list-item {
     float: left;
-    width: 12.5%;
-  } 
-  a {
+    width: 140px;
+    position: relative;
+    &:hover {
+      .main-menu span {
+        // 요거 중복 많이 됨 따로 빼기
+        background-color: #fff;
+        color: #2ac1bc;
+        font-weight: bold;
+      }
+      .sub-menu-list {
+        display: block;
+      }
+    }
+  }
+
+  .main-menu {
     display: block;
     padding: 5px 0 0 1px;
-  } 
-  span {
+    color: #fff;
+  }
+  .main-menu span {
+    box-sizing: content-box;
     display: inline-block;
     height: 36px;
-    padding: 11px 25px 0;
+    padding: 11px 25px 0px;
     text-align: center;
     letter-spacing: 0;
     cursor: pointer;
-    color: #fff;
+    font-size: 16px;
+    font-family: NanumBold, 맑은고딕, "Malgun Gothic", sans-serif;
+  }
+}
+
+.sub-menu-list {
+  display: none;
+  z-index: 1000;
+  width: 162px;
+  position: absolute;
+  left: 0;
+  top: 52px;
+  padding: 20px 0 31px;
+  font-family: "Nanum", sans-serif;
+  background: #fff;
+  border: 1px solid rgba(72, 63, 53, 0.6);
+  border-top: none;
+
+  .sub-list-item span {
+    display: block;
+    color: #555;
+    font-size: 14px;
+    line-height: 1.4em;
+    padding: 6px 0 3px 25px;
+    letter-spacing: 0;
+  }
+
+  & span:hover {
+    background-color: #fff;
+    color: #2ac1bc;
+    text-decoration: underline;
   }
 }
