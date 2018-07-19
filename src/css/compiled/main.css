@@ -227,60 +227,105 @@ a {
   grid-area: header;
   display: flex;
   padding: 15px 0; }
-  #header .search-form {
+  #header .search-box {
     position: relative;
     margin: 14px 10px 14px 40px;
     width: 210px; }
-    #header .search-form input[type="text"] {
-      padding: 0 38px 0 15px;
+    #header .search-box .search-input {
+      padding: 0 32px 0 15px;
       width: 100%;
       height: 40px;
       border: 1px solid #cfd0d2;
       color: #888;
+      font-size: 14px;
       font-family: Verdana, "나눔고딕", "Nanum", "Malgun Gothic", sans-serif; }
-      #header .search-form input[type="text"]:hover, #header .search-form input[type="text"]:focus {
+      #header .search-box .search-input:hover, #header .search-box .search-input:focus {
         border-color: #2ac1bc;
         outline: none; }
-    #header .search-form button[type="submit"] {
+    #header .search-box button[type="submit"] {
       position: absolute;
       top: 1px;
       right: 1px;
       background: url(../../img/spr-icon-search.png) no-repeat center 0;
-      width: 38px;
+      width: 30px;
       height: 38px;
       border: none;
       text-indent: -3000px;
       cursor: pointer; }
-      #header .search-form button[type="submit"]:hover, #header .search-form button[type="submit"]:focus {
+      #header .search-box button[type="submit"]:hover, #header .search-box button[type="submit"]:focus {
         background-position: center -38px; }
-    #header .search-form .search-result-box {
-      position: relative;
+    #header .search-box .search-list-box-wrapper {
+      position: relative; }
+    #header .search-box .search-list-box {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      width: 100%;
       border: 1px solid #cfd0d2;
       border-top: none;
-      width: 100%;
       box-shadow: 0 6px 10px -3px rgba(0, 0, 0, 0.3);
       background: #fff;
-      line-height: 37px;
+      line-height: 2.3em;
       color: #140d0d;
+      font-size: 14px;
       z-index: 1;
       cursor: pointer;
       opacity: 0;
       visibility: hidden; }
-      #header .search-form .search-result-box.open {
+      #header .search-box .search-list-box.open {
         opacity: 1;
         visibility: visible; }
-      #header .search-form .search-result-box li a {
-        display: block;
-        padding: 0 15px;
-        overflow: hidden;
-        color: inherit;
-        text-overflow: ellipsis;
-        white-space: nowrap; }
-        #header .search-form .search-result-box li a.on {
-          background-color: #efefef; }
-      #header .search-form .search-result-box li em {
-        color: #2ac1bc;
+      #header .search-box .search-list-box li {
+        position: relative; }
+        #header .search-box .search-list-box li .search-list-item {
+          display: block;
+          padding: 0 15px;
+          color: inherit;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap; }
+          #header .search-box .search-list-box li .search-list-item.on {
+            background-color: #efefef; }
+      #header .search-box .search-list-box.recent li {
+        border-top: 1px dotted #ccc; }
+        #header .search-box .search-list-box.recent li:first-child {
+          border: none; }
+      #header .search-box .search-list-box.recent .search-list-item {
+        padding-right: 30px;
+        color: #551A8B;
         font-weight: bold; }
+      #header .search-box .search-list-box.recent .delete-btn {
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        display: block;
+        width: 36px;
+        border: none;
+        background-color: transparent;
+        cursor: pointer; }
+        #header .search-box .search-list-box.recent .delete-btn::before, #header .search-box .search-list-box.recent .delete-btn::after {
+          position: absolute;
+          right: 7px;
+          top: 15px;
+          content: "";
+          display: block;
+          width: 18px;
+          height: 2px;
+          border-radius: 3px;
+          background-color: #cfd0d2; }
+        #header .search-box .search-list-box.recent .delete-btn:hover::before, #header .search-box .search-list-box.recent .delete-btn:hover::after {
+          background-color: #777; }
+        #header .search-box .search-list-box.recent .delete-btn::before {
+          transform: rotate(45deg); }
+        #header .search-box .search-list-box.recent .delete-btn::after {
+          transform: rotate(-45deg); }
+      #header .search-box .search-list-box.result {
+        padding: 7px 0; }
+        #header .search-box .search-list-box.result .search-list-item em {
+          color: #2ac1bc;
+          font-weight: bold; }
   #header .favorite-menu {
     display: flex;
     margin: 0 0 0 auto; }
@@ -598,7 +643,7 @@ a {
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.5s, visibility 0.1s ease 0.6s; }
-  #scroll-btns button {
+  #scroll-btns .scroll-btn {
     position: relative;
     display: block;
     width: 45px;
@@ -606,13 +651,13 @@ a {
     border: 2px solid #e3e3e3;
     border-radius: 3px;
     cursor: pointer; }
-    #scroll-btns button:first-child {
+    #scroll-btns .scroll-btn:first-child {
       margin-bottom: 5px; }
-    #scroll-btns button:hover {
+    #scroll-btns .scroll-btn:hover {
       background-color: #efefef; }
-    #scroll-btns button:focus {
+    #scroll-btns .scroll-btn:focus {
       outline: none; }
-    #scroll-btns button::before, #scroll-btns button::after {
+    #scroll-btns .scroll-btn::before, #scroll-btns .scroll-btn::after {
       position: absolute;
       left: 50%;
       top: 50%;
@@ -623,13 +668,13 @@ a {
       border-radius: 10px;
       background-color: #999;
       transform-origin: center center; }
-    #scroll-btns button.up::before {
+    #scroll-btns .scroll-btn.up::before {
       transform: translate(-84%, -100%) rotateZ(-45deg); }
-    #scroll-btns button.up::after {
+    #scroll-btns .scroll-btn.up::after {
       transform: translate(-14%, -100%) rotateZ(45deg); }
-    #scroll-btns button.down::before {
+    #scroll-btns .scroll-btn.down::before {
       transform: translate(-84%, -100%) rotateZ(45deg); }
-    #scroll-btns button.down::after {
+    #scroll-btns .scroll-btn.down::after {
       transform: translate(-14%, -100%) rotateZ(-45deg); }
   #scroll-btns.on {
     opacity: 1;
@@ -823,7 +868,7 @@ a {
     .tab-box .tab-btn-box li {
       flex-grow: 1;
       height: 48px; }
-      .tab-box .tab-btn-box li a {
+      .tab-box .tab-btn-box li .tab-btn {
         display: block;
         margin-right: 1px;
         padding-top: 17px;
@@ -831,7 +876,7 @@ a {
         background: #fff;
         font-size: 15px;
         font-family: "NanumBold", sans-serif; }
-      .tab-box .tab-btn-box li.on a, .tab-box .tab-btn-box li:hover a {
+      .tab-box .tab-btn-box li.on .tab-btn, .tab-box .tab-btn-box li:hover .tab-btn {
         margin-right: 0;
         padding-right: 1px;
         background: #2ac1bc;
@@ -883,7 +928,7 @@ a {
     right: 0;
     top: 0;
     bottom: 0; }
-    .sliding-list-box .direction-btn-box .btn {
+    .sliding-list-box .direction-btn-box .direction-btn {
       position: absolute;
       top: 58px;
       display: block;
@@ -1048,15 +1093,14 @@ a {
     margin: 0 auto;
     width: 980px;
     height: 100%; }
-    #main-visual .direction-btn-box .prev {
+    #main-visual .direction-btn-box .direction-btn {
       position: absolute;
+      top: 50%; }
+    #main-visual .direction-btn-box .prev {
       left: -80px;
-      top: 50%;
       transform: translateY(-50%); }
     #main-visual .direction-btn-box .next {
-      position: absolute;
       right: -80px;
-      top: 50%;
       transform: translateY(-50%); }
   #main-visual .dot-btn-box {
     position: absolute;

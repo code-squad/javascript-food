@@ -21,11 +21,16 @@ const Tab = (function(helpers) {
       this.activeIndex = 0;
 
       // option
-      this.reqUrl = userOption.reqUrl;
-      this.templateHTML = userOption.templateHTML;
-
-      this.useStorage = userOption.useStorage || false;
-      this.storageName = userOption.storageName;
+      Object.assign(this, {
+        // request
+        reqUrl: undefined,
+        // storage
+        useStorage: false,
+        STORAGE_NAME_RESPONSE_DATA: 'tabResponseData',
+        STORAGE_DURATION_TIME: 21600000, // 6시간(ms)
+        // render
+        templateHTML: undefined
+      }, userOption);
 
       // module
       this.oStorage = userModule.Storage || this.DefaultStorage;
@@ -38,7 +43,7 @@ const Tab = (function(helpers) {
       const randomIndex = this._getRandomIndex();
 
       if (this._hasNoDOM()) {
-        const json = await this.getJSON(); 
+        const json = await this.getTabData(); 
         this.render(json);
       }
       this.activeElements(randomIndex, true);
@@ -55,10 +60,44 @@ const Tab = (function(helpers) {
       }
     }
 
+    /* storage */
+
+    _getStoredResponseData() {
+      this._checkStorageModule();
+      const storageName = this.STORAGE_NAME_RESPONSE_DATA;
+      const storageData = this.oStorage.getData(storageName, true);
+      if (!storageData) { return false; }
+
+      const savedTime = storageData.savedTime;
+      const isValid = !this.oStorage.isExpiredData(savedTime, this.STORAGE_DURATION_TIME)
+      return (isValid)? storageData.value : false;
+    }
+    _storeResponseData(resData) {
+      this._checkStorageModule();
+      const currentTime = +new Date();
+      const storageName = this.STORAGE_NAME_RESPONSE_DATA;
+      const storageData = {
+        'savedTime': currentTime,
+        'value': resData
+      };
+      this.oStorage.setData(storageName, storageData, true);
+    }
+
     /* render */
 
-    async getJSON() {
+    async getTabData() {
+      if (this.useStorage) {
+        const storageData = this._getStoredResponseData();
+        if (storageData) { return storageData; }  
+      }
+
+      const json = await this._requestTabData();
+      if (json) { this._storeResponseData(json); }
+      return json;
+    }
+    async _requestTabData() {
       let json = null;
+
       try {
         json = await helpers.getFetchData({ url: this.reqUrl });      
       } catch (err) {
@@ -71,8 +110,9 @@ const Tab = (function(helpers) {
       return json;
     }
     render(json) {
-      const viewData = this._makeViewData(json);
       this._checkRendererModule();
+      const viewData = this._makeViewData(json);
+  
       this.oRenderer.renderDOM({
         templateHTML: this.templateHTML,
         data: viewData,
@@ -129,12 +169,13 @@ const Tab = (function(helpers) {
     /* event */
 
     registerEvents() {
-      helpers.setIndexToDom(this.btnItems, 'a');
+      helpers.attachIndexToDom(this.btnItems, '.tab-btn');
       this.btnBox.addEventListener('click', (e) => e.preventDefault());
       this.btnBox.addEventListener('click', this._onClickBtn.bind(this));
     }
     _onClickBtn({ target }) {
-      if (target && target.nodeName === 'A') { this.activeElements(target.index); }
+      if (!target.classList.contains('tab-btn')) { return; }
+      this.activeElements(target.index);
     }
   }
 

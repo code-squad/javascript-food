@@ -20,13 +20,17 @@ const ListSlider = (function(helpers) {
       this.maxIndex = this.contentItems && this.contentItems.length;      
 
       // option
-      this.reqUrl = userOption.reqUrl;
-      this.templateHTML = userOption.templateHTML;
-
-      this.useStorage = userOption.useStorage || false;
-      this.storageName = userOption.storageName;
-
-      this.ITEM_COUNT_PER_GROUP = userOption.ITEM_COUNT_PER_GROUP || 1;
+      Object.assign(this, {
+        // request
+        reqUrl: undefined,
+        // storage
+        useStorage: false,
+        storageName: 'listSliderResponseData',
+        // render
+        templateHTML: undefined,
+        // ui
+        ITEM_COUNT_PER_GROUP: 1
+      }, userOption);
 
       // module
       this.oStorage = userModule.Storage || this.DefaultStorage;
@@ -70,8 +74,8 @@ const ListSlider = (function(helpers) {
       return json;
     }
     render(json) {
-      const viewData = this._makeViewData(json);
       this._checkRendererModule();
+      const viewData = this._makeViewData(json);
       
       this.oRenderer.renderDOM({
         templateHTML: this.templateHTML,        
@@ -121,18 +125,17 @@ const ListSlider = (function(helpers) {
     /* event */
     
     registerEvents() {
-      helpers.setIndexToDom(this.contentItems);    
+      helpers.attachIndexToDom(this.contentItems);    
       this.directionBtnBox.addEventListener('click', (e) => e.preventDefault());
       this.directionBtnBox.addEventListener('click', this._onClickDirectionBtn.bind(this));
     }
     _onClickDirectionBtn({ target }) {
+      const dirctionBtn = target.closest('.direction-btn');
+      if (!dirctionBtn) { return; }
       const oldIndex = this.activeIndex;
       const newIndex = (this._isPrevBtn(target))? oldIndex - 1 : oldIndex + 1;
-  
-      if (target && target.nodeName === 'A' || target.nodeName === 'I') {
-        this._updateDirection();
-        this.activeElements(newIndex);
-      }
+      this._updateDirection();
+      this.activeElements(newIndex);
     }
   }
 
