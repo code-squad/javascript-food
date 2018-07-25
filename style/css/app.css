@@ -433,7 +433,8 @@ a {
   text-align: center;
 }
 
-.tab-button-list .list-item:hover {
+.tab-button-list .list-item:hover,
+.tab-button-list .list-item.active {
   background-color: #1fcbc7;
   color: #fff;
 }

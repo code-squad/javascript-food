@@ -1,9 +1,6 @@
 @import "./_utils.scss";
 
-
 .wrapper__best-seler {
-
- 
   background-color: #eee;
   padding-bottom: 40px;
 
@@ -11,10 +8,9 @@
     padding-top: 40px;
     padding-bottom: 42px;
   }
- 
 }
 
-// common으로 빼기 
+// common으로 빼기
 .title {
   font-size: 18px;
   color: #999;
@@ -37,7 +33,7 @@
 
 .tab-button-list {
   @extend %clearfix;
-  
+
   font-family: "Noto Sans KR Bold", sans-serif;
   margin-bottom: 23px;
 
@@ -51,14 +47,16 @@
     line-height: 1.2;
     color: #777;
     text-align: center;
-  }  
-  .list-item:hover {
+  }
+  .list-item:hover,
+  .list-item.active {
     background-color: #1fcbc7;
     color: #fff;
   }
 }
 
 // tab Card
+
 .tab-card-list {
   @extend %clearfix;
 }
@@ -75,7 +73,6 @@
   }
 }
 
-
 .tab-card-img {
   max-width: 100%;
 }
@@ -90,7 +87,7 @@
     margin-bottom: 6px;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap
+    white-space: nowrap;
   }
   .description {
     margin-top: 0;
@@ -99,4 +96,3 @@
     margin-bottom: 7px;
   }
 }
-
