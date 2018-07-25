@@ -421,7 +421,7 @@ a {
   margin-bottom: 23px;
 }
 
-.tab-button-list .list-item {
+.tab-button-list .tab-button {
   float: left;
   width: 159px;
   margin-right: 1px;
@@ -431,10 +431,11 @@ a {
   line-height: 1.2;
   color: #777;
   text-align: center;
+  cursor: pointer;
 }
 
-.tab-button-list .list-item:hover,
-.tab-button-list .list-item.active {
+.tab-button-list .tab-button:hover,
+.tab-button-list .tab-button.active {
   background-color: #1fcbc7;
   color: #fff;
 }

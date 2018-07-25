@@ -33,23 +33,22 @@ export default class Tab {
     this.tabButtonsEl = qs(btnSelector);
     this.tabCardListEl = qs(cardListSelector);
     this.randomNumber = null;
-    this.activeId = null;
+    this.activedButton = null;
     this.bindEvents();
   }
   getData(data) {
-    // console.log(data.map(data => data.name));
-    console.dir(data);
     this.renderTabs(data);
   }
   renderTabs(data) {
     this.randomNumber = Math.floor(Math.random() * data.length);
     this.tabButtonsEl.innerHTML = this.tabButtonTemplate(data);
     this.tabCardListEl.innerHTML = this.tabCardsTemplate(data.map(v => ({ items: v.items, id: v.category_id })));
+    this.activedButton = qs(".active", this.tabButtonsEl);
   }
-  handleActiveButtons(deactiveButton, e) {
-    deactiveButton.classList.remove("active");
-    const activeButton = e.target.closest(".list-item");
-    activeButton.classList.add("active");
+  handleActiveButtons(e) {
+    this.activedButton.classList.remove("active");
+    this.activedButton = e.target.closest(".list-item");
+    this.activedButton.classList.add("active");
   }
   bindEvents() {
     this.tabButtonsEl.addEventListener("click", this.handleTabBtnClicked.bind(this));
@@ -62,10 +61,10 @@ export default class Tab {
     activedCards.classList.remove("hide");
   }
   handleTabBtnClicked(e) {
-    const activedButton = qs(".active", this.tabButtonsEl);
-    const hideId = activedButton.firstElementChild.dataset.id;
+    if (e.target.className !== "tab-button") return;
+    const hideId = this.activedButton.firstElementChild.dataset.id;
     const showId = e.target.dataset.id;
-    this.handleActiveButtons(activedButton, e);
+    this.handleActiveButtons(e);
     this.handleShowTabCard(hideId, showId);
   }
   tabButtonTemplate(data) {
@@ -74,7 +73,7 @@ export default class Tab {
     return data.reduce(
       (ac, c, ci) =>
         (ac += `${isActiveLi(ci)}
-      <a className="tab-button"  data-id=${c.category_id}>${c.name}</a>
+      <a class="tab-button"  data-id=${c.category_id}>${c.name}</a>
     </li>`),
       ""
     );

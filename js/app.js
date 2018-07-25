@@ -47,6 +47,7 @@ const ajaxComponents = {
 
 $on(document, "DOMContentLoaded", () => {
   renderDataList.forEach(v => renderer(v));
+
   const ajaxHelper = new AjaxHelper(ajaxComponents);
 
   const appDownDropdown = new Dropdown("#dropdown-download", "#dropdown-download-trigger");
@@ -54,5 +55,3 @@ $on(document, "DOMContentLoaded", () => {
   const clientCenterDropdown = new Dropdown("#dropdown-client-center", "#dropdown-client-center-trigger");
   const dropdownController = new DropdownBox("ul[id*=dropdown]", "a[id*=-trigger]");
 });
-
-// appDownLoadEl.render(dropdownTemplate, appDownLoad);
