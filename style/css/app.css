@@ -453,8 +453,34 @@ a {
   margin-right: 0;
 }
 
+.tab-card a:hover .delivery-type {
+  top: 0;
+  color: #fff;
+}
+
+.tab-card-thumbnail {
+  position: relative;
+  height: 304px;
+  overflow: hidden;
+}
+
+.tab-card-thumbnail .delivery-type {
+  top: 304px;
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 3000;
+}
+
 .tab-card-img {
   max-width: 100%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .tab-card__content-box {

@@ -7,8 +7,12 @@ const tabCardTemplate = data =>
 <li class="tab-card left">
   <a href="#">
     <div>
-      <img class="tab-card-img" src="${c.image}" alt="${c.alt}">
-      <div class="delivery-type">${c.delivery_type}</div>
+      <div class="tab-card-thumbnail">
+        <img class="tab-card-img" src="${c.image}" alt="${c.alt}">
+        <div class="delivery-type">
+          ${c.delivery_type}
+        </div>
+      </div>
       <div class="tab-card__content-box">
         <h3 class="title">${c.title}</h3>
         <p class="description">${c.description}</p>
@@ -79,6 +83,7 @@ export default class Tab {
     );
   }
   tabCardsTemplate(data) {
+    console.dir(data);
     const isActiveClass = idx => (idx === this.randomNumber ? "tab-card-list" : "tab-card-list hide");
     const tabContes = data.reduce(
       (ac, c, ci) => (ac += `<ul id="cards-${c.id}" class="${isActiveClass(ci)}">${tabCardTemplate(c.items)}</ul>`),
