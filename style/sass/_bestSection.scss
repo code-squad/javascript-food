@@ -36,7 +36,9 @@
 
   font-family: "Noto Sans KR Bold", sans-serif;
   margin-bottom: 23px;
-
+  li {
+    float: left;
+  }
   & .tab-button {
     float: left;
     width: 159px;

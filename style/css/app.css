@@ -421,6 +421,10 @@ a {
   margin-bottom: 23px;
 }
 
+.tab-button-list li {
+  float: left;
+}
+
 .tab-button-list .tab-button {
   float: left;
   width: 159px;

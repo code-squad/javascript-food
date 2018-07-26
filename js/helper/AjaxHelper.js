@@ -23,7 +23,6 @@ export default class AjaxHelper {
     // process he server response
     const DONE = 4; // readyState 4 means the request is done.
     const OK = 200; // status 200 is a successful return.
-    console.log(readyState);
     if (readyState === DONE) {
       if (status === OK) {
         this.sendTabData(JSON.parse(responseText));

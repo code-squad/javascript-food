@@ -46,12 +46,17 @@ export default class Tab {
   renderTabs(data) {
     this.randomNumber = Math.floor(Math.random() * data.length);
     this.tabButtonsEl.innerHTML = this.tabButtonTemplate(data);
-    this.tabCardListEl.innerHTML = this.tabCardsTemplate(data.map(v => ({ items: v.items, id: v.category_id })));
+    this.tabCardListEl.innerHTML = this.tabCardsTemplate(
+      data.map(v => ({
+        items: v.items,
+        id: v.category_id,
+      }))
+    );
     this.activedButton = qs(".active", this.tabButtonsEl);
   }
   handleActiveButtons(e) {
     this.activedButton.classList.remove("active");
-    this.activedButton = e.target.closest(".list-item");
+    this.activedButton = e.target;
     this.activedButton.classList.add("active");
   }
   bindEvents() {
@@ -66,18 +71,19 @@ export default class Tab {
   }
   handleTabBtnClicked(e) {
     if (e.target.className !== "tab-button") return;
-    const hideId = this.activedButton.firstElementChild.dataset.id;
+
+    const hideId = this.activedButton.dataset.id;
     const showId = e.target.dataset.id;
+
     this.handleActiveButtons(e);
     this.handleShowTabCard(hideId, showId);
   }
   tabButtonTemplate(data) {
-    const isActiveLi = idx =>
-      idx === this.randomNumber ? '<li class="list-item left active">' : '<li class="list-item left">';
+    const isActiveButton = idx => (idx === this.randomNumber ? "tab-button active" : "tab-button");
     return data.reduce(
       (ac, c, ci) =>
-        (ac += `${isActiveLi(ci)}
-      <a class="tab-button"  data-id=${c.category_id}>${c.name}</a>
+        (ac += `<li>
+      <a class="${isActiveButton(ci)}"  data-id=${c.category_id}>${c.name}</a>
     </li>`),
       ""
     );
