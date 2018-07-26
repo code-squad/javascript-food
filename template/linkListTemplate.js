@@ -73,3 +73,12 @@ export const specialMenuTemplate = data => {
   );
   return templateResult;
 };
+
+export const tabBtnTemplate = data =>
+  data.reduce(
+    (ac, c) =>
+      (ac += `<li class="list-item">
+    <a href="${c.url}">${c.text} </a>
+  </li>`),
+    ""
+  );

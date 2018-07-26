@@ -421,7 +421,11 @@ a {
   margin-bottom: 23px;
 }
 
-.tab-button-list .list-item {
+.tab-button-list li {
+  float: left;
+}
+
+.tab-button-list .tab-button {
   float: left;
   width: 159px;
   margin-right: 1px;
@@ -431,9 +435,11 @@ a {
   line-height: 1.2;
   color: #777;
   text-align: center;
+  cursor: pointer;
 }
 
-.tab-button-list .list-item:hover {
+.tab-button-list .tab-button:hover,
+.tab-button-list .tab-button.active {
   background-color: #1fcbc7;
   color: #fff;
 }
@@ -451,8 +457,57 @@ a {
   margin-right: 0;
 }
 
+.tab-card a:hover .delivery-type-box {
+  top: 0;
+  color: #fff;
+}
+
+.tab-card-thumbnail {
+  position: relative;
+  height: 304px;
+  overflow: hidden;
+}
+
+.tab-card-thumbnail .delivery-type-box {
+  top: 304px;
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 3000;
+}
+
+.tab-card-thumbnail .delivery-type-box .delivery-type-list {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.tab-card-thumbnail .delivery-type-box .delivery-type-list li {
+  text-align: center;
+  font-size: 22px;
+  margin: 0px 15px 8px;
+}
+
+.tab-card-thumbnail .delivery-type-box .delivery-type-list span {
+  display: inline-block;
+  padding: 12px 0 2px;
+  border-top: 1px solid #fff;
+}
+
+.tab-card-thumbnail .delivery-type-box .delivery-type-list li:first-of-type span {
+  border-top: none;
+}
+
 .tab-card-img {
   max-width: 100%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .tab-card__content-box {
@@ -461,12 +516,16 @@ a {
 }
 
 .tab-card__content-box .title {
-  margin-top: 0;
+  font-family: "Noto Sans KR Bold", sans-serif;
   font-size: 17px;
+  letter-spacing: -0.07em;
+  color: #000;
   margin-bottom: 6px;
+  margin-top: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  text-align: left;
 }
 
 .tab-card__content-box .description {
@@ -474,6 +533,11 @@ a {
   font-size: 13px;
   color: #666;
   margin-bottom: 7px;
+  min-height: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
 }
 
 .wrapper__list-slider {
