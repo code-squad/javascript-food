@@ -131,17 +131,26 @@
   text-align: left;
 
   & .title {
-    margin-top: 0;
+    font-family: "Noto Sans KR Bold", sans-serif;
     font-size: 17px;
+    letter-spacing: -0.07em;
+    color: #000;
     margin-bottom: 6px;
+    margin-top: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    text-align: left;
   }
   .description {
     margin-top: 0;
     font-size: 13px;
     color: #666;
     margin-bottom: 7px;
+    min-height: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
   }
 }

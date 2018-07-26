@@ -1,5 +1,12 @@
 import { qs } from "../../helper/helper.js";
 
+const badgeTemplate = badge =>
+  badge
+    ? `<div class="badge-box">
+<span>${badge}</span>
+</div>`
+    : ``;
+
 const deliveryTemplate = data =>
   data.reduce(
     (ac, c) =>
@@ -28,11 +35,9 @@ const tabCardTemplate = data =>
         <h3 class="title">${c.title}</h3>
         <p class="description">${c.description}</p>
         <div class="start-rating-box">
-          <span>35</span>
+          <span></span>
         </div>
-        <div class="badge-box">
-          <span>${c.badge}</span>
-        </div>
+        ${badgeTemplate(c.badge)}
         <div class="price-box">
           <span>${c.s_price}</span>
         </div>
