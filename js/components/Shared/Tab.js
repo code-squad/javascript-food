@@ -30,6 +30,7 @@ const tabCardTemplate = data =>
             ${deliveryTemplate(c.delivery_type)}
           </ul>
         </div>
+        ${badgeTemplate(c.badge)}
       </div>
       <div class="tab-card__content-box">
         <h3 class="title">${c.title}</h3>
@@ -37,7 +38,6 @@ const tabCardTemplate = data =>
         <div class="start-rating-box">
           <span></span>
         </div>
-        ${badgeTemplate(c.badge)}
         <div class="price-box">
           <span>${c.s_price}</span>
         </div>
@@ -92,10 +92,9 @@ export default class Tab {
   bindEvents() {
     this.tabButtonsEl.addEventListener("click", this.handleTabBtnClicked.bind(this));
   }
-  handleActiveButtons(e) {
-    this.activedButton.classList.remove("active");
-    this.activedButton = e.target;
-    this.activedButton.classList.add("active");
+  handleActiveButtons(beforeActiveBtn, activeBtn) {
+    beforeActiveBtn.classList.remove("active");
+    activeBtn.classList.add("active");
   }
   handleShowTabCard(hideId, showId) {
     const hideCards = qs(`#cards-${hideId}`, this.tabCardListEl);
@@ -106,11 +105,11 @@ export default class Tab {
   }
   handleTabBtnClicked(e) {
     if (e.target.className !== "tab-button") return;
-
-    const hideId = this.activedButton.dataset.id;
+    const activeBtn = qs(".active", this.tabButtonsEl);
+    const hideId = activeBtn.dataset.id;
     const showId = e.target.dataset.id;
 
-    this.handleActiveButtons(e);
+    this.handleActiveButtons(activeBtn, e.target);
     this.handleShowTabCard(hideId, showId);
   }
 }

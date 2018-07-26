@@ -540,6 +540,12 @@ a {
   text-align: left;
 }
 
+.tab-card__content-box .badge-box {
+  position: absolute;
+  left: 0;
+  bottom: 137px;
+}
+
 .wrapper__list-slider {
   position: relative;
   width: 980px;
