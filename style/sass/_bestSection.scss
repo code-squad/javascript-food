@@ -75,7 +75,7 @@
     margin-right: 0;
   }
   & a:hover {
-    .delivery-type {
+    .delivery-type-box {
       top: 0;
       color: #fff;
     }
@@ -86,7 +86,7 @@
   height: 304px;
   overflow: hidden;
 
-  .delivery-type {
+  .delivery-type-box {
     top: 304px;
     overflow: hidden;
     position: absolute;
@@ -95,6 +95,26 @@
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
     z-index: 3000;
+    // float: left;
+    & .delivery-type-list {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      li {
+        text-align: center;
+        font-size: 22px;
+        margin: 0px 15px 8px;
+      }
+      span {
+        display: inline-block;
+        padding: 12px 0 2px;
+        border-top: 1px solid #fff;
+      }
+      li:first-of-type span {
+        border-top: none;
+      }
+    }
   }
 }
 

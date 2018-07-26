@@ -457,7 +457,7 @@ a {
   margin-right: 0;
 }
 
-.tab-card a:hover .delivery-type {
+.tab-card a:hover .delivery-type-box {
   top: 0;
   color: #fff;
 }
@@ -468,7 +468,7 @@ a {
   overflow: hidden;
 }
 
-.tab-card-thumbnail .delivery-type {
+.tab-card-thumbnail .delivery-type-box {
   top: 304px;
   overflow: hidden;
   position: absolute;
@@ -477,6 +477,29 @@ a {
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   z-index: 3000;
+}
+
+.tab-card-thumbnail .delivery-type-box .delivery-type-list {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.tab-card-thumbnail .delivery-type-box .delivery-type-list li {
+  text-align: center;
+  font-size: 22px;
+  margin: 0px 15px 8px;
+}
+
+.tab-card-thumbnail .delivery-type-box .delivery-type-list span {
+  display: inline-block;
+  padding: 12px 0 2px;
+  border-top: 1px solid #fff;
+}
+
+.tab-card-thumbnail .delivery-type-box .delivery-type-list li:first-of-type span {
+  border-top: none;
 }
 
 .tab-card-img {

@@ -1,5 +1,14 @@
 import { qs } from "../../helper/helper.js";
 
+const deliveryTemplate = data =>
+  data.reduce(
+    (ac, c) =>
+      (ac += `
+  <li><span>${c}</span></li>
+`),
+    ``
+  );
+
 const tabCardTemplate = data =>
   data.reduce(
     (ac, c) =>
@@ -9,8 +18,10 @@ const tabCardTemplate = data =>
     <div>
       <div class="tab-card-thumbnail">
         <img class="tab-card-img" src="${c.image}" alt="${c.alt}">
-        <div class="delivery-type">
-          ${c.delivery_type}
+        <div class="delivery-type-box">
+          <ul class="delivery-type-list">
+            ${deliveryTemplate(c.delivery_type)}
+          </ul>
         </div>
       </div>
       <div class="tab-card__content-box">
@@ -54,30 +65,6 @@ export default class Tab {
     );
     this.activedButton = qs(".active", this.tabButtonsEl);
   }
-  handleActiveButtons(e) {
-    this.activedButton.classList.remove("active");
-    this.activedButton = e.target;
-    this.activedButton.classList.add("active");
-  }
-  bindEvents() {
-    this.tabButtonsEl.addEventListener("click", this.handleTabBtnClicked.bind(this));
-  }
-  handleShowTabCard(hideId, showId) {
-    const hideCards = qs(`#cards-${hideId}`, this.tabCardListEl);
-    hideCards.classList.add("hide");
-
-    const activedCards = qs(`#cards-${showId}`, this.tabCardListEl);
-    activedCards.classList.remove("hide");
-  }
-  handleTabBtnClicked(e) {
-    if (e.target.className !== "tab-button") return;
-
-    const hideId = this.activedButton.dataset.id;
-    const showId = e.target.dataset.id;
-
-    this.handleActiveButtons(e);
-    this.handleShowTabCard(hideId, showId);
-  }
   tabButtonTemplate(data) {
     const isActiveButton = idx => (idx === this.randomNumber ? "tab-button active" : "tab-button");
     return data.reduce(
@@ -96,5 +83,29 @@ export default class Tab {
       ""
     );
     return tabContes;
+  }
+  bindEvents() {
+    this.tabButtonsEl.addEventListener("click", this.handleTabBtnClicked.bind(this));
+  }
+  handleActiveButtons(e) {
+    this.activedButton.classList.remove("active");
+    this.activedButton = e.target;
+    this.activedButton.classList.add("active");
+  }
+  handleShowTabCard(hideId, showId) {
+    const hideCards = qs(`#cards-${hideId}`, this.tabCardListEl);
+    hideCards.classList.add("hide");
+
+    const activedCards = qs(`#cards-${showId}`, this.tabCardListEl);
+    activedCards.classList.remove("hide");
+  }
+  handleTabBtnClicked(e) {
+    if (e.target.className !== "tab-button") return;
+
+    const hideId = this.activedButton.dataset.id;
+    const showId = e.target.dataset.id;
+
+    this.handleActiveButtons(e);
+    this.handleShowTabCard(hideId, showId);
   }
 }
