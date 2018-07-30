@@ -1,16 +1,20 @@
 import { $on, qs, renderer, qsAll } from "./helper/helper.js";
 import Dropdown from "./components/Shared/Dropdown.js";
-import DropdownBox from "./components/Shared/DropdownBox.js";
 import DropdownController from './components/Shared/DropdownController.js';
-import Tab from "./components/Shared/Tab.js";
+import Tab from "./components/Shared/Tab/Tab.js";
 import AjaxHelper from "./helper/AjaxHelper.js";
 import { renderDataList } from "./render/renderDataList.js";
 
+const tabURL = `http://crong.codesquad.kr:8080/woowa/best`;
+
 $on(document, "DOMContentLoaded", () => {
   renderDataList.forEach(v => renderer(v));
-  // const tabEl = new Tab(".tab-button-list", ".tab-card-section")
-  // const ajaxHelper = new AjaxHelper();
+  
+  const tabEl = new Tab(".tab-button-list", ".tab-card-section")
 
+  const tabAjaxHelper = new AjaxHelper(tabEl);
+  tabAjaxHelper.sendReq('GET', tabURL);
+  
   const dropdownController = new DropdownController();
 
   const appDownDropdown = new Dropdown("#dropdown-download", "#dropdown-download-trigger", dropdownController);

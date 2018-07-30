@@ -1,52 +1,6 @@
-import { qs } from "../../helper/helper.js";
+import { qs } from "../../../helper/helper.js";
+import { badgeTemplate, deliveryTemplate, tabCardTemplate } from './tabTemplate.js';
 
-const badgeTemplate = badge =>
-  badge
-    ? `<div class="badge-box">
-<span>${badge}</span>
-</div>`
-    : ``;
-
-const deliveryTemplate = data =>
-  data.reduce(
-    (ac, c) =>
-      (ac += `
-  <li><span>${c}</span></li>
-`),
-    ``
-  );
-
-const tabCardTemplate = data =>
-  data.reduce(
-    (ac, c) =>
-      (ac += `
-<li class="tab-card left">
-  <a href="#">
-    <div>
-      <div class="tab-card-thumbnail">
-        <img class="tab-card-img" src="${c.image}" alt="${c.alt}">
-        <div class="delivery-type-box">
-          <ul class="delivery-type-list">
-            ${deliveryTemplate(c.delivery_type)}
-          </ul>
-        </div>
-        ${badgeTemplate(c.badge)}
-      </div>
-      <div class="tab-card__content-box">
-        <h3 class="title">${c.title}</h3>
-        <p class="description">${c.description}</p>
-        <div class="start-rating-box">
-          <span></span>
-        </div>
-        <div class="price-box">
-          <span>${c.s_price}</span>
-        </div>
-      </div>
-    </div>
-  </a>
-  </li>`),
-    ""
-  );
 
 export default class Tab {
   constructor(btnSelector, cardListSelector) {
@@ -56,7 +10,10 @@ export default class Tab {
     this.activedButton = null;
     this.bindEvents();
   }
-  getData(data) {
+  bindEvents() {
+    this.tabButtonsEl.addEventListener("click", this.handleTabBtnClicked.bind(this));
+  }
+  getData(data){
     this.renderTabs(data);
   }
   renderTabs(data) {
@@ -81,16 +38,12 @@ export default class Tab {
     );
   }
   tabCardsTemplate(data) {
-    console.dir(data);
     const isActiveClass = idx => (idx === this.randomNumber ? "tab-card-list" : "tab-card-list hide");
     const tabContes = data.reduce(
       (ac, c, ci) => (ac += `<ul id="cards-${c.id}" class="${isActiveClass(ci)}">${tabCardTemplate(c.items)}</ul>`),
       ""
     );
     return tabContes;
-  }
-  bindEvents() {
-    this.tabButtonsEl.addEventListener("click", this.handleTabBtnClicked.bind(this));
   }
   handleActiveButtons(beforeActiveBtn, activeBtn) {
     beforeActiveBtn.classList.remove("active");
