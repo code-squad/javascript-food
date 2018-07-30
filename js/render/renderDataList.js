@@ -1,9 +1,4 @@
-import {
-  userMenuLinkText,
-  mainMenuLinkText,
-  specialMenuLinkText,
-  appDownLoad,
-} from "../../assets/data/menuLinkText.js";
+import { userMenuLinkText,  mainMenuLinkText, specialMenuLinkText, appDownLoad } from "../../assets/data/menuLinkText.js";
 import { userMenuTemplate, specialMenuTemplate, mainMenuTemplate, dropdownTemplate } from "../../template/template.js";
 
 export const renderDataList = [
