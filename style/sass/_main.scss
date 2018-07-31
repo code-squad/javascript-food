@@ -18,7 +18,8 @@
       width: 100%;
       text-align: center;
       overflow: hidden;
-      display: none;
+      opacity: 0;
+      position: absolute;
     }
     img{
       position: relative;
@@ -26,7 +27,9 @@
       transform: translate(-50%,0)
     }
     .active  {
-      display: block;
+      transition: opacity 0.5s ease;
+      opacity: 1;
+      position: static;
     }
 }
 
@@ -68,7 +71,6 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 100;
-  background: red;
   & li {
     float: left;
   }

@@ -7,7 +7,7 @@ export const mainSlideTemplate = data =>
         <img src="${c.imgSrc}" alt="${c.alt}">
       </a>
     </li>`),
-    ""
+    '',
   );
 
 export const slidEButtonTemplate = `
