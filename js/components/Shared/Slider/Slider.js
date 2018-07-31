@@ -4,5 +4,7 @@ export default class Slider {
  constructor(slideSelector){
   this.slideEl = qs(slideSelector);
  }
- 
+ render(){
+  this.slideEl.innerHTML = ``;
+ }
 }
