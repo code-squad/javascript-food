@@ -363,12 +363,17 @@ a {
   width: 100%;
   text-align: center;
   overflow: hidden;
+  display: none;
 }
 
 .main__banner-slider img {
   position: relative;
   left: 50%;
   transform: translate(-50%, 0);
+}
+
+.main__banner-slider .active {
+  display: block;
 }
 
 .main__banner .slide-button-list {

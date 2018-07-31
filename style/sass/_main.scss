@@ -18,11 +18,15 @@
       width: 100%;
       text-align: center;
       overflow: hidden;
+      display: none;
     }
     img{
       position: relative;
       left: 50%;
       transform: translate(-50%,0)
+    }
+    .active  {
+      display: block;
     }
 }
 

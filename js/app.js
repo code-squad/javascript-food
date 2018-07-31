@@ -12,8 +12,7 @@ $on(document, "DOMContentLoaded", () => {
   renderDataList.forEach(v => renderer(v));
   
   const tabEl = new Tab(".tab-button-list", ".tab-card-section")
-  const SlideEl = new Slider('.main__banner-slider')
-
+  const slideEl = new Slider('.main__banner-slider', '.main__banner-slider-pagination');
   const tabAjaxHelper = new AjaxHelper(tabEl);
   tabAjaxHelper.sendReq('GET', tabURL);
   
