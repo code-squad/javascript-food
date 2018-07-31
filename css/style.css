@@ -1,0 +1,309 @@
+/* helpers */
+.align_helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
+
+/* header */
+header {
+  height: 134px;
+}
+
+
+/* sub header */
+.header_sub {
+  box-sizing: border-box;
+  padding: 0px 150px;
+  height: 36px;
+  border-bottom: 1px solid #ccc;
+  color: #666;
+  font-size: 0.8rem;
+}
+
+.header_sub > * {
+  height: 100%;
+}
+
+.download {
+  box-sizing: border-box;
+  float: left;
+  padding: 10px 0px;
+}
+
+.info {
+  box-sizing: border-box;
+  float: right;
+  padding: 10px 0px;
+}
+
+.info > li {
+  float: left;
+  padding: 0px 10px;
+  border-right: 1px solid #ccc;
+}
+
+.info > li:nth-last-child(1) {
+  border: 0px;
+  font-weight: bold;
+}
+
+.info img, .download img {
+  vertical-align: middle;
+}
+
+
+/* main header */
+.header_main {
+  padding: 0px 150px;
+  height: 98px;
+}
+
+.header_main > * {
+  height: 100%
+}
+
+.logo {
+  width: 194px;
+  float: left;
+}
+
+.logo > img {
+  vertical-align: middle;
+}
+
+.search_bar_wrap {
+  box-sizing: border-box;
+  width: 270px;
+  float: left;
+  padding: 27px 0px;
+}
+
+.search_bar {
+  box-sizing: border-box;
+  width: 220px;
+  height: 43px;
+  border: 1px solid #b3b1b1;
+  padding: 11px 10px;
+  margin: auto;
+}
+
+.search_bar img {
+  vertical-align: middle;
+  float: right;
+}
+
+.shortcuts {
+  float: right;
+  text-align: center;
+}
+
+.shortcuts > li {
+  width: 120px;
+  height: 100%;
+  margin-right: 40px;
+  float: left;
+}
+
+.shortcuts img {
+  vertical-align: middle;
+}
+
+.shortcuts > li:nth-last-child(1) {
+  margin-right: 0px;
+}
+
+
+/* navigator */
+nav {
+  height: 52px;
+  background: #483f35;
+  padding: 0px 150px;
+  font-weight: bold;
+}
+
+nav > ul {
+  height: 100%;
+  width: 100%;
+}
+
+nav li {
+  color: white;
+  padding: 18px 28px;
+  float: left;
+  margin-right: 20px;
+}
+
+nav li:nth-last-child(1) {
+  margin: 0px;
+  float: right;
+  background: #2b2521;
+}
+
+
+/* ad_section */
+.ad {
+  height: 420px;
+  overflow: hidden;
+  text-indent: -25%;
+}
+
+.ad img {
+  max-height: 100%;
+}
+
+
+/* notice_section */
+.notice {
+  box-sizing: border-box;
+  height: 350px;
+  padding: 55px 150px;
+}
+
+.notice > * {
+  height: 100%;
+  width: 48%;
+}
+
+.new_dishes {
+  float: left;
+}
+
+.delivery_system {
+  float: right;
+}
+
+.new_dishes img, .delivery_system img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+
+/* 베스트 반찬 */
+.best_dish_section {
+  height: 611px;
+  padding: 40px 150px;
+  background: #eee;
+}
+
+.section_category {
+  text-align: center;
+  font-size: 1.2rem;  
+  margin-bottom: 1.2rem;  
+  color: #888;
+}
+
+.section_description {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 40px;
+}
+
+.section_description > span {
+  font-weight: bold;
+}
+
+.best_dishes_nav {
+  width: 100%;
+  height: 45px;
+  margin-bottom: 34px;
+  font-weight: bold;
+  font-size: 1rem;
+  color: #666;
+  text-align: center;
+}
+
+.best_dishes_nav > li {
+  box-sizing: border-box;
+  height: 100%;
+  width: 163px;
+  float: left;
+  background: #ffffff;
+  padding: 15px 0px;
+  border-right: 1px solid #eee;
+}
+
+.best_dishes_nav > li:nth-last-child(1) {
+  border: 0px;
+}
+
+.best_dishes {
+  width: 100%;
+  height: 422px;
+}
+
+.best_dishes > li {
+  height: 100%;
+  width: 304px;
+  float: left;
+  margin-right: 34px;
+}
+
+.best_dishes > li:nth-last-child(1) {
+  margin-right: 0px;
+}
+
+.best_dish_img {
+  width: 100%;
+  height: 304px;
+}
+
+.best_dish_img > img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.best_dish_description {
+  box-sizing: border-box;
+  width: 100%;
+  height: 118px;
+  padding: 15px;
+  background: #ffffff;
+}
+
+.best_dish_name {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.best_dish_slogan {
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+  color: #888;
+}
+
+.best_dish_name, .best_dish_slogan {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.best_dish_price {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #2ac1bc;
+}
+
+.best_dish_stars {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  color: #888;
+}
+
+.review_stars {
+  display: inline-block;
+  width: 70px;
+  height: 20px;
+}
+
+.review_stars img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.best_dish_price > .price_unit {
+  font-size: 0.8rem;
+  vertical-align: middle;
+}
