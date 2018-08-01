@@ -11,6 +11,6 @@ export class Controller {
   }
 
   mouseOutMenuNavigation(name) {
-    this.view.reRenderMenuLayer(name);
+    this.view.renderMenu(name);
   }
 }

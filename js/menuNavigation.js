@@ -29,12 +29,8 @@ export class MenuNavigation{
     targetMenu.insertAdjacentHTML('beforeend', this.template.menuLayer({name, subMenuData}));
   }
 
-  reRenderMenuLayer(name){
+  renderMenu(name){
     let targetMenu = this.eMenuNavigation.querySelector(`[data-name='${name}']`);
-    let fiststLastElementChild = targetMenu.children[1];
-    let secondLastElementChild = targetMenu.children[2];
-
-    targetMenu.removeChild(fiststLastElementChild);
-    targetMenu.removeChild(secondLastElementChild);
+    targetMenu.innerHTML = this.template.menu(name);
   }
 }
