@@ -1,7 +1,7 @@
 export class MenuNavigation{
   constructor({menuNavigation, template}) {
     this.eMenuNavigation = menuNavigation;
-    this.template = template;    
+    this.oTemplate = template;    
   }
 
   bindMouseOver(handler) {
@@ -26,11 +26,11 @@ export class MenuNavigation{
 
   renderMenuLayer({name, subMenuData}) {
     let targetMenu = this.eMenuNavigation.querySelector(`[data-name='${name}']`);
-    targetMenu.insertAdjacentHTML('beforeend', this.template.menuLayer({name, subMenuData}));
+    targetMenu.insertAdjacentHTML('beforeend', this.oTemplate.menuLayer({name, subMenuData}));
   }
 
   renderMenu(name){
     let targetMenu = this.eMenuNavigation.querySelector(`[data-name='${name}']`);
-    targetMenu.innerHTML = this.template.menu(name);
+    targetMenu.innerHTML = this.oTemplate.menu(name);
   }
 }
