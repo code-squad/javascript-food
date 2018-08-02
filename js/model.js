@@ -1,9 +1,13 @@
-export class Model {
-  constructor({menuData}) {
+export let Model = (function() {
+  let Model = function({menuData}) {
     this.menuData = menuData;
   }
 
-  getMenuData() {
-    return this.menuData;
+  Model.prototype = {
+    getMenuData() {
+      return this.menuData;
+    }
   }
-}
+
+  return Model;
+})();
