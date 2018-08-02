@@ -1,9 +1,92 @@
 @import "./_utils.scss";
 
 .main__banner {
+  width: 100vw;
+  overflow: hidden;
   position: relative;
+  height: 420px;
 }
 
+.main__banner-slider {
+  width: auto;
+  position: relative;
+  overflow: hidden;
+  & a {
+    cursor: pointer;
+  }
+  & li {
+      width: 100%;
+      text-align: center;
+      overflow: hidden;
+      opacity: 0;
+      position: absolute;
+    }
+    img{
+      position: relative;
+      left: 50%;
+      transform: translate(-50%,0)
+    }
+    .active  {
+      transition: opacity 0.05s ease;
+      opacity: 1;
+      position: static;
+    }
+}
+
+.main__banner .slide-button-list {
+  width: 100%;
+  position: absolute;
+  height: 100px;
+  top: 50%;
+  transform: translateY(-50%);
+  & a {
+    overflow: hidden;
+    display: block;
+    width: 60px;
+    height: 92px;
+    text-indent: -3000px;
+    position: absolute;
+    top: 0;
+    z-index: 100;
+    background: url(../../assets/images/mainSlider/main_slides_navi.png) no-repeat;
+    cursor: pointer;
+  }
+  & .left-button {
+    right: 50%;
+    margin-right: 530px;
+    background-position: left center;
+  }
+  & .right-button {
+    left: 50%;
+    margin-left: 530px;
+    background-position: right center;
+  }
+  
+}
+
+.main__banner-slider-pagination {
+  position: absolute;
+  @extend %clearfix;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  & li {
+    float: left;
+  }
+  a {
+    overflow: hidden;
+    display: block;
+    margin-right: 6px;
+    width: 10px;
+    height: 10px;
+    padding: 10px 0 0 0;
+    background: #FFF;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.1);
+    opacity: 0.6;
+  }
+}
 
 .main__sub-banners--wrapper {
   @extend %clearfix;
