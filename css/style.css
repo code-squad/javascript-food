@@ -132,7 +132,12 @@
 
 
 /* menu_layer */
+.menu:hover .menu_layer_upper, .menu:hover .menu_layer_lower {
+  display: block;
+}
+
 .menu_layer_upper {
+  display: none;
   box-sizing: border-box;
   position: absolute;
   top: 5px;
@@ -146,6 +151,7 @@
 }
 
 .menu_layer_lower {
+  display: none;
   top: 52px;
   left: 0px;
   width: 130px;
@@ -169,6 +175,7 @@
 
 .sub_menu:hover {
   font-size: 1rem;
+  font-weight: bold;
   color: #2ac1bc;
   text-decoration: underline;
 }

@@ -1,9 +1,9 @@
 export class Model {
-  constructor({menuLayerData}) {
-    this.menuLayerData = menuLayerData;
+  constructor({menuData}) {
+    this.menuData = menuData;
   }
 
-  getSubMenuData(name) {
-    return this.menuLayerData[name];
+  getMenuData() {
+    return this.menuData;
   }
 }

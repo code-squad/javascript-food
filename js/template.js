@@ -1,17 +1,20 @@
-export class Template {
-  menuLayer({name, subMenuData}) {
-    return this._menuLayerUpper(name) + this._menuLayerLower(subMenuData);
+export let Template = (function () {
+  let _menu = function({menuName, subMenuData}) {
+    return `<li class='menu'>${_menuName(menuName)}${_menuLayerUpper(menuName)}${_menuLayerLower(subMenuData)}</li>`
   }
 
-  menu(name) {
-    return `<span>${name}</span>`;
+  let _menuName = function(menuName) {
+    return `<span>${menuName}</span>`
   }
 
-  _menuLayerUpper(name) {
-    return `<div class='menu_layer_upper'>${name}</div>`
+  let _menuLayerUpper = function(menuName){
+    return `
+    <div class='menu_layer_upper'>
+      <span>${menuName}</span>
+    </div>`
   }
 
-  _menuLayerLower(subMenuData) {
+  let _menuLayerLower = function(subMenuData){
     let subMenuListItems = '';
 
     subMenuData.forEach(subMenu => {
@@ -20,4 +23,14 @@ export class Template {
 
     return `<ul class='menu_layer_lower'>${subMenuListItems}</ul>`;
   }
-}
+
+  function Template() {};
+
+  Template.prototype = {
+    menuNavigation(menuData) {
+      return `<ul>${menuData.reduce((html, eachMenuData) => html + _menu(eachMenuData), '')}</ul>`
+    }
+  }
+  
+  return Template;
+})();
