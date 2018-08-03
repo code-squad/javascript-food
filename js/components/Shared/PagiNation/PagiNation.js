@@ -2,8 +2,10 @@ import { qs,  $on } from '../../../helper/helper.js';
 import { paginationTemplate } from '../../../../template/paginationTemplate.js';
 
 export default class Pagination {
-  constructor(paginationSelector, pageLength) {
+  constructor(paginationSelector) {
     this.paginationEl = qs(paginationSelector);
+  }
+  init(pageLength){
     this.render(pageLength);
     this.bindEvents();
     this.sendIdx = null;
