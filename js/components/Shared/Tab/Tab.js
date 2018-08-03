@@ -3,13 +3,20 @@ import { badgeTemplate, deliveryTemplate, tabCardTemplate } from './tabTemplate.
 
 
 export default class Tab {
-  constructor(btnSelector, cardListSelector) {
+  constructor(btnSelector, cardListSelector, dataHelper, tabUrl) {
     this.tabButtonsEl = qs(btnSelector);
     this.tabCardListEl = qs(cardListSelector);
+    this.dataHelper = dataHelper;
+    this.tabUrl = tabUrl;
     this.randomNumber = null;
     this.activedButton = null;
-    this.bindEvents();
+    this.init();
   }
+  init(){
+    this.dataHelper.sendReq('GET', this.tabUrl);
+    this.dataHelper.getData = this.getData.bind(this);
+    this.bindEvents();
+  };
   bindEvents() {
     this.tabButtonsEl.addEventListener("click", this.handleTabBtnClicked.bind(this));
   }
