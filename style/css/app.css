@@ -29,6 +29,10 @@ a {
   display: none;
 }
 
+.show {
+  display: block;
+}
+
 .blind {
   overflow: hidden;
   position: absolute;
@@ -81,6 +85,10 @@ a {
 
 .dropdown {
   display: none;
+}
+
+.dropdown.show {
+  display: block;
 }
 
 .dropdown-trigger {
