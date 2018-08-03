@@ -3,9 +3,9 @@ import {Controller} from "./controller.js";
 import {MenuNavigation} from "./menuNavigation.js";
 import {Template} from './template.js';
 
-let template = new Template();
+const template = new Template();
 
-let model = new Model({
+const model = new Model({
   menuData: [
     {menuName: '밑반찬' ,subMenuData: ['무침','나물무침','볶음','조림','김치','전','장아찌·피클','젓갈·장·소스','세트']},
     {menuName: '국,찌개' ,subMenuData: ['국','찌개','탕','전골','세트']},
@@ -18,12 +18,12 @@ let model = new Model({
   ]
 });
 
-let menuNavigation = new MenuNavigation({
+const menuNavigation = new MenuNavigation({
   menuNavigation: document.querySelector('nav'),
   template: template
 })
 
-let controller = new Controller({
+const controller = new Controller({
   model: model,
   view: menuNavigation
 })

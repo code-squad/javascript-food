@@ -1,5 +1,5 @@
-export let MenuNavigation = (function() {
-  let MenuNavigation = function({menuNavigation, template}) {
+export const MenuNavigation = (function() {
+  const MenuNavigation = function({menuNavigation, template}) {
     this.elMenuNavigation = menuNavigation;
     this.oTemplate = template;
   }

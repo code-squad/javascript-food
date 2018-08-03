@@ -1,5 +1,5 @@
-export let Model = (function() {
-  let Model = function({menuData}) {
+export const Model = (function() {
+  const Model = function({menuData}) {
     this.menuData = menuData;
   }
 
