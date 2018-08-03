@@ -4,12 +4,7 @@ export const Controller = (function() {
     this.oView = view;
   };
 
-  Controller.prototype = {
-    init() {
-      const menuData = this.oModel.getMenuData();
-      this.oView.render(menuData);
-    }
-  }
+  Controller.prototype = {}
 
   return Controller;
 })();

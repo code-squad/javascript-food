@@ -1,13 +1,9 @@
 export const Model = (function() {
-  const Model = function({menuData}) {
-    this.menuData = menuData;
+  const Model = function() {
+    
   }
 
-  Model.prototype = {
-    getMenuData() {
-      return this.menuData;
-    }
-  }
+  Model.prototype = {}
 
   return Model;
 })();
