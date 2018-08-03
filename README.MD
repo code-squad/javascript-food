@@ -4,10 +4,10 @@
 
 ##### 데이터 타입에 따른 명명법
 
-1. 엘리먼트는 'e'를 붙인다: `this.eMenuNavigation`
+1. 엘리먼트는 'el'을 붙인다: `this.elMenuNavigation`
 2. 내부에서만 사용하는 메소드는(private) '_'를 붙인다
 3. 인스턴스는 'o'를 붙인다: `this.oTemplate`
-4. 바인드된 함수는 'b'를 붙인다: `this.bSelectMoney`
+4. 바인드된 함수는 결국 이벤트 다루는 함수이므로 'handle'을 붙인다: `this.handleSelectMoney`
 
 ##### 배민찬 레이아웃 명명법
 
