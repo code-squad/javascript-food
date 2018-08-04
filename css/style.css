@@ -1,3 +1,7 @@
+/* 
+배민찬 색: #2ac1bc;
+*/
+
 /* helpers */
 .align_helper {
   display: inline-block;
@@ -261,6 +265,11 @@
   background: #ffffff;
   padding: 15px 0px;
   border-right: 1px solid #eee;
+}
+
+.best_dishes_nav > li:hover {
+  color: #ffffff;
+  background: #2ac1bc;
 }
 
 .best_dishes_nav > li:nth-last-child(1) {
