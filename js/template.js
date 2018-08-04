@@ -26,16 +26,21 @@ export const Template = (function () {
   }
 
   // bestDishesView
-  const _bestDish = function({image, alt, title, description, s_price}) {
-    return '<li>' + _bestDishImage({image, alt}) + _bestDishDescription({title, description, s_price}) + '</li>';
+  const _bestDish = function({badge, image, alt, title, description, n_price, s_price}) {
+    return '<li class="best_dish">' + _badge(badge) +_bestDishImage({image, alt}) + _bestDishDescription({title, description, n_price, s_price}) + '</li>';
+  }
+
+  const _badge = function(badgeData) {
+    if(!badgeData) return '';
+    return badgeData.reduce((html, badgeName, idx) => html + `<div class="badge_${idx+1}">${badgeName}</div>`, '');
   }
 
   const _bestDishImage = function({image, alt}) {
     return `<div class="best_dish_img_wrap"><img class ='best_dish_img' src="${image}" alt="${alt}"></div>`;
   }
 
-  const _bestDishDescription = function({title, description, s_price}) {
-    return '<div class="best_dish_description">' + _bestDishName(title) + _bestDishSlogan(description) + _bestDishPrice(s_price) +'</div>';
+  const _bestDishDescription = function({title, description, n_price, s_price}) {
+    return '<div class="best_dish_description">' + _bestDishName(title) + _bestDishSlogan(description) + _bestDishPrice({n_price, s_price}) +'</div>';
   }
 
   const _bestDishName = function(name) {
@@ -46,8 +51,16 @@ export const Template = (function () {
     return `<div class='best_dish_slogan'>${slogan}</div>`
   }
 
-  const _bestDishPrice = function(price) {
-    return `<div class='best_dish_price_wrap'><span class='best_dish_price'>${price.slice(0,-1)}</span><span class='price_unit'>원</span></div>`
+  const _bestDishPrice = function({n_price, s_price}) {
+    return '<div class="best_dish_price_wrap">'+ _originPrice(n_price) + _salesPrice(s_price) + '<span class="price_unit">원</span></div>'
+  }
+
+  const _originPrice = function(price) {
+    return price ? `<span class='best_dist_origin_price'>${price}</span>` : '';
+  }
+
+  const _salesPrice = function(price) {
+    return `<span class='best_dist_sales_price'>${price.slice(0,-1)}</span>`
   }
 
 

@@ -32,7 +32,7 @@ const controller = new Controller({
     bestDishesNavigation: bestDishesNavigation,
     bestDishesView: bestDishesView
   },
-  baseURI: 'http://crong.codesquad.kr:8080/woowa'
+  baseURI: 'http://crong.codesquad.kr:8080/woowa/'
 });
 
 controller.init();

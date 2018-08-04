@@ -1,17 +1,17 @@
 export class BestDishesNavigation {
   constructor({bestDishesNavigation}){
-    this.bestDishesNavigation = bestDishesNavigation;
+    this.elBestDishesNavigation = bestDishesNavigation;
   }
 
   init() {
-    this.bestDishesNavigation.addEventListener('click', ({target}) => {
+    this.elBestDishesNavigation.addEventListener('click', ({target}) => {
       if(target.tagName !== 'LI') return;
       this._activateCategory(target);      
     })
   }
   
   bindSelectBestDishesCategory(handler) {
-    this.bestDishesNavigation.addEventListener('click', ({target}) => {
+    this.elBestDishesNavigation.addEventListener('click', ({target}) => {
       if(target.tagName !== 'LI') return;
       handler(target.dataset.id);
     })
@@ -19,11 +19,11 @@ export class BestDishesNavigation {
 
   triggerEvent() {
     let evt = new Event('click', {bubbles: true});
-    return this.bestDishesNavigation.firstElementChild.dispatchEvent(evt);
+    this.elBestDishesNavigation.firstElementChild.dispatchEvent(evt);
   }
 
   _activateCategory(category) {
-    this._deactivateAllCategories(this.bestDishesNavigation);
+    this._deactivateAllCategories(this.elBestDishesNavigation);
     category.classList.add('ativated_best_dishes_nav');
   }
 

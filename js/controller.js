@@ -6,7 +6,7 @@ export const Controller = (function() {
       x.addEventListener('load', () => {
         const bestDishesData = JSON.parse(x.response);
         this.oView.bestDishesView.render(bestDishesData);
-        this.oView.bestDishesView.displayBestDish(categoryId); // 중복
+        this.oView.bestDishesView.displayBestDish(categoryId);
       })
       x.open('GET', this.baseURI + '/best/' + categoryId);
       x.send();
