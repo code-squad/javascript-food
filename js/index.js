@@ -6,13 +6,11 @@ import {menuData} from './data.js';
 import {BestDishesNavigation} from './bestDishesNavigation.js';
 import {BestDishesView} from './bestDishesView.js';
 
-const template = new Template();
-
 const model = new Model();
 
 const menuNavigation = new MenuNavigation({
   menuNavigation: document.querySelector('nav'),
-  template: template
+  template: new Template().menuNavigation
 })
 
 menuNavigation.render(menuData);
@@ -21,8 +19,11 @@ const bestDishesNavigation = new BestDishesNavigation({
   bestDishesNavigation: document.querySelector('.best_dishes_nav')
 })
 
+bestDishesNavigation.init();
+
 const bestDishesView = new BestDishesView({
-  bestDishesView: document.querySelector('.best_dishes')
+  bestDishesView: document.querySelector('.best_dishes_wrap'),
+  template: new Template().bestDishesView
 });
 
 const controller = new Controller({
@@ -30,7 +31,8 @@ const controller = new Controller({
   view: {
     bestDishesNavigation: bestDishesNavigation,
     bestDishesView: bestDishesView
-  }
+  },
+  baseURI: 'http://crong.codesquad.kr:8080/woowa'
 });
 
 controller.init();

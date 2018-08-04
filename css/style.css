@@ -257,7 +257,7 @@
   text-align: center;
 }
 
-.best_dishes_nav > li {
+.best_dishes_nav_category {
   box-sizing: border-box;
   height: 100%;
   width: 163px;
@@ -267,18 +267,26 @@
   border-right: 1px solid #eee;
 }
 
-.best_dishes_nav > li:hover {
+.best_dishes_nav_category:hover, .ativated_best_dishes_nav {
   color: #ffffff;
   background: #2ac1bc;
 }
 
-.best_dishes_nav > li:nth-last-child(1) {
+.best_dishes_nav > .best_dishes_nav_category:nth-last-child(1) {
   border: 0px;
 }
 
-.best_dishes {
+.best_dishes_wrap {
   width: 100%;
   height: 422px;
+}
+
+.best_dishes {
+  display: none;
+}
+
+.visible {
+  display: block;
 }
 
 .best_dishes > li {

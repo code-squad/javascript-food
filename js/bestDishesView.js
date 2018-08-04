@@ -1,23 +1,29 @@
 export class BestDishesView {
-  constructor({bestDishesView}) {
+  constructor({bestDishesView, template}) {
     this.elBestDishesView = bestDishesView;
-    this.bestDishImages = this.elBestDishesView.querySelectorAll('.best_dish_img');
-    this.bestDishNames = this.elBestDishesView.querySelectorAll('.best_dish_name');
-    this.bestDishSlogans = this.elBestDishesView.querySelectorAll('.best_dish_slogan');
-    this.bestDishPrices = this.elBestDishesView.querySelectorAll('.best_dish_price');
+    this.template = template;
   }
 
-  render(data) {
-    data.items.forEach((item, idx) => {
-      const imageURI = item.image;
-      const name = item.title;
-      const slogan = item.description;
-      const price = item.s_price.slice(0,-1);
+  render(bestDishData) {
+    this.elBestDishesView.insertAdjacentHTML('beforeend', this.template(bestDishData))
+  }
 
-      this.bestDishImages[idx].setAttribute('src', imageURI);
-      this.bestDishNames[idx].innerHTML = name;
-      this.bestDishSlogans[idx].innerHTML = slogan;
-      this.bestDishPrices[idx].innerHTML = price;
+  hasBestDish(categoryId) {
+    return this.elBestDishesView.querySelector(`[data-id='${categoryId}']`)
+  }
+
+  displayBestDish(categoryId) {
+    this._unDisplayAllBestDishes(this.elBestDishesView);
+
+    const targetBestDishes = this.elBestDishesView.querySelector(`[data-id='${categoryId}']`);
+
+    targetBestDishes.classList.add('visible');
+  }
+
+  _unDisplayAllBestDishes(bestDishesView) {
+    const bestDishesList = bestDishesView.childNodes;
+    bestDishesList.forEach(bestDishes => {
+      bestDishes.classList.remove('visible');
     })
   }
 }

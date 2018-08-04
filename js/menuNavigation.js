@@ -1,12 +1,12 @@
 export const MenuNavigation = (function() {
   const MenuNavigation = function({menuNavigation, template}) {
     this.elMenuNavigation = menuNavigation;
-    this.oTemplate = template;
+    this.template = template;
   }
 
   MenuNavigation.prototype = {
     render(menuData){
-      this.elMenuNavigation.innerHTML = this.oTemplate.menuNavigation(menuData);
+      this.elMenuNavigation.innerHTML = this.template(menuData);
     }
   }
 
