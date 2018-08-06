@@ -1,6 +1,6 @@
 import { qs, $on } from '../../../helper/helper.js';
 import { mainSlideData } from '../../../../assets/data/mainSlide.js';
-import { mainSlideTemplate, slidEButtonTemplate } from '../../../../template/mainSlideTemplate.js';
+import { mainSlideTemplate, slidEButtonTemplate } from './template/template.js';
 import animations from '../../../helper/animation/raf.js';
 
 
