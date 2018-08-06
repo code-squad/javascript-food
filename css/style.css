@@ -1,3 +1,7 @@
+/* 
+배민찬 색: #2ac1bc;
+*/
+
 /* helpers */
 .align_helper {
   display: inline-block;
@@ -178,6 +182,7 @@
   font-weight: bold;
   color: #2ac1bc;
   text-decoration: underline;
+  cursor: pointer;
 }
 
 
@@ -253,7 +258,7 @@
   text-align: center;
 }
 
-.best_dishes_nav > li {
+.best_dishes_nav_category {
   box-sizing: border-box;
   height: 100%;
   width: 163px;
@@ -263,32 +268,47 @@
   border-right: 1px solid #eee;
 }
 
-.best_dishes_nav > li:nth-last-child(1) {
+.best_dishes_nav_category:hover, .ativated_best_dishes_nav {
+  color: #ffffff;
+  background: #2ac1bc;
+  cursor: pointer;
+}
+
+.best_dishes_nav > .best_dishes_nav_category:nth-last-child(1) {
   border: 0px;
 }
 
-.best_dishes {
+.best_dishes_wrap {
   width: 100%;
   height: 422px;
 }
 
-.best_dishes > li {
+.best_dishes {
+  display: none;
+}
+
+.visible {
+  display: block;
+}
+
+.best_dish {
   height: 100%;
   width: 304px;
   float: left;
   margin-right: 34px;
+  position: relative;
 }
 
-.best_dishes > li:nth-last-child(1) {
+.best_dishes > .best_dish:nth-last-child(1) {
   margin-right: 0px;
 }
 
-.best_dish_img {
+.best_dish_img_wrap {
   width: 100%;
   height: 304px;
 }
 
-.best_dish_img > img {
+.best_dish_img {
   max-width: 100%;
   max-height: 100%;
 }
@@ -309,7 +329,7 @@
 
 .best_dish_slogan {
   font-size: 0.8rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
   color: #888;
 }
 
@@ -319,8 +339,30 @@
   text-overflow: ellipsis;
 }
 
-.best_dish_price {
+.best_dish_price_wrap {
+  text-align: right;
+}
+
+.best_dish_origin_price, .best_dist_sales_price, .best_dish_price_wrap > .price_unit {
+  vertical-align: middle;
+}
+
+.best_dist_origin_price {
+  font-size: 1rem;
+  color: #888;
+  text-decoration: line-through;
+  margin-right: 8px;
+}
+
+.best_dist_sales_price {
   font-size: 1.4rem;
+  font-weight: bold;
+  color: #2ac1bc;
+  margin-right: 2px;
+}
+
+.best_dish_price_wrap > .price_unit {
+  font-size: 0.8rem;
   font-weight: bold;
   color: #2ac1bc;
 }
@@ -342,7 +384,17 @@
   max-height: 100%;
 }
 
-.best_dish_price > .price_unit {
+.badge_1, .badge_2 {
+  position: absolute;
+  top: 272px;
+  left: 10px;
+  background: #8b3f92;
+  color: #ffffff;
   font-size: 0.8rem;
-  vertical-align: middle;
+  padding: 5px 6px;
+}
+
+.badge_2 {
+  left: 80px;
+  background: #cc2642
 }
