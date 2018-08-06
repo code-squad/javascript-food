@@ -15,6 +15,7 @@ const course_slideListUrl = `${woowaDomain}/course`;
 const soup_slideListUrl = `${woowaDomain}/soup`;
 const side_slideListUrl = `${woowaDomain}/side`;
 
+
 $on(document, "DOMContentLoaded", () => {
   renderDataList.forEach(v => renderer(v));
   const slideEl = new Slider('.main__banner-slider', new PagiNation('.main__banner-slider-pagination'));
@@ -25,10 +26,12 @@ $on(document, "DOMContentLoaded", () => {
   const recommend_lsAjaxHelper = new AjaxHelper();
   const side_lsAjaxHelper = new AjaxHelper();
   const soup_lsAjaxHelper = new AjaxHelper();
+  const course_lsAjaxHelper = new AjaxHelper();
 
   const recommend_listSliderEl = new ListSlider('#list-slide-recommend', recommend_lsAjaxHelper,  main_slideListUrl);
   const side_listSliderEl = new ListSlider('#list-slide-sidedish', side_lsAjaxHelper, side_slideListUrl);
   const soup_listSliderEl = new ListSlider('#list-slide-soup', soup_lsAjaxHelper, soup_slideListUrl);
+  const course_listSliderEl = new ListSlider('#list-slide-course', course_lsAjaxHelper, course_slideListUrl);
 
 
 
