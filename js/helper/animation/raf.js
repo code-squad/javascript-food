@@ -1,8 +1,8 @@
 const animations = {
-  fadeOut(el) {
+  fadeOut(el, change = 0.05) {
     let opacity = 1;
     (function decreaseOpacity() {
-      opacity -= 0.05;
+      opacity -= change;
       el.style.opacity = opacity;
       if (opacity <= 0) {
         el.style.opacity = 0;
@@ -11,10 +11,10 @@ const animations = {
       requestAnimationFrame(decreaseOpacity);
     }());
   },
-  fadeIn(el) {
+  fadeIn(el, change = 0.05) {
     let opacity = 0;
     (function IncreaseOpacity() {
-      opacity += 0.05;
+      opacity += change;
       el.style.opacity = opacity;
       if (opacity > 1) {
         el.style.opacity = 1;

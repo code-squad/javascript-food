@@ -14,6 +14,7 @@ export default class Slider {
     this.render();
     this.bindEvents();
     this.pagiNationEl.sendIdx = this.updateActiveIdx.bind(this);
+    this.changeOpacity = 0.05;
   }
   setActiveIdx(idx) {
     return this.activeIdx = idx;
@@ -38,8 +39,8 @@ export default class Slider {
     $on(qs('.left-button', slideButtonList), 'click', this.handleLeftButtonClicked.bind(this));
   }
   updateActiveIdx(idx) {
-    animations.fadeOut(this.currentSlideEl());
-    animations.fadeIn(this.slideEl.children[this.setActiveIdx(idx)]);
+    animations.fadeOut(this.currentSlideEl(), this.changeOpacity);
+    animations.fadeIn(this.slideEl.children[this.setActiveIdx(idx)], this.changeOpacity);
   }
   setNextActiveIdx() {
     this.activeIdx = this.activeIdx + 1;
@@ -52,11 +53,11 @@ export default class Slider {
     return this.activeIdx;
   }
   handleRightButtonClicked() {
-    animations.fadeOut(this.currentSlideEl());
+    animations.fadeOut(this.currentSlideEl(), this.changeOpacity);
     animations.fadeIn(this.slideEl.children[this.setNextActiveIdx()]);
   }
   handleLeftButtonClicked() {
-    animations.fadeOut(this.currentSlideEl());
+    animations.fadeOut(this.currentSlideEl(), this.changeOpacity);
     animations.fadeIn(this.slideEl.children[this.setPrevActiveIdx()]);
   }
 }
