@@ -39,7 +39,7 @@ export default class ListSlider {
     return this.padElCounts = 4-length%4;
   }
   renderSlides(data){
-    const slideData = [...data, ...data.slice(3)]
+    const slideData = [...data, ...data.slice(5)]
     this.setPadCounts(slideData.length)
     this.setMaxIdx(slideData.length)
     this.slideEl.innerHTML = cardTemplate(slideData);

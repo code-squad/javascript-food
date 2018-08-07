@@ -447,6 +447,10 @@ a {
   opacity: 0.6;
 }
 
+.main__banner-slider-pagination .now {
+  opacity: 1;
+}
+
 .main__sub-banners--wrapper {
   width: 980px;
   margin: 0 auto;

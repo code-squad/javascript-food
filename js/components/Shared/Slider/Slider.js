@@ -11,6 +11,7 @@ export default class Slider {
     this.pagiNationEl.init(mainSlideData.length);
     this.contentsMaxIdx = mainSlideData.length - 1;
     this.activeIdx = Math.floor(Math.random() * (mainSlideData.length));
+    this.pagiNationEl.updateActiveIdx(this.activeIdx);
     this.render();
     this.bindEvents();
     this.pagiNationEl.sendIdx = this.updateActiveIdx.bind(this);
@@ -53,11 +54,17 @@ export default class Slider {
     return this.activeIdx;
   }
   handleRightButtonClicked() {
-    animations.fadeOut(this.currentSlideEl(), this.changeOpacity);
-    animations.fadeIn(this.slideEl.children[this.setNextActiveIdx()]);
+    const before = this.activeIdx;
+    const nextIdx = this.setNextActiveIdx();
+    this.pagiNationEl.updateActiveIdx(nextIdx)
+    animations.fadeOut(this.slideEl.children[before], this.changeOpacity);
+    animations.fadeIn(this.slideEl.children[nextIdx]);
   }
   handleLeftButtonClicked() {
-    animations.fadeOut(this.currentSlideEl(), this.changeOpacity);
-    animations.fadeIn(this.slideEl.children[this.setPrevActiveIdx()]);
+    const before = this.activeIdx;
+    const prevIdx = this.setPrevActiveIdx();
+    this.pagiNationEl.updateActiveIdx(before)
+    animations.fadeOut(this.slideEl.children[before], this.changeOpacity);
+    animations.fadeIn(this.slideEl.children[prevIdx]);
   }
 }
