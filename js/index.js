@@ -4,6 +4,7 @@ import {Model} from "./model.js";
 import {MenuNavigation} from "./menuNavigation.js";
 import {BestDishesNavigation} from './bestDishesNavigation.js';
 import {BestDishesView} from './bestDishesView.js';
+import {SceneChange} from './sceneChange.js';
 // controller
 import {Controller} from "./controller.js";
 
@@ -41,6 +42,15 @@ const bestDishesView = new BestDishesView({
   ajax: ajax,
   baseURI: 'http://crong.codesquad.kr:8080/woowa/best/'
 });
+
+const ad = new SceneChange({
+  sceneList: document.querySelectorAll('.ad_img'), 
+  leftButton: document.querySelector('.ad_left_button'),
+  rightButton: document.querySelector('.ad_right_button'),
+  indexButtonWrap: document.querySelector('.ad_index_button_wrap')
+})
+
+ad.init();
 
 // controller
 const controller = new Controller({

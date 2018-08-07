@@ -163,6 +163,7 @@
   color: #000;
   padding: 30px 25px;
   position: absolute;
+  z-index: 1;
 }
 
 .sub_menu {
@@ -187,14 +188,76 @@
 
 
 /* ad_section */
-.ad {
+.ad_wrap {
   height: 420px;
+  position: relative;
+  background: red;
+}
+
+.ad_img_wrap {
   overflow: hidden;
   text-indent: -25%;
 }
 
-.ad img {
+.ad_img {
   max-height: 100%;
+  display: none;
+}
+
+.ad_left_button, .ad_right_button, .ad_index_button_wrap {
+  position: absolute;
+}
+
+.ad_left_button, .ad_right_button {
+  top: 180px;
+  width: 55px;
+  height: 90px;
+}
+
+.ad_left_button:hover, .ad_right_button:hover {
+  cursor: pointer;
+}
+
+.ad_left_button {
+  left: 30px;
+  background: no-repeat left top/225% url(../images/ad_left_right_button.png);
+}
+
+.ad_right_button {
+  right: 30px;
+  background: no-repeat right top/225% url(../images/ad_left_right_button.png);  
+}
+
+.ad_index_button_wrap {
+  top: 400px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.ad_index_button {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  margin-right: 10px;
+  float: left;
+}
+
+.ad_index_button:nth-last-child(1) {
+  margin-right: 0px;
+}
+
+.ad_index_button:hover {
+  background: #fff;
+  cursor: pointer;
+}
+
+.active_index_button {
+  background: #fff;
+}
+
+.visible_ad {
+  display: inline-block;
 }
 
 

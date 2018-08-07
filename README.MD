@@ -21,6 +21,7 @@
    * 각각의 베스트 반찬들을 `bestDish`라고 한다
    * `bestDish`는 `image`와 `desciption`으로 구분된다
    * `description`은 1. name 2. slogan 3. originPrice 4. salesPrice로 구성된다
+   * bestDIshesView에서 'display'는 `render`와 `activate`를 함께 포함하는 말이다
 ## 구조
 
 MVC패턴을 사용한다
