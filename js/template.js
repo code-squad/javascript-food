@@ -73,7 +73,7 @@ export const Template = (function () {
     },
 
     bestDishesView({items, category_id}) {
-      return `<ul class="best_dishes" data-id="${category_id}">` + 
+      return `<ul class="best_dishes visible" data-id="${category_id}">` + 
       items.reduce((html, bestDishData) => html + _bestDish(bestDishData), '') + 
       '</ul>'
     }

@@ -1,38 +1,58 @@
+// model
 import {Model} from "./model.js";
-import {Controller} from "./controller.js";
+// view
 import {MenuNavigation} from "./menuNavigation.js";
-import {Template} from './template.js';
-import {menuData} from './data.js';
 import {BestDishesNavigation} from './bestDishesNavigation.js';
 import {BestDishesView} from './bestDishesView.js';
+// controller
+import {Controller} from "./controller.js";
 
+import {Template} from './template.js';
+import {menuData} from './data.js';
+
+
+
+const ajax = function({uri, callback}) {
+  const x = new XMLHttpRequest();
+  x.addEventListener('load', () => {
+    callback(JSON.parse(x.response));
+  });
+  x.open('GET', uri);
+  x.send();
+}
+
+// model
 const model = new Model();
 
+// view
 const menuNavigation = new MenuNavigation({
   menuNavigation: document.querySelector('nav'),
   template: new Template().menuNavigation
 })
 
-menuNavigation.render(menuData);
 
 const bestDishesNavigation = new BestDishesNavigation({
   bestDishesNavigation: document.querySelector('.best_dishes_nav')
 })
 
-bestDishesNavigation.init();
-
 const bestDishesView = new BestDishesView({
   bestDishesView: document.querySelector('.best_dishes_wrap'),
-  template: new Template().bestDishesView
+  template: new Template().bestDishesView,
+  ajax: ajax,
+  baseURI: 'http://crong.codesquad.kr:8080/woowa/best/'
 });
 
+// view init
+menuNavigation.render(menuData);
+bestDishesNavigation.init();
+
+// controller
 const controller = new Controller({
   model: model,
   view: {
-    bestDishesNavigation: bestDishesNavigation,
-    bestDishesView: bestDishesView
-  },
-  baseURI: 'http://crong.codesquad.kr:8080/woowa/'
+    bestDishesNavigation,
+    bestDishesView
+  }
 });
 
 controller.init();
