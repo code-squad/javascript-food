@@ -1,10 +1,10 @@
 
 import { $on } from './helper.js';
 export default class AjaxHelper {
-  constructor(el) {
+  constructor() {
     this.httpRequest = null;
+    this.getData = null;
     this.init();
-    this.el = el;
   }
   init() {
     if (window.XMLHttpRequest) {
@@ -20,6 +20,6 @@ export default class AjaxHelper {
     this.httpRequest.send();
   }
   reqListener() {
-    this.el.getData(JSON.parse(this.httpRequest.responseText));
+    this.getData(JSON.parse(this.httpRequest.responseText));
   }
 }
