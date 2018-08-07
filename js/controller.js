@@ -3,14 +3,15 @@ export const Controller = (function() {
     this.oView.bestDishesView.displayBestDish(categoryId);
   };
 
-  const Controller = function({model, view, baseURI}) {
+  const Controller = function({model, view}) {
     this.oModel = model;
     this.oView = view;
-    this.baseURI = baseURI;
   };
 
   Controller.prototype = {
-    init() {
+    init({menuData}) {
+      this.oView.menuNavigation.render(menuData);
+      this.oView.bestDishesNavigation.init();
       this.oView.bestDishesNavigation.bindSelectBestDishesCategory(_selectBestDishesCategory.bind(this));
       this.oView.bestDishesNavigation.triggerEvent();
     }

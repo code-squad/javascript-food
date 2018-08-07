@@ -42,17 +42,14 @@ const bestDishesView = new BestDishesView({
   baseURI: 'http://crong.codesquad.kr:8080/woowa/best/'
 });
 
-// view init
-menuNavigation.render(menuData);
-bestDishesNavigation.init();
-
 // controller
 const controller = new Controller({
   model: model,
   view: {
+    menuNavigation,
     bestDishesNavigation,
     bestDishesView
   }
 });
 
-controller.init();
+controller.init({menuData});
