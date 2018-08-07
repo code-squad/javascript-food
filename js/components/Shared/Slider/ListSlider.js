@@ -14,8 +14,11 @@ export default class ListSlider {
     this.init();
   }
   init(){
-    this.dataHelper.sendReq('GET', this.url);
-    this.dataHelper.getData = this.getData.bind(this);
+    this.dataHelper.sendReq({
+      "method": 'GET',
+       "url" : this.url, 
+       "successCallback" : this.getData.bind(this)
+      });
   }
   setMaxIdx(length, items = 4){
     return this.maxIdx = Math.ceil(length/items)-1;
@@ -23,7 +26,7 @@ export default class ListSlider {
   getData(data){
     this.renderSlides(data);
   }
-  makeFakeData(data2){
+  makeEdgeData(data2){
     this.slideEl.insertAdjacentHTML('afterbegin', cardTemplate(data2.slice((this.maxIdx)*4)));
     this.slideEl.insertAdjacentHTML('beforeend', cardTemplate(data2.slice(0,4)));
   }
@@ -32,7 +35,7 @@ export default class ListSlider {
     this.setMaxIdx(data2.length)
     this.slideEl.innerHTML = cardTemplate(data2);
     // animation을 위한 fakedata // 무한 롤링을 주기 위해서 first, last를 같 끝에 추가해줬습니다 .
-    this.makeFakeData(data2);
+    this.makeEdgeData(data2);
     // renderButtons
     this.slideEl.parentElement.insertAdjacentHTML('afterend', slidEButtonTemplate);
     this.slideEl.style.transform = `translateX(${this.setPosition(this.currentIdx)}px)`;

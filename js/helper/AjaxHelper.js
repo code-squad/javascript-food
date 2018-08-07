@@ -3,7 +3,6 @@ import { $on } from './helper.js';
 export default class AjaxHelper {
   constructor() {
     this.httpRequest = null;
-    this.getData = null;
     this.init();
   }
   init() {
@@ -13,13 +12,14 @@ export default class AjaxHelper {
     } else {
       this.httpRequest = new ActiveXObject('Microsoft.XMLHTTP');
     }
-    $on(this.httpRequest, 'load', this.reqListener.bind(this));
+   
   }
-  sendReq(method, url) {
+  sendReq({method, url, successCallback}) {
+    $on(this.httpRequest, 'load', ()=>successCallback(this.reqListener()));
     this.httpRequest.open(method, url);
     this.httpRequest.send();
   }
-  reqListener() {
-    this.getData(JSON.parse(this.httpRequest.responseText));
+  reqListener(){
+    return JSON.parse(this.httpRequest.responseText)
   }
 }

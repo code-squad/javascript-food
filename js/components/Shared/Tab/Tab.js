@@ -13,14 +13,18 @@ export default class Tab {
     this.init();
   }
   init(){
-    this.dataHelper.sendReq('GET', this.tabUrl);
-    this.dataHelper.getData = this.getData.bind(this);
+    this.dataHelper.sendReq({
+      "method": 'GET',
+       "url" : this.tabUrl, 
+       "successCallback" : this.getData.bind(this)
+      });
     this.bindEvents();
   };
   bindEvents() {
     this.tabButtonsEl.addEventListener("click", this.handleTabBtnClicked.bind(this));
   }
   getData(data){
+    console.dir(data);    
     this.renderTabs(data);
   }
   renderTabs(data) {
