@@ -1,8 +1,9 @@
 import { qs, $on } from '../../../helper/helper.js';
-import { cardTemplate, slidEButtonTemplate } from './template/template.js';
+import { cardTemplate, slidEButtonTemplate, padTemplate } from './template/template.js';
 import animations from '../../../helper/animation/raf.js';
 // import { mockData } from '../../../../assets/data/mainSlide.js';
 const initPosition = -980;
+const showListItems = 4;
 export default class ListSlider {
   constructor(slideSelector, dataHelper, url ) {
     this.slideEl = qs(slideSelector);
@@ -11,6 +12,7 @@ export default class ListSlider {
     this.maxIdx = null;
     this.currentIdx = 0;
     this.position = initPosition;
+    this.padElCounts = 0;
     this.init();
   }
   init(){
@@ -26,16 +28,23 @@ export default class ListSlider {
   getData(data){
     this.renderSlides(data);
   }
-  makeEdgeData(data2){
-    this.slideEl.insertAdjacentHTML('afterbegin', cardTemplate(data2.slice((this.maxIdx)*4)));
-    this.slideEl.insertAdjacentHTML('beforeend', cardTemplate(data2.slice(0,4)));
+  makeEdgeData(slideData){
+    const padArr = [...new Array(this.padElCounts)]
+    this.slideEl.insertAdjacentHTML('beforeend', padTemplate(padArr));
+    this.slideEl.insertAdjacentHTML('beforeend', cardTemplate(slideData.slice(0,showListItems)));    
+    this.slideEl.insertAdjacentHTML('afterbegin', padTemplate(padArr));
+    this.slideEl.insertAdjacentHTML('afterbegin', cardTemplate(slideData.slice(-showListItems+this.padElCounts)));    
+  }
+  setPadCounts(length){
+    return this.padElCounts = 4-length%4;
   }
   renderSlides(data){
-    const data2 = [...data, ...data]
-    this.setMaxIdx(data2.length)
-    this.slideEl.innerHTML = cardTemplate(data2);
+    const slideData = [...data, ...data.slice(3)]
+    this.setPadCounts(slideData.length)
+    this.setMaxIdx(slideData.length)
+    this.slideEl.innerHTML = cardTemplate(slideData);
     // animation을 위한 fakedata // 무한 롤링을 주기 위해서 first, last를 같 끝에 추가해줬습니다 .
-    this.makeEdgeData(data2);
+    this.makeEdgeData(slideData);
     // renderButtons
     this.slideEl.parentElement.insertAdjacentHTML('afterend', slidEButtonTemplate);
     this.slideEl.style.transform = `translateX(${this.setPosition(this.currentIdx)}px)`;
@@ -43,8 +52,8 @@ export default class ListSlider {
   }
   bindEvents(){
     const slideButtonList = this.slideEl.parentElement.nextElementSibling;
-    $on(qs('.right-button', slideButtonList), 'click', this.handleRightButtonClicked.bind(this));
-    $on(qs('.left-button', slideButtonList), 'click', this.handleLeftButtonClicked.bind(this));
+    $on(qs('.right-button', slideButtonList), 'click', this.handleButtonClicked.bind(this));
+    $on(qs('.left-button', slideButtonList), 'click', this.handleButtonClicked.bind(this));
     $on(this.slideEl, 'transitionend', this.handleEdgeSlide.bind(this))
   }
   setPosition(idx){
@@ -57,22 +66,16 @@ export default class ListSlider {
     return !!(this.currentIdx===-1 || this.currentIdx===this.maxIdx+1);
   }
   handleEdgeSlide(){
-      if(!this.isEdgeSlide()) return;
-      this.slideEl.style.transitionDuration = "0s";
-      const idx = this.currentIdx===-1 ? this.maxIdx : 0
-      this.setCurrentIdx(idx);
-      this.slideEl.style.transform = `translateX(${this.setPosition(this.currentIdx)}px)`
+    if(!this.isEdgeSlide()) return;
+    this.slideEl.style.transitionDuration = "0s";
+    const idx = this.currentIdx===-1 ? this.maxIdx : 0
+    this.setCurrentIdx(idx);
+    this.slideEl.style.transform = `translateX(${this.setPosition(this.currentIdx)}px)`
   }
-  handleRightButtonClicked(e){
-      this.slideEl.style.transitionDuration = "0.5s";
-      this.setCurrentIdx(this.currentIdx+1)
-      this.slideEl.style.transform = `translateX(${this.setPosition(this.currentIdx)}px)`;
-      
-  }
-  handleLeftButtonClicked(e){
+  handleButtonClicked({target}){
+    const nextIdx = target.className==="left-button" ? this.currentIdx-1 : this.currentIdx+1
     this.slideEl.style.transitionDuration = "0.5s";
-    this.setCurrentIdx(this.currentIdx-1)
+    this.setCurrentIdx(nextIdx)
     this.slideEl.style.transform = `translateX(${this.setPosition(this.currentIdx)}px)`;
-    if(this.isEdgeSlide()) $on(this.slideEl, 'transitionend', this.handleEdgeSlide.bind(this))
   }
 }
