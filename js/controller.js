@@ -13,7 +13,7 @@ export const Controller = (function() {
       this.oView.menuNavigation.render(menuData);
       this.oView.bestDishesNavigation.init();
       this.oView.bestDishesNavigation.bindSelectBestDishesCategory(_selectBestDishesCategory.bind(this));
-      this.oView.bestDishesNavigation.triggerEvent();
+      this.oView.bestDishesNavigation.triggerEvent('click');
     }
   }
 
