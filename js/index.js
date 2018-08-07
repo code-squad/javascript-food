@@ -10,6 +10,7 @@ import {Controller} from "./controller.js";
 
 import {Template} from './template.js';
 import {menuData} from './data.js';
+import {fade} from './raf.js';
 
 
 
@@ -47,7 +48,8 @@ const ad = new SceneChange({
   sceneList: document.querySelectorAll('.ad_img'), 
   leftButton: document.querySelector('.ad_left_button'),
   rightButton: document.querySelector('.ad_right_button'),
-  indexButtonWrap: document.querySelector('.ad_index_button_wrap')
+  indexButtonWrap: document.querySelector('.ad_index_button_wrap'),
+  effect: fade
 })
 
 ad.init();

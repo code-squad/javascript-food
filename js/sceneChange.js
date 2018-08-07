@@ -2,11 +2,12 @@ export class SceneChange {
   /*
   @param {nodeList} sceneList
   */
-  constructor({sceneList, leftButton, rightButton, indexButtonWrap}) {
+  constructor({sceneList, leftButton, rightButton, indexButtonWrap, effect}) {
     this.sceneList = sceneList;
     this.elLeftButton = leftButton;
     this.elRightButton = rightButton;
     this.elIndexButtonWrap = indexButtonWrap;
+    this.effect = effect;
     this.index = 0;
     this.len = this.sceneList.length;
   }
@@ -30,21 +31,19 @@ export class SceneChange {
   }
 
   _modifyIndex(index) {
-    this.index = index;
-    this._activate(this.index);
-  }
+    const previousScene = this.sceneList[this.index];
+    const nextScene = this.sceneList[index];
 
-  _activate(index) {
-    this._activateScene(index);
+    this.index = index;
+
+    this._activateScene({previousScene, nextScene, effect: this.effect});
     this._activateIndexButton(index);
   }
 
-  _activateScene(index) {
-    const scene = this.sceneList[index];
-
-    this._removeClass({nodeList: this.sceneList, className: 'visible_ad'});
-
-    scene.classList.add('visible_ad');
+  _activateScene({previousScene, nextScene, effect}) {
+    requestAnimationFrame(() => {
+      effect({previous: previousScene, next: nextScene})
+    })
   }
 
   _activateIndexButton(index) {

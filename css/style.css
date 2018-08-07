@@ -191,7 +191,6 @@
 .ad_wrap {
   height: 420px;
   position: relative;
-  background: red;
 }
 
 .ad_img_wrap {
@@ -201,7 +200,8 @@
 
 .ad_img {
   max-height: 100%;
-  display: none;
+  opacity: 0;
+  position: absolute;
 }
 
 .ad_left_button, .ad_right_button, .ad_index_button_wrap {
