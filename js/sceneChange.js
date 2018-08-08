@@ -1,63 +1,94 @@
+// sceneList의 개수대로 동적으로 indexButton을 생성
 export class SceneChange {
   /*
-  @param {nodeList} sceneList
+  @param {NodeList} sceneList
+  @param {Ojbect} indexButton - {wrap, template, activeButtonStyle}
+  @param {Function} effect
   */
-  constructor({sceneList, leftButton, rightButton, indexButtonWrap, effect}) {
+  constructor({sceneList, leftButton, rightButton, indexButton, effect}) {
     this.sceneList = sceneList;
     this.elLeftButton = leftButton;
     this.elRightButton = rightButton;
-    this.elIndexButtonWrap = indexButtonWrap;
     this.effect = effect;
-    this.index = 0;
-    this.len = this.sceneList.length;
+    // indexButtonInfo
+    this.elIndexButtonWrap = indexButton.wrap;
+    this.indexButtonTemplate = indexButton.template;
+    this.activeIndexButtonStyle = indexButton.activeButtonStyle;
+
+    this.currentIndex = 0;
+    this.sceneLength = this.sceneList.length;
   }
 
   init() {
+    this._renderIndexButton({
+      indexButtonWrap: this.elIndexButtonWrap,
+      template: this.indexButtonTemplate,
+      sceneLength: this.sceneLength
+    });
+    this._addAllEventListener();
+    this._triggerEvent({eventType: 'click', target: this.elIndexButtonWrap.firstElementChild})
+  }
+
+  _renderIndexButton({indexButtonWrap, template, sceneLength}) {
+    for(let index = 0; index < sceneLength; index++) {
+      indexButtonWrap.innerHTML += template(index);
+    }
+  }
+
+  _addAllEventListener() {
     this.elLeftButton.addEventListener('click', () => {
-      const index = ((this.index -1) + this.len) % this.len
-      this._modifyIndex(index);
+      const nextIndex = ((this.currentIndex - 1) + this.sceneLength) % this.sceneLength;
+      this._changeCurrentIndex({ previousIndex: this.currentIndex, nextIndex: nextIndex });
     });
-    
     this.elRightButton.addEventListener('click', () => {
-      const index = ((this.index +1) + this.len) % this.len
-      this._modifyIndex(index);
+      const nextIndex = ((this.currentIndex + 1) + this.sceneLength) % this.sceneLength;
+      this._changeCurrentIndex({ previousIndex: this.currentIndex, nextIndex: nextIndex });
+    });
+    this.elIndexButtonWrap.addEventListener('click', ({ target }) => {
+      if (target.tagName !== 'LI')
+        return;
+      const nextIndex = Number(target.dataset.index);
+      this._changeCurrentIndex({ previousIndex: this.currentIndex, nextIndex: nextIndex });
+    });
+  }
+
+  _triggerEvent({eventType, target}) {
+    const evt = new Event(eventType, {bubbles: true});
+    target.dispatchEvent(evt);
+  }
+
+  _changeCurrentIndex({previousIndex, nextIndex}) {
+    this._changeCurrentScene({
+      sceneList: this.sceneList,
+      previousIndex, 
+      nextIndex, 
+      effect: this.effect
     });
 
-    this.elIndexButtonWrap.addEventListener('click', ({target}) => {
-      if(target.tagName !== 'LI') return;
-      const index = Number(target.dataset.index);
-      this._modifyIndex(index);
-    })
+    this._changeCurrentIndexButton({
+      indexButtonList: this.elIndexButtonWrap.childNodes,
+      previousIndex, 
+      nextIndex, 
+      style: this.activeIndexButtonStyle
+    });
+
+    this.currentIndex = nextIndex;
   }
 
-  _modifyIndex(index) {
-    const previousScene = this.sceneList[this.index];
-    const nextScene = this.sceneList[index];
+  _changeCurrentScene({sceneList, previousIndex, nextIndex, effect}) {
+    const previousScene = sceneList[previousIndex];
+    const nextScene = sceneList[nextIndex];
 
-    this.index = index;
-
-    this._activateScene({previousScene, nextScene, effect: this.effect});
-    this._activateIndexButton(index);
-  }
-
-  _activateScene({previousScene, nextScene, effect}) {
     requestAnimationFrame(() => {
       effect({previous: previousScene, next: nextScene})
     })
   }
 
-  _activateIndexButton(index) {
-    const indexButtonList = this.elIndexButtonWrap.childNodes;
-    const indexButton = indexButtonList[index];
+  _changeCurrentIndexButton({indexButtonList, previousIndex, nextIndex, style}) {
+    const previousIndexButton = indexButtonList[previousIndex];
+    const nextIndexButton = indexButtonList[nextIndex];
 
-    this._removeClass({nodeList: indexButtonList, className: 'active_index_button'});
-
-    indexButton.classList.add('active_index_button');
-  }
-
-  _removeClass({nodeList, className}) {
-    nodeList.forEach(node => {
-      node.classList.remove(className);
-    });
+    previousIndexButton.classList.remove(style);
+    nextIndexButton.classList.add(style);
   }
 }

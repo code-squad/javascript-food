@@ -76,6 +76,10 @@ export const Template = (function () {
       return `<ul class="best_dishes visible" data-id="${category_id}">` + 
       items.reduce((html, bestDishData) => html + _bestDish(bestDishData), '') + 
       '</ul>'
+    },
+
+    indexButton(index) {
+      return `<li class='ad_index_button' data-index='${index}'></li>`
     }
   }
   
