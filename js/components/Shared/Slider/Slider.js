@@ -11,7 +11,7 @@ export default class Slider {
     this.pagiNationEl.init(mainSlideData.length);
     this.contentsMaxIdx = mainSlideData.length - 1;
     this.activeIdx = Math.floor(Math.random() * (mainSlideData.length));
-    this.pagiNationEl.updateActiveIdx(this.activeIdx);
+    this.pagiNationEl.setActiveClass(this.activeIdx);
     this.render();
     this.bindEvents();
     this.pagiNationEl.sendIdx = this.updateActiveIdx.bind(this);
