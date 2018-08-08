@@ -13,10 +13,10 @@ export const mainSlideTemplate = data =>
 export const slidEButtonTemplate = `
 <ul class="slide-button-list">
 <li>
-  <a class="left-button"></a>
+  <a data-id="left" class="left-button"></a>
 </li>
 <li>
-  <a class="right-button"></a>
+  <a data-id="right" class="right-button"></a>
 </li>
 </ul>
 `;
