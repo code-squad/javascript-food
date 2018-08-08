@@ -905,6 +905,10 @@ a {
   height: 363px;
 }
 
+.banner__slide-list img {
+  object-fit: cover;
+}
+
 .left {
   float: left;
 }

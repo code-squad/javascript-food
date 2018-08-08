@@ -21,12 +21,15 @@ export const slidEButtonTemplate = `
 </ul>
 `;
 
+export const handleBadgeTemplate = badge => badge ? `${badgeTemplate(badge)}`: ``;
 
-
-export const badgeTemplate = badge =>
-badge
-  ? `<span>${badge}</span>`
-  : ``;
+export const badgeTemplate = data => 
+data.reduce(
+  (ac, c) =>
+    (ac += `<span>${c}</span>
+`),
+  ``
+);
 
 export const deliveryTemplate = data =>
 data.reduce(
@@ -63,7 +66,7 @@ data.reduce(
       </div>
     </div>
     <div class="badge-box">
-      ${badgeTemplate(c.badge)}
+      ${handleBadgeTemplate(c.badge)}
     </div>
   </div>
 </a>
