@@ -86,6 +86,15 @@
   height: 304px;
   overflow: hidden;
 
+  .badge-box {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+   
+    box-sizing: border-box;
+   
+  }
+
   .delivery-type-box {
     top: 304px;
     overflow: hidden;
@@ -116,6 +125,17 @@
       }
     }
   }
+}
+
+
+.badge-box span {
+  display: inline-block;
+  color: #fff;
+  font-size: 11px;
+  margin-right: 10px;
+  padding: 5px;
+  height: 22px;
+  background: #c6a8a5;
 }
 
 .tab-card-img {
@@ -153,12 +173,8 @@
     white-space: nowrap;
     text-align: left;
   }
-  .badge-box {
-    position: absolute;
-    left: 0;
-    bottom: 137px;
-  }
-  .price-box span {
+
+  .price-box .special-price {
     font-size: 26px;
     color: #2ac1bc;
     font-weight: bold;
@@ -167,4 +183,10 @@
     letter-spacing: -0.04em;
     margin-right: 5px;
   }
+  .normal-price {
+    font-size: 14px;
+    color: #888;
+    text-decoration: line-through;
+  }
 }
+

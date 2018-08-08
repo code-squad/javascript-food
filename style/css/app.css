@@ -573,6 +573,13 @@ a {
   overflow: hidden;
 }
 
+.tab-card-thumbnail .badge-box {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  box-sizing: border-box;
+}
+
 .tab-card-thumbnail .delivery-type-box {
   top: 304px;
   overflow: hidden;
@@ -605,6 +612,16 @@ a {
 
 .tab-card-thumbnail .delivery-type-box .delivery-type-list li:first-of-type span {
   border-top: none;
+}
+
+.badge-box span {
+  display: inline-block;
+  color: #fff;
+  font-size: 11px;
+  margin-right: 10px;
+  padding: 5px;
+  height: 22px;
+  background: #c6a8a5;
 }
 
 .tab-card-img {
@@ -645,13 +662,7 @@ a {
   text-align: left;
 }
 
-.tab-card__content-box .badge-box {
-  position: absolute;
-  left: 0;
-  bottom: 137px;
-}
-
-.tab-card__content-box .price-box span {
+.tab-card__content-box .price-box .special-price {
   font-size: 26px;
   color: #2ac1bc;
   font-weight: bold;
@@ -659,6 +670,12 @@ a {
   line-height: 1;
   letter-spacing: -0.04em;
   margin-right: 5px;
+}
+
+.tab-card__content-box .normal-price {
+  font-size: 14px;
+  color: #888;
+  text-decoration: line-through;
 }
 
 .left {
@@ -850,7 +867,7 @@ a {
   margin-right: 5px;
 }
 
-.price-box {
+.list-card__content-box .price-box {
   text-align: center;
 }
 
