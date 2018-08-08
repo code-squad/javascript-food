@@ -794,6 +794,10 @@ a {
   background: url(../../assets/images/list_slides_navi.png) no-repeat;
 }
 
+.wrapper__list-slider .slide-button-list a:hover {
+  background-position-y: -52px;
+}
+
 .wrapper__list-slider .slide-button-list .right-button {
   background-position: -52px 0;
 }
@@ -871,6 +875,10 @@ a {
 
 .list-card__content-box .price-box {
   text-align: center;
+}
+
+.disable-link {
+  pointer-events: none;
 }
 
 .mock {

@@ -9,6 +9,7 @@ export default class ListSlider {
     this.url = url;
     this.dataHelper = dataHelper;
     this.maxIdx = null;
+    this.slideButtonList = null;
     this.currentIdx = 0;
     this.padElCounts = 0;
     this.initPosition = initPosition;
@@ -23,8 +24,8 @@ export default class ListSlider {
        "successCallback" : this.getData.bind(this)
       });
   }
-  setMaxIdx(length, items = 4){
-    return this.maxIdx = Math.ceil(length/items)-1;
+  setMaxIdx(length){
+    return this.maxIdx = Math.ceil(length/this.listItemCounts)-1;
   }
   getData(data){
     this.renderSlides(data);
@@ -62,9 +63,9 @@ export default class ListSlider {
     this.bindEvents();
   }
   bindEvents(){
-    const slideButtonList = this.slideEl.parentElement.nextElementSibling;
-    $on(qs('.right-button', slideButtonList), 'click', this.handleButtonClicked.bind(this));
-    $on(qs('.left-button', slideButtonList), 'click', this.handleButtonClicked.bind(this));
+    this.slideButtonList = this.slideEl.parentElement.nextElementSibling;
+    $on(qs('.right-button',  this.slideButtonList), 'click', this.handleButtonClicked.bind(this));
+    $on(qs('.left-button',  this.slideButtonList), 'click', this.handleButtonClicked.bind(this));
     $on(this.slideEl, 'transitionend', this.handleEdgeSlide.bind(this))
   }
   setPosition(idx){
@@ -77,13 +78,21 @@ export default class ListSlider {
     return !!(this.currentIdx === -1 || this.currentIdx === this.maxIdx+1);
   }
   handleEdgeSlide(){
+    this.setDisableButton('remove');
     if(!this.isEdgeSlide()) return;
     this.slideEl.style.transitionDuration = "0s";
     const idx = (this.currentIdx === -1) ? this.maxIdx : 0
     this.setCurrentIdx(idx);
     this.slideEl.style.transform = `translateX(${this.setPosition(this.currentIdx)}px)`
   }
+  setDisableButton(type){
+    const leftBtn = qs('.left-button',  this.slideButtonList);
+    const rightBtn = qs('.right-button',  this.slideButtonList);
+    leftBtn.classList[type]('disable-link')
+    rightBtn.classList[type]('disable-link');
+  }
   handleButtonClicked({target}){
+    this.setDisableButton('add');
     // className보단 안 바뀔 data-속성으로 수정하였는데 left /right Method를 따로 빼는 방식이 더 좋을까요?
     const nextIdx = (target.dataset.id==="left") ? this.currentIdx-1 : this.currentIdx+1
     this.slideEl.style.transitionDuration = "0.5s";

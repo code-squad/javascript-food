@@ -88,7 +88,9 @@
     width: 28px;
     height: 52px;
     background: url(../../assets/images/list_slides_navi.png) no-repeat;
-    // background-position: left -52px;
+    &:hover {
+      background-position-y: -52px;
+    }
   }
   .right-button  {
     background-position: -52px 0;
@@ -166,6 +168,9 @@
   }
 }
 
+.disable-link {
+  pointer-events: none;
+}   
 
 
 .mock {
@@ -191,3 +196,4 @@
   overflow: hidden;
   height: 363px;
 }
+
