@@ -447,6 +447,10 @@ a {
   opacity: 0.6;
 }
 
+.main__banner-slider-pagination .now {
+  opacity: 1;
+}
+
 .main__sub-banners--wrapper {
   width: 980px;
   margin: 0 auto;
@@ -696,6 +700,10 @@ a {
   float: left;
 }
 
+.list-slide {
+  position: relative;
+}
+
 .list-card-thumbnail {
   position: relative;
   height: 215px;
@@ -860,6 +868,14 @@ a {
   font-size: 16px;
   color: #444;
   border: 1px solid #d7d7d7;
+}
+
+.list-card-pad {
+  float: left;
+  width: 215px;
+  margin: 0px 15px 8px;
+  overflow: hidden;
+  height: 363px;
 }
 
 .left {

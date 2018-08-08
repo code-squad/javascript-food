@@ -19,6 +19,7 @@
 }
 
 .list-slide {
+  position: relative;
   @extend %clearfix;
 }
 
@@ -181,4 +182,12 @@
   font-size: 16px;
   color: #444;
   border: 1px solid #d7d7d7
+}
+
+.list-card-pad  {
+  float: left;
+  width: 215px;
+  margin: 0px 15px 8px;
+  overflow: hidden;
+  height: 363px;
 }

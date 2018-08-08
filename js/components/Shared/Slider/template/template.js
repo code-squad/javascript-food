@@ -82,3 +82,11 @@ data.reduce(
   </li>`),
   '',
 );
+
+export const padTemplate = data => data.reduce(
+  (ac, c) =>
+    (ac += `
+  <li class="list-card-pad">
+  </li>`),
+  '',
+);
