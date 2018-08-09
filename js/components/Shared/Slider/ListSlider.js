@@ -50,6 +50,14 @@ export default class ListSlider {
     else return this.padElCounts = this.listItemCounts - restSlides;
   }
   renderSlides(slideData){
+<<<<<<< HEAD
+=======
+    // changeLength data변경을 위한 단순 test용
+    
+    // const changeLength = 5;
+    // const slideData = [...data, ...data.slice(changeLength)]
+
+>>>>>>> b5be8138a213c591b7e1dc36836a900c4d111b13
     const slidesCounts = slideData.length;
     this.setMaxIdx(slidesCounts);
     this.renderRealSlideData(slideData);
@@ -67,6 +75,15 @@ export default class ListSlider {
   amendFakeEdgeData(slidesCounts, slideData){
     this.setPadCounts(slidesCounts)
     this.makeEdgeData(slideData);
+<<<<<<< HEAD
+=======
+    // renderButtons
+    this.renderButtons();
+
+    this.slideEl.style.transform = `translateX(${this.setPosition(this.currentIdx)}px)`;
+    
+    this.bindEvents();
+>>>>>>> b5be8138a213c591b7e1dc36836a900c4d111b13
   }
   bindEvents(){
     this.slideButtonList = this.slideEl.parentElement.nextElementSibling;
