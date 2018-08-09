@@ -63,7 +63,7 @@ export default class Slider {
   handleLeftButtonClicked() {
     const before = this.activeIdx;
     const prevIdx = this.setPrevActiveIdx();
-    this.pagiNationEl.updateActiveIdx(before)
+    this.pagiNationEl.updateActiveIdx(prevIdx);
     animations.fadeOut(this.slideEl.children[before], this.changeOpacity);
     animations.fadeIn(this.slideEl.children[prevIdx]);
   }

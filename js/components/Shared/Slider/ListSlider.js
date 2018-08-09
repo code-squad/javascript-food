@@ -31,9 +31,7 @@ export default class ListSlider {
     this.renderSlides(data);
   }
   makeEdgeData(slideData){
-    
     let padSlide = '';
-
     if(this.padElCounts!==0){
       const padArr = [...new Array(this.padElCounts)];
       padSlide =  padTemplate(padArr)  
@@ -51,29 +49,30 @@ export default class ListSlider {
     if(restSlides === 0) return this.padElCounts = 0;
     else return this.padElCounts = this.listItemCounts - restSlides;
   }
-  renderSlides(data){
-    // changeLength data변경을 위한 단순 test용
-    const changeLength = 3;
-    const slideData = [...data, ...data.slice(changeLength)]
+  renderSlides(slideData){
     const slidesCounts = slideData.length;
-
-    this.setMaxIdx(slidesCounts)
+    this.setMaxIdx(slidesCounts);
+    this.renderRealSlideData(slideData);
+    this.amendFakeEdgeData(slidesCounts,slideData);
+    this.renderButtons();
+    this.setTransformX()
+    this.bindEvents();
+  }
+  renderRealSlideData(slideData){
     this.slideEl.innerHTML = cardTemplate(slideData);
-
-    // animation을 위한 fakedata // 무한 롤링을 주기 위해서 first, last를 같 끝에 추가해줬습니다 .
+  }
+  setTransformX(){
+    this.slideEl.style.transform = `translateX(${this.setPosition(this.currentIdx)}px)`;
+  }
+  amendFakeEdgeData(slidesCounts, slideData){
     this.setPadCounts(slidesCounts)
     this.makeEdgeData(slideData);
-
-    // renderButtons
-    this.slideEl.parentElement.insertAdjacentHTML('afterend', slidEButtonTemplate);
-    this.slideEl.style.transform = `translateX(${this.setPosition(this.currentIdx)}px)`;
-    this.bindEvents();
   }
   bindEvents(){
     this.slideButtonList = this.slideEl.parentElement.nextElementSibling;
-    $on(qs('.right-button',  this.slideButtonList), 'click', this.handleButtonClicked.bind(this));
-    $on(qs('.left-button',  this.slideButtonList), 'click', this.handleButtonClicked.bind(this));
-    $on(this.slideEl, 'transitionend', this.handleEdgeSlide.bind(this))
+    $on(qs('.right-button',  this.slideButtonList), 'click', (e)=>this.handleButtonClicked(e));
+    $on(qs('.left-button',  this.slideButtonList), 'click', (e)=>this.handleButtonClicked(e));
+    $on(this.slideEl, 'transitionend', ()=>this.handleEdgeSlide())
   }
   setPosition(idx){
     return this.position = this.initPosition + idx * (this.initPosition);
@@ -84,26 +83,28 @@ export default class ListSlider {
   isEdgeSlide(){
     return !!(this.currentIdx === -1 || this.currentIdx === this.maxIdx+1);
   }
+  renderButtons(){
+    this.slideEl.parentElement.insertAdjacentHTML('afterend', slidEButtonTemplate);
+  }
   handleEdgeSlide(){
     this.setDisableButton('remove');
     if(!this.isEdgeSlide()) return;
     this.slideEl.style.transitionDuration = "0s";
     const idx = (this.currentIdx === -1) ? this.maxIdx : 0
     this.setCurrentIdx(idx);
-    this.slideEl.style.transform = `translateX(${this.setPosition(this.currentIdx)}px)`
+   this.setTransformX();
   }
   setDisableButton(type){
     const leftBtn = qs('.left-button',  this.slideButtonList);
     const rightBtn = qs('.right-button',  this.slideButtonList);
-    leftBtn.classList[type]('disable-link')
-    rightBtn.classList[type]('disable-link');
+    leftBtn.classList[type]('disable-btn')
+    rightBtn.classList[type]('disable-btn');
   }
   handleButtonClicked({target}){
     this.setDisableButton('add');
-    // className보단 안 바뀔 data-속성으로 수정하였는데 left /right Method를 따로 빼는 방식이 더 좋을까요?
     const nextIdx = (target.dataset.id==="left") ? this.currentIdx-1 : this.currentIdx+1
     this.slideEl.style.transitionDuration = "0.5s";
     this.setCurrentIdx(nextIdx)
-    this.slideEl.style.transform = `translateX(${this.setPosition(this.currentIdx)}px)`;
+    this.setTransformX();
   }
 }
