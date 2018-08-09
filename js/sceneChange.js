@@ -5,11 +5,12 @@ export class SceneChange {
   @param {Ojbect} indexButton - {wrap, template, activeButtonStyle}
   @param {Function} effect
   */
-  constructor({sceneList, leftButton, rightButton, indexButton, effect}) {
+  constructor({sceneList, leftButton, rightButton, indexButton, effect, speed}) {
     this.sceneList = sceneList;
     this.elLeftButton = leftButton;
     this.elRightButton = rightButton;
     this.effect = effect;
+    this.speed = speed;
     // indexButtonInfo
     this.elIndexButtonWrap = indexButton.wrap;
     this.indexButtonTemplate = indexButton.template;
@@ -26,6 +27,8 @@ export class SceneChange {
       sceneLength: this.sceneLength
     });
     this._addAllEventListener();
+    // visibility 초기화
+    this._modifyVisibility({targetList: this.sceneList, visibilityValue: 'hidden'});
     this._triggerEvent({eventType: 'click', target: this.elIndexButtonWrap.firstElementChild})
   }
 
@@ -38,15 +41,14 @@ export class SceneChange {
   _addAllEventListener() {
     this.elLeftButton.addEventListener('click', () => {
       const nextIndex = ((this.currentIndex - 1) + this.sceneLength) % this.sceneLength;
-      this._changeCurrentIndex({ previousIndex: this.currentIndex, nextIndex: nextIndex });
+      this._changeCurrentIndex({ previousIndex: this.currentIndex, nextIndex: nextIndex, type: 'left' });
     });
     this.elRightButton.addEventListener('click', () => {
       const nextIndex = ((this.currentIndex + 1) + this.sceneLength) % this.sceneLength;
-      this._changeCurrentIndex({ previousIndex: this.currentIndex, nextIndex: nextIndex });
+      this._changeCurrentIndex({ previousIndex: this.currentIndex, nextIndex: nextIndex, type: 'right' });
     });
     this.elIndexButtonWrap.addEventListener('click', ({ target }) => {
-      if (target.tagName !== 'LI')
-        return;
+      if (target.tagName !== 'LI') return;
       const nextIndex = Number(target.dataset.index);
       this._changeCurrentIndex({ previousIndex: this.currentIndex, nextIndex: nextIndex });
     });
@@ -57,12 +59,14 @@ export class SceneChange {
     target.dispatchEvent(evt);
   }
 
-  _changeCurrentIndex({previousIndex, nextIndex}) {
+  _changeCurrentIndex({previousIndex, nextIndex, type}) {
     this._changeCurrentScene({
       sceneList: this.sceneList,
       previousIndex, 
       nextIndex, 
-      effect: this.effect
+      effect: this.effect,
+      speed: this.speed,
+      type
     });
 
     this._changeCurrentIndexButton({
@@ -75,12 +79,15 @@ export class SceneChange {
     this.currentIndex = nextIndex;
   }
 
-  _changeCurrentScene({sceneList, previousIndex, nextIndex, effect}) {
+  _changeCurrentScene({sceneList, previousIndex, nextIndex, effect, speed, type}) {
     const previousScene = sceneList[previousIndex];
     const nextScene = sceneList[nextIndex];
+    type = type ? type : previousIndex < nextIndex ? 'right' : 'left';
+
+    this._modifyVisibility({targetList: [previousScene, nextScene], visibilityValue: 'visible'});
 
     requestAnimationFrame(() => {
-      effect({previous: previousScene, next: nextScene})
+      effect({previous: previousScene, next: nextScene, type, speed})
     })
   }
 
@@ -90,5 +97,12 @@ export class SceneChange {
 
     previousIndexButton.classList.remove(style);
     nextIndexButton.classList.add(style);
+  }
+
+  // @param {nodeList || array} targetList
+  _modifyVisibility({targetList, visibilityValue}) {
+    targetList.forEach(target => {
+      target.style.visibility = visibilityValue;
+    })
   }
 }

@@ -10,7 +10,7 @@ import {Controller} from "./controller.js";
 
 import {Template} from './template.js';
 import {menuData} from './data.js';
-import {fade} from './raf.js';
+import {fade, slide} from './raf.js';
 
 
 
@@ -50,13 +50,29 @@ const ad = new SceneChange({
   rightButton: document.querySelector('.ad_right_button'),
   indexButton: {
     wrap: document.querySelector('.ad_index_button_wrap'),
-    template: new Template().indexButton,
+    template: new Template().adIndexButton,
     activeButtonStyle: 'active_index_button'
   },
-  effect: fade
+  effect: fade,
+  speed: 0.03
 })
 
 ad.init();
+
+const newDishes = new SceneChange({
+  sceneList: document.querySelectorAll('.new_dishes_img'), 
+  leftButton: document.querySelector('.new_dishes > .notice_left_button'),
+  rightButton: document.querySelector('.new_dishes > .notice_right_button'),
+  indexButton: {
+    wrap: document.querySelector('.new_dishes > .notice_index_button_wrap'),
+    template: new Template().noticeIndexButton,
+    activeButtonStyle: 'active_notice_index_button'
+  },
+  effect: slide,
+  speed: 0.9
+})
+
+newDishes.init();
 
 // controller
 const controller = new Controller({

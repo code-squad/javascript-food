@@ -78,8 +78,12 @@ export const Template = (function () {
       '</ul>'
     },
 
-    indexButton(index) {
+    adIndexButton(index) {
       return `<li class='ad_index_button' data-index='${index}'></li>`
+    },
+
+    noticeIndexButton(index) {
+      return `<li class='notice_index_button' data-index='${index}'></li>`
     }
   }
   
