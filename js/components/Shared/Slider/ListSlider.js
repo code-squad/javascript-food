@@ -31,10 +31,14 @@ export default class ListSlider {
     this.renderSlides(data);
   }
   makeEdgeData(slideData){
+    
+    let padSlide = '';
 
-    const padArr = [...new Array(this.padElCounts)]
-    const padSlide = padTemplate(padArr)
-
+    if(this.padElCounts!==0){
+      const padArr = [...new Array(this.padElCounts)];
+      padSlide =  padTemplate(padArr)  
+    }
+    
     const firstSlide = padSlide+cardTemplate(slideData.slice(0,this.listItemCounts))
     const lastSlide = cardTemplate(slideData.slice(-this.listItemCounts+this.padElCounts))+padSlide
 
@@ -43,9 +47,12 @@ export default class ListSlider {
     
   }
   setPadCounts(length){
-    return this.padElCounts = this.listItemCounts- (length % this.listItemCounts);
+    const restSlides = length % this.listItemCounts
+    if(restSlides === 0) return this.padElCounts = 0;
+    else return this.padElCounts = this.listItemCounts - restSlides;
   }
   renderSlides(data){
+    // changeLength data변경을 위한 단순 test용
     const changeLength = 3;
     const slideData = [...data, ...data.slice(changeLength)]
     const slidesCounts = slideData.length;
