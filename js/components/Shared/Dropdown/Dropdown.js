@@ -8,11 +8,17 @@ export default class Dropdown {
   }
   bindEvents(el) {
     $on(el, "click", () => this.dropdwonController.subscribe(this.dropdwonEl));
-    $on(el, "click", this.toggleDisplay.bind(this));
+    $on(el, "click", ()=> this.toggleDisplay());
   }
   toggleDisplay() {   
-    const isblock = this.dropdwonEl.style.display === "block";
-    if (isblock) this.dropdwonEl.style.display = "none";
-    else this.dropdwonEl.style.display = "block";
+    const isShow = this.dropdwonEl.dataset.show === "show";
+    if (isShow){
+      this.dropdwonEl.classList.remove('show');
+      this.dropdwonEl.dataset.show = "hide";
+    } 
+    else{
+      this.dropdwonEl.classList.add('show')
+      this.dropdwonEl.dataset.show = "show";
+    } 
   }
 }
