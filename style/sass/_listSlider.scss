@@ -197,6 +197,18 @@
   height: 363px;
 }
 
-.banner__slide-list img {
-  object-fit: cover;
+
+.banner__slide-list {
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+  img {
+    object-fit: cover;
+    min-width: 980px;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%,0)
+  }
 }
+
+ 
