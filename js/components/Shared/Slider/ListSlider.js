@@ -99,6 +99,12 @@ export default class ListSlider {
     leftBtn.classList[type]('disable-btn')
     rightBtn.classList[type]('disable-btn');
   }
+  setDisableButton(type){
+    const leftBtn = qs('.left-button',  this.slideButtonList);
+    const rightBtn = qs('.right-button',  this.slideButtonList);
+    leftBtn.classList[type]('disable-btn')
+    rightBtn.classList[type]('disable-btn');
+  }
   handleButtonClicked({target}){
     this.setDisableButton('add');
     const nextIdx = (target.dataset.id==="left") ? this.currentIdx-1 : this.currentIdx+1
