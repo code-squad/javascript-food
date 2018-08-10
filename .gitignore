@@ -60,4 +60,4 @@ typings/
 .env
 
 # map
-.map
+css.map
