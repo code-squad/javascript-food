@@ -4,14 +4,14 @@ import {Model} from "./model.js";
 import {MenuNavigation} from "./menuNavigation.js";
 import {BestDishesNavigation} from './bestDishesNavigation.js';
 import {BestDishesView} from './bestDishesView.js';
-import {NavigatorStyleSceneChange} from './sceneChange.js';
+import {r_NavigatorStyleSceneChange} from './raf.js';
 import {t_NavigatorStyleSceneChange} from './transition.js';
 // controller
 import {Controller} from "./controller.js";
 
 import {Template} from './template.js';
 import {menuData} from './data.js';
-import {fade, slide} from './raf.js';
+import {fade, slide} from './animation.js';
 
 
 
@@ -57,7 +57,7 @@ const ad = new t_NavigatorStyleSceneChange({
 
 ad.init();
 
-const newDishes = new NavigatorStyleSceneChange({
+const newDishes = new r_NavigatorStyleSceneChange({
   sceneList: document.querySelectorAll('.new_dishes_img'),
   leftButton: document.querySelector('.new_dishes > .notice_left_button'),
   rightButton: document.querySelector('.new_dishes > .notice_right_button'),
@@ -70,7 +70,7 @@ const newDishes = new NavigatorStyleSceneChange({
 
 newDishes.init();
 
-const deliverySystem = new NavigatorStyleSceneChange({
+const deliverySystem = new r_NavigatorStyleSceneChange({
   sceneList: document.querySelectorAll('.delivery_system_img'),
   leftButton: document.querySelector('.delivery_system > .notice_left_button'),
   rightButton: document.querySelector('.delivery_system > .notice_right_button'),
