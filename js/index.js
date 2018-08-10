@@ -5,6 +5,7 @@ import {MenuNavigation} from "./menuNavigation.js";
 import {BestDishesNavigation} from './bestDishesNavigation.js';
 import {BestDishesView} from './bestDishesView.js';
 import {NavigatorStyleSceneChange} from './sceneChange.js';
+import {t_NavigatorStyleSceneChange} from './transition.js';
 // controller
 import {Controller} from "./controller.js";
 
@@ -43,12 +44,12 @@ const bestDishesView = new BestDishesView({
   baseURI: 'http://crong.codesquad.kr:8080/woowa/best/'
 });
 
-const ad = new NavigatorStyleSceneChange({
+const ad = new t_NavigatorStyleSceneChange({
   sceneList: document.querySelectorAll('.ad_img'),
   leftButton: document.querySelector('.ad_left_button'),
   rightButton: document.querySelector('.ad_right_button'),
-  leftAnimation: fade({speed: 0.03}),
-  rightAnimation: fade({speed: 0.03}),
+  leftAnimation: {in: 'fade_in', out: 'fade_out'},
+  rightAnimation: {in: 'fade_in', out: 'fade_out'},
   navigatorWrap: document.querySelector('.ad_navigator_wrap'),
   navigatorButtonTemplate: new Template().adNavigatorButton,
   activeNavigatorButtonStyle: 'active_ad_navigator_button'

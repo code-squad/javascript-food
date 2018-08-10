@@ -260,6 +260,20 @@
   display: inline-block;
 }
 
+.fade_in {
+  opacity: 1;
+  transition: opacity 1s;
+}
+
+.fade_out {
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.opacity_zero {
+  opacity: 0;
+}
+
 
 /* notice_section */
 .notice {
