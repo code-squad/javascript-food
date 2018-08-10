@@ -23,12 +23,12 @@ export default class Pagination {
     this.paginationEl.innerHTML = paginationTemplate([...new Array(pageLength).keys()])
   }
   setActiveClass(idx){
-    const currentList = this.paginationEl.children[idx]
-    currentList.children[0].classList.add('now');
+    const targetPageBtn = qs(`[data-id="page-${idx}"]`,this.paginationEl);
+    targetPageBtn.classList.add('now');
   }
   removeActiveClass(idx){
-    const currentList = this.paginationEl.children[idx]
-    currentList.children[0].classList.remove('now');
+    const currentPageBtn = qs('.now', this.paginationEl);
+    currentPageBtn.classList.remove('now');
   }
   bindEvents(){
     $on(this.paginationEl, 'click', this.notifyPage.bind(this))

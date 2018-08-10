@@ -88,7 +88,9 @@
     width: 28px;
     height: 52px;
     background: url(../../assets/images/list_slides_navi.png) no-repeat;
-    // background-position: left -52px;
+    &:hover {
+      background-position-y: -52px;
+    }
   }
   .right-button  {
     background-position: -52px 0;
@@ -161,12 +163,15 @@
     letter-spacing: -0.04em;
     margin-right: 5px;
   }
-  
+  .price-box {
+    text-align: center;
+  }
 }
 
-.price-box {
-  text-align: center;
-}
+.disable-btn {
+  pointer-events: none;
+}   
+
 
 .mock {
   height: 214px;
@@ -191,3 +196,19 @@
   overflow: hidden;
   height: 363px;
 }
+
+
+.banner__slide-list {
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+  img {
+    object-fit: cover;
+    min-width: 980px;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%,0)
+  }
+}
+
+ 
