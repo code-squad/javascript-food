@@ -1,108 +1,97 @@
-// sceneList의 개수대로 동적으로 indexButton을 생성
-export class SceneChange {
-  /*
-  @param {NodeList} sceneList
-  @param {Ojbect} indexButton - {wrap, template, activeButtonStyle}
-  @param {Function} effect
-  */
-  constructor({sceneList, leftButton, rightButton, indexButton, effect, speed}) {
+class NavigatorStyleSceneChange {
+  constructor({
+    sceneList,
+    leftButton, rightButton,
+    leftAnimation, rightAnimation,
+    navigatorWrap, navigatorButtonTemplate, activeNavigatorButtonStyle
+  }) {
     this.sceneList = sceneList;
     this.elLeftButton = leftButton;
     this.elRightButton = rightButton;
-    this.effect = effect;
-    this.speed = speed;
-    // indexButtonInfo
-    this.elIndexButtonWrap = indexButton.wrap;
-    this.indexButtonTemplate = indexButton.template;
-    this.activeIndexButtonStyle = indexButton.activeButtonStyle;
-
+    this.leftAnimation = leftAnimation;
+    this.rightAnimation = rightAnimation;
+    this.elNavigatorWrap = navigatorWrap;
+    this.navigatorButtonTemplate = navigatorButtonTemplate;
+    this.activeStyle = activeNavigatorButtonStyle;
     this.currentIndex = 0;
-    this.sceneLength = this.sceneList.length;
+    this.sceneLength = sceneList.length;
   }
 
   init() {
-    this._renderIndexButton({
-      indexButtonWrap: this.elIndexButtonWrap,
-      template: this.indexButtonTemplate,
-      sceneLength: this.sceneLength
+    this._renderNavigatorButton({
+      sceneLength: this.sceneList.length,
+      navigatorWrap: this.elNavigatorWrap,
+      template: this.navigatorButtonTemplate
     });
-    this._addAllEventListener();
-    // visibility 초기화
-    this._modifyVisibility({targetList: this.sceneList, visibilityValue: 'hidden'});
-    this._triggerEvent({eventType: 'click', target: this.elIndexButtonWrap.firstElementChild})
+    this._registerAllEventListener();
+    this._activateScene(this.sceneList[this.currentIndex]);
+    this._activateNavigatorButton({index: this.currentIndex, style: this.activeStyle});
   }
 
-  _renderIndexButton({indexButtonWrap, template, sceneLength}) {
-    for(let index = 0; index < sceneLength; index++) {
-      indexButtonWrap.innerHTML += template(index);
+  _renderNavigatorButton({sceneLength, navigatorWrap, template}) {
+    for(let i = 0; i < sceneLength; i++) {
+      navigatorWrap.innerHTML += template(i);
     }
   }
 
-  _addAllEventListener() {
+  _registerAllEventListener() {
     this.elLeftButton.addEventListener('click', () => {
-      const nextIndex = ((this.currentIndex - 1) + this.sceneLength) % this.sceneLength;
-      this._changeCurrentIndex({ previousIndex: this.currentIndex, nextIndex: nextIndex, type: 'left' });
-    });
+      const nextIndex = this._calculateNextIndex(-1);
+      this._animateScene({previousIndex: this.currentIndex, nextIndex, animation: this.leftAnimation})
+      this._activateNavigatorButton({index: nextIndex, style: this.activeStyle});
+      this.currentIndex = nextIndex;
+    })
+
     this.elRightButton.addEventListener('click', () => {
-      const nextIndex = ((this.currentIndex + 1) + this.sceneLength) % this.sceneLength;
-      this._changeCurrentIndex({ previousIndex: this.currentIndex, nextIndex: nextIndex, type: 'right' });
-    });
-    this.elIndexButtonWrap.addEventListener('click', ({ target }) => {
-      if (target.tagName !== 'LI') return;
+      const nextIndex = this._calculateNextIndex(1);
+      this._animateScene({previousIndex: this.currentIndex, nextIndex, animation: this.rightAnimation})
+      this._activateNavigatorButton({index: nextIndex, style: this.activeStyle});
+      this.currentIndex = nextIndex;
+    })
+
+    this.elNavigatorWrap.addEventListener('click', ({target}) => {
+      if(target.tagName !== 'LI') return;
+
       const nextIndex = Number(target.dataset.index);
-      this._changeCurrentIndex({ previousIndex: this.currentIndex, nextIndex: nextIndex });
-    });
-  }
+      const animation = this.currentIndex < nextIndex ? this.rightAnimation : this.leftAnimation;
 
-  _triggerEvent({eventType, target}) {
-    const evt = new Event(eventType, {bubbles: true});
-    target.dispatchEvent(evt);
-  }
-
-  _changeCurrentIndex({previousIndex, nextIndex, type}) {
-    this._changeCurrentScene({
-      sceneList: this.sceneList,
-      previousIndex, 
-      nextIndex, 
-      effect: this.effect,
-      speed: this.speed,
-      type
-    });
-
-    this._changeCurrentIndexButton({
-      indexButtonList: this.elIndexButtonWrap.childNodes,
-      previousIndex, 
-      nextIndex, 
-      style: this.activeIndexButtonStyle
-    });
-
-    this.currentIndex = nextIndex;
-  }
-
-  _changeCurrentScene({sceneList, previousIndex, nextIndex, effect, speed, type}) {
-    const previousScene = sceneList[previousIndex];
-    const nextScene = sceneList[nextIndex];
-    type = type ? type : previousIndex < nextIndex ? 'right' : 'left';
-
-    this._modifyVisibility({targetList: [previousScene, nextScene], visibilityValue: 'visible'});
-
-    requestAnimationFrame(() => {
-      effect({previous: previousScene, next: nextScene, type, speed})
+      this._animateScene({previousIndex: this.currentIndex, nextIndex, animation});
+      this._activateNavigatorButton({index: nextIndex, style: this.activeStyle});
+      this.currentIndex = nextIndex;
     })
   }
 
-  _changeCurrentIndexButton({indexButtonList, previousIndex, nextIndex, style}) {
-    const previousIndexButton = indexButtonList[previousIndex];
-    const nextIndexButton = indexButtonList[nextIndex];
-
-    previousIndexButton.classList.remove(style);
-    nextIndexButton.classList.add(style);
+  _calculateNextIndex(number) {
+    return ((this.currentIndex + number) + this.sceneLength) % this.sceneLength;
   }
 
-  // @param {nodeList || array} targetList
-  _modifyVisibility({targetList, visibilityValue}) {
-    targetList.forEach(target => {
-      target.style.visibility = visibilityValue;
+  _animateScene({previousIndex, nextIndex, animation}) {
+    const previousScene = this.sceneList[previousIndex];
+    const nextScene = this.sceneList[nextIndex];
+
+    this._activateScene(previousScene, nextScene);
+
+    animation({previous: previousScene, next: nextScene});
+  }
+
+  _activateScene(...targetSceneList) {
+    this.sceneList.forEach(scene => {
+      scene.style.visibility = 'hidden';
+    })
+
+    targetSceneList.forEach(scene => {
+      scene.style.visibility = 'visible';
+    })
+  }
+
+  _activateNavigatorButton({index, style}) {
+    const navigatorButtons = this.elNavigatorWrap.childNodes;
+    
+    navigatorButtons.forEach(button => {
+      const buttonIndex = Number(button.dataset.index);
+      buttonIndex === index ? button.classList.add(style) : button.classList.remove(style);
     })
   }
 }
+
+export {NavigatorStyleSceneChange}

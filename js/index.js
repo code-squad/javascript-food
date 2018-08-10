@@ -4,7 +4,7 @@ import {Model} from "./model.js";
 import {MenuNavigation} from "./menuNavigation.js";
 import {BestDishesNavigation} from './bestDishesNavigation.js';
 import {BestDishesView} from './bestDishesView.js';
-import {SceneChange} from './sceneChange.js';
+import {NavigatorStyleSceneChange} from './sceneChange.js';
 // controller
 import {Controller} from "./controller.js";
 
@@ -32,7 +32,6 @@ const menuNavigation = new MenuNavigation({
   template: new Template().menuNavigation
 })
 
-
 const bestDishesNavigation = new BestDishesNavigation({
   bestDishesNavigation: document.querySelector('.best_dishes_nav')
 })
@@ -44,35 +43,44 @@ const bestDishesView = new BestDishesView({
   baseURI: 'http://crong.codesquad.kr:8080/woowa/best/'
 });
 
-const ad = new SceneChange({
-  sceneList: document.querySelectorAll('.ad_img'), 
+const ad = new NavigatorStyleSceneChange({
+  sceneList: document.querySelectorAll('.ad_img'),
   leftButton: document.querySelector('.ad_left_button'),
   rightButton: document.querySelector('.ad_right_button'),
-  indexButton: {
-    wrap: document.querySelector('.ad_index_button_wrap'),
-    template: new Template().adIndexButton,
-    activeButtonStyle: 'active_index_button'
-  },
-  effect: fade,
-  speed: 0.03
+  leftAnimation: fade({speed: 0.03}),
+  rightAnimation: fade({speed: 0.03}),
+  navigatorWrap: document.querySelector('.ad_navigator_wrap'),
+  navigatorButtonTemplate: new Template().adNavigatorButton,
+  activeNavigatorButtonStyle: 'active_ad_navigator_button'
 })
 
 ad.init();
 
-const newDishes = new SceneChange({
-  sceneList: document.querySelectorAll('.new_dishes_img'), 
+const newDishes = new NavigatorStyleSceneChange({
+  sceneList: document.querySelectorAll('.new_dishes_img'),
   leftButton: document.querySelector('.new_dishes > .notice_left_button'),
   rightButton: document.querySelector('.new_dishes > .notice_right_button'),
-  indexButton: {
-    wrap: document.querySelector('.new_dishes > .notice_index_button_wrap'),
-    template: new Template().noticeIndexButton,
-    activeButtonStyle: 'active_notice_index_button'
-  },
-  effect: slide,
-  speed: 0.9
+  leftAnimation: slide({speed: 0.9, type: 'left'}),
+  rightAnimation: slide({speed: 0.9, type: 'right'}),
+  navigatorWrap: document.querySelector('.new_dishes > .notice_navigator_wrap'),
+  navigatorButtonTemplate: new Template().noticeNavigatorButton,
+  activeNavigatorButtonStyle: 'active_notice_navigator_button'
 })
 
 newDishes.init();
+
+const deliverySystem = new NavigatorStyleSceneChange({
+  sceneList: document.querySelectorAll('.delivery_system_img'),
+  leftButton: document.querySelector('.delivery_system > .notice_left_button'),
+  rightButton: document.querySelector('.delivery_system > .notice_right_button'),
+  leftAnimation: slide({speed: 0.9, type: 'left'}),
+  rightAnimation: slide({speed: 0.9, type: 'right'}),
+  navigatorWrap: document.querySelector('.delivery_system > .notice_navigator_wrap'),
+  navigatorButtonTemplate: new Template().noticeNavigatorButton,
+  activeNavigatorButtonStyle: 'active_notice_navigator_button'
+})
+
+deliverySystem.init();
 
 // controller
 const controller = new Controller({

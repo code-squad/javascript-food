@@ -1,11 +1,8 @@
-export function fade({previous, next, speed}) {
-  if(previous === next) {
-    next.style.opacity = 1;
-    return;
-  }
+const _fade = function({speed, previous, next}) {
+  if(previous === next) return;
 
-  previous.style.opacity = Number(previous.style.opacity) - speed;
-  next.style.opacity = Number(next.style.opacity) + speed;
+  previous.style.opacity = previous.style.opacity ? Number(previous.style.opacity) - speed : 1;
+  next.style.opacity = next.style.opacity ? Number(next.style.opacity) + speed : 0;
 
   if(previous.style.opacity <= 0) {
     previous.style.opacity = 0;
@@ -14,11 +11,11 @@ export function fade({previous, next, speed}) {
   }
 
   requestAnimationFrame(() => {
-    fade({previous, next, speed});
+    _fade({speed, previous, next});
   })
-}
+};
 
-export function slide({previous, next, type, speed}) {
+const _slide = function ({speed, type, previous, next}) {
   if(previous === next) return;
   
   if(previous.style.transform === '') previous.style.transform = `translateX(0%)`;
@@ -45,6 +42,16 @@ export function slide({previous, next, type, speed}) {
   next.style.transform = `translate(${nextTranslateValue}%)`;
 
   requestAnimationFrame(() => {
-    slide({previous, next, type, speed});
+    _slide({speed, type, previous, next});
   })
 }
+
+const objectCurry = function({callback, numberOfKey}) {
+  return function f(obj) {
+    if(Object.keys(obj).length >= numberOfKey) return callback(obj);
+    return (restObj) => f(Object.assign(restObj, obj));
+  }
+}
+
+export const fade = objectCurry({callback: _fade, numberOfKey: 3});
+export const slide = objectCurry({callback: _slide, numberOfKey: 4});

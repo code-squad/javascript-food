@@ -203,7 +203,7 @@
   position: absolute;
 }
 
-.ad_left_button, .ad_right_button, .ad_index_button_wrap {
+.ad_left_button, .ad_right_button, .ad_navigator_wrap {
   position: absolute;
 }
 
@@ -227,13 +227,13 @@
   background: no-repeat right top/225% url(../images/ad_left_right_button.png);  
 }
 
-.ad_index_button_wrap {
+.ad_navigator_wrap {
   top: 400px;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-.ad_index_button {
+.ad_navigator_button {
   width: 10px;
   height: 10px;
   border-radius: 50%;
@@ -243,16 +243,16 @@
   float: left;
 }
 
-.ad_index_button:nth-last-child(1) {
+.ad_navigator_button:nth-last-child(1) {
   margin-right: 0px;
 }
 
-.ad_index_button:hover {
+.ad_navigator_button:hover {
   background: #fff;
   cursor: pointer;
 }
 
-.active_index_button {
+.active_ad_navigator_button {
   background: #fff;
 }
 
@@ -319,13 +319,13 @@
   background: no-repeat  url(../images/notice_right_button.png);
 }
 
-.notice_index_button_wrap {
+.notice_navigator_wrap {
   position: absolute;
   top: 20px;
   right: 20px;
 }
 
-.notice_index_button {
+.notice_navigator_button {
   width: 9px;
   height: 9px;
   border-radius: 50%;
@@ -335,12 +335,12 @@
   float: left;
 }
 
-.notice_index_button:hover {
+.notice_navigator_button:hover {
   cursor: pointer;
   background: #fff;
 }
 
-.active_notice_index_button {
+.active_notice_navigator_button {
   background: #fff;
 }
 
