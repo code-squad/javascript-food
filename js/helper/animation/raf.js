@@ -45,7 +45,7 @@ const animations = {
       speed*=2;
       scrollY+= speed;
       window.scrollTo(0,scrollY); 
-      if (speed>maxHeight) {
+      if (scrollY>maxHeight) {
         return true;
       }
       requestAnimationFrame(scrollToBottom);

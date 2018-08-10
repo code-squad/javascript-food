@@ -42,5 +42,5 @@ $on(document, "DOMContentLoaded", () => {
   const myPageDropdown = new Dropdown("#dropdown-my-page", "#dropdown-my-page-trigger", dropdownController);
   const clientCenterDropdown = new Dropdown("#dropdown-client-center", "#dropdown-client-center-trigger", dropdownController);
 
-  const scrollButton = new ScrollButton('.scroll-button-list')
+  const scrollButton = new ScrollButton('.scroll-button-list', window.body)
 });

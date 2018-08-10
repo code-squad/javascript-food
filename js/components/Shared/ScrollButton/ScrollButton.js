@@ -7,6 +7,13 @@ export default class ScrollButton {
   }
   bindEvents(){
     $on(this.scrollBtnListEl,'click', (e)=>this.handleScrollBtnClicked(e))
+    $on(window, 'scroll', ()=> this.handleShowScrollBtn())
+  }
+  handleShowScrollBtn(boundary = 30){
+    let type = ""
+    if(window.scrollY>boundary) type="remove";
+    else type="add";
+    this.scrollBtnListEl.classList[type]('hide')
   }
   handleScrollBtnClicked(e){
     if(!this.checkBtn(e.target)) return;
