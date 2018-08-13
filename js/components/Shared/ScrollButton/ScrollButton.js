@@ -1,9 +1,10 @@
 import { qs,  $on } from '../../../helper/helper.js';
 import animation from '../../../helper/animation/raf.js';
 export default class ScrollButton {
-  constructor(scrollBtnSelector) {
+  constructor(scrollBtnSelector, speed = 2) {
     this.scrollBtnListEl = qs(scrollBtnSelector);
     this.bindEvents();
+    this.speed = speed;
   }
   bindEvents(){
     $on(this.scrollBtnListEl,'click', ({target})=>this.handleScrollBtnClicked(target))
@@ -17,18 +18,15 @@ export default class ScrollButton {
   }
   handleScrollBtnClicked({dataset: {id}}){
     if(!this.checkBtn(id)) return;
-    if(id==='up') return this.handleUpBtnClicked()
-    else return this.handleDownBtnClicked()
+    return this.handleUpDown(id);
   }
   checkBtn(id){
     if(id==='up'|| id==='down') return true;
     else false;
   }
-  handleUpBtnClicked(){
-    animation.scrollTop(window, 0);
-  }
-  handleDownBtnClicked(){
-    animation.scrollBottom(window, document.body.offsetHeight);
-  }
- 
+  handleUpDown(id){
+    const animationType = id==='up' ? 'scrollTop' : 'scrollBottom';
+    const destination = id==='up' ? 0 : document.body.offsetHeight
+    animation[animationType](window, destination, this.speed);
+  } 
 }
