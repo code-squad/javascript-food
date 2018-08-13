@@ -6,7 +6,7 @@ export default class ScrollButton {
     this.bindEvents();
   }
   bindEvents(){
-    $on(this.scrollBtnListEl,'click', (e)=>this.handleScrollBtnClicked(e))
+    $on(this.scrollBtnListEl,'click', ({target})=>this.handleScrollBtnClicked(target))
     $on(window, 'scroll', ()=> this.handleShowScrollBtn())
   }
   handleShowScrollBtn(boundary = 30){
@@ -15,14 +15,13 @@ export default class ScrollButton {
     else type="add";
     this.scrollBtnListEl.classList[type]('hide')
   }
-  handleScrollBtnClicked(e){
-    if(!this.checkBtn(e.target)) return;
-    const action = e.target.dataset.id 
-    if(action==='up') return this.handleUpBtnClicked()
+  handleScrollBtnClicked({dataset: {id}}){
+    if(!this.checkBtn(id)) return;
+    if(id==='up') return this.handleUpBtnClicked()
     else return this.handleDownBtnClicked()
   }
-  checkBtn(target){
-    if(target.dataset.id==='up'||target.dataset.id==='down') return true;
+  checkBtn(id){
+    if(id==='up'|| id==='down') return true;
     else false;
   }
   handleUpBtnClicked(){
