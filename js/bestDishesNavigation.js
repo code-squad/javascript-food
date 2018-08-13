@@ -6,7 +6,7 @@ export class BestDishesNavigation {
   init() {
     this.elBestDishesNavigation.addEventListener('click', ({target}) => {
       if(target.tagName !== 'LI') return;
-      this._activateCategory(target);      
+      this._activateCategory(target);
     })
   }
   
@@ -17,8 +17,8 @@ export class BestDishesNavigation {
     })
   }
 
-  triggerEvent() {
-    let evt = new Event('click', {bubbles: true});
+  triggerEvent(eventType) {
+    let evt = new Event(eventType, {bubbles: true});
     this.elBestDishesNavigation.firstElementChild.dispatchEvent(evt);
   }
 

@@ -73,9 +73,17 @@ export const Template = (function () {
     },
 
     bestDishesView({items, category_id}) {
-      return `<ul class="best_dishes" data-id="${category_id}">` + 
+      return `<ul class="best_dishes visible" data-id="${category_id}">` + 
       items.reduce((html, bestDishData) => html + _bestDish(bestDishData), '') + 
       '</ul>'
+    },
+
+    adNavigatorButton(index) {
+      return `<li class='ad_navigator_button' data-index='${index}'></li>`
+    },
+
+    noticeNavigatorButton(index) {
+      return `<li class='notice_navigator_button' data-index='${index}'></li>`
     }
   }
   

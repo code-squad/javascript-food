@@ -1,28 +1,19 @@
 export const Controller = (function() {
   let _selectBestDishesCategory = function(categoryId) {
-    if(this.oView.bestDishesView.hasBestDish(categoryId)) this.oView.bestDishesView.displayBestDish(categoryId);
-    else {
-      const x = new XMLHttpRequest();
-      x.addEventListener('load', () => {
-        const bestDishesData = JSON.parse(x.response);
-        this.oView.bestDishesView.render(bestDishesData);
-        this.oView.bestDishesView.displayBestDish(categoryId);
-      })
-      x.open('GET', this.baseURI + '/best/' + categoryId);
-      x.send();
-    }
+    this.oView.bestDishesView.displayBestDish(categoryId);
   };
 
-  const Controller = function({model, view, baseURI}) {
+  const Controller = function({model, view}) {
     this.oModel = model;
     this.oView = view;
-    this.baseURI = baseURI;
   };
 
   Controller.prototype = {
-    init() {
+    init({menuData}) {
+      this.oView.menuNavigation.render(menuData);
+      this.oView.bestDishesNavigation.init();
       this.oView.bestDishesNavigation.bindSelectBestDishesCategory(_selectBestDishesCategory.bind(this));
-      this.oView.bestDishesNavigation.triggerEvent();
+      this.oView.bestDishesNavigation.triggerEvent('click');
     }
   }
 
