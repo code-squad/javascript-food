@@ -23,6 +23,34 @@ const animations = {
       requestAnimationFrame(IncreaseOpacity);
     }());
   },
+  scrollTop(window, min){
+    let speed = 0.05;
+    let scrollY = window.scrollY;
+
+    (function scrollToTop() {
+      speed*=2;
+      scrollY-= speed;
+      window.scrollTo(0,scrollY); 
+      if (scrollY <=0) {
+        return true;
+      }
+      requestAnimationFrame(scrollToTop);
+    }());
+  },
+  scrollBottom(window, maxHeight){
+    let speed = 0.05;
+    let scrollY = window.scrollY;
+
+    (function scrollToBottom() {
+      speed*=2;
+      scrollY+= speed;
+      window.scrollTo(0,scrollY); 
+      if (scrollY>maxHeight) {
+        return true;
+      }
+      requestAnimationFrame(scrollToBottom);
+    }());
+  }
 };
 
 export default animations;

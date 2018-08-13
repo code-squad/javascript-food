@@ -5,16 +5,16 @@ import animations from '../../../helper/animation/raf.js';
 
 
 export default class Slider {
-  constructor(slideSelector, pagiNationEl) {
+  constructor(slideSelector, pagiNation) {
     this.slideEl = qs(slideSelector);
-    this.pagiNationEl = pagiNationEl;
-    this.pagiNationEl.init(mainSlideData.length);
+    this.pagiNation = pagiNation;
+    this.pagiNation.init(mainSlideData.length);
     this.contentsMaxIdx = mainSlideData.length - 1;
     this.activeIdx = Math.floor(Math.random() * (mainSlideData.length));
-    this.pagiNationEl.setActiveClass(this.activeIdx);
+    this.pagiNation.setActiveClass(this.activeIdx);
     this.render();
     this.bindEvents();
-    this.pagiNationEl.sendIdx = this.updateActiveIdx.bind(this);
+    this.pagiNation.sendIdx = this.updateActiveIdx.bind(this);
     this.changeOpacity = 0.05;
   }
   setActiveIdx(idx) {
@@ -56,14 +56,14 @@ export default class Slider {
   handleRightButtonClicked() {
     const before = this.activeIdx;
     const nextIdx = this.setNextActiveIdx();
-    this.pagiNationEl.updateActiveIdx(nextIdx)
+    this.pagiNation.updateActiveIdx(nextIdx)
     animations.fadeOut(this.slideEl.children[before], this.changeOpacity);
     animations.fadeIn(this.slideEl.children[nextIdx]);
   }
   handleLeftButtonClicked() {
     const before = this.activeIdx;
     const prevIdx = this.setPrevActiveIdx();
-    this.pagiNationEl.updateActiveIdx(prevIdx);
+    this.pagiNation.updateActiveIdx(prevIdx);
     animations.fadeOut(this.slideEl.children[before], this.changeOpacity);
     animations.fadeIn(this.slideEl.children[prevIdx]);
   }

@@ -11,14 +11,12 @@ export default class Dropdown {
     $on(el, "click", ()=> this.toggleDisplay());
   }
   toggleDisplay() {   
-    const isShow = this.dropdwonEl.dataset.show === "show";
-    if (isShow){
-      this.dropdwonEl.classList.remove('show');
-      this.dropdwonEl.dataset.show = "hide";
+    const isHide = this.dropdwonEl.className.indexOf('show')===-1
+    if (isHide){
+      this.dropdwonEl.classList.add('show');
     } 
     else{
-      this.dropdwonEl.classList.add('show')
-      this.dropdwonEl.dataset.show = "show";
+      this.dropdwonEl.classList.remove('show')
     } 
   }
 }

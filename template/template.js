@@ -16,7 +16,7 @@ export const dropdownTemplate = data =>
   `<a class="dropdown-trigger" id="${data.triggerId}">
   ${data.triggerText}<span class="ic-dropdown">&nbsp;</span>
   </a>
-  <ul data-show="hide" class="dropdown" id="${data.dropdownId}">
+  <ul class="dropdown" id="${data.dropdownId}">
   ${dropdownListTemplate(data.dropdown)}
   </ul>
   `;
