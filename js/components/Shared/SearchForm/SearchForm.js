@@ -38,7 +38,6 @@ export default class SearchForm {
       this.beforeComposition = e.isComposing;
       return this.setAjax(e)
     }
-
   }
   setAjax({target: {value}}){ 
     this.dataHelper.sendReq({
@@ -57,7 +56,12 @@ export default class SearchForm {
   handleChangeSelected(type){
     this.clearActiveClass(qs(`[data-id="${this.active_KeyWordIdx}"]`, this.keyWordList))
     this.handleChoseActiveIdx(type)
-    this.addActiveClass(qs(`[data-id="${this.active_KeyWordIdx}"]`, this.keyWordList))
+    const willActiveEl = qs(`[data-id="${this.active_KeyWordIdx}"]`, this.keyWordList)
+    this.addActiveClass(willActiveEl)
+    this.setInputTextByActiveText(willActiveEl.innerText)
+  }
+  setInputTextByActiveText(text){
+    this.searchInputEl.value = text;
   }
   handleChoseActiveIdx(type){
     const firstIdx = 0;
@@ -74,6 +78,7 @@ export default class SearchForm {
   setActive_KeyWordListItem(idx, el){
     this.set_Active_KeyWordIdx(idx)
     this.addActiveClass(el)
+    this.setInputTextByActiveText(el.innerText);
   }
   handleInitSelected(type){
     const lastIdx = this.keyWordList.children.length-1
