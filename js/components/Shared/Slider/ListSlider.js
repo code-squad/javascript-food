@@ -27,6 +27,7 @@ export default class ListSlider {
     return this.maxIdx = Math.ceil(length/this.listItemCounts)-1;
   }
   getData(data){
+    console.dir(data);
     this.renderSlides(data);
   }
   makeEdgeData(slideData){
@@ -35,7 +36,6 @@ export default class ListSlider {
       const padArr = [...new Array(this.padElCounts)];
       padSlide =  padTemplate(padArr)  
     }
-    
     const firstSlide = padSlide+cardTemplate(slideData.slice(0,this.listItemCounts))
     const lastSlide = cardTemplate(slideData.slice(-this.listItemCounts+this.padElCounts))+padSlide
 

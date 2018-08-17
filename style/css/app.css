@@ -267,6 +267,11 @@ a {
   padding: 5px;
 }
 
+.keyword-list .active {
+  background: #eee;
+  opacity: 0.6;
+}
+
 .wrapper__header-main-menu {
   background: #483f35;
   height: 52px;

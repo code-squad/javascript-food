@@ -187,6 +187,10 @@
     box-sizing: border-box;
     padding: 5px;
   }
+  & .active {
+    background: #eee;
+    opacity: 0.6;
+  }
 }
 // special menu
 
