@@ -16,7 +16,14 @@ export default class SearchForm {
     this.bindEvents();
   }
   bindEvents(){
+    $on(this.searchInputEl, 'keydown', (e)=>this.handleSubmit(e))    
     $on(this.searchInputEl, 'keyup', (e)=>this.handleKeyup(e))    
+  }
+  handleSubmit(e){
+    if(e.keyCode===13){
+      e.preventDefault();
+      this.resetKeyWordList();
+    }
   }
   isUpDownKey(keyCode){
     return keyCode===38|| keyCode === 40
