@@ -28,21 +28,19 @@ export default class SearchForm {
   isUpDownKey(keyCode){
     return keyCode===38|| keyCode === 40
   }
-  toggleOnce(){
-    return this.once = !this.once;
-  }
   handleUpDownKeyPressed(keyCode){
     if(!this.hasKeyword()) return;
     const type = keyCode===38 ? 'up' : 'down' 
     this.selectKeyWord(type);
   }
   handleKeyup(e){
-    if(this.isUpDownKey(e.keyCode)){
-      if(!e.isComposing&&(!this.beforeComposition)) this.handleUpDownKeyPressed(e.keyCode);
-      this.beforeComposition = e.isComposing;
+    const {isComposing, keyCode } = e
+    if(this.isUpDownKey(keyCode)){
+      if(!isComposing&&(!this.beforeComposition)) this.handleUpDownKeyPressed(e.keyCode);
+      this.beforeComposition = isComposing;
     } 
     else {
-      this.beforeComposition = e.isComposing;
+      this.beforeComposition = isComposing;
       return this.setAjax(e)
     }
   }
