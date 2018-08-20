@@ -24,7 +24,6 @@ export default class Tab {
     this.tabButtonsEl.addEventListener("click", this.handleTabBtnClicked.bind(this));
   }
   getData(data){
-    console.dir(data);    
     this.renderTabs(data);
   }
   renderTabs(data) {

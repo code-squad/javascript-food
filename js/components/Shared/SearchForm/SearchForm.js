@@ -17,11 +17,24 @@ export default class SearchForm {
   }
   bindEvents(){
     $on(this.searchInputEl, 'keydown', (e)=>this.handleSubmit(e))    
-    $on(this.searchInputEl, 'keyup', (e)=>this.handleKeyup(e))    
+    $on(this.searchInputEl, 'keyup', (e)=>this.handleKeyup(e))
+  }
+  bindSaveKeyWords(handler){
+    $on(this.searchFormEl, 'submit', (e)=>{
+      e.preventDefault();
+      const keyword = this.searchInputEl.value.trim();
+			keyword && handler(keyword);
+    })    
+  }
+  bindGetRecentKeyWords(handler){
+    $on(this.searchInputEl, 'focus', (e)=>{
+        const keyWords = handler();
+        keyWordListTemplate
+    })    
   }
   handleSubmit(e){
     if(e.keyCode===13){
-      e.preventDefault();
+      this.keyWordList.children.length && e.preventDefault();
       this.resetKeyWordList();
     }
   }

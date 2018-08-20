@@ -27,7 +27,6 @@ export default class ListSlider {
     return this.maxIdx = Math.ceil(length/this.listItemCounts)-1;
   }
   getData(data){
-    console.dir(data);
     this.renderSlides(data);
   }
   makeEdgeData(slideData){

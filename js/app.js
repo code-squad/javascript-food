@@ -7,7 +7,11 @@ import Slider from './components/Shared/Slider/Slider.js';
 import ListSlider from './components/Shared/Slider/ListSlider.js';
 import ScrollButton from './components/Shared/ScrollButton/ScrollButton.js';
 import SearchForm from './components/Shared/SearchForm/SearchForm.js';
+import SearchFormModel from './Model/SearchFormModel.js';
+import SearchFormController from './Controller/SearchFormController.js';
 import AjaxHelper from "./helper/AjaxHelper.js";
+
+
 import { renderDataList } from "./render/renderDataList.js";
 
 
@@ -50,5 +54,8 @@ $on(document, "DOMContentLoaded", () => {
 
   const scrollButton = new ScrollButton('.scroll-button-list')
 
-  const searchForm = new SearchForm('.search-form', searchForm_AjaxHelper,searchUrl);
+  const searchFormView = new SearchForm('.search-form', searchForm_AjaxHelper,searchUrl);
+  const searchFormModel = new SearchFormModel();
+  const searchFormController  = new SearchFormController(searchFormView, searchFormModel)
+
 });
