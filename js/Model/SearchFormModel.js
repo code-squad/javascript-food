@@ -11,11 +11,7 @@ export default class SearchFormModel {
   }
   getKeyWords(){
     const keyPrefix = `keyword-`
-    const lastIdx = localStorage.length-1
-    const keyWords = [];
-    for(let i=lastIdx; i>=0; i--){
-      keyWords.push(localStorage.getItem(`${keyPrefix}${i}`))
-    }
-    return keyWords
+    const lastIdx = localStorage.length-1;
+    return [...new Array(lastIdx).keys()].map(i=>localStorage.getItem(`${keyPrefix}${i}`))   
   }
 }

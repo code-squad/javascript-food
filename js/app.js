@@ -25,6 +25,9 @@ const soup_slideListUrl = `${woowaDomain}/soup`;
 const side_slideListUrl = `${woowaDomain}/side`;
 const searchUrl = `${mainDomain}/ac`
 
+
+
+
 $on(document, "DOMContentLoaded", () => {
   renderDataList.forEach(v => renderer(v));
   const slide = new Slider('.main__banner-slider', new PagiNation('.main__banner-slider-pagination'));

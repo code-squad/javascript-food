@@ -8,7 +8,8 @@ export default class SearchForm {
     this.keyWordList = qs('.keyword-list', this.searchFormEl);
     this.dataHelper = dataHelper;
     this.active_KeyWordIdx = null;
-    this.beforeComposition = null;
+    // this.beforeComposition = null;
+    this.timer = null;
     this.url = url;
     this.init();
   }
@@ -16,7 +17,7 @@ export default class SearchForm {
     this.bindEvents();
   }
   bindEvents(){
-    $on(this.searchInputEl, 'keydown', (e)=>this.handleSubmit(e))    
+    $on(this.searchInputEl, 'keydown', (e)=>this.handleKeyDown(e))    
     $on(this.searchInputEl, 'keyup', (e)=>this.handleKeyup(e))
   }
   bindSaveKeyWords(handler){
@@ -36,10 +37,13 @@ export default class SearchForm {
     })    
   }
   handleSubmit(e){
-    if(e.keyCode===13){
-      this.keyWordList.children.length && e.preventDefault();
-      this.resetKeyWordList();
-    }
+    this.keyWordList.children.length && e.preventDefault();
+    this.resetKeyWordList();
+  }
+  handleKeyDown(e){
+    const {keyCode} = e;
+    if(keyCode===13) this.handleSubmit(e)
+    if(this.isUpDownKey(keyCode)) this.handleUpDownKeyPressed(keyCode)
   }
   isUpDownKey(keyCode){
     return keyCode===38|| keyCode === 40
@@ -51,14 +55,13 @@ export default class SearchForm {
   }
   handleKeyup(e){
     const {isComposing, keyCode } = e
-    if(this.isUpDownKey(keyCode)){
-      if(!isComposing&&(!this.beforeComposition)) this.handleUpDownKeyPressed(e.keyCode);
-      this.beforeComposition = isComposing;
-    } 
-    else {
-      this.beforeComposition = isComposing;
-      return this.setAjax(e)
-    }
+    if(!isComposing) return ;
+    else return this.deBounceKeyEvents(e)
+  }
+  deBounceKeyEvents(e){
+    const event = e;
+    this.timer && clearTimeout(this.timer);
+    this.timer = setTimeout((e = event)=>this.setAjax(e), 200);
   }
   setAjax({target: {value}}){ 
     this.dataHelper.sendReq({
