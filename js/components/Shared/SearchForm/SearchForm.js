@@ -1,5 +1,5 @@
 import { qs, $on } from '../../../helper/helper.js';
-import { keyWordListTemplate } from './template/template.js';
+import { keyWordListTemplate, recentKeyWordTemplate } from './template/template.js';
 
 export default class SearchForm {
   constructor(searchFormSelector, dataHelper, url) {
@@ -29,7 +29,10 @@ export default class SearchForm {
   bindGetRecentKeyWords(handler){
     $on(this.searchInputEl, 'focus', (e)=>{
         const keyWords = handler();
-        keyWordListTemplate
+        if(keyWords){
+          this.showRenderKeyword();
+          this.keyWordList.innerHTML = recentKeyWordTemplate(keyWords);
+        }
     })    
   }
   handleSubmit(e){

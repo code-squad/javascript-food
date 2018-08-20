@@ -11,6 +11,6 @@ export default class SearchFormController {
     this.model.saveKeyWords(keyword)
   }
   getRecentKeyWords(){
-    this.model.getKeyWords()
+    return this.model.getKeyWords()
   }
 }
