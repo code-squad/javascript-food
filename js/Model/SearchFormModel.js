@@ -1,17 +1,27 @@
 
 export default class SearchFormModel {
   constructor() {
-    this.id = 0;
-    this.KeyList = []
+    this.key = 'keyword'
   }
-  saveKeyWords(data) {
-    const key = `keyword-${this.id++}`;
-    this.KeyList.push({key: data});
-    localStorage.setItem(key, data)
+  getLocalItem(){
+    return JSON.parse(localStorage.getItem(this.key)) || []
+  }
+  saveKeyWords(data) { 
+    let keywordList = this.getLocalItem();
+    const keyWordCounts = keywordList.length
+    // 중복 방지
+    const hasSameData = keywordList.some(keywordData=>keywordData.keyword===data)
+    if(hasSameData) return ;
+    // 저장
+    keywordList = [...keywordList, {id: keyWordCounts, keyword: data}]
+    localStorage.setItem(this.key, JSON.stringify(keywordList))
   }
   getKeyWords(){
-    const keyPrefix = `keyword-`
-    const lastIdx = localStorage.length-1;
-    return [...new Array(lastIdx).keys()].map(i=>localStorage.getItem(`${keyPrefix}${i}`))   
+    let keywordList = this.getLocalItem();
+    const keyWordCounts = keywordList.length
+    const recentShowItems = 5;
+    if(keyWordCounts===0) return;
+    if(recentShowItems>keyWordCounts) return keywordList
+    else return keywordList.slice(keyWordCounts-recentShowItems)
   }
 }
