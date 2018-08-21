@@ -102,7 +102,8 @@ export default class SearchForm {
   }
   handleChangeSelected(type){
     this.clearActiveClass(qs(`[data-id="${this.active_KeyWordIdx}"]`, this.keyWordList))
-    this.handleChoseActiveIdx(type)
+    const change = type === UP ? -ONE : ONE 
+    this.handleChoseActiveIdx(change)
     const willActiveEl = qs(`[data-id="${this.active_KeyWordIdx}"]`, this.keyWordList)
     this.addActiveClass(willActiveEl)
     this.setInputTextByActiveText(willActiveEl.innerText)
@@ -110,10 +111,9 @@ export default class SearchForm {
   setInputTextByActiveText(text){
     this.searchInputEl.value = text;
   }
-  handleChoseActiveIdx(type){
+  handleChoseActiveIdx(change){
     const firstIdx = ZERO;
     const lastIdx = this.keyWordList.children.length-ONE
-    const change = type === UP ? -ONE : ONE 
     let choseIdx = this.active_KeyWordIdx+change
     if(choseIdx<firstIdx) choseIdx = lastIdx
     else if(choseIdx > lastIdx) choseIdx = ZERO;
