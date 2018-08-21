@@ -1,5 +1,5 @@
 import { qs, $on } from '../../../helper/helper.js';
-import { keyWordListTemplate, recentKeyWordTemplate } from './template/template.js';
+import Template from './template/template.js';
 
 export default class SearchForm {
   constructor(searchFormSelector, dataHelper, url) {
@@ -42,7 +42,7 @@ export default class SearchForm {
         const keyWords = handler();
         if(keyWords){
           this.showRenderKeyword();
-          this.keyWordList.innerHTML = recentKeyWordTemplate(keyWords);
+          this.keyWordList.innerHTML = Template.recentKeyWord(keyWords);
         }
     })    
   }
@@ -139,7 +139,7 @@ export default class SearchForm {
     this.keyWordList.innerHTML = "";
   }
   renderKeyWordList(keyword,keywordList){
-    this.keyWordList.innerHTML = keyWordListTemplate(keyword, keywordList)
+    this.keyWordList.innerHTML = Template.keyWordList(keyword, keywordList)
   }
   showRenderKeyword(){
     this.keyWordList.classList.remove('hide')
