@@ -8,7 +8,6 @@ export default class SearchForm {
     this.keyWordList = qs('.keyword-list', this.searchFormEl);
     this.dataHelper = dataHelper;
     this.active_KeyWordIdx = null;
-    // this.beforeComposition = null;
     this.timer = null;
     this.url = url;
     this.init();
@@ -19,13 +18,24 @@ export default class SearchForm {
   bindEvents(){
     $on(this.searchInputEl, 'keydown', (e)=>this.handleKeyDown(e))    
     $on(this.searchInputEl, 'keyup', (e)=>this.handleKeyup(e))
+    $on(document.body, 'click', (e)=>this.handleResetKeyWord(e))
+  }
+  handleResetKeyWord(e){
+    if(e.target===this.searchInputEl|| e.target === qs('.search-button',this.searchFormEl)) return ;
+    if(this.keyWordList.children.length===0) return;
+    this.resetKeyWordList();
   }
   bindSaveKeyWords(handler){
     $on(this.searchFormEl, 'submit', (e)=>{
       e.preventDefault();
       const keyword = this.searchInputEl.value.trim();
-			keyword && handler(keyword);
+      keyword && handler(keyword);
+      this.clearInput()
+      this.resetKeyWordList();
     })    
+  }
+  clearInput(){
+    this.searchInputEl.value="";
   }
   bindGetRecentKeyWords(handler){
     $on(this.searchInputEl, 'focus', (e)=>{
@@ -36,14 +46,13 @@ export default class SearchForm {
         }
     })    
   }
-  handleSubmit(e){
-    this.keyWordList.children.length && e.preventDefault();
-    this.resetKeyWordList();
-  }
   handleKeyDown(e){
     const {keyCode} = e;
-    if(keyCode===13) this.handleSubmit(e)
     if(this.isUpDownKey(keyCode)) this.handleUpDownKeyPressed(keyCode)
+    if(this.isCancelKey(keyCode)) this.resetKeyWordList();
+  }
+  isCancelKey(keyCode){
+    return keyCode===27
   }
   isUpDownKey(keyCode){
     return keyCode===38|| keyCode === 40
