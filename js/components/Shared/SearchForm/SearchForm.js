@@ -1,6 +1,16 @@
 import { qs, $on } from '../../../helper/helper.js';
 import Template from './template/template.js';
 
+const ONE = 1 
+const ZERO = 0;
+const UP = 'up';
+const DOWN = 'down';
+const KEYCODE = {
+  ESC: 27,
+  UP: 38, 
+  DOWN: 40,
+}
+const DEBOUNCE_TIME = 200;
 export default class SearchForm {
   constructor(searchFormSelector, dataHelper, url) {
     this.searchFormEl = qs(searchFormSelector)
@@ -60,21 +70,21 @@ export default class SearchForm {
     if(this.isCancelKey(keyCode)) this.resetKeyWordList();
   }
   isCancelKey(keyCode){
-    return keyCode===27
+    return keyCode===KEYCODE.ESC
   }
   isUpDownKey(keyCode){
-    return keyCode===38|| keyCode === 40
+    return keyCode===KEYCODE.UP|| keyCode === KEYCODE.DOWN
   }
   handleUpDownKeyPressed(keyCode){
     if(!this.hasKeyword()) return;
-    const type = keyCode===38 ? 'up' : 'down' 
+    const type = keyCode===KEYCODE.UP ? UP : DOWN 
     this.selectKeyWord(type);
   }
   deBounceKeyEvents(e){
     const event = e;
     this.timer && clearTimeout(this.timer);
     if(this.isUpDownKey(e.keyCode)) return;
-    this.timer = setTimeout((e = event)=>this.setAjax(e), 200);
+    this.timer = setTimeout((e = event)=>this.setAjax(e), DEBOUNCE_TIME);
   }
   setAjax({target: {value}}){ 
     this.dataHelper.sendReq({
@@ -101,12 +111,12 @@ export default class SearchForm {
     this.searchInputEl.value = text;
   }
   handleChoseActiveIdx(type){
-    const firstIdx = 0;
-    const lastIdx = this.keyWordList.children.length-1
-    const change = type === 'up' ? -1 : 1 
+    const firstIdx = ZERO;
+    const lastIdx = this.keyWordList.children.length-ONE
+    const change = type === UP ? -ONE : ONE 
     let choseIdx = this.active_KeyWordIdx+change
     if(choseIdx<firstIdx) choseIdx = lastIdx
-    else if(choseIdx > lastIdx) choseIdx = 0;
+    else if(choseIdx > lastIdx) choseIdx = ZERO;
     this.set_Active_KeyWordIdx(choseIdx)
   }
   set_Active_KeyWordIdx(idx){
@@ -118,8 +128,8 @@ export default class SearchForm {
     this.setInputTextByActiveText(el.innerText);
   }
   handleInitSelected(type){
-    const lastIdx = this.keyWordList.children.length-1
-    const firstIdx = 0;
+    const lastIdx = this.keyWordList.children.length-ONE
+    const firstIdx = ZERO;
     if(type==='up') this.setActive_KeyWordListItem(lastIdx, qs(`[data-id="${lastIdx}"]`, this.keyWordList))
     else this.setActive_KeyWordListItem(firstIdx, qs(`[data-id="${firstIdx}"]`, this.keyWordList)) 
   }
