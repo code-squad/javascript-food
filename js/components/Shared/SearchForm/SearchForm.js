@@ -43,6 +43,7 @@ export default class SearchForm {
   }
   bindGetRecentKeyWords(handler){
     $on(this.searchInputEl, 'focus', (e)=>{
+        if(e.target.value) return this.setAjax(e)
         const keyWords = handler();
         if(keyWords){
           this.showRenderKeyword();
