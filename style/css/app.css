@@ -269,12 +269,10 @@ a {
 
 .keyword-list li:hover {
   background: #eee;
-  opacity: 0.8;
 }
 
 .keyword-list .active {
   background: #eee;
-  opacity: 0.8;
 }
 
 .wrapper__header-main-menu {

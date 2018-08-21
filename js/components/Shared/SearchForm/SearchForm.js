@@ -17,12 +17,16 @@ export default class SearchForm {
   }
   bindEvents(){
     $on(this.searchInputEl, 'keydown', (e)=>this.handleKeyDown(e))    
-    $on(this.searchInputEl, 'keyup', (e)=>this.handleKeyup(e))
+    $on(this.searchInputEl, 'input', (e)=>this.deBounceKeyEvents(e))
     $on(document.body, 'click', (e)=>this.handleResetKeyWord(e))
+    $on(this.searchInputEl, 'click', e=>this.clickResetDisable(e))
+    $on(qs('.search-button',this.searchFormEl), 'click', e=>this.clickResetDisable(e))
+  }
+  clickResetDisable(e){
+    e.stopPropagation()
   }
   handleResetKeyWord(e){
-    if(e.target===this.searchInputEl|| e.target === qs('.search-button',this.searchFormEl)) return ;
-    if(this.keyWordList.children.length===0) return;
+    if(!this.hasKeyword()) return;
     this.resetKeyWordList();
   }
   bindSaveKeyWords(handler){
@@ -62,14 +66,10 @@ export default class SearchForm {
     const type = keyCode===38 ? 'up' : 'down' 
     this.selectKeyWord(type);
   }
-  handleKeyup(e){
-    const {isComposing, keyCode } = e
-    if(!isComposing) return ;
-    else return this.deBounceKeyEvents(e)
-  }
   deBounceKeyEvents(e){
     const event = e;
     this.timer && clearTimeout(this.timer);
+    if(this.isUpDownKey(e.keyCode)) return;
     this.timer = setTimeout((e = event)=>this.setAjax(e), 200);
   }
   setAjax({target: {value}}){ 
