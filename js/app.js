@@ -7,8 +7,8 @@ import Slider from './components/Shared/Slider/Slider.js';
 import ListSlider from './components/Shared/Slider/ListSlider.js';
 import ScrollButton from './components/Shared/ScrollButton/ScrollButton.js';
 import SearchForm from './components/Shared/SearchForm/SearchForm.js';
-import SearchFormModel from './Model/SearchFormModel.js';
-import SearchFormController from './Controller/SearchFormController.js';
+import SearchFormModel from './components/Shared/SearchForm/Model/SearchFormModel.js';
+import SearchFormController from './components/Shared/SearchForm/Controller/SearchFormController.js';
 import AjaxHelper from "./helper/AjaxHelper.js";
 
 
