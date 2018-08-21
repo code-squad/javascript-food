@@ -1,9 +1,8 @@
 
 export default class SearchFormController {
-  constructor(view, model) {
+  constructor({view, model}) {
     this.view = view;
     this.model = model;
-    
     view.bindSaveKeyWords(this.saveKeyWords.bind(this))
     view.bindGetRecentKeyWords(this.getRecentKeyWords.bind(this))
   }

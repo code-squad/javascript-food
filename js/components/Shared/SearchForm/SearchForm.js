@@ -12,7 +12,7 @@ const KEYCODE = {
 }
 const DEBOUNCE_TIME = 200;
 export default class SearchForm {
-  constructor(searchFormSelector, dataHelper, url) {
+  constructor({searchFormSelector, dataHelper, url}) {
     this.searchFormEl = qs(searchFormSelector)
     this.searchInputEl = qs('.search-input', this.searchFormEl)
     this.keyWordList = qs('.keyword-list', this.searchFormEl);
