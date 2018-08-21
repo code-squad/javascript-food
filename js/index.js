@@ -6,6 +6,7 @@ import {BestDishesNavigation} from './bestDishesNavigation.js';
 import {BestDishesView} from './bestDishesView.js';
 import {r_NavigatorStyleSceneChange} from './raf.js';
 import {t_NavigatorStyleSceneChange} from './transition.js';
+import {SlideStyleSceneChange} from './slideStyleSceneChange.js';
 // controller
 import {Controller} from "./controller.js";
 
@@ -94,3 +95,12 @@ const controller = new Controller({
 });
 
 controller.init({menuData});
+
+const sideDishes = new SlideStyleSceneChange({
+  wrapper: document.querySelector('.side_dishes .main_section_list'),
+  SceneTemplate: new Template().mainSectionListItem,
+  uri: 'http://crong.codesquad.kr:8080/woowa/side',
+  ajax: ajax
+})
+
+sideDishes.registerAllEventListener();
