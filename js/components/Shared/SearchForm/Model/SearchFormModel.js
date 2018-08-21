@@ -1,26 +1,30 @@
 
+const ZERO = 0;
+const FIVE = 5 
+const KEYWORDS_KEY = 'KEYWORDS_KEY'
+
 export default class SearchFormModel {
-  constructor() {
-    this.key = 'keyword'
-  }
-  getLocalItem(){
-    return JSON.parse(localStorage.getItem(this.key)) || []
+ 
+  getLocalItem(keywordsKey = KEYWORDS_KEY){
+    return {
+      keywordList: JSON.parse(localStorage.getItem(keywordsKey)) || [],
+      keywordsKey,
+    }
   }
   saveKeyWords(keyword) { 
-    let keywordList = this.getLocalItem();
+    let {keywordsKey, keywordList } = this.getLocalItem();
     const keyWordCounts = keywordList.length
     // 중복 방지
     const hasSameData = keywordList.some(keywordData=>keywordData.keyword===keyword)
     if(hasSameData) return ;
     // 저장
     keywordList = [...keywordList, {id: keyWordCounts, keyword}]
-    localStorage.setItem(this.key, JSON.stringify(keywordList))
+    localStorage.setItem(keywordsKey, JSON.stringify(keywordList))
   }
-  getKeyWords(){
-    let keywordList = this.getLocalItem();
+  getKeyWords(recentShowItems = FIVE){
+    const { keywordList } = this.getLocalItem();
     const keyWordCounts = keywordList.length
-    const recentShowItems = 5;
-    if(keyWordCounts === 0) return;
+    if(keyWordCounts === ZERO) return;
     if(recentShowItems > keyWordCounts) return keywordList
     else return keywordList.slice(keyWordCounts-recentShowItems)
   }

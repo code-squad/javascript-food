@@ -44,12 +44,15 @@ export default class SearchForm {
   bindGetRecentKeyWords(handler){
     $on(this.searchInputEl, 'focus', (e)=>{
         if(e.target.value) return this.setAjax(e)
-        const keyWords = handler();
-        if(keyWords){
-          this.showRenderKeyword();
-          this.keyWordList.innerHTML = Template.recentKeyWord(keyWords);
-        }
+        else this.getRecetKeyWord(handler)
     })    
+  }
+  getRecetKeyWord(handler){
+    const keyWords = handler();
+    if(keyWords){
+      this.showRenderKeyword();
+      this.keyWordList.innerHTML = Template.recentKeyWord(keyWords);
+    }
   }
   handleKeyDown(e){
     const {keyCode} = e;
