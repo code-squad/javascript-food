@@ -63,7 +63,6 @@ export const Template = (function () {
     return `<span class='best_dist_sales_price'>${price.slice(0,-1)}</span>`
   }
 
-
   function Template() {};
 
 
@@ -84,8 +83,55 @@ export const Template = (function () {
 
     noticeNavigatorButton(index) {
       return `<li class='notice_navigator_button' data-index='${index}'></li>`
+    },
+
+    mainSectionListItem({image, delivery_type, title, description, n_price, s_price, badge}) {
+      return `
+      <li class='main_section_list_item'>
+        <div class="main_section_list_item_img_wrap">
+          <img class='main_section_list_item_img' src="${image}" alt="side_dish_1">
+          <div class="main_section_list_item_delivery_type_wrap">
+            <div class="main_section_list_item_delivery_type">
+              ${
+                delivery_type.reduce((html, deliveryType, index) => {
+                  return `<div class="main_section_list_item_delivery_type_${index+1}">${deliveryType}</div>`
+                }, '')
+              }
+            </div>
+          </div>
+        </div>
+        <div class='main_section_list_item_title'>${title}</div>
+        <div class='main_section_list_item_description'>${description}</div>
+        <div class='main_section_list_item_price'>
+          ${n_price ? `<span class='main_section_list_item_origin_price'>${n_price}</span>`: ''}
+          <span class='main_section_list_item_sales_price'>${s_price}</span>
+          <span class="main_section_list_item_price_unit">원</span>
+        </div>
+        ${badge.length ? `<div class='main_section_list_item_badge'>${badge[0]}</div>` : ''}
+      </li>
+      `
     }
   }
   
   return Template;
 })();
+
+/*
+<li class='main_section_list_item'>
+  <div class="main_section_list_item_img_wrap">
+    <img class='main_section_list_item_img' src="./images/side_dish_1.jpg" alt="side_dish_1">
+    <div class="main_section_list_item_delivery_type_wrap">
+      <div class="main_section_list_item_delivery_type">
+        <div class="main_section_list_item_delivery_type_1">새벽배송</div>
+        <div class="main_section_list_item_delivery_type_2">전국택배</div>
+      </div>
+    </div>
+  </div>
+  <div class='main_section_list_item_title'>[집밥의 완성] 두부시래기조림 180g</div>
+  <div class='main_section_list_item_description'>칼칼해서 좋아요</div>
+  <div class='main_section_list_item_price'>
+    <span class='main_section_list_item_origin_price'>2,000</span><span class='main_section_list_item_sales_price'>1,200</span><span class="main_section_list_item_price_unit">원</span>
+  </div>
+  <div class='main_section_list_item_badge'>이벤트특가</div>
+</li>
+*/
