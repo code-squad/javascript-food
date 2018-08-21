@@ -27,7 +27,7 @@ export default class SearchForm {
   }
   bindEvents(){
     $on(this.searchInputEl, 'keydown', (e)=>this.handleKeyDown(e))    
-    $on(this.searchInputEl, 'input', (e)=>this.deBounceKeyEvents(e))
+    $on(this.searchInputEl, 'keyup', (e)=>this.deBounceKeyEvents(e))
     $on(document.body, 'click', (e)=>this.handleResetKeyWord(e))
     $on(this.searchInputEl, 'click', e=>this.clickResetDisable(e))
     $on(qs('.search-button',this.searchFormEl), 'click', e=>this.clickResetDisable(e))
@@ -73,6 +73,7 @@ export default class SearchForm {
     return keyCode===KEYCODE.ESC
   }
   isUpDownKey(keyCode){
+    
     return keyCode===KEYCODE.UP|| keyCode === KEYCODE.DOWN
   }
   handleUpDownKeyPressed(keyCode){
@@ -102,8 +103,7 @@ export default class SearchForm {
   }
   handleChangeSelected(type){
     this.clearActiveClass(qs(`[data-id="${this.active_KeyWordIdx}"]`, this.keyWordList))
-    const change = type === UP ? -ONE : ONE 
-    this.handleChoseActiveIdx(change)
+    this.handleChoseActiveIdx(type, {up: -ONE, down: ONE})
     const willActiveEl = qs(`[data-id="${this.active_KeyWordIdx}"]`, this.keyWordList)
     this.addActiveClass(willActiveEl)
     this.setInputTextByActiveText(willActiveEl.innerText)
@@ -111,10 +111,10 @@ export default class SearchForm {
   setInputTextByActiveText(text){
     this.searchInputEl.value = text;
   }
-  handleChoseActiveIdx(change){
+  handleChoseActiveIdx(type, changeObj){
     const firstIdx = ZERO;
     const lastIdx = this.keyWordList.children.length-ONE
-    let choseIdx = this.active_KeyWordIdx+change
+    let choseIdx = this.active_KeyWordIdx+changeObj[type]
     if(choseIdx<firstIdx) choseIdx = lastIdx
     else if(choseIdx > lastIdx) choseIdx = ZERO;
     this.set_Active_KeyWordIdx(choseIdx)
