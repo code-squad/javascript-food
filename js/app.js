@@ -15,12 +15,6 @@ import URL from './constants/URL.js';
 import { renderDataList } from "./render/renderDataList.js";
 
 
-
-
-
-
-
-
 $on(document, "DOMContentLoaded", () => {
   renderDataList.forEach(v => renderer(v));
   const slide = new Slider({
@@ -28,40 +22,40 @@ $on(document, "DOMContentLoaded", () => {
     pagiNation: new PagiNation('.main__banner-slider-pagination')
   });
   
-  const tabAjaxHelper = new AjaxHelper();
+  // const tabAjaxHelper = new AjaxHelper();
   const tab = new Tab({
     btnSelector: ".tab-button-list", 
     cardListSelector: ".tab-card-section", 
-    dataHelper: tabAjaxHelper, 
+    dataHelper: AjaxHelper, 
     tabUrl: URL.TABURL
   })
 
   // _ls listSlider
-  const recommend_lsAjaxHelper = new AjaxHelper();
-  const side_lsAjaxHelper = new AjaxHelper();
-  const soup_lsAjaxHelper = new AjaxHelper();
-  const course_lsAjaxHelper = new AjaxHelper();
+  // const recommend_lsAjaxHelper = new AjaxHelper();
+  // const side_lsAjaxHelper = new AjaxHelper();
+  // const soup_lsAjaxHelper = new AjaxHelper();
+  // const course_lsAjaxHelper = new AjaxHelper();
   
-  const searchForm_AjaxHelper = new AjaxHelper();
+  // const searchForm_AjaxHelper = new AjaxHelper();
 
   const recommend_listSlider = new ListSlider({
     slideSelector: '#list-slide-recommend',
-    dataHelper: recommend_lsAjaxHelper, 
+    dataHelper: AjaxHelper, 
     url: URL.MAIN_SLIDELISTURL,
   });
   const side_listSlider = new ListSlider({
     slideSelector: '#list-slide-sidedish',
-    dataHelper: side_lsAjaxHelper, 
+    dataHelper: AjaxHelper, 
     url: URL.SIDE_SLIDELISTURL,
   });
   const soup_listSlider = new ListSlider({
     slideSelector: '#list-slide-soup',
-    dataHelper: soup_lsAjaxHelper, 
+    dataHelper: AjaxHelper, 
     url: URL.SOUP_SLIDELISTURL,
   });
   const course_listSlider = new ListSlider({
     slideSelector: '#list-slide-course',
-    dataHelper: course_lsAjaxHelper, 
+    dataHelper: AjaxHelper, 
     url: URL.COURSE_SLIDELISTURL, 
   });
 
@@ -88,7 +82,7 @@ $on(document, "DOMContentLoaded", () => {
 
   const searchFormView = new SearchForm({
     searchFormSelector: '.search-form', 
-    dataHelper: searchForm_AjaxHelper,
+    dataHelper: AjaxHelper,
     url: URL.SEARCHURL,
   });
   const searchFormModel = new SearchFormModel();

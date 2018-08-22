@@ -1,25 +1,29 @@
 
 import { $on } from './helper.js';
-export default class AjaxHelper {
-  constructor() {
-    this.httpRequest = null;
-    this.init();
+
+const AjaxHelper = (function (){
+  
+ const init = function(){
+  if (window.XMLHttpRequest) return new XMLHttpRequest();
+  else return ActiveXObject('Microsoft.XMLHTTP');
+ } 
+  
+  const reqListener = function(httpRequest){
+    return JSON.parse(httpRequest.responseText)
   }
-  init() {
-    if (window.XMLHttpRequest) {
-      // 모질라, 사파리등 그외 브라우저, ...
-      this.httpRequest = new XMLHttpRequest();
-    } else {
-      this.httpRequest = new ActiveXObject('Microsoft.XMLHTTP');
-    }
-   
+
+  const sendReq = function({method, url, successCallback}){
+    const httpRequest = init();
+    $on(httpRequest, 'load', ()=>successCallback(reqListener(httpRequest)));
+    httpRequest.open(method, url);
+    httpRequest.send();
   }
-  sendReq({method, url, successCallback}) {
-    $on(this.httpRequest, 'load', ()=>successCallback(this.reqListener()));
-    this.httpRequest.open(method, url);
-    this.httpRequest.send();
+
+  return {
+    sendReq,
   }
-  reqListener(){
-    return JSON.parse(this.httpRequest.responseText)
-  }
-}
+  
+
+})();
+
+export default AjaxHelper
