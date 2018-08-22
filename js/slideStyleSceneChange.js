@@ -1,11 +1,12 @@
 export class SlideStyleSceneChange {
-  constructor({wrapper, SceneTemplate, leftButton, rightButton, uri, ajax, animationDuration}) {
+  constructor({wrapper, SceneTemplate, leftButton, rightButton, uri, ajax, throttle, animationDuration}) {
     this.wrapper = wrapper;
     this.SceneTemplate = SceneTemplate;
     this.leftButton = leftButton;
     this.rightButton = rightButton;
     this.uri = uri;
     this.ajax = ajax;
+    this.throttle = throttle;
     this.animationDuration = animationDuration;
     this.sceneLocation = 0;
     this.distance = 0;
@@ -18,13 +19,15 @@ export class SlideStyleSceneChange {
       this.ajax({uri: this.uri, callback: this._init.bind(this)});
     });
 
-    this.leftButton.addEventListener('click', () => {
-      this._move(this.distance);
-    });
+    this.leftButton.addEventListener('click', this.throttle({
+      delay: 1000*this.animationDuration,
+      callback: () => { this._move(this.distance); }
+    }));
 
-    this.rightButton.addEventListener('click', () => {
-      this._move(-this.distance);
-    });
+    this.rightButton.addEventListener('click', this.throttle({
+      delay: 1000*this.animationDuration,
+      callback: () => { this._move(-this.distance); }
+    }));
 
     this.wrapper.addEventListener('transitionend', () => {
       this._checkLocation();

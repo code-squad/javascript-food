@@ -14,16 +14,7 @@ import {Template} from './template.js';
 import {menuData} from './data.js';
 import {fade, slide} from './animation.js';
 
-
-
-const ajax = function({uri, callback}) {
-  const x = new XMLHttpRequest();
-  x.addEventListener('load', () => {
-    callback(JSON.parse(x.response));
-  });
-  x.open('GET', uri);
-  x.send();
-}
+import {ajax, throttle} from './helper.js';
 
 // model
 const model = new Model();
@@ -103,6 +94,7 @@ const sideDishes = new SlideStyleSceneChange({
   SceneTemplate: new Template().mainSectionListItem,
   uri: 'http://crong.codesquad.kr:8080/woowa/side',
   ajax: ajax,
+  throttle: throttle,
   animationDuration: 0.5
 })
 
