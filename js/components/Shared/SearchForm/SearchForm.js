@@ -39,11 +39,11 @@ export default class SearchForm {
     if(!this.hasKeyword()) return;
     this.resetKeyWordList();
   }
-  bindSaveKeyWords(handler){
+  bindSaveKeyWords(saveKeyWords){
     $on(this.searchFormEl, 'submit', (e)=>{
       e.preventDefault();
       const keyword = this.searchInputEl.value.trim();
-      keyword && handler(keyword);
+      keyword && saveKeyWords(keyword);
       this.clearInput()
       this.resetKeyWordList();
     })    
@@ -51,14 +51,14 @@ export default class SearchForm {
   clearInput(){
     this.searchInputEl.value="";
   }
-  bindGetRecentKeyWords(handler){
+  bindGetRecentKeyWords(getKeyWords){
     $on(this.searchInputEl, 'focus', (e)=>{
         if(e.target.value) return this.setAjax(e)
-        else this.getRecetKeyWord(handler)
+        else this.getRecetKeyWord(getKeyWords)
     })    
   }
-  getRecetKeyWord(handler){
-    const keyWords = handler();
+  getRecetKeyWord(getKeyWords){
+    const keyWords = getKeyWords();
     if(keyWords){
       this.showRenderKeyword();
       this.keyWordList.innerHTML = Template.recentKeyWord(keyWords);
@@ -73,7 +73,7 @@ export default class SearchForm {
     return keyCode===KEYCODE.ESC
   }
   isUpDownKey(keyCode){
-    
+
     return keyCode===KEYCODE.UP|| keyCode === KEYCODE.DOWN
   }
   handleUpDownKeyPressed(keyCode){
