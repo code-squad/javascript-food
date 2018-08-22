@@ -10,20 +10,13 @@ import SearchForm from './components/Shared/SearchForm/SearchForm.js';
 import SearchFormModel from './components/Shared/SearchForm/Model/SearchFormModel.js';
 import SearchFormController from './components/Shared/SearchForm/Controller/SearchFormController.js';
 import AjaxHelper from "./helper/AjaxHelper.js";
-
+import URL from './constants/URL.js';
 
 import { renderDataList } from "./render/renderDataList.js";
 
 
 
-const mainDomain = `http://crong.codesquad.kr:8080`
-const woowaDomain = `${mainDomain}/woowa`
-const tabUrl = `${woowaDomain}/best`;
-const main_slideListUrl = `${woowaDomain}/main`;
-const course_slideListUrl = `${woowaDomain}/course`;
-const soup_slideListUrl = `${woowaDomain}/soup`;
-const side_slideListUrl = `${woowaDomain}/side`;
-const searchUrl = `${mainDomain}/ac`
+
 
 
 
@@ -40,7 +33,7 @@ $on(document, "DOMContentLoaded", () => {
     btnSelector: ".tab-button-list", 
     cardListSelector: ".tab-card-section", 
     dataHelper: tabAjaxHelper, 
-    tabUrl,
+    tabUrl: URL.TABURL
   })
 
   // _ls listSlider
@@ -54,22 +47,22 @@ $on(document, "DOMContentLoaded", () => {
   const recommend_listSlider = new ListSlider({
     slideSelector: '#list-slide-recommend',
     dataHelper: recommend_lsAjaxHelper, 
-    url: main_slideListUrl,
+    url: URL.MAIN_SLIDELISTURL,
   });
   const side_listSlider = new ListSlider({
     slideSelector: '#list-slide-sidedish',
     dataHelper: side_lsAjaxHelper, 
-    url: side_slideListUrl,
+    url: URL.SIDE_SLIDELISTURL,
   });
   const soup_listSlider = new ListSlider({
     slideSelector: '#list-slide-soup',
     dataHelper: soup_lsAjaxHelper, 
-    url: soup_slideListUrl,
+    url: URL.SOUP_SLIDELISTURL,
   });
   const course_listSlider = new ListSlider({
     slideSelector: '#list-slide-course',
     dataHelper: course_lsAjaxHelper, 
-    url: course_slideListUrl,
+    url: URL.COURSE_SLIDELISTURL, 
   });
 
   const dropdownController = new DropdownController();
@@ -96,7 +89,7 @@ $on(document, "DOMContentLoaded", () => {
   const searchFormView = new SearchForm({
     searchFormSelector: '.search-form', 
     dataHelper: searchForm_AjaxHelper,
-    url: searchUrl
+    url: URL.SEARCHURL,
   });
   const searchFormModel = new SearchFormModel();
   const searchFormController  = new SearchFormController({view: searchFormView, model: searchFormModel})
