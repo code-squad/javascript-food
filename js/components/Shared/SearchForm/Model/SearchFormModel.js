@@ -1,7 +1,7 @@
 
-const ZERO = 0;
-const FIVE = 5 
-const KEYWORDS_KEY = 'KEYWORDS_KEY'
+import NUMBER from '../../../../constants/NUMBER.js';
+
+ const KEYWORDS_KEY = 'KEYWORDS_KEY'
 
 export default class SearchFormModel {
  
@@ -21,10 +21,10 @@ export default class SearchFormModel {
     keywordList = [...keywordList, {id: keyWordCounts, keyword}]
     localStorage.setItem(keywordsKey, JSON.stringify(keywordList))
   }
-  getKeyWords(recentShowItems = FIVE){
+  getKeyWords(recentShowItems = NUMBER.FIVE){
     const { keywordList } = this.getLocalItem();
     const keyWordCounts = keywordList.length
-    if(keyWordCounts === ZERO) return;
+    if(keyWordCounts === NUMBER.ZERO) return;
     if(recentShowItems > keyWordCounts) return keywordList
     else return keywordList.slice(keyWordCounts-recentShowItems)
   }

@@ -1,16 +1,9 @@
 import { qs, $on } from '../../../helper/helper.js';
 import Template from './template/template.js';
+import NUMBER from '../../../constants/NUMBER.js';
+import KEYCODE from '../../../constants/KEYCODE.js';
+import { ARROW, EVNETIME } from '../../../constants/EVENT.js'; 
 
-const ONE = 1 
-const ZERO = 0;
-const UP = 'up';
-const DOWN = 'down';
-const KEYCODE = {
-  ESC: 27,
-  UP: 38, 
-  DOWN: 40,
-}
-const DEBOUNCE_TIME = 200;
 export default class SearchForm {
   constructor({searchFormSelector, dataHelper, url}) {
     this.searchFormEl = qs(searchFormSelector)
@@ -78,14 +71,14 @@ export default class SearchForm {
   }
   handleUpDownKeyPressed(keyCode){
     if(!this.hasKeyword()) return;
-    const type = keyCode===KEYCODE.UP ? UP : DOWN 
+    const type = keyCode===KEYCODE.UP ? ARROW.UP : ARROW.DOWN 
     this.selectKeyWord(type);
   }
   deBounceKeyEvents(e){
     const event = e;
     this.timer && clearTimeout(this.timer);
     if(this.isUpDownKey(e.keyCode)) return;
-    this.timer = setTimeout((e = event)=>this.setAjax(e), DEBOUNCE_TIME);
+    this.timer = setTimeout((e = event)=>this.setAjax(e), EVNETIME.DEBOUNCE_TIME);
   }
   setAjax({target: {value}}){ 
     this.dataHelper.sendReq({
@@ -103,7 +96,7 @@ export default class SearchForm {
   }
   handleChangeSelected(type){
     this.clearActiveClass(qs(`[data-id="${this.active_KeyWordIdx}"]`, this.keyWordList))
-    this.handleChoseActiveIdx(type, {up: -ONE, down: ONE})
+    this.handleChoseActiveIdx(type, {up: -NUMBER.ONE, down: NUMBER.ONE})
     const willActiveEl = qs(`[data-id="${this.active_KeyWordIdx}"]`, this.keyWordList)
     this.addActiveClass(willActiveEl)
     this.setInputTextByActiveText(willActiveEl.innerText)
@@ -112,11 +105,11 @@ export default class SearchForm {
     this.searchInputEl.value = text;
   }
   handleChoseActiveIdx(type, changeObj){
-    const firstIdx = ZERO;
-    const lastIdx = this.keyWordList.children.length-ONE
+    const firstIdx = NUMBER.ZERO;
+    const lastIdx = this.keyWordList.children.length-NUMBER.ONE
     let choseIdx = this.active_KeyWordIdx+changeObj[type]
     if(choseIdx<firstIdx) choseIdx = lastIdx
-    else if(choseIdx > lastIdx) choseIdx = ZERO;
+    else if(choseIdx > lastIdx) choseIdx = NUMBER.ZERO;
     this.set_Active_KeyWordIdx(choseIdx)
   }
   set_Active_KeyWordIdx(idx){
@@ -128,9 +121,9 @@ export default class SearchForm {
     this.setInputTextByActiveText(el.innerText);
   }
   handleInitSelected(type){
-    const lastIdx = this.keyWordList.children.length-ONE
-    const firstIdx = ZERO;
-    if(type==='up') this.setActive_KeyWordListItem(lastIdx, qs(`[data-id="${lastIdx}"]`, this.keyWordList))
+    const lastIdx = this.keyWordList.children.length-NUMBER.ONE
+    const firstIdx = NUMBER.ZERO;
+    if(type===ARROW.UP) this.setActive_KeyWordListItem(lastIdx, qs(`[data-id="${lastIdx}"]`, this.keyWordList))
     else this.setActive_KeyWordListItem(firstIdx, qs(`[data-id="${firstIdx}"]`, this.keyWordList)) 
   }
   addActiveClass(el){
