@@ -20,8 +20,8 @@ export default class ScrollButton {
     if(!this.checkBtn(id)) return;
     return this.handleUpDown(id);
   }
-  checkBtn(id){
-    if(id==='up'|| id==='down') return true;
+  checkBtn(direction){
+    if(direction==='up'|| direction==='down') return true;
     else false;
   }
   handleUpDown(id){
