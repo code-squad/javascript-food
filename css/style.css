@@ -650,6 +650,7 @@
 .main_section_list_item_price {
   text-align: center;
   line-height: 1.4;
+  font-size: 0;
 }
 
 .main_section_list_item_origin_price {

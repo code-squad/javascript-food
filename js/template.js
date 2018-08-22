@@ -90,17 +90,21 @@ export const Template = (function () {
         <div class="main_section_list_item_img_wrap">
           <img class='main_section_list_item_img' src="${image}" alt="side_dish_1">
           <div class="main_section_list_item_delivery_type_wrap">
-            <div class="main_section_list_item_delivery_type">${
-              delivery_type.reduce((html, deliveryType, index) => {
-                return html + `<div class="main_section_list_item_delivery_type_${index+1}">${deliveryType}</div>`
-              }, '')
-            }</div>
+            <div class="main_section_list_item_delivery_type">
+              ${
+                delivery_type.reduce((html, deliveryType, index) => {
+                  return html + `<div class="main_section_list_item_delivery_type_${index+1}">${deliveryType}</div>`
+                }, '')
+              }
+            </div>
           </div>
         </div>
         <div class='main_section_list_item_title'>${title}</div>
         <div class='main_section_list_item_description'>${description}</div>
         <div class='main_section_list_item_price'>
-          ${n_price ? `<span class='main_section_list_item_origin_price'>${n_price}</span>`: ''}<span class='main_section_list_item_sales_price'>${s_price.slice(0,-1)}</span><span class="main_section_list_item_price_unit">원</span>
+          ${n_price ? `<span class='main_section_list_item_origin_price'>${n_price}</span>`: ''}
+          <span class='main_section_list_item_sales_price'>${s_price.slice(0,-1)}</span>
+          <span class="main_section_list_item_price_unit">원</span>
         </div>
         ${badge.length ? `<div class='main_section_list_item_badge'>${badge[0]}</div>` : ''}
       </li>`
