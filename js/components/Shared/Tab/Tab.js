@@ -3,7 +3,7 @@ import { badgeTemplate, deliveryTemplate, tabCardTemplate } from './tabTemplate.
 
 
 export default class Tab {
-  constructor(btnSelector, cardListSelector, dataHelper, tabUrl) {
+  constructor({btnSelector, cardListSelector, dataHelper, tabUrl}) {
     this.tabButtonsEl = qs(btnSelector);
     this.tabCardListEl = qs(cardListSelector);
     this.dataHelper = dataHelper;
@@ -24,7 +24,6 @@ export default class Tab {
     this.tabButtonsEl.addEventListener("click", this.handleTabBtnClicked.bind(this));
   }
   getData(data){
-    console.dir(data);    
     this.renderTabs(data);
   }
   renderTabs(data) {

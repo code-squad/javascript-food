@@ -5,7 +5,7 @@ import animations from '../../../helper/animation/raf.js';
 
 
 export default class Slider {
-  constructor(slideSelector, pagiNation) {
+  constructor({slideSelector, pagiNation}) {
     this.slideEl = qs(slideSelector);
     this.pagiNation = pagiNation;
     this.pagiNation.init(mainSlideData.length);

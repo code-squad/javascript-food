@@ -23,12 +23,12 @@ const animations = {
       requestAnimationFrame(IncreaseOpacity);
     }());
   },
-  scrollTop(window, min){
+  scrollTop(window, min, accelration){
     let speed = 0.05;
     let scrollY = window.scrollY;
-
     (function scrollToTop() {
-      speed*=2;
+      const basicAcceleration = 1.5
+      speed*=(basicAcceleration+accelration*0.2);
       scrollY-= speed;
       window.scrollTo(0,scrollY); 
       if (scrollY <=0) {
@@ -37,12 +37,12 @@ const animations = {
       requestAnimationFrame(scrollToTop);
     }());
   },
-  scrollBottom(window, maxHeight){
+  scrollBottom(window, maxHeight, accelration){
     let speed = 0.05;
     let scrollY = window.scrollY;
-
     (function scrollToBottom() {
-      speed*=2;
+      const basicAcceleration = 1.5
+      speed*=(basicAcceleration+accelration*0.2);
       scrollY+= speed;
       window.scrollTo(0,scrollY); 
       if (scrollY>maxHeight) {

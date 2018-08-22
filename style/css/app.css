@@ -49,6 +49,10 @@ a {
   position: static;
 }
 
+.hl {
+  color: red;
+}
+
 .wrapper {
   min-width: 1060px;
 }
@@ -224,6 +228,7 @@ a {
 }
 
 .search-input {
+  font-size: 16px;
   width: 210px;
   height: 40px;
   color: #888888;
@@ -246,6 +251,28 @@ a {
   top: 0;
   right: 0;
   text-indent: -3000px;
+}
+
+.keyword-list {
+  position: absolute;
+  top: 45px;
+  z-index: 3000;
+}
+
+.keyword-list li {
+  width: 210px;
+  height: 40px;
+  background: #fff;
+  box-sizing: border-box;
+  padding: 5px;
+}
+
+.keyword-list li:hover {
+  background: #eee;
+}
+
+.keyword-list .active {
+  background: #eee;
 }
 
 .wrapper__header-main-menu {

@@ -1,12 +1,13 @@
 import { qs,  $on } from '../../../helper/helper.js';
 import animation from '../../../helper/animation/raf.js';
 export default class ScrollButton {
-  constructor(scrollBtnSelector) {
+  constructor(scrollBtnSelector, speed = 2) {
     this.scrollBtnListEl = qs(scrollBtnSelector);
     this.bindEvents();
+    this.speed = speed;
   }
   bindEvents(){
-    $on(this.scrollBtnListEl,'click', (e)=>this.handleScrollBtnClicked(e))
+    $on(this.scrollBtnListEl,'click', ({target})=>this.handleScrollBtnClicked(target))
     $on(window, 'scroll', ()=> this.handleShowScrollBtn())
   }
   handleShowScrollBtn(boundary = 30){
@@ -15,21 +16,17 @@ export default class ScrollButton {
     else type="add";
     this.scrollBtnListEl.classList[type]('hide')
   }
-  handleScrollBtnClicked(e){
-    if(!this.checkBtn(e.target)) return;
-    const action = e.target.dataset.id 
-    if(action==='up') return this.handleUpBtnClicked()
-    else return this.handleDownBtnClicked()
+  handleScrollBtnClicked({dataset: {id}}){
+    if(!this.checkBtn(id)) return;
+    return this.handleUpDown(id);
   }
-  checkBtn(target){
-    if(target.dataset.id==='up'||target.dataset.id==='down') return true;
+  checkBtn(id){
+    if(id==='up'|| id==='down') return true;
     else false;
   }
-  handleUpBtnClicked(){
-    animation.scrollTop(window, 0);
-  }
-  handleDownBtnClicked(){
-    animation.scrollBottom(window, document.body.offsetHeight);
-  }
- 
+  handleUpDown(id){
+    const animationType = id==='up' ? 'scrollTop' : 'scrollBottom';
+    const destination = id==='up' ? 0 : document.body.offsetHeight
+    animation[animationType](window, destination, this.speed);
+  } 
 }

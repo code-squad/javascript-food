@@ -3,7 +3,7 @@ import { cardTemplate, slidEButtonTemplate, padTemplate } from './template/templ
 import animations from '../../../helper/animation/raf.js';
 
 export default class ListSlider {
-  constructor(slideSelector, dataHelper, url, initPosition = -980, listItemCounts = 4 ) {
+  constructor({slideSelector, dataHelper, url, initPosition = -980, listItemCounts = 4 }) {
     this.slideEl = qs(slideSelector);
     this.url = url;
     this.dataHelper = dataHelper;
@@ -35,7 +35,6 @@ export default class ListSlider {
       const padArr = [...new Array(this.padElCounts)];
       padSlide =  padTemplate(padArr)  
     }
-    
     const firstSlide = padSlide+cardTemplate(slideData.slice(0,this.listItemCounts))
     const lastSlide = cardTemplate(slideData.slice(-this.listItemCounts+this.padElCounts))+padSlide
 
