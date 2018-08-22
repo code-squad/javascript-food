@@ -545,24 +545,24 @@
   font-weight: bold;
 }
 
-.section_left_button, .section_right_button {
+.main_section_left_button, .main_section_right_button {
   position: absolute;
   top: 250px;
   width: 35px;
   height: 55px;
 }
 
-.section_left_button {
+.main_section_left_button {
   left: 70px;
   background: no-repeat top left/250% url(../images/main_section_button.png);
 }
 
-.section_right_button {
+.main_section_right_button {
   right: 70px;
   background: no-repeat top right/250% url(../images/main_section_button.png);
 }
 
-.section_left_button:hover, .section_right_button:hover {
+.main_section_left_button:hover, .main_section_right_button:hover {
   cursor: pointer;
 }
 

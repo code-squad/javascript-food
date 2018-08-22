@@ -98,9 +98,12 @@ controller.init({menuData});
 
 const sideDishes = new SlideStyleSceneChange({
   wrapper: document.querySelector('.side_dishes .main_section_list'),
+  leftButton: document.querySelector('.side_dishes .main_section_left_button'),
+  rightButton: document.querySelector('.side_dishes .main_section_right_button'),
   SceneTemplate: new Template().mainSectionListItem,
   uri: 'http://crong.codesquad.kr:8080/woowa/side',
-  ajax: ajax
+  ajax: ajax,
+  animationDuration: 0.5
 })
 
 sideDishes.registerAllEventListener();
