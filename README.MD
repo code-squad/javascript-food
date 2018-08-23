@@ -129,3 +129,43 @@ newDishes.init();
 3. css 애니메이션과 js 애니메이션을 혼합하여 사용하지 않도록 함
    * 혼합하여 사용하면 우선도 문제때문에 애니메이션이 제대로 작동하지 않을 수 있음
 
+
+### 4. 슬라이드 UI
+
+```javascript
+const sideDishes = new SlideStyleSceneChange({
+  wrapper: // wrapper 엘리먼트
+  leftButton: // left button 엘리먼트
+  rightButton: // right button 엘리먼트
+  SceneTemplate: // scene 템플릿
+  uri: // ajax가 이용한 uri
+  ajax: // ajax 함수
+  throttle: // throttle 함수
+  animationDuration: // 애니메이션 시간
+})
+
+sideDishes.registerAllEventListener();
+```
+
+슬라이드 효과 또한 배민찬에서 자주 사용되는 UI이므로 재사용성을 높일 수 있도록 구현. 화면전환 효과와는 다르게 애니메이션이 정해져 있으므로(슬라이드) 애니메이션을 옵션으로 주지는 않는다
+
+##### 기능
+
+DOMContentLoaded 이벤트가 발생하면 ajax를 통해 데이터를 불러와 렌더링한다. 좌우 버튼을 누르면 장면이 슬라이드된다. 슬라이드는 **무한 롤링**되어야 한다. 한 화면에 보여질 수 있는 아이템의 개수를 n이라고 할 때
+
+* ajax를 통해 가져오는 데이터의 개수가 n의 배수: 버튼 클릭 시 n개의 아이템이 슬라이드
+* 그 이외의 경우: 1개씩 슬라이드
+
+##### 고려사항
+
+1. 무한 롤링 구조
+   * 기준이 되는 mainSceneList 앞 뒤로 똑같은 형태의 dummyScenceList 구현
+   * `leftDummyScene` <-> `mainScene` <-> `rightDummyScene`
+   * 맨 뒤(맨 앞)에서 다음(이전) 버튼을 누르면 dummyScene을 이용해 애니메이션을 시작
+   * dummyScene 애니메이션이 완료되면 mainScene으로 돌아감
+2. 일정 시간동안 이벤트 리스너 통제: **event throttling**
+   * 버튼을 연속해서 누를 경우 애니메이션이 잘 동작하지 않는 문제
+   * 버튼을 누른 후 애니메이션이 완료될 때까지 이벤트 리스너의 호출을 통제하는 함수 구현:`throttle`
+3. 이동거리 동적 설정
+   * 슬라이드 UI에서 추후에 변경될 사항을 ui의 크기(wrapper의 크기 & 한 화면에 노출되는 아이템의 개수)라고 설정
+   * ui변경에 맞춰서 애니메이션의 이동 거리를 동적으로 생성하도록 구현: `element.offsetWidth`
