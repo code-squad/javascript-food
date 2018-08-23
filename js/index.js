@@ -99,3 +99,29 @@ const sideDishes = new SlideStyleSceneChange({
 })
 
 sideDishes.registerAllEventListener();
+
+const mainDishes = new SlideStyleSceneChange({
+  wrapper: document.querySelector('.main_dishes .main_section_list'),
+  leftButton: document.querySelector('.main_dishes .main_section_left_button'),
+  rightButton: document.querySelector('.main_dishes .main_section_right_button'),
+  SceneTemplate: new Template().mainSectionListItem,
+  uri: 'http://crong.codesquad.kr:8080/woowa/main',
+  ajax: ajax,
+  throttle: throttle,
+  animationDuration: 0.5
+})
+
+mainDishes.registerAllEventListener();
+
+const soup = new SlideStyleSceneChange({
+  wrapper: document.querySelector('.soup .main_section_list'),
+  leftButton: document.querySelector('.soup .main_section_left_button'),
+  rightButton: document.querySelector('.soup .main_section_right_button'),
+  SceneTemplate: new Template().mainSectionListItem,
+  uri: 'http://crong.codesquad.kr:8080/woowa/soup',
+  ajax: ajax,
+  throttle: throttle,
+  animationDuration: 0.5
+})
+
+soup.registerAllEventListener();

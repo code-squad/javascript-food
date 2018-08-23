@@ -106,7 +106,7 @@ export const Template = (function () {
           <span class='main_section_list_item_sales_price'>${s_price.slice(0,-1)}</span>
           <span class="main_section_list_item_price_unit">원</span>
         </div>
-        ${badge.length ? `<div class='main_section_list_item_badge'>${badge[0]}</div>` : ''}
+        ${!badge ? '' : badge.length ? `<div class='main_section_list_item_badge'>${badge[0]}</div>` : ''}
       </li>`
     }
   }
