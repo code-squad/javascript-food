@@ -11,7 +11,7 @@ const AjaxHelper = (function (){
   const reqListener = function(httpRequest){
     return JSON.parse(httpRequest.responseText)
   }
-
+  
   const sendReq = function({method, url, successCallback}){
     const httpRequest = init();
     $on(httpRequest, 'load', ()=>successCallback(reqListener(httpRequest)));
@@ -26,4 +26,5 @@ const AjaxHelper = (function (){
 
 })();
 
-export default AjaxHelper
+export default AjaxHelper;
+

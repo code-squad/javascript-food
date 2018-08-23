@@ -30,14 +30,6 @@ $on(document, "DOMContentLoaded", () => {
     tabUrl: URL.TABURL
   })
 
-  // _ls listSlider
-  // const recommend_lsAjaxHelper = new AjaxHelper();
-  // const side_lsAjaxHelper = new AjaxHelper();
-  // const soup_lsAjaxHelper = new AjaxHelper();
-  // const course_lsAjaxHelper = new AjaxHelper();
-  
-  // const searchForm_AjaxHelper = new AjaxHelper();
-
   const recommend_listSlider = new ListSlider({
     slideSelector: '#list-slide-recommend',
     dataHelper: AjaxHelper, 
