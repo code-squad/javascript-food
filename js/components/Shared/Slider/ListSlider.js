@@ -1,9 +1,9 @@
-import { qs, $on } from '../../../helper/helper.js';
-import { cardTemplate, slidEButtonTemplate, padTemplate } from './template/template.js';
-import animations from '../../../helper/animation/raf.js';
+import { qs, $on } from "../../../helper/helper.js";
+import { cardTemplate, slidEButtonTemplate, padTemplate } from "./template/template.js";
+import animations from "../../../helper/animation/raf.js";
 
 export default class ListSlider {
-  constructor({slideSelector, dataHelper, url, initPosition = -980, listItemCounts = 4 }) {
+  constructor({ slideSelector, dataHelper, url, cacheHelper, initPosition = -980, listItemCounts = 4 }) {
     this.slideEl = qs(slideSelector);
     this.url = url;
     this.dataHelper = dataHelper;
@@ -14,101 +14,105 @@ export default class ListSlider {
     this.initPosition = initPosition;
     this.position = this.initPosition;
     this.listItemCounts = listItemCounts;
+    this.cacheHelper = cacheHelper;
     this.init();
   }
-  init(){
-    this.dataHelper.sendReq({
-      "method": 'GET',
-       "url" : this.url, 
-       "successCallback" : this.getData.bind(this)
+  init() {
+    const cacheData = this.cacheHelper.getLocalItem(this.slideEl.id).keywordList;
+    if (cacheData.length !== 0) this.renderSlides(cacheData);
+    else
+      this.dataHelper.sendReq({
+        method: "GET",
+        url: this.url,
+        successCallback: this.getData.bind(this),
       });
   }
-  setMaxIdx(length){
-    return this.maxIdx = Math.ceil(length/this.listItemCounts)-1;
+  setMaxIdx(length) {
+    return (this.maxIdx = Math.ceil(length / this.listItemCounts) - 1);
   }
-  getData(data){
+  getData(data) {
     this.renderSlides(data);
+    this.cacheHelper.saveCacheKeyWords(this.slideEl.id, data);
   }
-  makeEdgeData(slideData){
-    let padSlide = '';
-    if(this.padElCounts!==0){
+  makeEdgeData(slideData) {
+    let padSlide = "";
+    if (this.padElCounts !== 0) {
       const padArr = [...new Array(this.padElCounts)];
-      padSlide =  padTemplate(padArr)  
+      padSlide = padTemplate(padArr);
     }
-    const firstSlide = padSlide+cardTemplate(slideData.slice(0,this.listItemCounts))
-    const lastSlide = cardTemplate(slideData.slice(-this.listItemCounts+this.padElCounts))+padSlide
+    const firstSlide = padSlide + cardTemplate(slideData.slice(0, this.listItemCounts));
+    const lastSlide = cardTemplate(slideData.slice(-this.listItemCounts + this.padElCounts)) + padSlide;
 
-    this.slideEl.insertAdjacentHTML('beforeend', firstSlide);    
-    this.slideEl.insertAdjacentHTML('afterbegin', lastSlide);
-    
+    this.slideEl.insertAdjacentHTML("beforeend", firstSlide);
+    this.slideEl.insertAdjacentHTML("afterbegin", lastSlide);
   }
-  setPadCounts(length){
-    const restSlides = length % this.listItemCounts
-    if(restSlides === 0) return this.padElCounts = 0;
-    else return this.padElCounts = this.listItemCounts - restSlides;
+  setPadCounts(length) {
+    const restSlides = length % this.listItemCounts;
+    if (restSlides === 0) return (this.padElCounts = 0);
+    else return (this.padElCounts = this.listItemCounts - restSlides);
   }
-  renderSlides(slideData){
+  renderSlides(slideData) {
     const slidesCounts = slideData.length;
     this.setMaxIdx(slidesCounts);
     this.renderRealSlideData(slideData);
-    this.amendFakeEdgeData(slidesCounts,slideData);
+    this.amendFakeEdgeData(slidesCounts, slideData);
     this.renderButtons();
-    this.setTransformX()
+    this.setTransformX();
     this.bindEvents();
   }
-  renderRealSlideData(slideData){
+  renderRealSlideData(slideData) {
     this.slideEl.innerHTML = cardTemplate(slideData);
   }
-  setTransformX(){
+  setTransformX() {
     this.slideEl.style.transform = `translateX(${this.setPosition(this.currentIdx)}px)`;
   }
-  amendFakeEdgeData(slidesCounts, slideData){
-    this.setPadCounts(slidesCounts)
+  amendFakeEdgeData(slidesCounts, slideData) {
+    this.setPadCounts(slidesCounts);
     this.makeEdgeData(slideData);
   }
-  bindEvents(){
+  bindEvents() {
     this.slideButtonList = this.slideEl.parentElement.nextElementSibling;
-    $on(qs('.right-button',  this.slideButtonList), 'click', (e)=>this.handleButtonClicked(e));
-    $on(qs('.left-button',  this.slideButtonList), 'click', (e)=>this.handleButtonClicked(e));
-    $on(this.slideEl, 'transitionend', ()=>this.handleEdgeSlide())
+    $on(qs(".right-button", this.slideButtonList), "click", e => this.handleButtonClicked(e));
+    $on(qs(".left-button", this.slideButtonList), "click", e => this.handleButtonClicked(e));
+    $on(this.slideEl, "transitionend", () => this.handleEdgeSlide());
   }
-  setPosition(idx){
-    return this.position = this.initPosition + idx * (this.initPosition);
+  setPosition(idx) {
+    return (this.position = this.initPosition + idx * this.initPosition);
   }
-  setCurrentIdx(idx){
-    return this.currentIdx = idx;
+  setCurrentIdx(idx) {
+    return (this.currentIdx = idx);
   }
-  isEdgeSlide(){
-    return !!(this.currentIdx === -1 || this.currentIdx === this.maxIdx+1);
+  isEdgeSlide() {
+    return !!(this.currentIdx === -1 || this.currentIdx === this.maxIdx + 1);
   }
-  renderButtons(){
-    this.slideEl.parentElement.insertAdjacentHTML('afterend', slidEButtonTemplate);
+  renderButtons() {
+    this.slideEl.parentElement.insertAdjacentHTML("afterend", slidEButtonTemplate);
   }
-  handleEdgeSlide(){
-    this.setDisableButton('remove');
-    if(!this.isEdgeSlide()) return;
+  handleEdgeSlide() {
+    this.setDisableButton("remove");
+    if (!this.isEdgeSlide()) return;
     this.slideEl.style.transitionDuration = "0s";
-    const idx = (this.currentIdx === -1) ? this.maxIdx : 0
+    const idx = this.currentIdx === -1 ? this.maxIdx : 0;
     this.setCurrentIdx(idx);
-   this.setTransformX();
+    this.setTransformX();
   }
-  setDisableButton(type){
-    const leftBtn = qs('.left-button',  this.slideButtonList);
-    const rightBtn = qs('.right-button',  this.slideButtonList);
-    leftBtn.classList[type]('disable-btn')
-    rightBtn.classList[type]('disable-btn');
+  setDisableButton(type) {
+    const leftBtn = qs(".left-button", this.slideButtonList);
+    const rightBtn = qs(".right-button", this.slideButtonList);
+    leftBtn.classList[type]("disable-btn");
+    rightBtn.classList[type]("disable-btn");
   }
-  setDisableButton(type){
-    const leftBtn = qs('.left-button',  this.slideButtonList);
-    const rightBtn = qs('.right-button',  this.slideButtonList);
-    leftBtn.classList[type]('disable-btn')
-    rightBtn.classList[type]('disable-btn');
+  setDisableButton(type) {
+    const leftBtn = qs(".left-button", this.slideButtonList);
+    const rightBtn = qs(".right-button", this.slideButtonList);
+    leftBtn.classList[type]("disable-btn");
+    rightBtn.classList[type]("disable-btn");
   }
-  handleButtonClicked({target}){
-    this.setDisableButton('add');
-    const nextIdx = (target.dataset.id==="left") ? this.currentIdx-1 : this.currentIdx+1
+  handleButtonClicked({ target }) {
+    this.setDisableButton("add");
+    const nextIdx = target.dataset.id === "left" ? this.currentIdx - 1 : this.currentIdx + 1;
     this.slideEl.style.transitionDuration = "0.5s";
-    this.setCurrentIdx(nextIdx)
+    this.setCurrentIdx(nextIdx);
     this.setTransformX();
   }
 }

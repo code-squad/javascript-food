@@ -7,7 +7,7 @@ import Slider from "./components/Shared/Slider/Slider.js";
 import ListSlider from "./components/Shared/Slider/ListSlider.js";
 import ScrollButton from "./components/Shared/ScrollButton/ScrollButton.js";
 import SearchForm from "./components/Shared/SearchForm/SearchForm.js";
-import SearchFormModel from "./components/Shared/SearchForm/Model/SearchFormModel.js";
+import Model from "./Model/Model.js";
 import SearchFormController from "./components/Shared/SearchForm/Controller/SearchFormController.js";
 import AjaxHelper from "./helper/AjaxHelper.js";
 import URL from "./constants/URL.js";
@@ -27,28 +27,32 @@ $on(document, "DOMContentLoaded", () => {
     cardListSelector: ".tab-card-section",
     dataHelper: AjaxHelper,
     tabUrl: URL.TABURL,
-    cacheHelper: SearchFormModel.prototype,
+    cacheHelper: Model.prototype,
   });
 
   const recommend_listSlider = new ListSlider({
     slideSelector: "#list-slide-recommend",
     dataHelper: AjaxHelper,
     url: URL.MAIN_SLIDELISTURL,
+    cacheHelper: Model.prototype,
   });
   const side_listSlider = new ListSlider({
     slideSelector: "#list-slide-sidedish",
     dataHelper: AjaxHelper,
     url: URL.SIDE_SLIDELISTURL,
+    cacheHelper: Model.prototype,
   });
   const soup_listSlider = new ListSlider({
     slideSelector: "#list-slide-soup",
     dataHelper: AjaxHelper,
     url: URL.SOUP_SLIDELISTURL,
+    cacheHelper: Model.prototype,
   });
   const course_listSlider = new ListSlider({
     slideSelector: "#list-slide-course",
     dataHelper: AjaxHelper,
     url: URL.COURSE_SLIDELISTURL,
+    cacheHelper: Model.prototype,
   });
 
   const dropdownController = new DropdownController();
@@ -77,6 +81,7 @@ $on(document, "DOMContentLoaded", () => {
     dataHelper: AjaxHelper,
     url: URL.SEARCHURL,
   });
-  const searchFormModel = new SearchFormModel();
+
+  const searchFormModel = new Model();
   const searchFormController = new SearchFormController({ view: searchFormView, model: searchFormModel });
 });

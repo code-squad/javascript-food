@@ -1,8 +1,8 @@
-import NUMBER from "../../../../constants/NUMBER.js";
+import NUMBER from "../constants/NUMBER.js";
 
 const KEYWORDS_KEY = "KEYWORDS_RECENT";
 //  const CACHE_KEY = 'KEYWORDS_CACHE'
-export default class SearchFormModel {
+export default class Model {
   getLocalItem(keywordsKey = KEYWORDS_KEY) {
     return {
       keywordList: JSON.parse(localStorage.getItem(keywordsKey)) || [],
