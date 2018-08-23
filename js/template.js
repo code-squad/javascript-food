@@ -63,7 +63,6 @@ export const Template = (function () {
     return `<span class='best_dist_sales_price'>${price.slice(0,-1)}</span>`
   }
 
-
   function Template() {};
 
 
@@ -84,6 +83,31 @@ export const Template = (function () {
 
     noticeNavigatorButton(index) {
       return `<li class='notice_navigator_button' data-index='${index}'></li>`
+    },
+
+    mainSectionListItem({image, delivery_type, title, description, n_price, s_price, badge}) {
+      return `<li class='main_section_list_item'>
+        <div class="main_section_list_item_img_wrap">
+          <img class='main_section_list_item_img' src="${image}" alt="side_dish_1">
+          <div class="main_section_list_item_delivery_type_wrap">
+            <div class="main_section_list_item_delivery_type">
+              ${
+                delivery_type.reduce((html, deliveryType, index) => {
+                  return html + `<div class="main_section_list_item_delivery_type_${index+1}">${deliveryType}</div>`
+                }, '')
+              }
+            </div>
+          </div>
+        </div>
+        <div class='main_section_list_item_title'>${title}</div>
+        <div class='main_section_list_item_description'>${description}</div>
+        <div class='main_section_list_item_price'>
+          ${n_price ? `<span class='main_section_list_item_origin_price'>${n_price}</span>`: ''}
+          <span class='main_section_list_item_sales_price'>${s_price.slice(0,-1)}</span>
+          <span class="main_section_list_item_price_unit">원</span>
+        </div>
+        ${!badge ? '' : badge.length ? `<div class='main_section_list_item_badge'>${badge[0]}</div>` : ''}
+      </li>`
     }
   }
   

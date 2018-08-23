@@ -6,6 +6,7 @@ import {BestDishesNavigation} from './bestDishesNavigation.js';
 import {BestDishesView} from './bestDishesView.js';
 import {r_NavigatorStyleSceneChange} from './raf.js';
 import {t_NavigatorStyleSceneChange} from './transition.js';
+import {SlideStyleSceneChange} from './slideStyleSceneChange.js';
 // controller
 import {Controller} from "./controller.js";
 
@@ -13,16 +14,7 @@ import {Template} from './template.js';
 import {menuData} from './data.js';
 import {fade, slide} from './animation.js';
 
-
-
-const ajax = function({uri, callback}) {
-  const x = new XMLHttpRequest();
-  x.addEventListener('load', () => {
-    callback(JSON.parse(x.response));
-  });
-  x.open('GET', uri);
-  x.send();
-}
+import {ajax, throttle} from './helper.js';
 
 // model
 const model = new Model();
@@ -94,3 +86,42 @@ const controller = new Controller({
 });
 
 controller.init({menuData});
+
+const sideDishes = new SlideStyleSceneChange({
+  wrapper: document.querySelector('.side_dishes .main_section_list'),
+  leftButton: document.querySelector('.side_dishes .main_section_left_button'),
+  rightButton: document.querySelector('.side_dishes .main_section_right_button'),
+  SceneTemplate: new Template().mainSectionListItem,
+  uri: 'http://crong.codesquad.kr:8080/woowa/side',
+  ajax: ajax,
+  throttle: throttle,
+  animationDuration: 0.5
+})
+
+sideDishes.registerAllEventListener();
+
+const mainDishes = new SlideStyleSceneChange({
+  wrapper: document.querySelector('.main_dishes .main_section_list'),
+  leftButton: document.querySelector('.main_dishes .main_section_left_button'),
+  rightButton: document.querySelector('.main_dishes .main_section_right_button'),
+  SceneTemplate: new Template().mainSectionListItem,
+  uri: 'http://crong.codesquad.kr:8080/woowa/main',
+  ajax: ajax,
+  throttle: throttle,
+  animationDuration: 0.5
+})
+
+mainDishes.registerAllEventListener();
+
+const soup = new SlideStyleSceneChange({
+  wrapper: document.querySelector('.soup .main_section_list'),
+  leftButton: document.querySelector('.soup .main_section_left_button'),
+  rightButton: document.querySelector('.soup .main_section_right_button'),
+  SceneTemplate: new Template().mainSectionListItem,
+  uri: 'http://crong.codesquad.kr:8080/woowa/soup',
+  ajax: ajax,
+  throttle: throttle,
+  animationDuration: 0.5
+})
+
+soup.registerAllEventListener();

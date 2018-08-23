@@ -1,6 +1,6 @@
-/* 
-배민찬 색: #2ac1bc;
-*/
+:root {
+  --bamin-color: #2ac1bc
+}
 
 /* helpers */
 .align_helper {
@@ -362,25 +362,8 @@
 /* 베스트 반찬 */
 .best_dish_section {
   height: 611px;
-  padding: 40px 150px;
+  padding: 60px 150px;
   background: #eee;
-}
-
-.section_category {
-  text-align: center;
-  font-size: 1.2rem;  
-  margin-bottom: 1.2rem;  
-  color: #888;
-}
-
-.section_description {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 40px;
-}
-
-.section_description > span {
-  font-weight: bold;
 }
 
 .best_dishes_nav {
@@ -532,4 +515,175 @@
 .badge_2 {
   left: 80px;
   background: #cc2642
+}
+
+
+/* main section */
+.main_section {
+  padding: 60px 150px;
+  position: relative;
+}
+
+.section_category, .section_description {
+  font-family: "Noto Sans KR Light", sans-serif;
+}
+
+.section_category {
+  text-align: center;
+  font-size: 1.2rem;  
+  margin-bottom: 0.5rem;  
+  color: #888;
+}
+
+.section_description {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 40px;
+}
+
+.section_description > span {
+  font-weight: bold;
+}
+
+.main_section_left_button, .main_section_right_button {
+  position: absolute;
+  top: 250px;
+  width: 35px;
+  height: 55px;
+}
+
+.main_section_left_button {
+  left: 70px;
+  background: no-repeat top left/250% url(../images/main_section_button.png);
+}
+
+.main_section_right_button {
+  right: 70px;
+  background: no-repeat top right/250% url(../images/main_section_button.png);
+}
+
+.main_section_left_button:hover, .main_section_right_button:hover {
+  cursor: pointer;
+}
+
+.main_section_list {
+  width: 980px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.main_section_list_item {
+  box-sizing: border-box;
+  width: 25%;
+  padding: 20px;
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.main_section_list_item_img_wrap {
+  position: relative;
+  border-radius: 50%;
+  width: 205px;
+  height: 205px;
+  background: #999;
+  overflow: hidden;
+}
+
+.main_section_list_item_img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.main_section_list_item_delivery_type_wrap {
+  display: none;
+}
+
+.main_section_list_item_img_wrap:hover > .main_section_list_item_delivery_type_wrap {
+  display: block;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+}
+
+.main_section_list_item_delivery_type {
+  display: inline-block;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.main_section_list_item_delivery_type_1, .main_section_list_item_delivery_type_2 {
+  color: #fff;
+  padding: 10px 0px;
+  font-size: 1.1rem;
+}
+
+.main_section_list_item_delivery_type_1 {
+  border-bottom: 1px solid #fff;
+}
+
+.main_section_list_item_title, .main_section_list_item_description {
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.4;
+}
+
+.main_section_list_item_title {
+  margin-top: 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.main_section_list_item_description {
+  font-size: 0.7rem;
+  color: #666;
+}
+
+.main_section_list_item_price {
+  text-align: center;
+  line-height: 1.4;
+  font-size: 0;
+}
+
+.main_section_list_item_origin_price {
+  color: #888;
+  text-decoration: line-through;
+  font-size: 0.7rem;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.main_section_list_item_sales_price {
+  color: var(--bamin-color);
+  font-weight: bold;
+  font-size: 1.2rem;
+  vertical-align: middle;
+  margin-right: 2px;
+}  
+
+.main_section_list_item_price_unit {
+  color: var(--bamin-color);
+  font-weight: bold;
+  font-size: 0.7rem;
+  vertical-align: middle;
+}
+
+.main_section_list_item_badge {
+  position: absolute;
+  top: 305px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background: #8b3f92;
+  color: #fff;
+  font-size: 0.7rem;
+  line-height: 1.4;
+  padding: 2px 6px;
 }
