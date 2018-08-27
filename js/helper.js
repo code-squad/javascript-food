@@ -10,11 +10,14 @@ export const throttle = function({delay, callback}) {
   }
 }
 
-export const ajax = function({uri, callback}) {
-  const x = new XMLHttpRequest();
-  x.addEventListener('load', () => {
-    callback(JSON.parse(x.response));
-  });
-  x.open('GET', uri);
-  x.send();
+export const ajax = function({responseDataHandler}) {
+  return ({uri, callback}) => {
+    const x = new XMLHttpRequest();
+    x.addEventListener('load', () => {
+      const responseData = responseDataHandler(x.response);
+      callback(responseData);
+    });
+    x.open('GET', uri);
+    x.send();
+  }
 }

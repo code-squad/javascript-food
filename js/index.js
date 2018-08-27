@@ -32,7 +32,7 @@ const bestDishesNavigation = new BestDishesNavigation({
 const bestDishesView = new BestDishesView({
   bestDishesView: document.querySelector('.best_dishes_wrap'),
   template: new Template().bestDishesView,
-  ajax: ajax,
+  ajax: ajax({responseDataHandler: JSON.parse}),
   baseURI: 'http://crong.codesquad.kr:8080/woowa/best/'
 });
 
@@ -93,7 +93,7 @@ const sideDishes = new SlideStyleSceneChange({
   rightButton: document.querySelector('.side_dishes .main_section_right_button'),
   SceneTemplate: new Template().mainSectionListItem,
   uri: 'http://crong.codesquad.kr:8080/woowa/side',
-  ajax: ajax,
+  ajax: ajax({responseDataHandler: JSON.parse}),
   throttle: throttle,
   animationDuration: 0.5
 })
@@ -106,7 +106,7 @@ const mainDishes = new SlideStyleSceneChange({
   rightButton: document.querySelector('.main_dishes .main_section_right_button'),
   SceneTemplate: new Template().mainSectionListItem,
   uri: 'http://crong.codesquad.kr:8080/woowa/main',
-  ajax: ajax,
+  ajax: ajax({responseDataHandler: JSON.parse}),
   throttle: throttle,
   animationDuration: 0.5
 })
@@ -119,7 +119,7 @@ const soup = new SlideStyleSceneChange({
   rightButton: document.querySelector('.soup .main_section_right_button'),
   SceneTemplate: new Template().mainSectionListItem,
   uri: 'http://crong.codesquad.kr:8080/woowa/soup',
-  ajax: ajax,
+  ajax: ajax({responseDataHandler: JSON.parse}),
   throttle: throttle,
   animationDuration: 0.5
 })
