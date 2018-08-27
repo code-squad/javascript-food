@@ -92,7 +92,7 @@ const sideDishes = new SlideStyleSceneChange({
   leftButton: document.querySelector('.side_dishes .main_section_left_button'),
   rightButton: document.querySelector('.side_dishes .main_section_right_button'),
   sceneTemplate: new Template().mainSectionListItem,
-  uri: 'http://crong.codesquad.kr:8080/woowa/side',
+  sceneDataUrl: 'http://crong.codesquad.kr:8080/woowa/side',
   ajax: ajax({responseDataHandler: JSON.parse}),
   throttle: throttle,
   animationDuration: 0.5
@@ -105,7 +105,7 @@ const mainDishes = new SlideStyleSceneChange({
   leftButton: document.querySelector('.main_dishes .main_section_left_button'),
   rightButton: document.querySelector('.main_dishes .main_section_right_button'),
   sceneTemplate: new Template().mainSectionListItem,
-  uri: 'http://crong.codesquad.kr:8080/woowa/main',
+  sceneDataUrl: 'http://crong.codesquad.kr:8080/woowa/main',
   ajax: ajax({responseDataHandler: JSON.parse}),
   throttle: throttle,
   animationDuration: 0.5
@@ -118,7 +118,7 @@ const soup = new SlideStyleSceneChange({
   leftButton: document.querySelector('.soup .main_section_left_button'),
   rightButton: document.querySelector('.soup .main_section_right_button'),
   sceneTemplate: new Template().mainSectionListItem,
-  uri: 'http://crong.codesquad.kr:8080/woowa/soup',
+  sceneDataUrl: 'http://crong.codesquad.kr:8080/woowa/soup',
   ajax: ajax({responseDataHandler: JSON.parse}),
   throttle: throttle,
   animationDuration: 0.5

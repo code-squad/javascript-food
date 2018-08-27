@@ -11,13 +11,13 @@ export const throttle = function({delay, callback}) {
 }
 
 export const ajax = function({responseDataHandler}) {
-  return ({uri, callback}) => {
+  return ({url, callback}) => {
     const x = new XMLHttpRequest();
     x.addEventListener('load', () => {
       const responseData = responseDataHandler(x.response);
       callback(responseData);
     });
-    x.open('GET', uri);
+    x.open('GET', url);
     x.send();
   }
 }

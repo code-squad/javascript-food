@@ -1,10 +1,10 @@
 export class SlideStyleSceneChange {
-  constructor({wrapper, sceneTemplate, leftButton, rightButton, uri, ajax, throttle, animationDuration}) {
+  constructor({wrapper, sceneTemplate, leftButton, rightButton, sceneDataUrl, ajax, throttle, animationDuration}) {
     this.wrapper = wrapper;
     this.sceneTemplate = sceneTemplate;
     this.leftButton = leftButton;
     this.rightButton = rightButton;
-    this.uri = uri;
+    this.sceneDataUrl = sceneDataUrl;
     this.ajax = ajax;
     this.throttle = throttle;
     this.animationDuration = animationDuration;
@@ -19,7 +19,7 @@ export class SlideStyleSceneChange {
     const MILLISECOND = 1000;
 
     document.addEventListener('DOMContentLoaded', () => {
-      this.ajax({uri: this.uri, callback: this._init.bind(this)});
+      this.ajax({url: this.sceneDataUrl, callback: this._init.bind(this)});
     });
 
     this.leftButton.addEventListener('click', this.throttle({
