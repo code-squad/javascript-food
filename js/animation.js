@@ -1,3 +1,5 @@
+import {currying} from "./helper.js";
+
 const _fade = function({speed, previous, next}) {
   if(previous === next) return;
 
@@ -46,12 +48,5 @@ const _slide = function ({speed, type, previous, next}) {
   })
 }
 
-const objectCurry = function({callback, numberOfKey}) {
-  return function f(obj) {
-    if(Object.keys(obj).length >= numberOfKey) return callback(obj);
-    return (restObj) => f(Object.assign(restObj, obj));
-  }
-}
-
-export const fade = objectCurry({callback: _fade, numberOfKey: 3});
-export const slide = objectCurry({callback: _slide, numberOfKey: 4});
+export const fade = currying({fn: _fade, keys: ['speed', 'previous', 'next']});
+export const slide = currying({fn: _slide, keys: ['speed', 'type', 'previous', 'next']});

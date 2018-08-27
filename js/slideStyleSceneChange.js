@@ -1,5 +1,5 @@
 export class SlideStyleSceneChange {
-  constructor({wrapper, sceneTemplate, leftButton, rightButton, sceneDataUrl, ajax, throttle, animationDuration}) {
+  constructor({wrapper, sceneTemplate, leftButton, rightButton, sceneDataUrl, ajax, throttle, animationDuration, delay}) {
     this.wrapper = wrapper;
     this.sceneTemplate = sceneTemplate;
     this.leftButton = leftButton;
@@ -8,6 +8,7 @@ export class SlideStyleSceneChange {
     this.ajax = ajax;
     this.throttle = throttle;
     this.animationDuration = animationDuration;
+    this.delay = delay;
     this.sceneLocation = 0;
     this.animationDistance = 0;
     this.wrapperWidth = 0;
@@ -16,19 +17,15 @@ export class SlideStyleSceneChange {
   }
 
   registerAllEventListener() {
-    const MILLISECOND = 1000;
-
     document.addEventListener('DOMContentLoaded', () => {
       this.ajax({url: this.sceneDataUrl, callback: this._init.bind(this)});
     });
 
     this.leftButton.addEventListener('click', this.throttle({
-      delay: MILLISECOND * this.animationDuration,
       callback: () => { this._move(this.animationDistance); }
     }));
 
     this.rightButton.addEventListener('click', this.throttle({
-      delay: MILLISECOND * this.animationDuration,
       callback: () => { this._move(-this.animationDistance); }
     }));
 

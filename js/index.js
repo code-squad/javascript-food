@@ -94,7 +94,7 @@ const sideDishes = new SlideStyleSceneChange({
   sceneTemplate: new Template().mainSectionListItem,
   sceneDataUrl: 'http://crong.codesquad.kr:8080/woowa/side',
   ajax: ajax({responseDataHandler: JSON.parse}),
-  throttle: throttle,
+  throttle: throttle({delay: 500}),
   animationDuration: 0.5
 })
 
@@ -107,7 +107,7 @@ const mainDishes = new SlideStyleSceneChange({
   sceneTemplate: new Template().mainSectionListItem,
   sceneDataUrl: 'http://crong.codesquad.kr:8080/woowa/main',
   ajax: ajax({responseDataHandler: JSON.parse}),
-  throttle: throttle,
+  throttle: throttle({delay: 500}),
   animationDuration: 0.5
 })
 
@@ -120,7 +120,7 @@ const soup = new SlideStyleSceneChange({
   sceneTemplate: new Template().mainSectionListItem,
   sceneDataUrl: 'http://crong.codesquad.kr:8080/woowa/soup',
   ajax: ajax({responseDataHandler: JSON.parse}),
-  throttle: throttle,
+  throttle: throttle({delay: 500}),
   animationDuration: 0.5
 })
 
