@@ -1,6 +1,6 @@
 export const throttle = function({delay, callback}) {
   let standardTime = 0;
-  return function() {
+  return () => {
     const now = new Date().getTime();
 
     if((now - standardTime) <= delay) return;
