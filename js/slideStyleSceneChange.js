@@ -1,7 +1,7 @@
 export class SlideStyleSceneChange {
-  constructor({wrapper, SceneTemplate, leftButton, rightButton, uri, ajax, throttle, animationDuration}) {
+  constructor({wrapper, sceneTemplate, leftButton, rightButton, uri, ajax, throttle, animationDuration}) {
     this.wrapper = wrapper;
-    this.SceneTemplate = SceneTemplate;
+    this.sceneTemplate = sceneTemplate;
     this.leftButton = leftButton;
     this.rightButton = rightButton;
     this.uri = uri;
@@ -58,7 +58,7 @@ export class SlideStyleSceneChange {
 
   // @param {Array} ajaxSceneData
   _render(ajaxSceneData) {
-    this.wrapper.innerHTML = ajaxSceneData.reduce((html, sceneData) => html + this.SceneTemplate(sceneData), '');
+    this.wrapper.innerHTML = ajaxSceneData.reduce((html, sceneData) => html + this.sceneTemplate(sceneData), '');
   }
 
   _renderDummyScene(sceneListHtml) {
