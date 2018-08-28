@@ -21,7 +21,6 @@ $on(document, "DOMContentLoaded", () => {
     pagiNation: new PagiNation(".main__banner-slider-pagination"),
   });
 
-  // const tabAjaxHelper = new AjaxHelper();
   const tab = new Tab({
     btnSelector: ".tab-button-list",
     cardListSelector: ".tab-card-section",
