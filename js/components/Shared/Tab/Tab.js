@@ -21,7 +21,7 @@ export default class Tab {
       successCallback: this.getData.bind(this),
       method: "GET",
     });
-    tabData && this.renderTabs(tabData);
+    tabData && this.renderTabs(tabData.data);
   }
   makeCacheKey() {
     new Data();

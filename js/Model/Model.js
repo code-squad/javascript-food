@@ -8,7 +8,7 @@ export default class Model {
   }
   getLocalItem(keywordsKey = KEYWORDS_KEY) {
     return {
-      keywordList: JSON.parse(localStorage.getItem(keywordsKey)) || [],
+      keywordList: JSON.parse(localStorage.getItem(keywordsKey)) || {},
       keywordsKey,
     };
   }
@@ -33,17 +33,25 @@ export default class Model {
     const { keywordList } = this.getLocalItem(keyword);
     return keywordList;
   }
+  checkEmptyObj(obj) {
+    return Object.keys(obj).length === NUMBER.ZERO;
+  }
   saveCacheKeyWords(keyword, data) {
     const { keywordList } = this.getLocalItem(keyword);
-    if (keywordList.length !== NUMBER.ZERO) return;
-    localStorage.setItem(keyword, JSON.stringify(data));
+    if (!this.checkEmptyObj(keywordList)) return;
+    localStorage.setItem(keyword, JSON.stringify({ data, time: new Date().getTime() }));
+  }
+  checkOldData(oldOne) {
+    const now = new Date().getTime();
+    const timeGap = (now - oldOne) / (NUMBER.THOUSAND * NUMBER.HOURTOSEC);
+    return timeGap > NUMBER.SIX;
   }
   handleDataProcess(keyword, getDataObj) {
     const cacheData = this.searchKeyWord(keyword);
-    if (cacheData.length !== 0) return cacheData;
-    else {
-      this.handleAjax(getDataObj);
+    if (!this.checkEmptyObj(cacheData) && !this.checkOldData(cacheData.time)) {
+      return cacheData;
     }
+    this.handleAjax(getDataObj);
   }
   handleAjax(getDataObj) {
     this.dataHelper.sendReq({
