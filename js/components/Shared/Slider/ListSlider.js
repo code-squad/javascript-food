@@ -18,14 +18,14 @@ export default class ListSlider {
     this.init();
   }
   init() {
-    const cacheData = this.cacheHelper.getLocalItem(this.slideEl.id).keywordList;
-    if (cacheData.length !== 0) this.renderSlides(cacheData);
-    else
-      this.dataHelper.sendReq({
-        method: "GET",
-        url: this.url,
-        successCallback: this.getData.bind(this),
-      });
+    // const cacheData = this.cacheHelper.getLocalItem(this.slideEl.id).keywordList;
+    // if (cacheData.length !== 0) this.renderSlides(cacheData);
+    // else
+    //   this.dataHelper.sendReq({
+    //     method: "GET",
+    //     url: this.url,
+    //     successCallback: this.getData.bind(this),
+    //   });
   }
   setMaxIdx(length) {
     return (this.maxIdx = Math.ceil(length / this.listItemCounts) - 1);

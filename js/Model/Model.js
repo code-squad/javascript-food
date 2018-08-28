@@ -3,6 +3,9 @@ import NUMBER from "../constants/NUMBER.js";
 const KEYWORDS_KEY = "KEYWORDS_RECENT";
 //  const CACHE_KEY = 'KEYWORDS_CACHE'
 export default class Model {
+  constructor(dataHelper) {
+    this.dataHelper = dataHelper;
+  }
   getLocalItem(keywordsKey = KEYWORDS_KEY) {
     return {
       keywordList: JSON.parse(localStorage.getItem(keywordsKey)) || [],
@@ -26,13 +29,25 @@ export default class Model {
     if (recentShowItems > keyWordCounts) return keywordList;
     else return keywordList.slice(keyWordCounts - recentShowItems);
   }
-  SearchKeyWord(keyword) {
+  searchKeyWord(keyword) {
     const { keywordList } = this.getLocalItem(keyword);
     return keywordList;
   }
-  saveCacheKeyWords(keyword, ajaxKeywordList) {
+  saveCacheKeyWords(keyword, data) {
     const { keywordList } = this.getLocalItem(keyword);
     if (keywordList.length !== NUMBER.ZERO) return;
-    localStorage.setItem(keyword, JSON.stringify(ajaxKeywordList));
+    localStorage.setItem(keyword, JSON.stringify(data));
+  }
+  handleDataProcess(keyword, getDataObj) {
+    const cacheData = this.searchKeyWord(keyword);
+    if (cacheData.length !== 0) return cacheData;
+    else {
+      this.handleAjax(getDataObj);
+    }
+  }
+  handleAjax(getDataObj) {
+    this.dataHelper.sendReq({
+      ...getDataObj,
+    });
   }
 }

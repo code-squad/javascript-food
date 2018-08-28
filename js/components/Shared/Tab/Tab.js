@@ -3,36 +3,35 @@ import { badgeTemplate, deliveryTemplate, tabCardTemplate } from "./tabTemplate.
 
 const TAB_DATA_KEY = "TAB_KEY";
 export default class Tab {
-  constructor({ btnSelector, cardListSelector, dataHelper, tabUrl, cacheHelper }) {
+  constructor({ btnSelector, cardListSelector, tabUrl }) {
     this.tabButtonsEl = qs(btnSelector);
     this.tabCardListEl = qs(cardListSelector);
-    this.dataHelper = dataHelper;
     this.tabUrl = tabUrl;
     this.randomNumber = null;
     this.activedButton = null;
-    this.cacheHelper = cacheHelper;
+    this.notifyGetData = null;
     this.init();
   }
   init() {
-    const cacheTabData = this.cacheHelper.getLocalItem(TAB_DATA_KEY).keywordList;
-    if (cacheTabData.length !== 0) this.renderTabs(cacheTabData);
-    else
-      this.dataHelper.sendReq({
-        method: "GET",
-        url: this.tabUrl,
-        successCallback: this.getData.bind(this),
-      });
     this.bindEvents();
   }
-  makeCacheKey(){
-    new Data()
+  bindGetData(getDataHandler) {
+    const tabData = getDataHandler(TAB_DATA_KEY, {
+      url: this.tabUrl,
+      successCallback: this.getData.bind(this),
+      method: "GET",
+    });
+    tabData && this.renderTabs(tabData);
+  }
+  makeCacheKey() {
+    new Data();
   }
   bindEvents() {
     this.tabButtonsEl.addEventListener("click", this.handleTabBtnClicked.bind(this));
   }
   getData(data) {
     this.renderTabs(data);
-    this.cacheHelper.saveCacheKeyWords(TAB_DATA_KEY, data);
+    this.notifyGetData(TAB_DATA_KEY, data);
   }
   renderTabs(data) {
     this.randomNumber = Math.floor(Math.random() * data.length);
