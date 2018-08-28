@@ -8,11 +8,14 @@ import ListSlider from "./components/Shared/Slider/ListSlider.js";
 import ScrollButton from "./components/Shared/ScrollButton/ScrollButton.js";
 import SearchForm from "./components/Shared/SearchForm/SearchForm.js";
 import Model from "./Model/Model.js";
+import MainController from "./controller/MainController.js";
 import SearchFormController from "./components/Shared/SearchForm/Controller/SearchFormController.js";
 import AjaxHelper from "./helper/AjaxHelper.js";
 import URL from "./constants/URL.js";
 
 import { renderDataList } from "./render/renderDataList.js";
+
+const cacheHelper = Model.prototype;
 
 $on(document, "DOMContentLoaded", () => {
   renderDataList.forEach(v => renderer(v));
@@ -26,32 +29,32 @@ $on(document, "DOMContentLoaded", () => {
     cardListSelector: ".tab-card-section",
     dataHelper: AjaxHelper,
     tabUrl: URL.TABURL,
-    cacheHelper: Model.prototype,
+    cacheHelper,
   });
 
   const recommend_listSlider = new ListSlider({
     slideSelector: "#list-slide-recommend",
     dataHelper: AjaxHelper,
     url: URL.MAIN_SLIDELISTURL,
-    cacheHelper: Model.prototype,
+    cacheHelper,
   });
   const side_listSlider = new ListSlider({
     slideSelector: "#list-slide-sidedish",
     dataHelper: AjaxHelper,
     url: URL.SIDE_SLIDELISTURL,
-    cacheHelper: Model.prototype,
+    cacheHelper,
   });
   const soup_listSlider = new ListSlider({
     slideSelector: "#list-slide-soup",
     dataHelper: AjaxHelper,
     url: URL.SOUP_SLIDELISTURL,
-    cacheHelper: Model.prototype,
+    cacheHelper,
   });
   const course_listSlider = new ListSlider({
     slideSelector: "#list-slide-course",
     dataHelper: AjaxHelper,
     url: URL.COURSE_SLIDELISTURL,
-    cacheHelper: Model.prototype,
+    cacheHelper,
   });
 
   const dropdownController = new DropdownController();
@@ -79,6 +82,18 @@ $on(document, "DOMContentLoaded", () => {
     searchFormSelector: ".search-form",
     dataHelper: AjaxHelper,
     url: URL.SEARCHURL,
+  });
+
+  const mainController = new MainController({
+    views: {
+      tab,
+      recommend_listSlider,
+      side_listSlider,
+      soup_listSlider,
+      course_listSlider,
+      searchFormView,
+    },
+    model: new Model(),
   });
 
   const searchFormModel = new Model();
