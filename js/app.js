@@ -10,6 +10,7 @@ import SearchForm from "./components/Shared/SearchForm/SearchForm.js";
 import Model from "./Model/Model.js";
 import MainController from "./controller/MainController.js";
 import SearchFormController from "./components/Shared/SearchForm/Controller/SearchFormController.js";
+import SearchModel from "./components/Shared/SearchForm/Model/SearchModel.js";
 import AjaxHelper from "./helper/AjaxHelper.js";
 import URL from "./constants/URL.js";
 
@@ -24,66 +25,66 @@ $on(document, "DOMContentLoaded", () => {
     pagiNation: new PagiNation(".main__banner-slider-pagination"),
   });
 
-  const tab = new Tab({
-    btnSelector: ".tab-button-list",
-    cardListSelector: ".tab-card-section",
-    tabUrl: URL.TABURL,
-  });
+  // const tab = new Tab({
+  //   btnSelector: ".tab-button-list",
+  //   cardListSelector: ".tab-card-section",
+  //   tabUrl: URL.TABURL,
+  // });
 
-  const recommend_listSlider = new ListSlider({
-    slideSelector: "#list-slide-recommend",
-    url: URL.MAIN_SLIDELISTURL,
-  });
-  const side_listSlider = new ListSlider({
-    slideSelector: "#list-slide-sidedish",
-    url: URL.SIDE_SLIDELISTURL,
-  });
-  const soup_listSlider = new ListSlider({
-    slideSelector: "#list-slide-soup",
-    url: URL.SOUP_SLIDELISTURL,
-  });
-  const course_listSlider = new ListSlider({
-    slideSelector: "#list-slide-course",
-    url: URL.COURSE_SLIDELISTURL,
-  });
+  // const recommend_listSlider = new ListSlider({
+  //   slideSelector: "#list-slide-recommend",
+  //   url: URL.MAIN_SLIDELISTURL,
+  // });
+  // const side_listSlider = new ListSlider({
+  //   slideSelector: "#list-slide-sidedish",
+  //   url: URL.SIDE_SLIDELISTURL,
+  // });
+  // const soup_listSlider = new ListSlider({
+  //   slideSelector: "#list-slide-soup",
+  //   url: URL.SOUP_SLIDELISTURL,
+  // });
+  // const course_listSlider = new ListSlider({
+  //   slideSelector: "#list-slide-course",
+  //   url: URL.COURSE_SLIDELISTURL,
+  // });
 
-  const dropdownController = new DropdownController();
+  // const dropdownController = new DropdownController();
 
-  const appDownDropdown = new Dropdown({
-    dropdownSelector: "#dropdown-download",
-    triggerSelector: "#dropdown-download-trigger",
-    dropdownController,
-  });
+  // const appDownDropdown = new Dropdown({
+  //   dropdownSelector: "#dropdown-download",
+  //   triggerSelector: "#dropdown-download-trigger",
+  //   dropdownController,
+  // });
 
-  const myPageDropdown = new Dropdown({
-    dropdownSelector: "#dropdown-my-page",
-    triggerSelector: "#dropdown-my-page-trigger",
-    dropdownController,
-  });
-  const clientCenterDropdown = new Dropdown({
-    dropdownSelector: "#dropdown-client-center",
-    triggerSelector: "#dropdown-client-center-trigger",
-    dropdownController,
-  });
+  // const myPageDropdown = new Dropdown({
+  //   dropdownSelector: "#dropdown-my-page",
+  //   triggerSelector: "#dropdown-my-page-trigger",
+  //   dropdownController,
+  // });
+  // const clientCenterDropdown = new Dropdown({
+  //   dropdownSelector: "#dropdown-client-center",
+  //   triggerSelector: "#dropdown-client-center-trigger",
+  //   dropdownController,
+  // });
 
-  const scrollButton = new ScrollButton(".scroll-button-list");
+  // const scrollButton = new ScrollButton(".scroll-button-list");
+
+  // const mainController = new MainController({
+  //   views: {
+  //     tab,
+  //     recommend_listSlider,
+  //     side_listSlider,
+  //     soup_listSlider,
+  //     course_listSlider,
+  //   },
+  //   model: new Model(AjaxHelper),
+  // });
 
   const searchFormView = new SearchForm({
     searchFormSelector: ".search-form",
     url: URL.SEARCHURL,
   });
 
-  const mainController = new MainController({
-    views: {
-      tab,
-      recommend_listSlider,
-      side_listSlider,
-      soup_listSlider,
-      course_listSlider,
-    },
-    model: new Model(AjaxHelper),
-  });
-
-  // const searchFormModel = new Model();
-  // const searchFormController = new SearchFormController({ view: searchFormView, model: searchFormModel });
+  const searchFormModel = new SearchModel(AjaxHelper);
+  const searchFormController = new SearchFormController({ view: searchFormView, model: searchFormModel });
 });

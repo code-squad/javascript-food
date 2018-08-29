@@ -23,9 +23,6 @@ export default class Tab {
     });
     tabData && this.renderTabs(tabData.data);
   }
-  makeCacheKey() {
-    new Data();
-  }
   bindEvents() {
     this.tabButtonsEl.addEventListener("click", this.handleTabBtnClicked.bind(this));
   }
