@@ -692,3 +692,47 @@
   line-height: 1.4;
   padding: 2px 6px;
 }
+
+/* scroll button */
+.scroll_button_wrap {
+  position: fixed;
+  top: 90vh;
+  right: 5vw;
+  transform: translate3d(0, -100%, 0);
+  width: 40px;
+  visibility: hidden;
+}
+
+.scroll_button_wrap.active {
+  animation: fade_in .5s forwards;
+}
+
+.scroll_button_wrap.deactive {
+  animation: fade_out .5s forwards;
+}
+
+@keyframes fade_in {
+  0% {opacity: 0; visibility: hidden;}
+  100% {opacity: 1; visibility: visible;}
+}
+
+@keyframes fade_out {
+  0% {opacity: 1; visibility: visible;}
+  100% {opacity: 0; visibility: hidden;}
+}
+
+.up_scroll_button, .down_scroll_button {
+  box-sizing: border-box;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ccc;
+  background: #fff;
+}
+
+.up_scroll_button {
+  margin-bottom: 10px;
+}
+
+.up_scroll_button:hover, .down_scroll_button:hover {
+  cursor: pointer;
+}

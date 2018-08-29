@@ -7,6 +7,7 @@ import {BestDishesView} from './bestDishesView.js';
 import {r_NavigatorStyleSceneChange} from './raf.js';
 import {t_NavigatorStyleSceneChange} from './transition.js';
 import {SlideStyleSceneChange} from './slideStyleSceneChange.js';
+import {ScrollButton} from "./scrollButton.js";
 // controller
 import {Controller} from "./controller.js";
 
@@ -112,4 +113,8 @@ const soup = new SlideStyleSceneChange({
   sceneTemplate: new Template().mainSectionListItem,
   sceneDataUrl: 'http://crong.codesquad.kr:8080/woowa/soup',
   animationDuration: 0.5
+})
+
+const scrollButton = new ScrollButton({
+  scrollButtonWrap: document.querySelector('.scroll_button_wrap')
 })
