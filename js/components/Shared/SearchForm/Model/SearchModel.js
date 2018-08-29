@@ -8,16 +8,20 @@ export default class SearchModel extends Model {
     super(dataHelper);
   }
   saveKeyWords(keyword) {
-    let { keywordsKey, keywordList } = this.getLocalItem(keyword);
-    let id = 0;
-    if (!this.checkEmptyObj(keywordList)) id = keywordList.data.length;
-
+    let { keywordList } = this.getLocalItem(KEYWORDS_KEY);
+    let id = NUMBER.ZERO;
+    let data;
     // 중복 방지
-    const hasSameData = keywordList.data.some(keywordData => keywordData.keyword === keyword);
-    if (hasSameData) return;
+    if (!this.checkEmptyObj(keywordList)) {
+      const hasSameData = keywordList.data.some(keywordData => keywordData.keyword === keyword);
+      if (hasSameData) return;
+      else data = [...keywordList.data];
+    } else data = [];
+
+    if (data.length !== NUMBER.ZERO) id = data.length;
     // 저장
-    keywordList.data = [...keywordList.data, { id, keyword }];
-    localStorage.setItem(keywordsKey, JSON.stringify(keywordList));
+    data = [...data, { id, keyword, time: new Date().getTime() }];
+    localStorage.setItem(KEYWORDS_KEY, JSON.stringify({ data }));
   }
   getKeyWords(recentShowItems = NUMBER.FIVE) {
     const { keywordList } = this.getLocalItem(KEYWORDS_KEY);
