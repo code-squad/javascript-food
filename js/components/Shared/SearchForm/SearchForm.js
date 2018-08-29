@@ -83,11 +83,12 @@ export default class SearchForm {
     this.timer = setTimeout((e = event) => this.hanldeGetSearchingKeyWord(e), EVNETIME.DEBOUNCE_TIME);
   }
   hanldeGetSearchingKeyWord({ target: { value } }) {
-    this.bindGetData(value, {
+    const searchData = this.bindGetData(value, {
       method: "GET",
       url: `${this.url}/${value}`,
       successCallback: this.getData.bind(this),
     });
+    searchData && this.showAndRenderKeyWord(value, searchData.data);
   }
   isActiveKeywordNull() {
     return this.active_KeyWordIdx === null;
@@ -137,6 +138,7 @@ export default class SearchForm {
   hasKeyword() {
     return this.keyWordList.hasChildNodes();
   }
+  cacheData(keyword, data) {}
   getData(data) {
     if (!Array.isArray(data)) return this.resetKeyWordList();
     const [keyword, keywordList] = data;

@@ -30,7 +30,7 @@ export default class Model {
   handleDataProcess(keyword, getDataObj) {
     const cacheData = this.searchKeyWord(keyword);
     if (cacheData && !this.checkOldData(cacheData.time)) {
-      return getDataObj.successCallback([keyword, cacheData.data.map(v => [v])]);
+      return cacheData;
     } else this.handleAjax(getDataObj);
   }
   handleAjax(getDataObj) {
