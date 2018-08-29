@@ -88,7 +88,7 @@ const controller = new Controller({
 controller.init({menuData});
 
 const sideDishes = new SlideStyleSceneChange({
-  wrapper: document.querySelector('.side_dishes .main_section_list'),
+  wrapper: document.querySelector('.side_dishes .main_section_list_item_wrap'),
   leftButton: document.querySelector('.side_dishes .main_section_left_button'),
   rightButton: document.querySelector('.side_dishes .main_section_right_button'),
   sceneTemplate: new Template().mainSectionListItem,
@@ -97,7 +97,7 @@ const sideDishes = new SlideStyleSceneChange({
 })
 
 const mainDishes = new SlideStyleSceneChange({
-  wrapper: document.querySelector('.main_dishes .main_section_list'),
+  wrapper: document.querySelector('.main_dishes .main_section_list_item_wrap'),
   leftButton: document.querySelector('.main_dishes .main_section_left_button'),
   rightButton: document.querySelector('.main_dishes .main_section_right_button'),
   sceneTemplate: new Template().mainSectionListItem,
@@ -106,7 +106,7 @@ const mainDishes = new SlideStyleSceneChange({
 })
 
 const soup = new SlideStyleSceneChange({
-  wrapper: document.querySelector('.soup .main_section_list'),
+  wrapper: document.querySelector('.soup .main_section_list_item_wrap'),
   leftButton: document.querySelector('.soup .main_section_left_button'),
   rightButton: document.querySelector('.soup .main_section_right_button'),
   sceneTemplate: new Template().mainSectionListItem,

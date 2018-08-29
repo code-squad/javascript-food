@@ -570,8 +570,11 @@
 
 .main_section_list {
   width: 980px;
-  white-space: nowrap;
   overflow: hidden;
+}
+
+.main_section_list_item_wrap {
+  white-space: nowrap;
 }
 
 .main_section_list_item {

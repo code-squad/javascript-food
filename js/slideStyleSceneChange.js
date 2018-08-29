@@ -51,10 +51,8 @@ export class SlideStyleSceneChange {
     if(position === 'start') this.sceneLocation = -this.width.sceneList;
     else if(position === 'end') this.sceneLocation = -2*this.width.sceneList + this.width.wrapper;
 
-    this.elWrapper.childNodes.forEach(scene => {
-      scene.style.transition = '';
-      scene.style.transform = `translate3d(${this.sceneLocation}px, 0, 0)`;
-    })
+    this.elWrapper.style.transition = '';
+    this.elWrapper.style.transform = `translate3d(${this.sceneLocation}px, 0, 0)`;
   }
 
   // @param {Array} ajaxSceneData
@@ -84,14 +82,10 @@ export class SlideStyleSceneChange {
   }
 
   _move(distance) {
-    const sceneList = this.elWrapper.childNodes;
-
     this.sceneLocation += distance;
 
-    sceneList.forEach(scene => {
-      scene.style.transition = `transform ${this.animationDuration}s`;
-      scene.style.transform = `translate3d(${this.sceneLocation}px,0,0)`;
-    })
+    this.elWrapper.style.transition = `transform ${this.animationDuration}s`;
+    this.elWrapper.style.transform = `translate3d(${this.sceneLocation}px,0,0)`;
   }
 
   _isStartPosition() {
