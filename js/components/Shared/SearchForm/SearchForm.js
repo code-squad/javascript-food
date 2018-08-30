@@ -138,7 +138,6 @@ export default class SearchForm {
   hasKeyword() {
     return this.keyWordList.hasChildNodes();
   }
-  cacheData(keyword, data) {}
   getData(data) {
     if (!Array.isArray(data)) return this.resetKeyWordList();
     const [keyword, keywordList] = data;

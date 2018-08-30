@@ -6,11 +6,11 @@ import PagiNation from "./components/Shared/PagiNation/PagiNation.js";
 import Slider from "./components/Shared/Slider/Slider.js";
 import ListSlider from "./components/Shared/Slider/ListSlider.js";
 import ScrollButton from "./components/Shared/ScrollButton/ScrollButton.js";
-import SearchForm from "./components/Shared/SearchForm/SearchForm.js";
+// import SearchForm from "./components/Shared/SearchForm/SearchForm.js";
 import Model from "./Model/Model.js";
 import MainController from "./controller/MainController.js";
-import SearchFormController from "./components/Shared/SearchForm/Controller/SearchFormController.js";
-import SearchModel from "./components/Shared/SearchForm/Model/SearchModel.js";
+// import SearchFormController from "./components/Shared/SearchForm/Controller/SearchFormController.js";
+// import SearchModel from "./components/Shared/SearchForm/Model/SearchModel.js";
 import AjaxHelper from "./helper/AjaxHelper.js";
 import URL from "./constants/URL.js";
 
@@ -80,11 +80,13 @@ $on(document, "DOMContentLoaded", () => {
     model: new Model(AjaxHelper),
   });
 
-  const searchFormView = new SearchForm({
-    searchFormSelector: ".search-form",
-    url: URL.SEARCHURL,
-  });
+  const searchInputEl = qs(".search-input");
 
-  const searchFormModel = new SearchModel(AjaxHelper);
-  const searchFormController = new SearchFormController({ view: searchFormView, model: searchFormModel });
+  const searchLazyLoad = ({ target }) => {
+    const searchScript = qs("#lazy-search");
+    searchScript.setAttribute("src", searchScript.getAttribute("data-src"));
+    target.removeEventListener("focus", searchLazyLoad);
+  };
+
+  $on(searchInputEl, "focus", searchLazyLoad);
 });
