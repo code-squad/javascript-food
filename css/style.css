@@ -194,12 +194,14 @@
 }
 
 .ad_img_wrap {
+  height: 100%;
+  position: relative;
   overflow: hidden;
   text-indent: -25%;
 }
 
 .ad_img {
-  max-height: 100%;
+  height: 100%;
   position: absolute;
 }
 
@@ -300,8 +302,8 @@
 
 .new_dishes_img, .delivery_system_img {
   position: absolute;
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .notice_left_button, .notice_right_button {
@@ -427,8 +429,8 @@
 }
 
 .best_dish_img {
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .best_dish_description {
@@ -498,8 +500,8 @@
 }
 
 .review_stars img {
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .badge_1, .badge_2 {
@@ -568,8 +570,11 @@
 
 .main_section_list {
   width: 980px;
-  white-space: nowrap;
   overflow: hidden;
+}
+
+.main_section_list_item_wrap {
+  white-space: nowrap;
 }
 
 .main_section_list_item {
@@ -591,8 +596,8 @@
 }
 
 .main_section_list_item_img {
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .main_section_list_item_delivery_type_wrap {
@@ -686,4 +691,48 @@
   font-size: 0.7rem;
   line-height: 1.4;
   padding: 2px 6px;
+}
+
+/* scroll button */
+.scroll_button_wrap {
+  position: fixed;
+  top: 90vh;
+  right: 5vw;
+  transform: translate3d(0, -100%, 0);
+  width: 40px;
+  visibility: hidden;
+}
+
+.scroll_button_wrap.active {
+  animation: fade_in .5s forwards;
+}
+
+.scroll_button_wrap.deactive {
+  animation: fade_out .5s forwards;
+}
+
+@keyframes fade_in {
+  0% {opacity: 0; visibility: hidden;}
+  100% {opacity: 1; visibility: visible;}
+}
+
+@keyframes fade_out {
+  0% {opacity: 1; visibility: visible;}
+  100% {opacity: 0; visibility: hidden;}
+}
+
+.up_scroll_button, .down_scroll_button {
+  box-sizing: border-box;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ccc;
+  background: #fff;
+}
+
+.up_scroll_button {
+  margin-bottom: 10px;
+}
+
+.up_scroll_button:hover, .down_scroll_button:hover {
+  cursor: pointer;
 }

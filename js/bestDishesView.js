@@ -10,7 +10,7 @@ export class BestDishesView {
     this._deactivateAllBestDishes(this.elBestDishesView);
     
     this._hasBestDish(categoryId) ? this._activateBestDish(categoryId)
-     : this.ajax({uri: this.baseURI + categoryId, callback: this._render.bind(this)});
+     : this.ajax({url: this.baseURI + categoryId, callback: this._render.bind(this)});
   }
 
   _render(bestDishData) {

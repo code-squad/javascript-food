@@ -7,6 +7,7 @@ import {BestDishesView} from './bestDishesView.js';
 import {r_NavigatorStyleSceneChange} from './raf.js';
 import {t_NavigatorStyleSceneChange} from './transition.js';
 import {SlideStyleSceneChange} from './slideStyleSceneChange.js';
+import {ScrollButton} from "./scrollButton.js";
 // controller
 import {Controller} from "./controller.js";
 
@@ -32,7 +33,7 @@ const bestDishesNavigation = new BestDishesNavigation({
 const bestDishesView = new BestDishesView({
   bestDishesView: document.querySelector('.best_dishes_wrap'),
   template: new Template().bestDishesView,
-  ajax: ajax,
+  ajax: ajax({responseDataHandler: JSON.parse}),
   baseURI: 'http://crong.codesquad.kr:8080/woowa/best/'
 });
 
@@ -88,40 +89,32 @@ const controller = new Controller({
 controller.init({menuData});
 
 const sideDishes = new SlideStyleSceneChange({
-  wrapper: document.querySelector('.side_dishes .main_section_list'),
+  wrapper: document.querySelector('.side_dishes .main_section_list_item_wrap'),
   leftButton: document.querySelector('.side_dishes .main_section_left_button'),
   rightButton: document.querySelector('.side_dishes .main_section_right_button'),
-  SceneTemplate: new Template().mainSectionListItem,
-  uri: 'http://crong.codesquad.kr:8080/woowa/side',
-  ajax: ajax,
-  throttle: throttle,
+  sceneTemplate: new Template().mainSectionListItem,
+  sceneDataUrl: 'http://crong.codesquad.kr:8080/woowa/side',
   animationDuration: 0.5
 })
-
-sideDishes.registerAllEventListener();
 
 const mainDishes = new SlideStyleSceneChange({
-  wrapper: document.querySelector('.main_dishes .main_section_list'),
+  wrapper: document.querySelector('.main_dishes .main_section_list_item_wrap'),
   leftButton: document.querySelector('.main_dishes .main_section_left_button'),
   rightButton: document.querySelector('.main_dishes .main_section_right_button'),
-  SceneTemplate: new Template().mainSectionListItem,
-  uri: 'http://crong.codesquad.kr:8080/woowa/main',
-  ajax: ajax,
-  throttle: throttle,
+  sceneTemplate: new Template().mainSectionListItem,
+  sceneDataUrl: 'http://crong.codesquad.kr:8080/woowa/main',
   animationDuration: 0.5
 })
-
-mainDishes.registerAllEventListener();
 
 const soup = new SlideStyleSceneChange({
-  wrapper: document.querySelector('.soup .main_section_list'),
+  wrapper: document.querySelector('.soup .main_section_list_item_wrap'),
   leftButton: document.querySelector('.soup .main_section_left_button'),
   rightButton: document.querySelector('.soup .main_section_right_button'),
-  SceneTemplate: new Template().mainSectionListItem,
-  uri: 'http://crong.codesquad.kr:8080/woowa/soup',
-  ajax: ajax,
-  throttle: throttle,
+  sceneTemplate: new Template().mainSectionListItem,
+  sceneDataUrl: 'http://crong.codesquad.kr:8080/woowa/soup',
   animationDuration: 0.5
 })
 
-soup.registerAllEventListener();
+const scrollButton = new ScrollButton({
+  scrollButtonWrap: document.querySelector('.scroll_button_wrap')
+})
