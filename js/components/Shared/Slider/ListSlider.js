@@ -15,24 +15,21 @@ export default class ListSlider {
     this.position = this.initPosition;
     this.listItemCounts = listItemCounts;
     this.cacheHelper = cacheHelper;
-    this.init();
   }
-  init() {
-    const cacheData = this.cacheHelper.getLocalItem(this.slideEl.id).keywordList;
-    if (cacheData.length !== 0) this.renderSlides(cacheData);
-    else
-      this.dataHelper.sendReq({
-        method: "GET",
-        url: this.url,
-        successCallback: this.getData.bind(this),
-      });
+  bindGetData(getDataHandler) {
+    const listSlideData = getDataHandler(this.slideEl.id, {
+      url: this.url,
+      successCallback: this.getData.bind(this),
+      method: "GET",
+    });
+    listSlideData && this.renderSlides(listSlideData.data);
   }
   setMaxIdx(length) {
     return (this.maxIdx = Math.ceil(length / this.listItemCounts) - 1);
   }
   getData(data) {
     this.renderSlides(data);
-    this.cacheHelper.saveCacheKeyWords(this.slideEl.id, data);
+    this.notifyGetData(this.slideEl.id, data);
   }
   makeEdgeData(slideData) {
     let padSlide = "";

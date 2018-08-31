@@ -4,8 +4,12 @@ export default class SearchFormController {
     this.model = model;
     view.bindSaveKeyWord(this.saveKeyWords.bind(this));
     view.bindGetRecentKeyWord(this.getRecentKeyWords.bind(this));
-    view.bindSearchKeyWord = this.SearchKeyWord.bind(this);
+    view.bindGetData = this.getData.bind(this);
+    view.bindSearchKeyWord = this.searchKeyWord.bind(this);
     view.bindSaveCacheKeyWords = this.saveCacheKeyWords.bind(this);
+  }
+  getData(keyword, getDataObj) {
+    return this.model.handleDataProcess(keyword, getDataObj);
   }
   saveKeyWords(keyword) {
     this.model.saveKeyWords(keyword);
@@ -13,8 +17,8 @@ export default class SearchFormController {
   getRecentKeyWords() {
     return this.model.getKeyWords();
   }
-  SearchKeyWord(keyword) {
-    return this.model.SearchKeyWord(keyword);
+  searchKeyWord(keyword) {
+    return this.model.searchKeyWord(keyword);
   }
   saveCacheKeyWords(keyword, keywordList) {
     this.model.saveCacheKeyWords(keyword, keywordList);

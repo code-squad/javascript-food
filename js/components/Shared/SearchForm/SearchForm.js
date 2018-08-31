@@ -15,6 +15,7 @@ export default class SearchForm {
     this.url = url;
     this.bindSearchKeyWord = null;
     this.bindSaveCacheKeyWords = null;
+    this.bindGetData = null;
     this.init();
   }
   init() {
@@ -46,14 +47,14 @@ export default class SearchForm {
   clearInput() {
     this.searchInputEl.value = "";
   }
-  bindGetRecentKeyWord(getKeyWords) {
+  bindGetRecentKeyWord(getKeyWordsHandler) {
     $on(this.searchInputEl, "focus", e => {
       if (e.target.value) return this.hanldeGetSearchingKeyWord(e);
-      else this.getRecetKeyWord(getKeyWords);
+      else this.getRecetKeyWord(getKeyWordsHandler);
     });
   }
-  getRecetKeyWord(getKeyWords) {
-    const keyWords = getKeyWords();
+  getRecetKeyWord(getKeyWordsHandler) {
+    const keyWords = getKeyWordsHandler();
     if (keyWords) {
       this.showRenderKeyword();
       this.keyWordList.innerHTML = Template.recentKeyWord(keyWords);
@@ -81,19 +82,13 @@ export default class SearchForm {
     if (this.isUpDownKey(e.keyCode)) return;
     this.timer = setTimeout((e = event) => this.hanldeGetSearchingKeyWord(e), EVNETIME.DEBOUNCE_TIME);
   }
-  checkHasSearchingkeyWord(value) {
-    return false;
-  }
   hanldeGetSearchingKeyWord({ target: { value } }) {
-    let cacheKeyWordList = this.bindSearchKeyWord(value);
-    if (cacheKeyWordList.length !== 0) {
-      return this.showAndRenderKeyWord(value, cacheKeyWordList);
-    } else
-      this.dataHelper.sendReq({
-        method: "GET",
-        url: `${this.url}/${value}`,
-        successCallback: this.getData.bind(this),
-      });
+    const searchData = this.bindGetData(value, {
+      method: "GET",
+      url: `${this.url}/${value}`,
+      successCallback: this.getData.bind(this),
+    });
+    searchData && this.showAndRenderKeyWord(value, searchData.data);
   }
   isActiveKeywordNull() {
     return this.active_KeyWordIdx === null;
