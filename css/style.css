@@ -3,20 +3,21 @@ body {
   max-width: 1280px;
 }
 
-ol, ul {
+ol,
+ul {
   list-style: none;
 }
 
 header {
   height: 140px;
 }
-.top{
-  height:40px;
+.top {
+  height: 40px;
   box-sizing: border-box;
   border: 1px solid #d0d0d0;
 }
 
-.app_download{
+.app_download {
   float: left;
   height: 38px;
   margin-left: 150px;
@@ -24,17 +25,22 @@ header {
 }
 .app_download a {
   text-decoration: none;
-  color:#878696;
+  color: #878696;
 }
 
-.cm_bar{
+.cm_bar {
   float: right;
   padding: 0px 10px;
   margin-right: 150px;
 }
+.cm_bar ul {
+  float: left;
+  padding: 0;
+  margin: 0;
+}
 
-.cm_bar li{
-  float:left;
+.cm_bar li {
+  float: left;
   text-align: center;
   margin: 0px 5px;
   font-size: 0.7em;
@@ -43,24 +49,24 @@ header {
 }
 .cm_bar a {
   text-decoration: none;
-  color:#878696;
+  color: #878696;
 }
 
 /* Header */
-.header{
+.header {
   height: 100px;
 }
 
-.logo{
-  padding-left:150px;
+.logo {
+  padding-left: 150px;
   line-height: 100px;
   float: left;
 }
 
 .main_search {
   float: left;
-	position: relative;
-	top: 50%;
+  position: relative;
+  top: 50%;
   transform: translateY(-50%);
   margin-left: 30px;
   border: 1px solid #cbcbd4;
@@ -87,7 +93,7 @@ header {
 
 .nav {
   height: 50px;
-  background-color:#4c4e4a;
+  background-color: #4c4e4a;
 }
 
 .nav_bar {
@@ -98,14 +104,14 @@ header {
   font-size: 25px;
 }
 
-.nav_bar a{
+.nav_bar a {
   display: block;
   width: 110px;
   line-height: 50px;
 }
 
 .nav_bar span {
-  color:#fff;
+  color: #fff;
 }
 
 /* promotion */
@@ -119,36 +125,45 @@ header {
 }
 
 /* news */
-.news_wrap {
-  height: 300px;
+.news_back {
+  height: 360px;
   text-align: center;
+}
+.news_wrap {
+  height: inherit;
+  width: 980px;
+  margin: 0 auto;
+  display: flex;
 }
 
 .news_item {
   height: 240px;
-  width: 400px;
-  display: inline-block;
-  margin: 40px 15px;
+  width: 480px;
+  margin: 60px 0px;
   overflow: hidden;
 }
 
+.news_item:nth-child(1) {
+  margin-right: 10px;
+}
 .news_item:nth-child(2) {
+  margin-left: 10px;
   border: 5px solid #cccccc;
   box-sizing: border-box;
 }
-.news_item a{
+.news_item a {
   display: block;
   width: inherit;
   height: inherit;
 }
 
-.news_item img{
+.news_item img {
   display: block;
   width: inherit;
   height: inherit;
 }
 
-.news_item_sp1{
+.news_item_sp1 {
   display: block;
   color: #878696;
   font-weight: 600;
@@ -156,14 +171,120 @@ header {
   font-size: 15px;
 }
 
-.news_item_sp2{
+.news_item_sp2 {
   display: block;
   font-weight: 600;
   margin: 25px 30px;
   font-size: 30px;
 }
-.news_item>img{
+.news_item > img {
   width: 50px;
   height: 50px;
   margin: auto;
+}
+
+/* main menu */
+.main_menu_wrap {
+  height: 600px;
+  background-color: #dedede;
+}
+.main_menu {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  height: inherit;
+  width: 980px;
+}
+
+.main_menu > span:nth-child(1) {
+  margin: 10px auto 0px auto;
+  padding-top: 10px;
+  color: #a7a7a7;
+  font-weight: 600;
+}
+
+.main_menu > span:nth-child(2) {
+  margin: 10px auto;
+  font-size: 30px;
+}
+.main_menu strong {
+  font-weight: 600;
+  font-size: 35px;
+}
+
+.main_menu_bar {
+  width: 980px;
+  display: flex;
+  justify-content: space-around;
+  margin: 20px auto;
+  padding: 0;
+  background-color: #fff;
+}
+
+.main_menu_bar li {
+  height: 38px;
+  line-height: 38px;
+  width: 100%;
+  font-size: 15px;
+  font-weight: 600;
+  border-left: 1px solid #a7a7a7;
+  color: #868686;
+}
+.main_menu_bar li:hover {
+  background-color: #40ffd5;
+}
+.main_menu_bar li:nth-child(1) {
+  border-left: 0;
+}
+
+.main_menu_list {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+}
+.main_menu_item_wrap {
+  width: 300px;
+  height: 400px;
+  background-color: #fff;
+}
+.main_menu_item_img {
+  width: 100%;
+  height: 250px;
+}
+.main_menu_item_deskbox {
+  padding: 10px 20px;
+  text-align: left;
+}
+/* .main_menu_item_deskbox span {
+  margin: 5px 0px;
+} */
+
+.main_menu_item_l {
+  display: block;
+  font-size: 1em;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+.main_menu_item_m {
+  display: block;
+  font-size: 0.8em;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #a7a7a7;
+}
+.main_menu_item_score {
+  display: block;
+  margin-bottom: 10px;
+}
+.main_menu_item_star {
+  font-size: 0.8em;
+  font-weight: 600;
+  color: #a7a7a7;
+}
+.main_menu_item_price {
+  font-size: 1.5em;
+  font-weight: 600;
+  color: #4bd6b8;
 }
