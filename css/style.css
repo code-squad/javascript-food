@@ -38,7 +38,7 @@ header {
   height: 38px;
   font-size: 0.8em;
 }
-.app_download a {
+.app_download_a {
   color: #878696;
 }
 
@@ -52,7 +52,7 @@ header {
   line-height: 38px;
 }
 
-.top_list_l a {
+.top_list_l_a {
   color: #878696;
   text-decoration: none;
 }
@@ -66,7 +66,7 @@ header {
   line-height: 100px;
   float: left;
 }
-.main_logo > img {
+.main_logo_img {
   vertical-align: middle;
 }
 
@@ -97,11 +97,11 @@ header {
   float: right;
   height: 100px;
 }
-.search_list > li > a {
+.search_list_item {
   line-height: 100px;
   margin-left: 15px;
 }
-.search_list > li > a > img {
+.search_list_img {
   vertical-align: middle;
 }
 
@@ -135,7 +135,7 @@ header {
   height: 400px;
 }
 
-.promotion > a > img {
+.promotion_img {
   width: 1280px;
   height: 400px;
 }
@@ -163,12 +163,12 @@ header {
   border: 5px solid #cccccc;
   box-sizing: border-box;
 }
-.news_item > a {
+.news_item_a {
   width: inherit;
   height: inherit;
 }
 
-.news_item > a > img {
+.news_item_img {
   width: inherit;
   height: inherit;
 }
@@ -187,47 +187,47 @@ header {
   margin: 25px 50px;
   font-size: 32px;
 }
-.news_item > img {
+.news_item_logo {
   width: 60px;
   height: 60px;
   margin: auto;
 }
 
 /* main menu */
-.main_menu {
+.menu {
   height: 600px;
   background-color: #dedede;
 }
-.main_menu_wrap {
+.menu_wrap {
   display: flex;
   flex-direction: column;
   text-align: center;
 }
 
-.main_menu_wrap > span:nth-child(1) {
+.menu_head1 {
   margin: 10px auto 0px auto;
   padding-top: 10px;
   color: #a7a7a7;
   font-weight: 600;
 }
 
-.main_menu_wrap > span:nth-child(2) {
+.menu_head2 {
   margin: 10px auto;
   font-size: 30px;
 }
-.main_menu_wrap > span > strong {
+.menu_head2_str {
   font-weight: 600;
   font-size: 35px;
 }
 
-.main_menu_list {
+.menu_nav_list {
   width: 980px;
   display: flex;
   margin: 20px auto;
   background-color: #fff;
 }
 
-.main_menu_list li {
+.menu_nav_item {
   height: 38px;
   line-height: 38px;
   width: 100%;
@@ -236,11 +236,11 @@ header {
   border-left: 1px solid #e8e8e8;
   color: #868686;
 }
-.main_menu_list li:hover {
+.menu_nav_item:hover {
   background-color: #9ebfa8;
   color: #fff;
 }
-.main_menu_list li:nth-child(1) {
+.menu_nav_item:nth-child(1) {
   border-left: 0;
 }
 
@@ -264,13 +264,13 @@ header {
   text-align: left;
 }
 
-.menu_item_l {
+.menu_item_sp1 {
   display: block;
   font-size: 1em;
   font-weight: 600;
   margin-bottom: 5px;
 }
-.menu_item_m {
+.menu_item_sp2 {
   display: block;
   font-size: 0.8em;
   font-weight: 600;

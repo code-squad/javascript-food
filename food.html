@@ -13,16 +13,16 @@
     <div class="top">
       <div class="wrap">
         <div class="app_download">
-          <a href="#" style="line-height:38px;"><span> 배민찬 앱 다운로드</span></a>
+          <a class="app_download_a" href="#" style="line-height:38px;"><span> 배민찬 앱 다운로드</span></a>
         </div>
         <ul class="top_list">
-          <li class="basic_l top_list_l"><a href="">로그인</a></li>
-          <li class="basic_l top_list_l"><a href="">회원가입</a></li>
-          <li class="basic_l top_list_l"><a href="">마이페이지</a></li>
-          <li class="basic_l top_list_l"><a href="">고객센터</a></li>
-          <li class="basic_l top_list_l"><a href="">새벽배송 지역검색</a></li>
-          <li class="basic_l top_list_l"><a href="">이벤트 게시판</a></li>
-          <li class="basic_l top_list_l"><a href=""><strong>장바구니</strong></a></li>
+          <li class="basic_l top_list_l"><a class="top_list_l_a" href="">로그인</a></li>
+          <li class="basic_l top_list_l"><a class="top_list_l_a" href="">회원가입</a></li>
+          <li class="basic_l top_list_l"><a class="top_list_l_a" href="">마이페이지</a></li>
+          <li class="basic_l top_list_l"><a class="top_list_l_a" href="">고객센터</a></li>
+          <li class="basic_l top_list_l"><a class="top_list_l_a" href="">새벽배송 지역검색</a></li>
+          <li class="basic_l top_list_l"><a class="top_list_l_a" href="">이벤트 게시판</a></li>
+          <li class="basic_l top_list_l"><a class="top_list_l_a" href=""><strong>장바구니</strong></a></li>
         </ul>
       </div>
     </div>
@@ -30,7 +30,7 @@
     <div class="search">
       <div class="wrap">
         <div class="main_logo">
-          <img src="./css/images/header/logo.png">
+          <img class="main_logo_img" src="./css/images/header/logo.png">
         </div>
         <div class="search_wrap">
           <div class="search_bar">
@@ -39,9 +39,12 @@
           </div>
         </div>
         <ul class="search_list">
-          <li class="basic_l"><a href=""><img src="./css/images/header/header1.png" alt="1"></a></li>
-          <li class="basic_l"><a href=""><img src="./css/images/header/header2.png" alt="2"></a></li>
-          <li class="basic_l"><a href=""><img src="./css/images/header/header3.png" alt="3"></a></li>
+          <li class="basic_l search_list_item"><a href=""><img class="search_list_img" src="./css/images/header/header1.png"
+                alt="1"></a></li>
+          <li class="basic_l search_list_item"><a href=""><img class="search_list_img" src="./css/images/header/header2.png"
+                alt="2"></a></li>
+          <li class="basic_l search_list_item"><a href=""><img class="search_list_img" src="./css/images/header/header3.png"
+                alt="3"></a></li>
         </ul>
       </div>
     </div>
@@ -66,30 +69,31 @@
   <main>
 
     <div class="promotion" style="position:relative">
-      <a href=""><img src="./css/images/promotion/food4.png" alt="not pound"></a>
+      <a href=""><img class="promotion_img" src="./css/images/promotion/food4.png" alt="not pound"></a>
     </div>
     <div class="news">
       <div class="wrap news_wrap">
-        <div class="news_item"><a href=""><img src="./css/images/news/news.jpg" alt=""></a></div>
+        <div class="news_item"><a class="news_item_a" href=""><img class="news_item_img" src="./css/images/news/news.jpg"
+              alt=""></a></div>
         <div class="news_item">
           <span class="news_item_sp1">아직 배민찬 회원이 아니세요?</span>
           <span class="news_item_sp2">지금 신규회원에게 드리는 <strong>웰컴혜택</strong>을 만나보세요!</span>
-          <img src="./css/images/news/go.png" alt="">
+          <img class="news_item_logo" src="./css/images/news/go.png" alt="">
         </div>
       </div>
     </div>
 
-    <div class="main_menu">
-      <div class="wrap main_menu_wrap">
-        <span>베스트셀러</span>
-        <span>후기가 증명하는 <strong>베스트반찬</strong></span>
-        <ul class="main_menu_list">
-          <li>오늘은 뭐먹지</li>
-          <li>풍성한 고기반찬</li>
-          <li>바다향가득 반찬</li>
-          <li>추천해요 아이반찬</li>
-          <li>할인특가 세트상품</li>
-          <li>맛있는 간식타임</li>
+    <div class="menu">
+      <div class="wrap menu_wrap">
+        <span class="menu_head1">베스트셀러</span>
+        <span class="menu_head2">후기가 증명하는 <strong class="menu_head2_str">베스트반찬</strong></span>
+        <ul class="menu_nav_list">
+          <li class="menu_nav_item">오늘은 뭐먹지</li>
+          <li class="menu_nav_item">풍성한 고기반찬</li>
+          <li class="menu_nav_item">바다향가득 반찬</li>
+          <li class="menu_nav_item">추천해요 아이반찬</li>
+          <li class="menu_nav_item">할인특가 세트상품</li>
+          <li class="menu_nav_item">맛있는 간식타임</li>
         </ul>
 
         <ul class="menu_item_list">
@@ -97,8 +101,8 @@
             <div class="menu_item_wrap">
               <img class="menu_item_img" src="./css/images/main/salad.jpg" alt="">
               <div class="menu_item_deskbox">
-                <span class="menu_item_l">[Whale]Chicken Salad 300g</span>
-                <span class="menu_item_m">Fresh swedish salad</span>
+                <span class="menu_item_sp1">[Whale]Chicken Salad 300g</span>
+                <span class="menu_item_sp2">Fresh swedish salad</span>
                 <div class="menu_item_rate">
                   <span class="menu_item_score">
                     <span>★</span>
@@ -117,8 +121,8 @@
             <div class="menu_item_wrap">
               <img class="menu_item_img" src="./css/images/main/pizza.jpg" alt="">
               <div class="menu_item_deskbox">
-                <span class="menu_item_l">[Whale]Gorgonzolla Pizza 800g</span>
-                <span class="menu_item_m">Best menu of the years</span>
+                <span class="menu_item_sp1">[Whale]Gorgonzolla Pizza 800g</span>
+                <span class="menu_item_sp2">Best menu of the years</span>
                 <div class="menu_item_rate">
                   <span class="menu_item_score">
                     <span>★</span>
@@ -137,8 +141,8 @@
             <div class="menu_item_wrap">
               <img class="menu_item_img" src="./css/images/main/aglioolio.jpg" alt="">
               <div class="menu_item_deskbox">
-                <span class="menu_item_l">[Whale]Aglio Oilo 500g</span>
-                <span class="menu_item_m">Please say nothing Pasta</span>
+                <span class="menu_item_sp1">[Whale]Aglio Oilo 500g</span>
+                <span class="menu_item_sp2">Please say nothing Pasta</span>
                 <div class="menu_item_rate">
                   <span class="menu_item_score">
                     <span>★</span>
