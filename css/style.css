@@ -27,7 +27,7 @@ a {
 header {
   height: 190px;
 }
-.basic_l {
+.basic_item {
   float: left;
   text-align: center;
   margin: 0px 5px;
@@ -41,8 +41,7 @@ header {
 
 .app_download {
   float: left;
-  height: 38px;
-  font-size: 0.7em;
+  font-size: 0.7rem;
 }
 .app_download_a {
   color: #878696;
@@ -52,13 +51,12 @@ header {
   float: right;
 }
 
-.top_list_l {
-  font-size: 0.7em;
-  height: 38px;
+.top_list_item {
+  font-size: 0.7rem;
   line-height: 38px;
 }
 
-.top_list_l_a {
+.top_list_item_a {
   color: #878696;
   text-decoration: none;
 }
@@ -79,7 +77,7 @@ header {
 .search_wrap {
   display: flex;
   align-items: center;
-  width: 250px;
+  width: 270px;
   height: 100px;
   padding-left: 10px;
   float: left;
@@ -91,7 +89,9 @@ header {
   vertical-align: middle;
   border: none;
   width: 200px;
-  font-size: 30px;
+  height: 40px;
+  font-size: 1rem;
+  padding-left: 15px;
 }
 .search_icon {
   vertical-align: middle;
@@ -113,13 +113,14 @@ header {
 
 /* nav */
 
-.nav {
+.main_nav {
   height: 50px;
   background-color: #4c4e4a;
 }
 
 .nav_list {
   line-height: 50px;
+  font-weight: var(--font-weight-mid);
   display: flex;
   justify-content: space-around;
 }
@@ -184,13 +185,13 @@ header {
   color: #878696;
   font-weight: var(--font-weight-mid);
   margin: 20px;
-  font-size: 15px;
+  font-size: 1rem;
 }
 
 .news_item_sp2 {
   display: block;
   margin: 25px 50px;
-  font-size: 32px;
+  font-size: 2rem;
 }
 .news_item_logo {
   width: 60px;
@@ -218,11 +219,11 @@ header {
 
 .menu_head2 {
   margin: 10px auto;
-  font-size: 30px;
+  font-size: 2rem;
 }
 .menu_head2_str {
   font-weight: var(--font-weight-mid);
-  font-size: 35px;
+  font-size: 2.1rem;
 }
 
 .menu_nav_list {
@@ -236,7 +237,7 @@ header {
   height: 38px;
   line-height: 38px;
   width: 100%;
-  font-size: 15px;
+  font-size: 0.8rem;
   font-weight: var(--font-weight-mid);
   border-left: 1px solid #e8e8e8;
   color: #868686;
@@ -245,7 +246,7 @@ header {
   background-color: var(--main-theme-color);
   color: #fff;
 }
-.menu_nav_item:nth-child(1) {
+.menu_nav_item:first-child {
   border-left: 0;
 }
 
@@ -276,7 +277,7 @@ header {
 }
 .menu_item_sp2 {
   display: block;
-  font-size: 0.8em;
+  font-size: 0.8rem;
   font-weight: var(--font-weight-mid);
   margin-bottom: 5px;
   color: #a7a7a7;
@@ -286,12 +287,12 @@ header {
   margin-bottom: 10px;
 }
 .menu_item_star {
-  font-size: 0.8em;
+  font-size: 0.8rem;
   font-weight: var(--font-weight-mid);
   color: #a7a7a7;
 }
 .menu_item_price {
-  font-size: 1.5em;
+  font-size: 1.5rem;
   font-weight: var(--font-weight-mid);
   color: var(--main-theme-color);
 }
