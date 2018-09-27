@@ -1,3 +1,9 @@
+:root {
+  --main-content-width: 980px;
+  --main-theme-color: #00c2be;
+  --font-weight-mid: 600;
+}
+
 body {
   margin: 0;
   max-width: 1280px;
@@ -14,7 +20,7 @@ a {
 }
 
 .wrap {
-  width: 980px;
+  width: var(--main-content-width);
   height: inherit;
   margin: auto;
 }
@@ -36,7 +42,7 @@ header {
 .app_download {
   float: left;
   height: 38px;
-  font-size: 0.8em;
+  font-size: 0.7em;
 }
 .app_download_a {
   color: #878696;
@@ -176,14 +182,13 @@ header {
 .news_item_sp1 {
   display: block;
   color: #878696;
-  font-weight: 600;
+  font-weight: var(--font-weight-mid);
   margin: 20px;
   font-size: 15px;
 }
 
 .news_item_sp2 {
   display: block;
-  font-weight: 500;
   margin: 25px 50px;
   font-size: 32px;
 }
@@ -208,7 +213,7 @@ header {
   margin: 10px auto 0px auto;
   padding-top: 10px;
   color: #a7a7a7;
-  font-weight: 600;
+  font-weight: var(--font-weight-mid);
 }
 
 .menu_head2 {
@@ -216,12 +221,12 @@ header {
   font-size: 30px;
 }
 .menu_head2_str {
-  font-weight: 600;
+  font-weight: var(--font-weight-mid);
   font-size: 35px;
 }
 
 .menu_nav_list {
-  width: 980px;
+  width: var(--main-content-width);
   display: flex;
   margin: 20px auto;
   background-color: #fff;
@@ -232,12 +237,12 @@ header {
   line-height: 38px;
   width: 100%;
   font-size: 15px;
-  font-weight: 600;
+  font-weight: var(--font-weight-mid);
   border-left: 1px solid #e8e8e8;
   color: #868686;
 }
 .menu_nav_item:hover {
-  background-color: #9ebfa8;
+  background-color: var(--main-theme-color);
   color: #fff;
 }
 .menu_nav_item:nth-child(1) {
@@ -266,14 +271,13 @@ header {
 
 .menu_item_sp1 {
   display: block;
-  font-size: 1em;
-  font-weight: 600;
+  font-weight: var(--font-weight-mid);
   margin-bottom: 5px;
 }
 .menu_item_sp2 {
   display: block;
   font-size: 0.8em;
-  font-weight: 600;
+  font-weight: var(--font-weight-mid);
   margin-bottom: 5px;
   color: #a7a7a7;
 }
@@ -283,11 +287,11 @@ header {
 }
 .menu_item_star {
   font-size: 0.8em;
-  font-weight: 600;
+  font-weight: var(--font-weight-mid);
   color: #a7a7a7;
 }
 .menu_item_price {
   font-size: 1.5em;
-  font-weight: 600;
-  color: #4bd6b8;
+  font-weight: var(--font-weight-mid);
+  color: var(--main-theme-color);
 }
