@@ -1,0 +1,14 @@
+{
+  "name": "whale",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/LOG91/javascript-food.git",
+  "author": "Log91 <peter1636@naver.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-es2015": "^7.0.0-beta.53"
+  }
+}
