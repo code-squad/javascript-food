@@ -20,10 +20,15 @@ ul {
     list-style: none;
 }
 
+:root {
+    --main-width: 1280px;
+    --main-bg-color: #fff;
+    --main-font-color: #25d4ce;
+}
+
 .content {
     width: 980px;
     margin: 0 auto;
-    overflow: hidden;
 }
 
 .down_icon {
@@ -32,15 +37,13 @@ ul {
 }
 
 .user_menu_wrap {
-    width: 1280px;
-    background-color: #fff;
+    width: var(--main-width);
+    background-color: var(--main-bg-color);
     border-bottom: 1px solid #e9e9e9;
 }
 
 .user_menu {
-    width: 980px;
     height: 37px;
-    margin: 0 auto;
     font-size: 12px;
     overflow: hidden;
 }
@@ -64,7 +67,7 @@ ul {
 }
 
 .user_menu a:hover {
-    color: #25d4ce;
+    color: var(--main-font-color);
 }
 
 .user_menu ul li:nth-last-child(1) {
@@ -82,15 +85,12 @@ ul {
 
 .header_wrap {
     position: relative;
-    width: 1280px;
-    background-color: #fff;
+    width: var(--main-width);
+    background-color: var(--main-bg-color);
 }
 
 .header {
-    width: 980px;
     height: 98px;
-    margin: 0 auto;
-    float: hidden;
 }
 
 .header .logo img {
@@ -114,7 +114,7 @@ ul {
 }
 
 .header .searchbar input:hover {
-    border-color: #25d4ce;
+    border-color: var(--main-font-color);
 }
 
 .header .searchbar button {
@@ -139,14 +139,12 @@ ul {
 }
 
 .navi_wrap {
-    width: 1280px;
+    width: var(--main-width);
     background-color: #483f35;
 }
 
 .navi {
-    width: 980px;
     height: 52px;
-    margin: 0 auto;
 }
 
 .navi ul>li {
@@ -155,7 +153,7 @@ ul {
     float: left;
     font-size: 16px;
     font-weight: 600;
-    color: #fff;
+    color: var(--main-bg-color);
     line-height: 42px;
     padding: 5px 25px 0 0;
     position: relative;
@@ -166,7 +164,7 @@ ul {
     width: 100%;
     height: 100%;
     display: inline-block;
-    color: #fff;
+    color: var(--main-bg-color);
     text-align: center;
 }
 
@@ -177,17 +175,17 @@ ul {
 }
 
 .navi>ul>li:hover a {
-    color: #25d4ce;
-    background-color: #fff;
+    color: var(--main-font-color);
+    background-color: var(--main-bg-color);
 }
 
-.navi>ul>li:hover .sub_list {
+.navi ul li:hover .sub_list {
     display: block;
 }
 
 .navi .sub_list {
     display: none;
-    background-color: #fff;
+    background-color: var(--main-bg-color);
     position: absolute;
     width: 160px;
     border: 0.5px solid #3333336b;
@@ -219,21 +217,19 @@ ul {
 }
 
 .navi .sub_list>li:hover {
-    color: #25d4ce;
+    color: var(--main-font-color);
     text-decoration: underline;
 }
 
 .main_slide_wrap {
-    width: 1280px;
+    width: var(--main-width);
 }
 
 .main_banner_wrap {
-    width: 1280px;
+    width: var(--main-width);
 }
 
 .main_banner_wrap .main_banner {
-    width: 980px;
-    margin: 0 auto;
     padding: 50px 0 60px 0;
     overflow: hidden;
 }
@@ -254,22 +250,19 @@ ul {
 }
 
 .best_seller_wrap {
-    width: 1280px;
+    width: var(--main-width);
     background-color: #eee;
     padding-bottom: 40px;
 }
 
 .best_seller_wrap .best_seller {
-    width: 980px;
-    margin: 0 auto;
     position: relative;
     padding-top: 40px;
 }
 
 .head_line {
     text-align: center;
-    letter-spacing: -0.07em;
-    margin-bottom: 40px;
+    padding-bottom: 40px;
 }
 
 .head_line h2 {
@@ -290,11 +283,11 @@ ul {
 
 .best_seller .best_seller_tab li {
     text-align: center;
-    width: 163.3px;
+    width: calc(980px/6);
     height: 48px;
     line-height: 48px;
     float: left;
-    background-color: #fff;
+    background-color: var(--main-bg-color);
     color: #666;
     border-right: 0.5px solid #eee;
     font-size: 15px;
@@ -302,8 +295,8 @@ ul {
 }
 
 .best_seller .best_seller_tab li:hover {
-    background-color: #25d4ce;
-    color: #fff;
+    background-color: var(--main-font-color);
+    color: var(--main-bg-color);
     cursor: pointer;
 }
 
@@ -313,17 +306,11 @@ ul {
 }
 
 .best_seller .best_seller_container .best_list .list_box {
-    background-color: #fff;
+    background-color: var(--main-bg-color);
     width: 304px;
     height: 440px;
     float: left;
     margin-right: 33.5px;
-}
-
-.best_seller .best_seller_container .best_list .list_box a {
-    display: inline-block;
-    width: 100%;
-    height: 100%;
 }
 
 .best_seller .best_seller_container .best_list .list_box img {
@@ -335,13 +322,11 @@ ul {
 }
 
 .dish_list_wrap {
-    width: 1280px;
-    background-color: #fff;
+    width: var(--main-width);
+    background-color: var(--main-bg-color);
 }
 
 .dish_list_wrap .dish_list {
-    width: 980px;
-    margin: 0 auto;
     padding-top: 40px;
     position: relative;
 }
