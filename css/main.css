@@ -313,7 +313,7 @@ ul {
     padding-top: 3rem;
 }
 
-.best_seller .best_seller_container .best_list .list_box {
+.best_seller .best_seller_container .best_list .best_item {
     background-color: var(--main-bg-color);
     width: 30.4rem;
     height: 44rem;
@@ -321,12 +321,63 @@ ul {
     margin-right: 3.35rem;
 }
 
-.best_seller .best_seller_container .best_list .list_box img {
+.best_seller .best_seller_container .best_list .best_item img {
     height: 30.4rem;
 }
 
-.best_seller .best_seller_container .best_list .list_box.last {
+.best_seller .best_seller_container .best_list .best_item.last {
     margin-right: 0;
+}
+
+.best_seller .best_item dl {
+    padding: 1.5rem 1.6rem;
+    letter-spacing: -0.05rem;
+}
+
+.best_seller .best_item dl .item_title {
+    color: #000;
+    font-weight: 800;
+    font-size: 1.7rem;
+    margin-bottom: 0.7rem;
+}
+
+.best_seller .best_item dl dd {
+    color: #333;
+    font-size: 1.3rem;
+    margin-bottom: 0.7rem;
+}
+
+.best_seller .best_item .item_review {
+    height: 1.7rem;
+}
+
+.best_seller .best_item .item_price p {
+    display: inline-block;
+}
+
+.best_seller .best_item .item_price .sale_price {
+    font-size: 2.6rem;
+    color: #2ac1bc;
+    font-weight: 800;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+}
+
+
+.best_seller .best_item .item_price .unit {
+    font-size: 1.4rem;
+    color: #2ac1bc;
+    font-weight: 600;
+    vertical-align: middle;
+}
+
+.best_seller .best_item .item_price .original_price {
+    position: relative;
+    top: 2px;
+    vertical-align: middle;
+    color: #888;
+    font-size: 1.4rem;
+    text-decoration: line-through;
 }
 
 .dish_list_wrap {
