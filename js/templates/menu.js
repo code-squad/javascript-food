@@ -35,7 +35,8 @@ const itemTpl = item => {
 
 function makeItemScoreByStars(star) {
   let result = "";
-  for (let i = 5; i > 0; i--, star--) {
+  let MAX_COUNT = 5;
+  for (let i = MAX_COUNT; i > 0; i--, star--) {
     result += star > 0 ? "<span>★</span>" : "<span>☆</span>";
   }
   return result;
