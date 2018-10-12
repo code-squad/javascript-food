@@ -12,7 +12,7 @@
 
 <body>
     <div class="user_menu_wrap">
-        <div class="user_menu">
+        <div class="content user_menu">
             <a href="#">
                 배민찬 앱 다운로드
                 <span class="down_icon">&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -29,7 +29,7 @@
         </div>
     </div>
     <div class="header_wrap">
-        <div class="header">
+        <div class="content header">
             <a href='#' class='logo'>
                 <img src="./images/bmc-logo.png" alt="logo">
             </a>
@@ -41,11 +41,10 @@
                 <li><a href="#"><img src="./images/header_best1.png"></a></li>
                 <li><a href="#"><img src="./images/header_best2.png"></a></li>
             </ul>
-
         </div>
     </div>
     <div class="navi_wrap">
-        <div class="navi">
+        <div class="content navi">
             <ul>
                 <li>
                     <a>밑반찬</a>
@@ -124,7 +123,7 @@
                         <li>기타간식</li>
                     </ul>
                 </li>
-                <li>
+                <li class="brand_menu">
                     <a>브랜드관</a>
                     <ul class='sub_list'>
                         <li>반찬가게</li>
@@ -142,7 +141,7 @@
             <img src="https://cdn.bmf.kr/banner/main_banner/180927/1538022591164_af94d58c3a15.jpg" alt="#">
         </div>
         <div class="main_banner_wrap">
-            <div class="main_banner">
+            <div class="content main_banner">
                 <div class="banner_box">
                     <img src="https://cdn.bmf.kr/banner/main_new/170825/1503626425328_7e864f7a5a88.jpg" alt="#">
                 </div>
@@ -152,51 +151,26 @@
             </div>
         </div>
         <div class="best_seller_wrap">
-            <div class="best_seller">
+            <div class="content best_seller">
                 <div class="head_line">
                     <h2>베스트셀러</h2>
                     <p>후기가 증명하는 <strong>베스트 반찬</strong></p>
                 </div>
                 <ul class="best_seller_tab">
-                    <li>오늘은 뭐먹지</li>
-                    <li>풍성한 고기반찬</li>
-                    <li>바다향가득 반찬</li>
-                    <li>추천해요 아이반찬</li>
-                    <li>할인특가 세트상품</li>
-                    <li>맛있는 간식타임</li>
+                    <li data-category_no="17011200">오늘은 뭐먹지</li>
+                    <li data-category_no="17011000">풍성한 고기반찬</li>
+                    <li data-category_no="17010200">바다향가득 반찬</li>
+                    <li data-category_no="17010300">추천해요 아이반찬</li>
+                    <li data-category_no="17010200">할인특가 세트상품</li>
+                    <li data-category_no="17011400">맛있는 간식타임</li>
                 </ul>
-                <div class="best_seller_container">
-                    <ul class="best_list">
-                        <li class="list_box">
-                            <a href="#">
-                                <div>
-                                    <img src="https://cdn.bmf.kr/_data/product/201511/16/2880fc2f4f8eba13712aaddada3961e0.jpg"
-                                        alt="#">
-                                </div>
-                            </a>
-                        </li>
-                        <li class="list_box">
-                            <a href="#">
-                                <div>
-                                    <img src="https://cdn.bmf.kr/_data/product/201511/16/2880fc2f4f8eba13712aaddada3961e0.jpg"
-                                        alt="#">
-                                </div>
-                            </a>
-                        </li>
-                        <li class="list_box">
-                            <a href="#">
-                                <div>
-                                    <img src="https://cdn.bmf.kr/_data/product/201511/16/2880fc2f4f8eba13712aaddada3961e0.jpg"
-                                        alt="#">
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                <ul class="best_list">
+                    
+                </ul>
             </div>
         </div>
         <div class="dish_list_wrap" data-index=0>
-            <div class="dish_list">
+            <div class="content dish_list">
                 <div class="head_line">
                     <h2>밑반찬</h2>
                     <p>언제 먹어도 든든한 <strong>밑반찬</strong></p>
@@ -204,6 +178,7 @@
             </div>
         </div>
     </div>
+    <script src = './js/index.js' type='module'></script>
 </body>
 
 </html>
