@@ -1,9 +1,10 @@
 export default class TabView{
-    constructor(tabElement, template, ajax){
+    constructor({tabElement, template, ajax, url}){
         this.tabEl = tabElement;
         this.bestListEl = this.tabEl.nextElementSibling;
         this.template = template;
         this.ajax = ajax;
+        this.url = url;
         this.init();
     }
 
@@ -32,7 +33,7 @@ export default class TabView{
     }
 
     getUrl(category_no){
-        return 'http://crong.codesquad.kr:8080/woowa/best/' + category_no;
+        return this.url + category_no;
     }
     
     getCategoryNo(target){
