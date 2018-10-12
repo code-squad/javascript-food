@@ -1,6 +1,6 @@
-function ajax({url, handler, requestType}){
+function ajax({ url, handler, requestType }) {
     const xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', ()=>{
+    xhr.addEventListener('load', () => {
 
         const requestData = JSON.parse(xhr.response);
         handler(requestData);
@@ -9,4 +9,4 @@ function ajax({url, handler, requestType}){
     xhr.send();
 }
 
-export {ajax}
+export { ajax }
