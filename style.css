@@ -256,9 +256,28 @@ table {
 	margin-right: 530px;
 	background-position: left center;
 }
-
-
 /* 메인 컨테이너(배너 및 화살표) END */
+
+/* 서브 컨테이너(배너) START */
+#sub_container {
+	display: block;
+}
+
+.sub_banner {
+	width: 980px; height: 270px;
+	margin: 0 auto;
+	padding: 50px 10px;
+}
+
+.small_banner {
+	float: left;
+}
+
+.sub_banner_1 {
+	padding-right: 25px;
+}
+/* 서브 컨테이너(배너) END */
+
 
 
 
