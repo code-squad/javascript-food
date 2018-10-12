@@ -47,6 +47,9 @@ table {
 }
 
 /* ID */
+#header_wrap {
+	height: 98px;
+}
 
 /*  CLASS  */
 .wrap {
@@ -72,7 +75,8 @@ table {
 
 .link_app {
   float: left;
-	padding: 10px 0px;
+	padding-top: 10px; padding-bottom: 10px;
+	padding-left: 10px;
 }
 
 .link_text {
@@ -101,10 +105,72 @@ table {
 	padding: 10px 10px 9px 10px;
 	background-image: url("img/util_bar.gif");
 	background-repeat: no-repeat;
-	/* background-size: 15px; */
 	background-position: 0;
 }
 
+.shopping_basket {
+	font-weight: bold;
+}
+/* TOP NAVI 중 사용자 유틸리티(로그인, 로그아웃 등) END */
+
+/* 로고 포함된 header START */
+.header {
+	width: 980px; height: 98px;
+	margin: 0 auto;
+}
+
+.logo {
+	float: left;
+	margin-top: 16px;
+	margin-left: 5px;
+}
+
+.search {
+	float: left;
+	position: relative;
+	margin-top: 30px;
+	margin-left: 46px;
+}
+
+.search > input {
+	width: 210px;
+	height: 40px;
+	margin-left: 15px;
+	margin-right: 38px;
+	border: 1px solid #CFD0DE;
+}
+
+.search > button {
+	position: absolute;
+	width: 38px; height: 38px;
+	top: 3px; right: 40px;
+	border: none;
+	background-image: url("img/ic_search.png");
+	background-repeat: no-repeat;
+	background-position: center 0;
+}
+
+.top_menu{
+	float: right;
+	padding-right: 10px;
+}
+
+.top_menu > li {
+	float: left;
+}
+
+.top_menu > li a {
+	display: block;
+	height: 48px;
+	margin-top: 25px;
+	margin-bottom: 25px;
+	margin-left: 50px;
+}
+/* 로고 포함된 header END */
+
+
+
+/* ETC */
 .icon {
   display: inline-block;
   zoom: 1;
