@@ -4,14 +4,14 @@ export default class TabView{
         this.bestListEl = this.tabEl.nextElementSibling;
         this.template = template;
         this.ajax = ajax;
-        this.clickTab();
         this.init();
     }
 
     init(){
-        const initEl = this.tabEl.firstElementChild;
-        this.focusTab(initEl);
-        this.ajax(this.getUrl(this.getCategoryNo(initEl)), this.render.bind(this));
+        const firstNode = this.tabEl.firstElementChild;
+        this.focusTab(firstNode);
+        this.ajax(this.getUrl(this.getCategoryNo(firstNode)), this.render.bind(this));
+        this.clickTab();
     }
     
     clickTab(){
@@ -28,7 +28,7 @@ export default class TabView{
 
     blurTab(){
         const childNodes = this.tabEl.querySelectorAll('li');
-        childNodes.forEach( v=> {v.classList.remove('now')});
+        childNodes.forEach( v=> v.classList.remove('now'));
     }
 
     getUrl(category_no){
