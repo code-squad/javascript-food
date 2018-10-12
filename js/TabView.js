@@ -18,7 +18,11 @@ export default class TabView{
     clickTab(){
         this.tabEl.addEventListener('click', ({target})=>{
             this.focusTab(target);
-            this.ajax(this.getUrl(this.getCategoryNo(target)), this.render.bind(this));
+            this.ajax({
+                url : this.getUrl(this.getCategoryNo(target)),
+                handler : this.render.bind(this),
+                requestType : 'GET'
+            });
         })
     }
 
