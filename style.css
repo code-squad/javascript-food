@@ -200,6 +200,7 @@ table {
 }
 
 .main_navi_list > li:nth-child(8) {
+	height: 52px;
 	background-color: #362d25;
 }
 
@@ -213,12 +214,52 @@ table {
 .main_navi_list > li > a > span {
 	display: inline-block;
 	height: 36px;
-	padding-top: 18px;
+	padding-top: 19px;
 	padding-left: 30px; padding-right: 25px;
+}
+/* Main 네비 (밑반찬, 국찌개, 메인반찬) END */
+
+/* 메인 컨테이너(배너 및 화살표) START */
+#container {
+	position: relative;
+}
+
+.main_banner {
+	max-width: 1920px; height: 420px;
+	background-image: url("img/banner_1.jpg");
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.main_banner_slider {
+	display: block;
+}
+
+.slide {
+	width: 60px; height: 92px;
+	position: absolute;
+	top: 50%;
+	margin-top: -46px;
+	background-image: url("img/main_slides_navi.png");
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.slide_prev {
+	left: 50%;
+	margin-left: 530px;
+	background-position: right center;
+}
+
+.slide_next {
+	right: 50%;
+	margin-right: 530px;
+	background-position: left center;
 }
 
 
-/* Main 네비 (밑반찬, 국찌개, 메인반찬) END */
+/* 메인 컨테이너(배너 및 화살표) END */
+
 
 
 /* ETC */
