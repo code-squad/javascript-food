@@ -264,7 +264,7 @@ table {
 }
 
 .sub_banner {
-	width: 980px; height: 270px;
+	width: 980px; height: 240px;
 	margin: 0 auto;
 	padding: 50px 10px;
 }
@@ -274,12 +274,160 @@ table {
 }
 
 .sub_banner_1 {
-	padding-right: 25px;
+	padding-right: 35px;
 }
 /* 서브 컨테이너(배너) END */
 
+/* 서브 네비게이션+콘텐츠 영역 START */
+#best_seller_container {
+	display: block;
+	height: 700px;
+	background-color: #EEE;
+}
 
+.food_box_list {
+	width: 980px; height: 100%;
+	margin: 0 auto;
+}
 
+.food_box_title {
+	text-align: center;
+	padding-top: 40px;
+	padding-bottom: 40px;
+}
+
+.food_box_title > h2 {
+	color: #999;
+	font-size: 18px;
+	padding-bottom: 15px;
+}
+
+.food_box_title p {
+	display: inline;
+	font-size: 30px;
+}
+
+.food_box_title > p:nth-child(2) {
+	font-family: "KakaoOTF-aLt";
+}
+
+.food_box_title > p:nth-child(3) {
+	font-weight: bold;
+}
+/* 서브 네비게이션+콘텐츠 영역 END */
+
+/* 서브 콘텐츠 영역 (+탭) START */
+.food_tab_list {
+	height: 48px;
+}
+
+.food_tab_list > li {
+	display: inline-block;
+	width: 156.7px; height: 33px;
+	background-color: white;
+	color: #777;
+	font-size: 15px;
+	text-align: center;
+	padding-top: 20px;
+}
+
+.food_tab_list > li:nth-child(1) {
+	background-color: #5FC8C6;
+	color: white;
+	font-weight: bold;
+}
+/* 서브 콘텐츠 영역 (+탭) END */
+
+/* 서브 네비게이션+콘텐츠 영역 (베스트셀러) START */
+.best_food_list {
+	width: 960px;
+	padding-top: 30px;
+}
+
+.best_food_list > li:nth-child(3) {
+	float: right;
+	margin-right: 0px;
+}
+
+.food_box {
+	float: left;
+	min-height: 440px;
+	background: white;
+	margin-right: 24px;
+	border-bottom: 1px solid #D7D7D7;
+}
+
+.food_image {
+	width: 304px;
+}
+
+.food_image > img {
+	width: 100%;
+}
+
+.food_description {
+	padding: 16px;
+	text-align: left;
+}
+
+.food_description > dt {
+	font-size: 17px;
+	padding-bottom: 11px;
+	letter-spacing: -0.07em;
+	font-weight: bold;
+}
+
+.food_description > dd:nth-of-type(1) {
+	font-size: 13px;
+	padding-bottom: 8px;
+	color: #666;
+}
+
+.food_description > dd:nth-of-type(2) {
+	padding-bottom: 7px;
+}
+
+.star_score_bg {
+	position: relative;
+	display: inline-block;
+	width: 67px; height: 12px;
+	background-image: url("img/ico-review-star.png");
+	background-repeat: no-repeat;
+	background-position: left top;
+	background-size: auto 24px;
+}
+
+.start_score {
+	position: absolute;
+	top: 0; left: 0;
+	height: 100%;
+	background-image: url("img/ico-review-star.png");
+	background-repeat: no-repeat;
+	background-position: left bottom;
+	background-size: auto 24px;
+}
+
+.review_count {
+	display: inline-block;
+	font-size: 14px;
+	color: #999;
+}
+
+.selling_price {
+	display: inline;
+	font-size: 26px;
+	color: #2ac1bc;
+	font-weight: 500;
+	letter-spacing: -0.04em;
+}
+
+.sales_unit {
+	position: relative;
+	font-size: 14px;
+	color: #2ac1bc;
+	font-weight: 600;
+}
+/* 서브 네비게이션+콘텐츠 영역 (베스트셀러) END */
 
 /* ETC */
 .icon {
