@@ -274,7 +274,11 @@ header {
   border-left: 1px solid #e8e8e8;
   color: #868686;
 }
-.menu_nav_item:hover {
+.menu_nav_a {
+  display: block;
+  color: #868686;
+}
+.menu_nav_a:hover {
   background-color: var(--main-theme-color);
   color: #fff;
 }
@@ -309,6 +313,7 @@ header {
 .menu_item_sp1 {
   display: block;
   font-weight: var(--font-weight-mid);
+  color: #000;
   margin-bottom: 5px;
 }
 .menu_item_sp2 {
@@ -320,6 +325,7 @@ header {
 }
 .menu_item_score {
   display: block;
+  color: #000;
   margin-bottom: 2px;
 }
 .menu_item_star {

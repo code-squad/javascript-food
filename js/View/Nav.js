@@ -1,6 +1,6 @@
-import { navTpl } from "../templates/nav.js";
+import { navTpl } from "../templates/navTpl.js";
 export default class Nav {
-  constructor() {}
+  constructor() { }
   renderNav(navItemList) {
     document.querySelector(".nav_list").innerHTML = navTpl(navItemList);
   }

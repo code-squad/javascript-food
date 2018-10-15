@@ -21,21 +21,11 @@ export class Engine {
   _render() {
     this.header.renderNav(this.headerModel.getNavItemList());
     this.bestMenu.render({
-      url: this.apiUrl,
-      ajax: ajax
+      url: this.apiUrl
     });
   }
   clickTab(selectedDOM) {
     const id = selectedDOM.dataset.id;
-    ajax(this.apiUrl, this.bestMenu.renderBestMenu, id);
+    this.bestMenu.renderBestMenu(this.apiUrl, id);
   }
-}
-function ajax(url, handler, idx) {
-  const xhr = new XMLHttpRequest();
-  xhr.addEventListener("load", () => {
-    const requestData = JSON.parse(xhr.response);
-    handler(requestData, idx);
-  });
-  xhr.open("GET", url);
-  xhr.send();
 }

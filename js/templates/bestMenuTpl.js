@@ -9,6 +9,7 @@ export const bestMenuItemTpl = list => {
 const itemTpl = item => {
   const itemHTML = `
   <li>
+  <a href="">
   <div class="menu_item_wrap">
     <img class="menu_item_img" src="${item.image}" alt="">
     <div class="menu_item_deskbox">
@@ -23,6 +24,7 @@ const itemTpl = item => {
       </div>
     </div>
   </div>
+  </a>
   </li>
     `;
   return itemHTML;
@@ -31,12 +33,8 @@ const itemTpl = item => {
 function _makeItemScoreByStars(star) {
   let result = "";
   let MAX_COUNT = 5;
-  for (let i = MAX_COUNT; i > 0; i--, star--) {
+  for (let i = MAX_COUNT; i > 0; i-- , star--) {
     result += star > 0 ? "<span>★</span>" : "<span>☆</span>";
   }
   return result;
-}
-
-function _numberWithCommas(x) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
