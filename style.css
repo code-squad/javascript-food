@@ -47,7 +47,7 @@ table {
 }
 
 strong {
-	/* font-weight: bold; */
+	font-weight: bold;
 }
 
 /* ID */
@@ -665,10 +665,112 @@ strong {
 }
 
 /* 하단 소개영역 END */
-
 .footer {
 	display: block;
-	height: 200px;
+	height: 250px;
+}
+
+.footer_content {
+	position: relative;
+	width: 960px; height: 240px;
+	margin: 0 auto;
+	color: #666;
+}
+
+.footer_navi {
+	width: 960px; height: 12px;
+	font-size: 14px;
+	padding-top: 35px; padding-bottom: 22px;
+}
+
+.footer_navi > li {
+	display: inline;
+	float: left;
+	padding: 0 10px;
+	font-weight: 400;
+	background-image: url("img/util_bar.gif");
+	background-repeat: no-repeat;
+}
+
+.footer_navi > li:nth-child(1) {
+	background: none;
+}
+
+.footer_info_list {
+	width: 820px; height: 60px;
+	font-size: 13px;
+	color: #999;
+}
+
+.footer_info_list > li {
+	display: inline-block;
+	padding-left: 9px;
+	padding-right: 6px;
+	background-image: url("img/util_bar.gif");
+	background-repeat: no-repeat;
+	background-position: left;
+	margin-bottom: 6px;
+}
+
+.copyright {
+	padding-top: 15px;
+	padding-bottom: 25px;
+	font-size: 14px;
+}
+
+.bottom_copy {
+	font-size: 14px;
+	color: #999;
+}
+
+.bottom_copy > p {
+	font-size: 13px;
+	padding-bottom: 5px;
+}
+
+.sns_box {
+  height: 50px;
+	position: absolute;
+	top: 31px; right: 0;
+}
+
+.sns {
+	display: inline-block;
+	width: 50px; height: 50px;
+	background-repeat: no-repeat;
+	background-position: right;
+	padding-left: 5px;
+}
+
+.instagram {
+	background-image: url("img/sns_instagram.png");
+}
+
+.facebook {
+	background-image: url("img/sns_facebook.png");
+}
+
+.scroller {
+	position: fixed;
+	right: 15%; bottom: 70px;
+}
+
+.page_up_down_list > li {
+	display: block;
+}
+
+.page_up_btn {
+	width: 50px; height: 50px;
+	background-image: url("img/btn_page_up_down_new.png");
+	background-repeat: no-repeat;
+	background-position: left top;
+}
+
+.page_down_btn {
+	width: 50px; height: 50px;
+	background-image: url("img/btn_page_up_down_new.png");
+	background-repeat: no-repeat;
+	background-position: left 100%;
 }
 
 /* ETC */
@@ -686,4 +788,13 @@ strong {
 
 .thin {
 	font-family: "KakaoOTF-aLt";
+}
+
+.first {
+	background: none !important;
+	padding-left: 0 !important;
+}
+
+.last {
+	background: none;
 }
