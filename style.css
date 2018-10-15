@@ -46,6 +46,10 @@ table {
 	border-spacing: 0;
 }
 
+strong {
+	/* font-weight: bold; */
+}
+
 /* ID */
 #header_wrap {
 	height: 98px;
@@ -307,10 +311,6 @@ table {
 	font-size: 30px;
 }
 
-.food_box_title > p:nth-child(2) {
-	font-family: "KakaoOTF-aLt";
-}
-
 .food_box_title > p:nth-child(3) {
 	font-weight: bold;
 }
@@ -451,7 +451,6 @@ table {
 
 .food_recommand_title > p {
 	font-size: 36px;
-	font-family: "KakaoOTF-aLt";
 	padding-bottom: 10px;
 }
 
@@ -535,6 +534,143 @@ table {
 }
 /* 서브 콘텐츠 (배민찬 추천) 영역 END */
 
+/* 하단 소개영역 START */
+.bottom_wrap {
+	display: block;
+	height: 240px;
+	border: 1px solid #E1E1E1;
+}
+
+.bottom_content {
+	width: 960px; height: 100%;
+	margin: 0 auto;
+	margin-top: 50px;
+	/* background-color: black; */
+}
+
+.quick_menu_box {
+	width: 300px; height: 140px;
+	float: left;
+}
+
+.quick_menu_content {
+	width: 149px; height: 69px;
+}
+
+.quick_menu_box > li:nth-of-type(2n+1) {
+	float: left;
+}
+
+.quick_menu_box > li:nth-of-type(2n+2) {
+	width: 150px;
+	float: right;
+}
+
+.quick_image {
+	background-image: url("img/icon-quick-menu.png");
+	width: 50px; height: 50px;
+	margin: 0 auto;
+}
+
+.quick_menu_content > p {
+	font-size: 12px;
+	color: #757575;
+	text-align: center;
+}
+
+.quick_menu_img_2 {
+	background-position: left 33%;
+}
+
+.quick_menu_img_3  {
+	background-position: left 64%;
+}
+
+.quick_menu_img_4 {
+	background-position: left 98%;
+}
+
+.right_border {
+	border-right: 1px solid #CCC;
+}
+
+.bottom_border {
+	border-bottom: 1px solid #CCC;
+}
+
+.notice_box {
+	position: relative;
+	width: 400px; height: 140px;
+	float: left;
+	margin-left: 35px;
+}
+
+.notice_box > h2 {
+	padding-left: 15px;
+	padding-bottom: 15px;
+	font-weight: bold;
+}
+
+.notice_list {
+	list-style: square;
+	margin-left: 20px;
+	font-size: 13px;
+}
+
+.notice_list > li {
+	padding-bottom: 17px;
+	color: #333;
+}
+
+.notice_more {
+	display: inline-block;
+	width: 48px; height: 23px;
+	position: absolute;
+	top: 0; right: 0;
+	background-image: url("img/foot_btn_more.gif");
+}
+
+.cs_center_box {
+	width: 220px; height: 140px;
+	float: right;
+	text-align: right;
+}
+
+.cs_center_box > h2 {
+	font-size: 16px;
+	padding-bottom: 5px;
+}
+
+.cs_center_box > p {
+	font-size: 36px;
+	letter-spacing: -0.06em;
+	padding-bottom: 10px;
+}
+
+.cs_center_info {
+	font-size: 14px;
+}
+
+.cs_center_info > dd {
+	padding-bottom: 5px;
+}
+
+.cs_center_info > dd:nth-of-type(3) {
+	font-size: 13px;
+	color: #999;
+}
+
+.cs_center_info > dd:nth-of-type(3) > p:nth-of-type(2) {
+	margin-top: 5px;
+}
+
+/* 하단 소개영역 END */
+
+.footer {
+	display: block;
+	height: 200px;
+}
+
 /* ETC */
 .icon {
   display: inline-block;
@@ -546,4 +682,8 @@ table {
 
 .text_center {
 	text-align: center;
+}
+
+.thin {
+	font-family: "KakaoOTF-aLt";
 }
