@@ -1,4 +1,4 @@
-export const menuTpl = list => {
+export const bestMenuItemTpl = list => {
   let itemListHTML = list.reduce((ac, cv) => {
     ac += itemTpl(cv);
     return ac;
@@ -7,24 +7,19 @@ export const menuTpl = list => {
 };
 
 const itemTpl = item => {
-  console.log(item);
   const itemHTML = `
   <li>
   <div class="menu_item_wrap">
-    <img class="menu_item_img" src="js/Model/images/main/${
-      item.imgName
-    }" alt="">
+    <img class="menu_item_img" src="${item.image}" alt="">
     <div class="menu_item_deskbox">
-      <span class="menu_item_sp1">[${item.company}]${item.name} ${
-    item.volume
-  }</span>
+      <span class="menu_item_sp1">${item.title}</span>
       <span class="menu_item_sp2">${item.description}</span>
       <div class="menu_item_rate">
         <span class="menu_item_score">
-          ${makeItemScoreByStars(item.star)}
-          <span class="menu_item_star">${item.purchase}</span>
+          ${_makeItemScoreByStars(4)}
+          <span class="menu_item_star">${3000}</span>
         </span>
-        <span class="menu_item_price">${numberWithCommas(item.price)}원</span>
+        <span class="menu_item_price">${item.s_price}</span>
       </div>
     </div>
   </div>
@@ -33,7 +28,7 @@ const itemTpl = item => {
   return itemHTML;
 };
 
-function makeItemScoreByStars(star) {
+function _makeItemScoreByStars(star) {
   let result = "";
   let MAX_COUNT = 5;
   for (let i = MAX_COUNT; i > 0; i--, star--) {
@@ -42,6 +37,6 @@ function makeItemScoreByStars(star) {
   return result;
 }
 
-function numberWithCommas(x) {
+function _numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }

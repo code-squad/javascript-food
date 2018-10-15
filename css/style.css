@@ -258,7 +258,7 @@ header {
   font-size: 2.1rem;
 }
 
-.menu_nav_list {
+.best_menu_nav {
   width: var(--main-content-width);
   display: flex;
   margin: 20px auto;
@@ -275,6 +275,10 @@ header {
   color: #868686;
 }
 .menu_nav_item:hover {
+  background-color: var(--main-theme-color);
+  color: #fff;
+}
+.menu_nav_item_selected {
   background-color: var(--main-theme-color);
   color: #fff;
 }
@@ -309,7 +313,7 @@ header {
 }
 .menu_item_sp2 {
   display: block;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: var(--font-weight-mid);
   margin-bottom: 5px;
   color: #a7a7a7;
