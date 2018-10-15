@@ -2,10 +2,10 @@ import { Engine } from "./engine.js";
 
 import { navItemList } from "./Model/data/navData.js";
 import { menuList } from "./Model/data/menuListData.js";
+import { apiUrl } from "./model/data/apiUrl.js";
 
 import { NavModel } from "./Model/navModel.js";
 import { MainModel } from "./Model/mainModel.js";
-import { apiUrl } from "./model/data/apiUrl.js";
 
 import Nav from "./View/Nav.js";
 import BestMenu from "./View/BestMenu.js";

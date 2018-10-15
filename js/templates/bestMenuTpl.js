@@ -1,12 +1,12 @@
 export const bestMenuItemTpl = list => {
   let itemListHTML = list.reduce((ac, cv) => {
-    ac += itemTpl(cv);
+    ac += _itemTpl(cv);
     return ac;
   }, "");
   return itemListHTML;
 };
 
-const itemTpl = item => {
+const _itemTpl = item => {
   const itemHTML = `
   <li>
   <a href="">

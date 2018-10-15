@@ -24,6 +24,7 @@ export class Engine {
       url: this.apiUrl
     });
   }
+
   clickTab(selectedDOM) {
     const id = selectedDOM.dataset.id;
     this.bestMenu.renderBestMenu(this.apiUrl, id);

@@ -46,6 +46,14 @@ header {
 .app_download_a {
   color: #878696;
 }
+.app_download_a>span:hover{
+  color: var(--main-theme-color);
+}
+.app_download_img {
+  width:10px;
+  padding-bottom: 3px;
+  vertical-align: middle;
+}
 
 .top_list {
   float: right;
@@ -59,6 +67,9 @@ header {
 .top_list_item_a {
   color: #878696;
   text-decoration: none;
+}
+.top_list_item_a:hover {
+  color: var(--main-theme-color);
 }
 
 /* Header */
