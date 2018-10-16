@@ -1,19 +1,23 @@
 import TabView from './TabView.js';
 import Transition from './Transition.js'
 
-
-const bestTabEl = document.querySelector('.best_seller_tab');
+const elements = {
+    body: document.querySelector('body'),
+    bestTabEl: document.querySelector('.best_seller_tab'),
+    mainSlideContentList: document.querySelectorAll('.main_slide_wrap .main_slide_list li'),
+    mainSlideDotList: document.querySelectorAll('.main_slide_wrap .slides_dots li')
+}
 const bestSellerURL = 'http://crong.codesquad.kr:8080/woowa/best/';
 
 const tabView = new TabView({
-    tabElement: bestTabEl,
+    tabElement: elements.bestTabEl,
     url: bestSellerURL
 });
-const transition = new Transition();
+const transition = new Transition(elements);
 
 function init() {
-    const body = document.querySelector('body');
-    body.addEventListener('click', (e) => {
+
+    elements.body.addEventListener('click', (e) => {
         if (e.target.tagName !== 'A') return;
         e.preventDefault();
     })
