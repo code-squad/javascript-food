@@ -1,5 +1,5 @@
-import { bestMenuTpl } from './bestMenuTpl.js';
-import { ajax } from './util.js';
+import { bestMenuTpl } from '../template/bestMenuTpl.js';
+import { ajax } from '../util.js';
 
 export default class TabView {
     constructor({ tabElement, url }) {

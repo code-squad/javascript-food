@@ -1,5 +1,5 @@
-import TabView from './TabView.js';
-import Transition from './Transition.js'
+import TabView from './view/TabView.js';
+import Transition from './view/Transition.js'
 
 const elements = {
     body: document.querySelector('body'),
