@@ -9,24 +9,7 @@ export class Engine {
     this.apiUrl = apiUrl;
   }
   start() {
-    this._render();
-    this._initializeConnection();
-    this.bestMenu.initialize();
-  }
-
-  _initializeConnection() {
-    this.bestMenu.clickTab = this.clickTab.bind(this);
-  }
-
-  _render() {
-    this.header.renderNav(this.headerModel.getNavItemList());
-    this.bestMenu.render({
-      url: this.apiUrl
-    });
-  }
-
-  clickTab(selectedDOM) {
-    const id = selectedDOM.dataset.id;
-    this.bestMenu.renderBestMenu(this.apiUrl, id);
+    this.header.initialize(this.headerModel.getNavItemList());
+    this.bestMenu.initialize({ url: this.apiUrl });
   }
 }

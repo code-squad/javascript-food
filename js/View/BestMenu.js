@@ -1,43 +1,41 @@
 import { bestMenuItemTpl } from "../templates/bestMenuTpl.js";
-import { qs } from "../../js/Util/helper.js";
+import { qs, qsa, ajax } from "../../js/Util/helper.js";
+
 export default class BestMenu {
   constructor() {
-    this.clickTab = null;
     this._randomIdx = () => Math.floor(Math.random() * 6);
-  }
-  initialize() {
-    this.registClickTabEvt();
-  }
-  render({ url }) {
-    this.renderBestMenu(url, this._randomIdx());
+    this.apiUrl = null;
   }
 
-  renderBestMenu(url, idx) {
-    this.ajax(url, callback, idx);
-
-    function callback(requestData, idx) {
-      if (!!qs(".menu_nav_item_selected"))
-        qs(".menu_nav_item_selected").classList.remove("menu_nav_item_selected");
-
-      qs(".menu_item_list").innerHTML = bestMenuItemTpl(requestData[idx].items);
-      qs(".best_menu_nav").children[idx].children[0].classList.add("menu_nav_item_selected");
-    }
+  initialize({ url }) {
+    this.apiUrl = url;
+    this._render(url, this._randomIdx());
+    this._registClickTabEvt();
   }
 
-  registClickTabEvt() {
+  _render(url, idx) {
+    this._removeClassIfExist('menu_nav_item_selected');
+    ajax(url, this._renderBestMenuFromAPI, idx);
+  }
+
+  _removeClassIfExist(targetCSSClass) {
+    if (qs(`.${targetCSSClass}`)) qs(`.${targetCSSClass}`).classList.remove(targetCSSClass);
+  }
+
+  _renderBestMenuFromAPI(requestData, idx) {
+    qs(".menu_item_list").innerHTML = bestMenuItemTpl(requestData[idx].items);
+    qsa(".menu_nav_a")[idx].classList.add("menu_nav_item_selected");
+  }
+
+  _registClickTabEvt() {
     qs(".best_menu_nav").addEventListener("click", e => {
-      this.clickTab(e.target);
+      this._clickTab(e.target);
       e.preventDefault();
     });
   }
 
-  ajax(url, handler, idx) {
-    const xhr = new XMLHttpRequest();
-    xhr.addEventListener("load", () => {
-      const requestData = JSON.parse(xhr.response);
-      handler(requestData, idx);
-    });
-    xhr.open("GET", url);
-    xhr.send();
+  _clickTab(selectedDOM) {
+    const number = selectedDOM.dataset.number;
+    this._render(this.apiUrl, number);
   }
 }
