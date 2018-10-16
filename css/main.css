@@ -1,6 +1,8 @@
 :root {
 	--top-navi-hover-bg-color: WHITE;
 	--top-navi-hover-text-color: BLACK;
+
+	--top-navi-sub-list-bg-color: WHITE;
 }
 
 /* ID */
@@ -138,6 +140,7 @@
 }
 
 .main_navi_list > li {
+	position: relative;
 	display: inline-block;
 	width: 120px; height: 52px;
 	float: left;
@@ -160,25 +163,54 @@
 	border: 1px solid black;
 }
 
+.main-navi-item:hover + .main-navi-sub-list {
+	display: block;
+}
+
 .main-navi-item:hover p {
 	color: var(--top-navi-hover-text-color);
 }
 
-.main_navi_list > li:nth-child(4), li:nth-child(5), li:nth-child(6) {
-	padding-left: 5px;
+.main-navi-sub-list {
+	display: none;
+	position: absolute;
+	left: 0; top: 52px;
+	width: 162px;
+	padding: 15px 0 31px;
+	background-color: var(--top-navi-sub-list-bg-color);
+	border: 1px solid rgba(72,63,53,0.6);
+	border-top: none;
+	z-index: 1000;
 }
 
-	.main_navi_list > li:nth-child(8) {
+.main-navi-sub-list > li {
+	text-align: left;
+}
+
+.main-navi-sub-list > li a {
+	display: block;
+	color: #555;
+	font-size: 14px;
+	height: 1.2em;
+	padding: 6px 0 3px 25px;
+	text-decoration: none;
+}
+
+/* .main_navi_list > li:nth-child(4), li:nth-child(5), li:nth-child(6) {
+	padding-left: 5px;
+} */
+
+.main_navi_list > li:nth-child(8) {
 	height: 52px;
 	background-color: #362d25;
 }
 
-.main_navi_list > li a {
+/* .main_navi_list > li a {
 	text-decoration: none;
 	color: #FFF;
 	font-size: 16px;
 	font-weight: bold;
-}
+} */
 
 .main_navi_list > li > a > span {
 	display: inline-block;
