@@ -110,6 +110,19 @@
 
    자식으로 `img` 태그를 선언한 후, 해당 속성에 `max_width: 100%` 와 `position: absolute` 를 지정한 후, `left` 와 `top` 값을 제공한다.
 
+8. li 여러개 적용할때에는 `:nth-child(5), nth-child(6), nth-child(7)` 이런식으로 적용한다.
+
+9. **[var 함수](https://developer.mozilla.org/ko/docs/Web/CSS/Using_CSS_variables)**
+
+   ```css
+   :root {
+       --border-bg-color: coral;
+   }
+   
+   background-color: var(--border-bg-color);
+   위와같이 적용
+   ```
+
 <br/><br/>
 
 ## 질문 & 피드백
@@ -135,5 +148,14 @@
 6. `page_up_down_list` vs `list_page_up_down`
 7. 이미지를 한꺼번에 합치는 부분들은, 웹페이지를 요청할 때 성능을 높이기 위하여, 한번 불러오고 split 를 적용한다.
    불러올때 마다 헤더파일을 만들고, 작업이 배가 되는 부분들을 최소한으로 줄이기 위함
+
+---
+
+1. reset CSS 같은 파일들은 별도의 path 로 구성
+2. CSS 를 나중에 구분하기 위한 주석은 좋음
+3. 포털들이 기본적으로 사용하는 너비는 `960px` `980px` 정도로 사용한다.
+4. font-size 와 box-model 에서 상대적인 비율(em)으로 룰을 정해서 사용해보는 것도 좋다.
+   `px` 보다는 `em` 이 더 많이 사용되며, `rem` 도 좋다고 하여 사용하는 추세이다.
+5. 
 
 <br/><br/>
