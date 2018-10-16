@@ -1,16 +1,15 @@
 export class Engine {
-  constructor(header, headerModel, main, mainModel) {
+  constructor(header, headerModel, bestMenu, mainModel, apiUrl) {
     this.header = header;
+    this.bestMenu = bestMenu;
+
     this.headerModel = headerModel;
-    this.main = main;
     this.mainModel = mainModel;
+
+    this.apiUrl = apiUrl;
   }
   start() {
-    this.render();
-  }
-
-  render() {
-    this.header.renderNav(this.headerModel.getNavItemList());
-    this.main.renderMenu(this.mainModel.getMenuList());
+    this.header.initialize(this.headerModel.getNavItemList());
+    this.bestMenu.initialize({ url: this.apiUrl });
   }
 }
