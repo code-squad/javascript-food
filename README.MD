@@ -7,8 +7,8 @@
 
 # 개발 로그
 
-1. [STEP 1] food 서비스 - 화면 레이아웃
-2. [STEP 2] 메뉴 레이어 컨트롤
+1. [[STEP 1] food 서비스 - 화면 레이아웃](https://github.com/antaehyeon/javascript-food/blob/STEP2/README/STEP1.md)
+2. [[STEP 2] 메뉴 레이어 컨트롤](https://github.com/antaehyeon/javascript-food/blob/STEP2/README/STEP2.md)
 3. [STEP 3] TAB UI
 4. [STEP 4] 화면전환 효과
 5. [STEP 5] 슬라이딩 효과
