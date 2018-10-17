@@ -1,17 +1,16 @@
+import { bestMenuTpl } from '../template/bestMenuTpl.js';
+import { ajax } from '../util.js';
+
 export default class TabView {
-    constructor({ tabElement, template, ajax, url }) {
+    constructor({ tabElement, url }) {
         this.tabEl = tabElement;
-        this.bestListEl = this.tabEl.nextElementSibling;
-        this.template = template;
-        this.ajax = ajax;
         this.url = url;
-        this.init();
     }
 
     init() {
         const firstNode = this.tabEl.firstElementChild;
         this.focusTab(firstNode);
-        this.ajax({
+        ajax({
             url: this.getUrl(this.getCategoryNo(firstNode)),
             handler: this.render.bind(this),
             requestType: "GET"
@@ -22,7 +21,7 @@ export default class TabView {
     clickTab() {
         this.tabEl.addEventListener('click', ({ target }) => {
             this.focusTab(target);
-            this.ajax({
+            ajax({
                 url: this.getUrl(this.getCategoryNo(target)),
                 handler: this.render.bind(this),
                 requestType: 'GET'
@@ -49,6 +48,7 @@ export default class TabView {
     }
 
     render(data) {
-        this.bestListEl.innerHTML = this.template(data);
+        const bestListEl = this.tabEl.nextElementSibling;
+        bestListEl.innerHTML = bestMenuTpl(data);
     }
 }
