@@ -87,7 +87,7 @@
 .search {
 	float: left;
 	position: relative;
-	margin-top: 30px;g
+	margin-top: 30px;
 	margin-left: 46px;
 }
 
@@ -211,7 +211,7 @@
 	text-decoration: none;
 }
 
-.main_navi_list > li:nth-child(8) {
+.main-navi-brand-menu {
 	height: 52px;
 	background-color: #362d25;
 }
@@ -311,10 +311,6 @@
 	display: inline;
 	font-size: 30px;
 }
-
-.food_box_title > p:nth-child(3) {
-	font-weight: bold;
-}
 /* 서브 네비게이션+콘텐츠 영역 END */
 
 /* 서브 콘텐츠 영역 (+탭) START */
@@ -332,9 +328,9 @@
 	padding-top: 20px;
 }
 
-.food_tab_list > li:nth-child(1) {
-	background-color: #5FC8C6;
-	color: white;
+.food-tab-menu-highlight {
+	background-color: #5FC8C6 !important;
+	color: white !important;
 	font-weight: bold;
 }
 /* 서브 콘텐츠 영역 (+탭) END */
@@ -345,9 +341,9 @@
 	padding-top: 30px;
 }
 
-.best_food_list > li:nth-child(3) {
-	float: right;
-	margin-right: 0px;
+.food-box-last {
+	float: right !important;
+	margin-right: 0px !important;
 }
 
 .food_box {
@@ -693,10 +689,6 @@
 	background-repeat: no-repeat;
 }
 
-.footer_navi > li:nth-child(1) {
-	background: none;
-}
-
 .footer_info_list {
 	width: 820px; height: 60px;
 	font-size: 13px;
@@ -796,6 +788,6 @@
 	padding-left: 0 !important;
 }
 
-.last {
+.no-background {
 	background: none;
 }
