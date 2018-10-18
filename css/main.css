@@ -239,14 +239,13 @@ ul {
 }
 
 .main_slide_wrap .main_slide_list li{
+    position : absolute;
     float : left;
-    position : relative;
-    right : 0rem;
-    width : 160rem;
+    width : 100%;
     height : 42rem;
     z-index : 0;
     opacity : 0;
-    position : absolute;
+    background-position : center;
 }
 
 .main_slide_wrap .main_slide_list li:nth-child(1){
@@ -276,12 +275,10 @@ ul {
 .main_slide_wrap .main_slide_list li.show{
     opacity : 1;
     z-index : 55;
-    transition : opacity 1s ease;
 }
 
 .main_slide_wrap .main_slide_list li.hidden{
     opacity : 0;
-    transition : opacity 1s ease;
 }
 
 .main_slide_wrap .slides_navi{
