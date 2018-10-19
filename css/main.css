@@ -51,8 +51,8 @@
 }
 
 .util_user > li {
-  display: inline;
-	float: left;
+  	display: inline;
+	/* float: left; */
 }
 
 .util_user > li:first-child > a {
@@ -147,7 +147,7 @@
 	text-align: center;
 }
 
-.main_navi_list > li:hover .main-navi-item {
+/* .main_navi_list > li:hover .main-navi-item {
 	background: var(--top-navi-hover-bg-color);
 	border: 1px solid BLACK;
 }
@@ -164,7 +164,7 @@
 	font-size: 1.1em;
 	text-decoration: underline;
 	color: #2AC1BC;
-}
+} */
 
 .main-navi-item {
 	display: inline-block;
