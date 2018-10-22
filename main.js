@@ -1,18 +1,12 @@
 // Prototype Design Pattern
-function Menu(element) {
+function MenuManager(element) {
     this.menuElement = element;
     this.mainMenuSubListElement = selectByNodeName(element, 'UL');
     this.mainNaviItemElement = selectByNodeName(element, 'DIV');
-    this.mainNaviTextElement = selectByNodeName(
-        this.mainNaviItemElement, 'P'
-    );
+    this.mainNaviTextElement = selectByNodeName(this.mainNaviItemElement, 'P');
 }
 
-function MenuListItem(element) {
-    
-}
-
-Menu.prototype = {
+MenuManager.prototype = {
 
     hover: function() {
         this.mouseOver();
@@ -51,6 +45,40 @@ Menu.prototype = {
     }
 };
 
+function MenuListManager(element) {
+    this.menuListLiElements = selectByNodeName(element, 'LI');
+}
+
+MenuListManager.prototype = {
+
+    hover: function() {
+        this.menuListLiElements.forEach((element) => {
+            const aElement = selectByNodeName(element, 'A');
+            const spanElement = selectByNodeName(aElement, 'SPAN');
+            this.mouseOver(spanElement);
+            this.mouseOut(spanElement);
+        });
+    },
+
+    // mouseOver 인데 이벤트 전파가 왜 안되는지 모르겠음
+    mouseOver: function(element) {
+        element.addEventListener('mouseover', () => {
+            updateElementTextSize(element, "16px");
+            updateElementTextDecoration(element, "underline");
+            updateElementTextColor(element, "#2AC1BC");
+        }, false);
+    },
+
+    mouseOut: function(element) {
+        element.addEventListener('mouseout', () => {
+            updateElementTextSize(element, '14px');
+            updateElementTextDecoration(element, 'none');
+            updateElementTextColor(element, "#555");
+        })
+    }
+
+}
+
 
 
 
@@ -71,6 +99,14 @@ function updateElementTextColor(element, colorData) {
     element.style.color = colorData;
 }
 
+function updateElementTextSize(element, sizeData) {
+    element.style.fontSize = sizeData;
+}
+
+function updateElementTextDecoration(element, type) {
+    element.style.textDecoration = type;
+}
+
 function updateELementBorder(element, borderData) {
     element.style.border = borderData;
 }
@@ -87,6 +123,9 @@ function selectByNodeName(parentNode, tagName) {
     return (selectedNodes.length === 1) ? selectedNodes[0] : selectedNodes;
 }
 
+
+
+
 // Main
 const mainNaviListElement = document.querySelector('.main_navi_list');
 const mainNaviMenuElements = this.selectByNodeName(
@@ -95,8 +134,14 @@ const mainNaviMenuElements = this.selectByNodeName(
     );
 
 mainNaviMenuElements.forEach((element) => {
-    const menu = new Menu(element);
-    menu.hover();
+    const menuManager = new MenuManager(element);
+    menuManager.hover();
+});
+
+const mainNaviMenuListUlElements = document.querySelectorAll('.main-navi-sub-list');
+mainNaviMenuListUlElements.forEach((element) => {
+    const menuListManager = new MenuListManager(element);
+    menuListManager.hover();
 });
 
 // Log
