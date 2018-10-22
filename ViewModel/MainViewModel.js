@@ -1,11 +1,13 @@
+/*
+    1. VIEW 에서 Element 들을 찾고, ViewModel 의 메소드 들이 재사용 될 수 있도록 구성해야 할 듯 함
+    2. ES6 Class 구조로 변경하면 좋을 듯 함
+*/
 const MainViewModel = (function() {
-
     const mainViewModel = function(model) {
         this.registerHoverEvent = function(viewElement) {
-            const first = 0;
-            const mainMenuSubListElements = this.selectByNodeName(viewElement, 'UL')[first];
-            const mainNaviItemElement = this.selectByNodeName(viewElement, 'DIV')[first];
-            const mainNaviTextElement = this.selectByNodeName(mainNaviItemElement, 'P')[first];
+            const mainMenuSubListElements = this.selectByNodeName(viewElement, 'UL');
+            const mainNaviItemElement = this.selectByNodeName(viewElement, 'DIV');
+            const mainNaviTextElement = this.selectByNodeName(mainNaviItemElement, 'P');
 
             viewElement.addEventListener('mouseover', () => {
                 this.updateElementDisplayProperty(mainMenuSubListElements, 'block');
@@ -54,11 +56,11 @@ const MainViewModel = (function() {
             const childNodes = this.getChildNodes(parentNode);
 
             childNodes.forEach(function(elem) {
-                if (elem.nodeName === tagName) {
+                if (elem.nodeName === tagName)
                     selectedNodes.push(elem);
-                }
             });
-            return selectedNodes;
+
+            return (selectedNodes.length === 1) ? selectedNodes[0] : selectedNodes;
         };
     };
 
