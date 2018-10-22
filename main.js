@@ -8,10 +8,17 @@ function Menu(element) {
     );
 }
 
+function MenuListItem(element) {
+    
+}
+
 Menu.prototype = {
 
     hover: function() {
         this.mouseOver();
+        this.mouseOut();
+        this.mouseenter();
+        this.mouseleave();
     },
 
     mouseOver: function() {
@@ -22,15 +29,25 @@ Menu.prototype = {
     },
 
     mouseOut: function() {
-
+        this.menuElement.addEventListener('mouseout', () => {
+            updateElementDisplayProperty(this.mainMenuSubListElement, 'none');
+            updateElementBackgroundColor(this.menuElement, '#473F36');
+        });
     },
 
     mouseenter: function() {
-
+        this.menuElement.addEventListener('mouseenter', () => {
+            updateElementTextColor(this.mainNaviTextElement, '#2AC1BC');
+            updateELementBorder(this.mainNaviItemElement, "1px solid BLACK");
+            this.menuElement.borderBottom = "";
+        });
     },
 
     mouseleave: function() {
-
+        this.menuElement.addEventListener('mouseleave', () => {
+            updateElementTextColor(this.mainNaviTextElement, 'WHITE');
+            updateELementBorder(this.mainNaviItemElement, 'NONE');
+        })
     }
 };
 
@@ -70,6 +87,7 @@ function selectByNodeName(parentNode, tagName) {
     return (selectedNodes.length === 1) ? selectedNodes[0] : selectedNodes;
 }
 
+// Main
 const mainNaviListElement = document.querySelector('.main_navi_list');
 const mainNaviMenuElements = this.selectByNodeName(
         mainNaviListElement,
@@ -81,5 +99,5 @@ mainNaviMenuElements.forEach((element) => {
     menu.hover();
 });
 
-
+// Log
 console.log("Success load main.js");
