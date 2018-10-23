@@ -160,11 +160,11 @@
 	display: block;
 } */
 
-/* .main-navi-sub-list > li:hover span {
+.main-navi-sub-list > li:hover span {
 	font-size: 1.1em;
 	text-decoration: underline;
 	color: #2AC1BC;
-} */
+}
 
 .main-navi-item {
 	display: inline-block;
