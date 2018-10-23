@@ -271,6 +271,7 @@ header {
 
 .slides_navi_li_clicked {
   opacity: 1;
+  transform: scale(1.1);
 }
 
 /* news */

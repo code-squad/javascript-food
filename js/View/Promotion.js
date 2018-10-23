@@ -1,7 +1,10 @@
 import { qs, $on } from '../Util/helper.js'
+
 export default class Promotion {
-  constructor() {
+  constructor({ fadeIn, fadeOut }) {
     this.index = 0;
+    this.fadeIn = fadeIn;
+    this.fadeOut = fadeOut;
   }
 
   initialize() {
@@ -10,30 +13,25 @@ export default class Promotion {
   }
 
   _registEvent() {
-    $on('.promotion_right_nav', 'click', e => this._cbClickNextSlide(e));
-    $on('.promotion_left_nav', 'click', e => this._cbClickPrevSlide(e));
-    $on('.slides_navi', 'click', e => this._cbClickSlidesNavi(e))
-  }
-
-  _cbClickNextSlide(event) {
-    event.preventDefault();
-    this._nextSlide();
-  }
-
-  _cbClickPrevSlide(event) {
-    event.preventDefault();
-    this._prevSlide();
-  }
-
-  _cbClickSlidesNavi(event) {
-    event.preventDefault();
-    if (e.target.tagName !== 'LI') return;
-    this.slidesNaviOn(event.target);
-    this.index = +(e.target.dataset.index);
-    this._showSlide(this.index);
+    $on('.promotion_right_nav', 'click', e => {
+      e.preventDefault();
+      this._nextSlide();
+    });
+    $on('.promotion_left_nav', 'click', e => {
+      e.preventDefault();
+      this._prevSlide();
+    });
+    $on('.slides_navi', 'click', e => {
+      e.preventDefault();
+      if (e.target.tagName !== 'LI') return;
+      this._hideSlide(this.index);
+      this.index = +(e.target.dataset.index);
+      this._showSlide(this.index);
+    })
   }
 
   _nextSlide() {
+    this._hideSlide(this.index);
     if (this.index >= qs('.promotion_ul').children.length - 1) this.index = 0;
     else this.index += 1;
     this._showSlide(this.index);
@@ -47,14 +45,22 @@ export default class Promotion {
   }
 
   _prevSlide() {
+    this._hideSlide(this.index);
     if (!this.index) this.index = qs('.promotion_ul').children.length - 1;
     else this.index -= 1;
     this._showSlide(this.index);
   }
 
   _showSlide(index) {
-    if (qs('.show')) qs('.show').classList.remove('show');
     this._slidesNaviOn(qs(`[data-index='${index}']`));
-    qs('.promotion_ul').children[index].firstElementChild.classList.add('show');
+    const selector = qs('.promotion_ul').children[index].firstElementChild;
+    selector.classList.add('show');
+    // this.fadeIn(selector, 1200);
+  }
+
+  _hideSlide(index) {
+    const selector = qs('.promotion_ul').children[index].firstElementChild;
+    selector.classList.remove('show');
+    // this.fadeOut(selector, 1200);
   }
 }
