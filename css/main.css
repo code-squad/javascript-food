@@ -172,6 +172,7 @@
 }
 
 .main-navi-item > p {
+	display: inline-block;
 	margin-top: 18px;
 	color: white;
 	font-weight: bold;

@@ -90,6 +90,14 @@ TAB 을 이용한 UI는 화면에 더 많은 데이터를 노출 할 수 있는 
 
    over 와 out 은 자식 엘리먼트 까지 동작하며, enter 와 leave 는 자식 엘리먼트까지 동작하지 않는다.
 
+3. event delegation !!!
+
+   이벤트를 하나하나 등록하는것이 아니라, event delegation 속성을 이용해서 쉽게 구현할 것 (유연하게)
+
+   mouseover 와 mouseout 을 addEventListener 에 등록해서 구현하였을 경우, 자식에게까지 이벤트가 전파됨
+
+   ![](https://imgur.com/EGb0KXG.png)
+
 <br/><br/>
 
 ## 알아볼 것

@@ -53,10 +53,12 @@ MenuListManager.prototype = {
 
     hover: function() {
         this.menuListLiElements.forEach((element) => {
-            const aElement = selectByNodeName(element, 'A');
-            const spanElement = selectByNodeName(aElement, 'SPAN');
-            this.mouseOver(spanElement);
-            this.mouseOut(spanElement);
+            // const aElement = selectByNodeName(element, 'A');
+            // const spanElement = selectByNodeName(aElement, 'SPAN');
+            // this.mouseOver(spanElement);
+            // this.mouseOut(spanElement);
+            this.mouseOver(element);
+            this.mouseOut(element);
         });
     },
 
