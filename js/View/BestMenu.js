@@ -14,7 +14,7 @@ export default class BestMenu {
   }
 
   _render(url, idx) {
-    this._removeClassIfExist('menu_nav_item_selected');
+    this._removeClassIfExist('best_menu_nav_item_selected');
     ajax(url, this._renderBestMenuFromAPI, idx);
   }
 
@@ -23,8 +23,8 @@ export default class BestMenu {
   }
 
   _renderBestMenuFromAPI(requestData, idx) {
-    qs(".menu_item_list").innerHTML = bestMenuItemTpl(requestData[idx].items);
-    qsa(".menu_nav_a")[idx].classList.add("menu_nav_item_selected");
+    qs(".best_menu_item_list").innerHTML = bestMenuItemTpl(requestData[idx].items);
+    qsa(".best_menu_nav_a")[idx].classList.add("best_menu_nav_item_selected");
   }
 
   _registClickTabEvt() {

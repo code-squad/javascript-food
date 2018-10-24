@@ -330,32 +330,32 @@ header {
   margin: auto;
 }
 
-/* main menu */
+/* best menu */
 
-.menu {
+.best_menu {
   height: 600px;
   background-color: #dedede;
 }
 
-.menu_wrap {
+.best_menu_wrap {
   display: flex;
   flex-direction: column;
   text-align: center;
 }
 
-.menu_head1 {
+.best_menu_head1 {
   margin: 10px auto 0px auto;
   padding-top: 10px;
   color: #a7a7a7;
   font-weight: var(--font-weight-mid);
 }
 
-.menu_head2 {
+.best_menu_head2 {
   margin: 10px auto;
   font-size: 2rem;
 }
 
-.menu_head2_str {
+.best_menu_head2_str {
   font-weight: var(--font-weight-mid);
   font-size: 2.1rem;
 }
@@ -367,7 +367,7 @@ header {
   background-color: #fff;
 }
 
-.menu_nav_item {
+.best_menu_nav_li {
   height: 38px;
   line-height: 38px;
   width: 100%;
@@ -377,56 +377,56 @@ header {
   color: #868686;
 }
 
-.menu_nav_a {
+.best_menu_nav_a {
   display: block;
   color: #868686;
 }
 
-.menu_nav_a:hover {
+.best_menu_nav_a:hover {
   background-color: var(--main-theme-color);
   color: #fff;
 }
 
-.menu_nav_item_selected {
+.best_menu_nav_item_selected {
   background-color: var(--main-theme-color);
   color: #fff;
 }
 
-.menu_nav_item:first-child {
+.best_menu_nav_item:first-child {
   border-left: 0;
 }
 
-.menu_item_list {
+.best_menu_item_list {
   margin: 0;
   padding: 0;
   display: flex;
   justify-content: space-between;
 }
 
-.menu_item_wrap {
+.best_menu_item_wrap {
   width: 300px;
   height: 400px;
   background-color: #fff;
 }
 
-.menu_item_img {
+.best_menu_item_img {
   width: 100%;
   height: 250px;
 }
 
-.menu_item_deskbox {
+.best_menu_item_deskbox {
   padding: 10px 20px;
   text-align: left;
 }
 
-.menu_item_sp1 {
+.best_menu_item_sp1 {
   display: block;
   font-weight: var(--font-weight-mid);
   color: #000;
   margin-bottom: 5px;
 }
 
-.menu_item_sp2 {
+.best_menu_item_sp2 {
   display: block;
   font-size: 0.75rem;
   font-weight: var(--font-weight-mid);
@@ -434,19 +434,19 @@ header {
   color: #a7a7a7;
 }
 
-.menu_item_score {
+.best_menu_item_score {
   display: block;
   color: #000;
   margin-bottom: 2px;
 }
 
-.menu_item_star {
+.best_menu_item_star {
   font-size: 0.8rem;
   font-weight: var(--font-weight-mid);
   color: #a7a7a7;
 }
 
-.menu_item_price {
+.best_menu_item_price {
   font-size: 1.5rem;
   font-weight: var(--font-weight-mid);
   color: var(--main-theme-color);
