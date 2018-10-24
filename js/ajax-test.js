@@ -1,4 +1,5 @@
 
+const bestSideDishContainer = document.querySelector('.best_food_container');
 
 function request (url, data, callback) {
     const oReq = new XMLHttpRequest();
@@ -7,11 +8,9 @@ function request (url, data, callback) {
 
       const foodDatas = this.processingData(this.ajaxData);
 
-      foodDatas.forEach(data => {
-        this.createBestDishContainer(data);
-      })
+    //   bestSideDishContainer.insertAdjacentElement
 
-    //   this.run(this.object);
+      this.createBestDishContainer(foodDatas);
 
     });
     oReq.open("GET", "http://crong.codesquad.kr:8080/woowa/best");
@@ -41,27 +40,38 @@ function processingFoodPriceData(price) {
     return onlyNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+function createBestDishContainer(obj) {
 
-function run(data) {
+    const originElement = document.querySelector('.best_food_container');
+    let parentElement;
+    let foodElement;
 
-    this.createBestDishContainer(data);
+    for (let i=0; i<obj.length; i++) {
+
+        if (parentElement && i%3 === 0) {
+            originElement.insertAdjacentElement('beforeEnd', parentElement);
+        }
+
+        if (i % 3 === 0) {
+            parentElement = document.createElement('UL');
+            parentElement.classList.add('best_food_list');
+            parentElement.classList.add('hide');
+        }
+
+        foodElement = ((i+1) % 3 === 0) ? 
+            this.createBestDishLiElement(obj[i], 'food-box-last') :
+            this.createBestDishLiElement(obj[i]);
+
+        parentElement.insertAdjacentHTML('beforeEnd', foodElement);
+    }
 }
 
-function createBestDishContainer(data) {
+function createBestDishLiElement(data, opt) {
 
-    const parentElement = document.createElement('UL');
-    parentElement.classList.add('best_food_list');
+    if (!opt) opt = "";
 
-    const foodLiElement = this.createBestDishLiElement(data);
-
-    parentElement.insertAdjacentHTML('beforeEnd', foodLiElement);
-
-    document.body.insertAdjacentElement('beforeEnd', parentElement);
-}
-
-function createBestDishLiElement(data) {
     const parentElement = `
-    <li class="food_box">
+    <li class="food_box ${opt}">
         <div class="food_image">
             <img src=${data.imgUrl} alt="">
         </div>

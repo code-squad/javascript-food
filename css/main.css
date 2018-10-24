@@ -348,6 +348,14 @@
 	padding-top: 30px;
 }
 
+.show {
+	display: block;
+}
+
+.hide {
+	display: none;
+}
+
 .food-box-last {
 	float: right !important;
 	margin-right: 0px !important;
