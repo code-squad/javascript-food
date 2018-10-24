@@ -336,9 +336,9 @@
 }
 
 .food_tab_list > li:hover {
-	background-color: #5FC8C6;
-	color: white;
-	font-weight: bold;
+	background-color: #5FC8C6 !important;
+	color: white !important;
+	font-weight: bold !important;
 }
 /* 서브 콘텐츠 영역 (+탭) END */
 

@@ -16,7 +16,6 @@ function MenuLayoutManager(element) {
         this.currentElement.parent = object.parent;
         this.currentElement.list = object.list;
     };
-
 }
 
 MenuLayoutManager.prototype = {
@@ -98,8 +97,24 @@ function updateElementTextColor(element, colorData) {
     element.style.color = colorData;
 }
 
-
 const mainNaviElement = document.querySelector('.main_navi');
 
 const menuLayoutManager = new MenuLayoutManager(mainNaviElement);
 menuLayoutManager.hover();
+
+document.querySelector('.food_tab_list').addEventListener('click', (evt) => {
+    this.removeTabMenuStyle();
+    evt.target.style.backgroundColor = '#5FC8C6';
+    evt.target.style.color = 'WHITE';
+    evt.target.style.fontWeight = 'BOLD';
+});
+
+function removeTabMenuStyle() {
+    const foodTabListElement = document.querySelectorAll('.food_tab_list > li');
+    
+    foodTabListElement.forEach((element) => {
+        element.style.backgroundColor = 'WHITE';
+        element.style.fontWeight = 'NORMAL';
+        element.style.color = '#777';
+    });
+}
