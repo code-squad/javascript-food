@@ -67,6 +67,7 @@ MenuListManager.prototype = {
         element.addEventListener('mouseover', () => {
             updateElementTextSize(element, "16px");
             updateElementTextDecoration(element, "underline");
+            
             updateElementTextColor(element, "#2AC1BC");
         }, false);
     },
