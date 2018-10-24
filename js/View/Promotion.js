@@ -13,19 +13,17 @@ export default class Promotion {
   }
 
   _registEvent() {
-    $on('.promotion_right_nav', 'click', e => {
+    $on('.promotion_nav_arrow', 'click', e => {
       e.preventDefault();
-      this._nextSlide();
+      if (e.target.className === 'promotion_left_nav') this._prevSlide();
+      if (e.target.className === 'promotion_right_nav') this._nextSlide();
     });
-    $on('.promotion_left_nav', 'click', e => {
-      e.preventDefault();
-      this._prevSlide();
-    });
+
     $on('.slides_navi', 'click', e => {
       e.preventDefault();
       if (e.target.tagName !== 'LI') return;
       this._hideSlide(this.index);
-      this.index = +(e.target.dataset.index);
+      this.index = parseInt(e.target.dataset.index);
       this._showSlide(this.index);
     })
   }
@@ -54,13 +52,13 @@ export default class Promotion {
   _showSlide(index) {
     this._slidesNaviOn(qs(`[data-index='${index}']`));
     const selector = qs('.promotion_ul').children[index].firstElementChild;
-    selector.classList.add('show');
+    selector.id = 'show';
     // this.fadeIn(selector, 1200);
   }
 
   _hideSlide(index) {
     const selector = qs('.promotion_ul').children[index].firstElementChild;
-    selector.classList.remove('show');
+    selector.id = '';
     // this.fadeOut(selector, 1200);
   }
 }

@@ -218,16 +218,15 @@ header {
   background-position: center;
 }
 
-.show {
-  opacity: 1 !important;
-  transition: 1.2s ease;
+#show {
+  opacity: 1;
 }
 
 .promotion_img {
   width: inherit;
   opacity: 0;
   height: 420px;
-  transition: 1.5s ease;
+  transition: 2s ease;
   transform: scale(1.2);
 }
 
