@@ -103,18 +103,32 @@ const menuLayoutManager = new MenuLayoutManager(mainNaviElement);
 menuLayoutManager.hover();
 
 document.querySelector('.food_tab_list').addEventListener('click', (evt) => {
+    const lastElementIndex = 1;
+    
     this.removeTabMenuStyle();
     evt.target.style.backgroundColor = '#5FC8C6';
     evt.target.style.color = 'WHITE';
     evt.target.style.fontWeight = 'BOLD';
+
+    this.hideAllBestDishesContainer();
+    const targetId = evt.target.id;
+    document.querySelectorAll(`#${targetId}`)[lastElementIndex].style.display = 'BLOCK';
 });
 
 function removeTabMenuStyle() {
-    const foodTabListElement = document.querySelectorAll('.food_tab_list > li');
+    const foodTabListElements = document.querySelectorAll('.food_tab_list > li');
     
-    foodTabListElement.forEach((element) => {
+    foodTabListElements.forEach((element) => {
         element.style.backgroundColor = 'WHITE';
         element.style.fontWeight = 'NORMAL';
         element.style.color = '#777';
+    });
+}
+
+function hideAllBestDishesContainer() {
+    const bestSideDishesElements = document.querySelectorAll('.best_food_list');
+
+    bestSideDishesElements.forEach(element => {
+        element.style.display = 'NONE';
     });
 }

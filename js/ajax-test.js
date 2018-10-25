@@ -8,8 +8,6 @@ function request (url, data, callback) {
 
       const foodDatas = this.processingData(this.ajaxData);
 
-    //   bestSideDishContainer.insertAdjacentElement
-
       this.createBestDishContainer(foodDatas);
 
     });
@@ -25,8 +23,8 @@ function processingData(data) {
         element.items.forEach(item => {
             foodDatas.push({
                 'price': this.processingFoodPriceData(item.s_price),
-                'title': item.title,
-                'description': item.description,
+                'title': this.modifyOverStringToDot(item.title, 20),
+                'description': this.modifyOverStringToDot(item.description, 26),
                 'imgUrl': item.image,
             })
         });
@@ -34,6 +32,15 @@ function processingData(data) {
 
     return foodDatas;
 };
+
+function modifyOverStringToDot(data, standard) {
+    if (data.length <= standard)
+        return data;
+
+    let result = data.substring(0, standard-1);
+    result += '...';
+    return result;
+}
 
 function processingFoodPriceData(price) {
     const onlyNumber = price.replace(/[^0-9]/g,'');
@@ -45,10 +52,11 @@ function createBestDishContainer(obj) {
     const originElement = document.querySelector('.best_food_container');
     let parentElement;
     let foodElement;
+    let idCount = 0;
 
     for (let i=0; i<obj.length; i++) {
 
-        if (parentElement && i%3 === 0) {
+        if (parentElement && i%3 === 0 || i === obj.length-1) {
             originElement.insertAdjacentElement('beforeEnd', parentElement);
         }
 
@@ -56,9 +64,11 @@ function createBestDishContainer(obj) {
             parentElement = document.createElement('UL');
             parentElement.classList.add('best_food_list');
             parentElement.classList.add('hide');
+            parentElement.id = `BEST-SIDE-DISH-${idCount}`;
+            idCount++;
         }
 
-        foodElement = ((i+1) % 3 === 0) ? 
+        foodElement = ((i+1) % 3 === 0) ?
             this.createBestDishLiElement(obj[i], 'food-box-last') :
             this.createBestDishLiElement(obj[i]);
 
@@ -98,4 +108,12 @@ function createBestDishLiElement(data, opt) {
 }
 
 this.request();
+
+const foodTabMenuElements = document.querySelectorAll('.food_tab_list > li');
+
+for (let i=0; i<foodTabMenuElements.length; i++) {
+
+    foodTabMenuElements[i].id = `BEST-SIDE-DISH-${i}`;
+
+}
 
