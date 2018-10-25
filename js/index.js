@@ -1,28 +1,45 @@
 import TabView from './view/TabView.js';
-import Transition from './view/Transition.js'
+import SlideContent from './view/SlideContent.js';
+import SlideDots from './view/SlideDots.js';
+import SlideNavi from './view/SlideNavi.js';
+import SlideController from './view/SlideController.js';
 
 const elements = {
     body: document.querySelector('body'),
     bestTabEl: document.querySelector('.best_seller_tab'),
-    mainSlideContentList: document.querySelectorAll('.main_slide_wrap .main_slide_list li'),
-    mainSlideDotList: document.querySelectorAll('.main_slide_wrap .slides_dots li')
+    mainSlideEl: document.querySelector('.main_slide_wrap'),
+
 }
-const bestSellerURL = 'http://crong.codesquad.kr:8080/woowa/best/';
+
+const contentURL = {
+    bestSeller: 'http://crong.codesquad.kr:8080/woowa/best/',
+    mainSlide: './jsonData/mainSlideData.json'
+}
 
 const tabView = new TabView({
     tabElement: elements.bestTabEl,
-    url: bestSellerURL
+    url: contentURL.bestSeller
 });
-const transition = new Transition(elements);
+
+const mainSlideContent = new SlideContent({
+    slideListEl: elements.mainSlideEl.querySelector('.slide_list'),
+    url: contentURL.mainSlide,
+    runTime: 1000
+})
+const mainSlideDots = new SlideDots({ dotListEl: elements.mainSlideEl.querySelector('.slide_dots') });
+const mainSlideNavi = new SlideNavi({ naviEl: elements.mainSlideEl.querySelector('.slides_navi') });
+const slideContoller = new SlideController({
+    slideContent: mainSlideContent,
+    slideNavi: mainSlideNavi,
+    slideDots: mainSlideDots
+});
+
 
 function init() {
-
     elements.body.addEventListener('click', (e) => {
         if (e.target.tagName !== 'A') return;
         e.preventDefault();
     })
     tabView.init();
-    transition.init();
 }
-
 init();
