@@ -329,11 +329,11 @@
 	padding-top: 20px;
 }
 
-.food_tab_list > li:nth-child(1) {
+/* .food_tab_list > li:nth-child(1) {
 	background-color: #5FC8C6;
 	color: white;
 	font-weight: bold;
-}
+} */
 
 .food_tab_list > li:hover {
 	background-color: #5FC8C6 !important;

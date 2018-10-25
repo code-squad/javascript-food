@@ -74,6 +74,26 @@ function createBestDishContainer(obj) {
 
         parentElement.insertAdjacentHTML('beforeEnd', foodElement);
     }
+
+    this.selectRandom();
+}
+
+function selectRandom() {
+    const bestSideDishesList = document.querySelectorAll('.food_tab_list > li');
+    let randomN = Math.random()*6;
+    randomN = Math.floor(randomN);
+    
+    const bestSideDishId = bestSideDishesList[randomN].id;
+    const selectedBestSideDishNodeList = document.querySelectorAll(`#${bestSideDishId}`);
+    
+    const button = selectedBestSideDishNodeList[0];
+    const container = selectedBestSideDishNodeList[1];
+    
+    button.style.backgroundColor = '#5FC8C6';
+    button.style.color = 'WHITE';
+    button.style.fontWeight = 'BOLD';
+    
+    container.style.display = 'BLOCK';
 }
 
 function createBestDishLiElement(data, opt) {
@@ -112,8 +132,5 @@ this.request();
 const foodTabMenuElements = document.querySelectorAll('.food_tab_list > li');
 
 for (let i=0; i<foodTabMenuElements.length; i++) {
-
     foodTabMenuElements[i].id = `BEST-SIDE-DISH-${i}`;
-
 }
-
