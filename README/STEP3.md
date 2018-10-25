@@ -34,19 +34,15 @@ TAB 을 이용한 UI는 화면에 더 많은 데이터를 노출 할 수 있는 
 
 ---
 
-1. 탭 UI hover 했을 때, 배경 색과 글씨 색 수정
-2. 아래 보여지는 반찬들 수정
-   - 이미지와 텍스트들을 교체하는 식으로 진행?
-     - prototype
-   - **맨 처음 데이터들을 AJAX 로 받아서 전부 만들어놓고**
-     **hover event 에 의해서 display의 속성을 바꿔주는 식으로 진행?**
-3. 처음에 랜덤하게 특정 메뉴가 선택되도록 구현
-
----
-
-**Prototype Pattern**
-
-1. 일단 짜보자
+- [x] 탭 UI hover 했을 때, 배경 색과 글씨 색 수정
+- [x] 탭 클릭 이벤트 구현
+- [x] AJAX 데이터 잘 가져오는지 확인
+- [x] JS코드로 객체들 만들고 추가하기
+- [x] AJAX 데이터 넣기
+- [x] 본 JS코드에 적용
+- [ ] 클릭이벤트와 연동
+  - [ ] 클릭한 엘리먼트 배경색 및 색깔 바꾸기
+- [ ] 맨 처음에 랜덤으로 보여주기
 
 <br/><br/>
 
@@ -86,11 +82,15 @@ TAB 을 이용한 UI는 화면에 더 많은 데이터를 노출 할 수 있는 
         - s_price
         - title
 
-2. `mouseover` - `mouseout ` 과 `mouseenter` - `mouseleave`
+2. **TAB UI 클릭 이벤트 구현하기**
+
+3. 
+
+4. **`mouseover` - `mouseout ` 과 `mouseenter` - `mouseleave`**
 
    over 와 out 은 자식 엘리먼트 까지 동작하며, enter 와 leave 는 자식 엘리먼트까지 동작하지 않는다.
 
-3. event delegation !!!
+5. **event delegation !!!**
 
    이벤트를 하나하나 등록하는것이 아니라, event delegation 속성을 이용해서 쉽게 구현할 것 (유연하게)
 
@@ -98,14 +98,70 @@ TAB 을 이용한 UI는 화면에 더 많은 데이터를 노출 할 수 있는 
 
    ![](https://imgur.com/EGb0KXG.png)
 
-<br/><br/>
+6. **template literal**
+
+   1. https://poiemaweb.com/es6-template-literals
+
+   처음에는 `document.createElement` 를 이용해서, 노드들을 구성하려고 했으나, 자식 태그들이 너무 많아서 일일이 신경쓰기가 너무 힘들었다.
+
+   그래서 `template Literal` 방식을 적용하였고, 해당 방식이 너무 편하다.. I LOVE `template Literal`
+
+   중간에 `${}` 부분으로 데이터를 넣어줄 수 있는 부분도 편하다.
+
+   ```javascript
+   function createFoodLiElement(data) {
+       const parentElement = `
+       <li class="food_box">
+           <div class="food_image">
+               <img src=${data.imgUrl} alt="">
+           </div>
+           <dl class="food_description">
+               <dt>${data.title}</dt>
+               <dd>${data.description}</dd>
+               <dd>
+                   <span class="star_score_bg">
+                       <span class="start_score" style="width: 86%;"></span>
+                   </span>
+                   <span class="review_count">2630</span>
+               </dd>
+               <dd>
+                   <p class="selling_price">
+                       ${data.price}
+                       <span class="sales_unit">원</span>
+                   </p>
+               </dd>
+           </dl>
+       </li>
+       `
+   
+       return parentElement;
+   }
+   ```
+
+7. **버튼을 클릭하면 어떻게 연동할 것인가?**
+
+   버튼은 각 `li` 태그로 구성되어 있음
+
+   아래 음식을 보여주는 컨테이너는  `ul`  태그로 되어있음
+
+   1. 아래 부분을 보여주는 부분에 ajax로 받아오는 아이디를 설정할까 하다가 `BEST-SIDE-DISH-번호` 로 설정
+      - 나중에 해당 아이디로 찾으면 2개의 엘리먼트가 튀어나옴
+      - 첫번째는 베스트반찬 메뉴, 두번째는 아래 컨테이너
+
+   2. 성능상 좋진 않지만, 6개라서 이전에 선택된 값을 가지고있기 보다는 6번의 반복문을 돌면서 전부 해제시키고 선택된 것을 다시 나타내주는 방식을 사용함
+
+8. **JavaScript 에서 click 이벤트를 적용 후, CSS hover 동작안함 **
+
+   `!important` 로 해결했으나, 다른 방법을 찾고싶음
+
+ <br/><br/>
 
 ## 알아볼 것
 
 ---
 
 - [디자인 패턴(추상 팩토리, abstract factory)](https://www.zerocho.com/category/JavaScript/post/57b9692ae492d01700b0b75a)
-- 
+- [map, filter, find, reduce](http://bblog.tistory.com/300)
 
 <br/><br/>
 
@@ -325,6 +381,8 @@ console.log(bob.fullname());
 ---
 
 1. CSS 에 직접 hover 를 하는 것과 javaScript 에서 hover 이벤트 리스너를 달아주는 것과 코드차이가 나는것을 좀 느꼈습니다. (JavaScript가 더 길음) 더 생산적인 관점에서 어떤것이 나은가요?
+2. 클릭 이벤트 이후에 CSS에서 구현했던 `:hover` 기능이 작동되지 않습니다. 어떤 특성때문인가요? 키워드를 알고 싶습니다. (hovering?)
+3. (일단 해결을 위해서) `!important` 를 사용했는데요, 왠지 쓰기가 꺼름칙해서, 되도록 피하고 있는데 안쓰는게 좋은건가요? 어쩔 수 없는 경우가 있을 수 있나요 아니면 코드를 어떻게 구성하느냐에 따라서 `!important` 를 피할 수 있는건가요?
 
 <br/></br>
 
@@ -332,6 +390,36 @@ console.log(bob.fullname());
 
 ---
 
+1. Module Pattern 은 Private 과 Public 을 구별하는 전통적인 방법
+
+2. 각자의 역할이 존재하는게 좋음(Model, View ... 등)
+
+   - 현재 Food Service 는 MVVM 구조를 적용하기에 애매함
+   - Model로 따로 관리할 데이터들이 부족
+
+3. this.updateElementDisplayProperty
+
+   this.updateElementBackgroundColor
+
+   비슷한 기능(CSS를 조작)을 하는 것들을 `setCSS` 메서드로 따로 구성해 만드는 것이 좋다.
+
+   ```
+   setCSS(element, "color", "#333");
+   ```
+
+4. prototype을 재정의하면 constructor 라는 속성이 없어져서 별도로 추가해줘야함
+
+5. [Learn map, filter and reduce in JavaScript](https://medium.com/@joomiguelcunha/learn-map-filter-and-reduce-in-javascript-ea59009593c4)
+
+6. [함수형 프로그래밍과 배열의 filter, reduce, map](https://outofbedlam.github.io/swift/2016/02/12/functional-programming/)
+
+7. data 뿐만 아니라, URL, 로드이후에 처리할 콜백함수도 인자로 받으면 더 범용성 있는 ajax 함수가 됨
+
+8. currentElement (자주 사용되는 객체) 이므로, 이름을 조금 더 짧게 써도 될듯
+
+9. 함수는 모두 다 prototype 안으로 옮기는게 좋다
+
+10. 함수의 목적에 맞게 프로토타입 안으로 옮기거나, 별도의 파일로 구성
 
 
 <br/><br/>
