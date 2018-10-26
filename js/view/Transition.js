@@ -15,7 +15,6 @@ export default class Transition {
         const nextIMG = document.querySelector(".main_slide_wrap .slides_navi .slide_next");
         nextIMG.addEventListener('click', () => {
             this.plusCurrentIdx();
-            this.hiddenContent();
             this.showContent(this.getCurrentIdx());
         })
     }
@@ -24,7 +23,6 @@ export default class Transition {
         const preIMG = document.querySelector(".main_slide_wrap .slides_navi .slide_prev");
         preIMG.addEventListener('click', () => {
             this.minusCurrentIdx();
-            this.hiddenContent();
             this.showContent(this.getCurrentIdx());
         })
     }
@@ -33,12 +31,13 @@ export default class Transition {
         const parentElement = this.dotList[0].parentElement;
         parentElement.addEventListener('click', ({ target }) => {
             if (target.tagName !== 'A') return;
-            this.hiddenContent();
-            this.showContent(target.innerText);
+            this.currentIdx = target.innerText;
+            this.showContent(this.getCurrentIdx());
         })
     }
 
     showContent(currentIdx) {
+        this.hiddenContent();
         this.contentList[currentIdx].classList.remove('hidden');
         this.contentList[currentIdx].classList.add('show');
         this.dotList[currentIdx].firstElementChild.classList.add('now');
