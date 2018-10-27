@@ -1,3 +1,5 @@
+import { makeItemScoreByStars } from "../Util/helper.js";
+
 export const bestMenuItemTpl = list => {
   let itemListHTML = list.reduce((ac, cv) => {
     ac += _itemTpl(cv);
@@ -17,7 +19,7 @@ const _itemTpl = item => {
       <span class="best_menu_item_sp2">${item.description}</span>
       <div class="best_menu_item_rate">
         <span class="best_menu_item_score">
-          ${_makeItemScoreByStars(4)}
+          ${makeItemScoreByStars(4)}
           <span class="best_menu_item_star">${3000}</span>
         </span>
         <span class="best_menu_item_price">${item.s_price}</span>
@@ -29,12 +31,3 @@ const _itemTpl = item => {
     `;
   return itemHTML;
 };
-
-function _makeItemScoreByStars(star) {
-  let result = "";
-  let MAX_COUNT = 5;
-  for (let i = MAX_COUNT; i > 0; i-- , star--) {
-    result += star > 0 ? "<span>★</span>" : "<span>☆</span>";
-  }
-  return result;
-}

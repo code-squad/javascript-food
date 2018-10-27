@@ -23,6 +23,7 @@ export default class BestMenu {
   }
 
   _renderBestMenuFromAPI(requestData, idx) {
+    console.log(requestData);
     qs(".best_menu_item_list").innerHTML = bestMenuItemTpl(requestData[idx].items);
     qsa(".best_menu_nav_a")[idx].classList.add("best_menu_nav_item_selected");
   }

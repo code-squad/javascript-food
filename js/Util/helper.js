@@ -17,3 +17,12 @@ export const ajax = (url, handler, param1) => {
 export function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+export function makeItemScoreByStars(star) {
+  let result = "";
+  let MAX_COUNT = 5;
+  for (let i = MAX_COUNT; i > 0; i-- , star--) {
+    result += star > 0 ? "<span>★</span>" : "<span>☆</span>";
+  }
+  return result;
+}
