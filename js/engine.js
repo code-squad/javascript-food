@@ -3,15 +3,13 @@
   여러 뷰 컴포넌트에 데이터를 주입시켜 initialize한다
 */
 export class Engine {
-  constructor(header, headerModel, bestMenu, mainModel, promotion, sideMenu, apiUrl) {
+  constructor(header, headerModel, bestMenu, promotion, sideMenu, apiUrl) {
     this.header = header;
     this.bestMenu = bestMenu;
     this.promotion = promotion;
     this.sideMenu = sideMenu;
 
     this.headerModel = headerModel;
-    this.mainModel = mainModel;
-
     this.apiUrl = apiUrl;
   }
   start() {

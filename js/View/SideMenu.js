@@ -29,12 +29,12 @@ export default class SideMenu {
 
   render() {
     ajax('http://crong.codesquad.kr:8080/woowa/side', this.cbRenderByTemplate);
-    qs('.slide_wrap').addEventListener('click', (e) => {
-      e.preventDefault();
-      qs('.slider').style.transform = 'translate3d(-980px,0,0)'
-    })
   }
+
   cbRenderByTemplate(ajaxRequest) {
-    qs('.slider').innerHTML = makeSliderTpl(ajaxRequest);
+    console.log(ajaxRequest);
+    qs('.slider').innerHTML += makeSliderTpl(ajaxRequest);
+    qs('.slider').innerHTML += makeSliderTpl(ajaxRequest);
+    qs('.slider').innerHTML += makeSliderTpl(ajaxRequest);
   }
 }

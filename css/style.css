@@ -519,11 +519,68 @@ header {
   background-color: #fff;
   width: 215px;
   height: 360px;
+  text-align: center;
+  position: relative;
+}
+
+.side_menu_img_wrap {
+  position: relative;
+  z-index: 1;
 }
 
 .side_menu_img {
-  width: 215px;
-  border-radius: 90%
+  width: 100%;
+  border-radius: 90%;
+}
+
+.side_menu_img_wrap:hover .side_menu_deli1,
+.side_menu_img_wrap:hover .side_menu_deli2,
+.side_menu_img_wrap:hover .side_menu_deli_hr {
+  display: block;
+}
+
+.after {
+  top: 0;
+  left: 0;
+  border-radius: 90%;
+  width: 100%;
+  height: 100%;
+  display: none;
+  position: absolute;
+  color: #fff;
+}
+
+.side_menu_img_wrap:hover .after {
+  display: block;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.side_menu_deli1,
+.side_menu_deli2 {
+  z-index: 1;
+  display: none;
+  color: #fff;
+  font-weight: 600;
+  margin: auto;
+  position: absolute;
+  top: 80px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.side_menu_deli2 {
+  top: 120px;
+}
+
+.side_menu_deli_hr {
+  z-index: 1;
+  display: none;
+  color: #fff;
+  position: absolute;
+  width: 60px;
+  top: 100px;
+  left: 78px;
 }
 
 .side_menu_badge {
