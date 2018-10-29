@@ -1,10 +1,9 @@
-import { ajax, fadeIn, fadeOut } from '../util.js';
+import { ajax } from '../util.js';
 import { slideTpl } from '../template/slideTpl.js';
 
 export default class SlideContent {
-    constructor({ slideListEl, url, runTime = 1000 }) {
+    constructor({ slideListEl, url }) {
         this.slideListEl = slideListEl;
-        this.runTime = runTime;
         ajax({
             'url': url,
             'requestType': 'GET',
@@ -21,26 +20,20 @@ export default class SlideContent {
 
     showPreContent() {
         const preContentEl = this.slideListEl.children[0];
-        const currentContentEl = this.slideListEl.children[1];
         const nextContentEl = this.slideListEl.children[2];
 
         this.render(preContentEl, this.contentData[this.getCurrentIdx()]);
-        fadeIn(preContentEl, this.runTime);
-        fadeOut(currentContentEl, this.runTime);
+        
         this.slideListEl.insertBefore(nextContentEl, preContentEl);
     }
 
     showNextContent() {
         const preContentEl = this.slideListEl.children[0];
-        const currentContentEl = this.slideListEl.children[1];
         const nextContentEl = this.slideListEl.children[2];
 
         //그 다음에 보여줄 content를 render한다.
         this.render(nextContentEl, this.contentData[this.getCurrentIdx()]);
-        //다음에 보여줄 content를 fadeIn해주고 현재 content를 fadeOut해준다.
-        fadeIn(nextContentEl, this.runTime);
-        fadeOut(currentContentEl, this.runTime);
-        //맨 앞자리의 li태그를 맨 뒷자리로 옮겨준다.
+        //클래스이름을 next_content를 current_content로 current_content를 previous_content로 
         this.slideListEl.appendChild(preContentEl);
     }
 
