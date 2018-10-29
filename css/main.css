@@ -24,14 +24,8 @@ ul {
     list-style: none;
 }
 
-img{
-    /* width : 128rem; */
-    background-repeat : no-repeat;
-    background-position : center;
-}
-
 :root {
-    --main-width: 128rem;
+    --main-width: 144rem;
     --main-bg-color: #fff;
     --main-font-color: #25d4ce;
 }
@@ -250,15 +244,16 @@ img{
     width : 100%;
     height : 42rem;
     z-index : 0;
-}
-
-.main_slide_wrap .slide_list li:nth-child(1), .main_slide_wrap .slide_list li:nth-child(3){
-    opacity : 0;
+    transition : opacity 2s;
 }
 
 .main_slide_wrap .slide_list li img{
-    width :128rem;
+    position : relative;
+    right : 24rem;
     height : 42rem;
+}
+.main_slide_wrap .slide_list li:nth-child(1), .main_slide_wrap .slide_list li:nth-child(3){
+    opacity : 0;
 }
 
 .main_slide_wrap .slide_list li:nth-child(2){
@@ -327,18 +322,103 @@ img{
     overflow: hidden;
 }
 
-.main_banner .banner_box {
+.main_banner .user_guide,.sub_slide_wrap {
     width: 47rem;
     height: 24rem;
     float: left;
+    overflow : hidden;
 }
 
-.main_banner .banner_box:nth-child(1) {
+.main_banner .sub_slide_wrap {
+    position : relative;
     margin-left: 1rem;
     margin-right: 2rem;
 }
 
-.main_banner .banner_box:nth-child(2) {
+.sub_slide_wrap .slide_list ul{
+    width : auto;
+    position : relative;
+    overflow : hidden;
+}
+
+.sub_slide_wrap .slide_list li{
+    position : absolute;
+    float : left;
+    width : 100%;
+    height : 100%;
+    z-index : 0;
+    transition : transform 0.5s;
+}
+
+.sub_slide_wrap .slide_list li:nth-child(1){
+    transform : translateX(-100%);
+}
+
+.sub_slide_wrap .slide_list li:nth-child(3){
+    transform : translateX(100%);
+}
+
+.main_banner .sub_slide_wrap:hover .slides_navi{
+    opacity : 1;
+}
+
+.sub_slide_wrap .slides_navi{
+    position : absolute;
+    top : 30%;
+    left : 50%;
+    height : 0;
+    opacity : 0;
+    transition : opacity 1s;
+}
+
+.sub_slide_wrap .slides_navi a{
+    display : inline-block;
+    width : 6rem;
+    height : 9.2rem;
+    z-index : 100;
+}
+
+.sub_slide_wrap .slides_navi .slide_prev{
+    position : absolute;
+    background: url(https://cdn.bmf.kr/web/common/btn_slides_prev_s.png) no-repeat center center;
+    right : 18em;
+}
+
+.sub_slide_wrap .slides_navi .slide_next{
+    position : absolute;
+    background: url(https://cdn.bmf.kr/web/common/btn_slides_next_s.png) no-repeat center center;
+    left : 18rem;
+}
+
+.main_banner .sub_slide_wrap .slide_dots{
+    position : absolute;
+    top : 2rem;
+    right : 1.7rem;
+    z-index : 100;
+}
+
+.main_banner .sub_slide_wrap .slide_dots li{
+    display : inline-block;
+    padding : 0 0.2rem;
+}
+
+.sub_slide_wrap .slide_dots li a{
+    display : block;
+    overflow : hidden;
+    border-radius : 50%;
+    width : 0.8rem;
+    height : 0;
+    padding-top : 0.8rem;
+    background-color : #FFF;
+    box-shadow: 0 0 0 0.1rem #0000001a;
+    opacity : 0.4;
+}
+
+.sub_slide_wrap .slide_dots li a.now{
+    opacity : 1;
+}
+
+.main_banner .user_guide {
     margin-right: 1rem;
 }
 
