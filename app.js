@@ -11,8 +11,8 @@ function loadHandler() {
     const menuManager = new MenuManager(mainNaviElement);
     const bestDishesView = new BestDishesView();
 
-    menuManager.hover();
-    bestDishesView.request();
+    menuManager.setHoverToMainMenu();
+    bestDishesView.request("http://crong.codesquad.kr:8080/woowa/best");
     bestDishesView.addClickEvent();
 
 }

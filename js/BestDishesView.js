@@ -10,7 +10,7 @@ class BestDishesView {
           const foodDatas = this.processingData(this.ajaxData);
           this.createBestDishContainer(foodDatas);
         });
-        oReq.open("GET", "http://crong.codesquad.kr:8080/woowa/best");
+        oReq.open("GET", url);
         oReq.send();
     };
 
@@ -19,13 +19,12 @@ class BestDishesView {
             const lastElementIndex = 1;
             
             this.removeTabMenuStyle();
-            evt.target.style.backgroundColor = '#5FC8C6';
-            evt.target.style.color = 'WHITE';
-            evt.target.style.fontWeight = 'BOLD';
+            evt.target.classList.add('btn-highlight');
         
             this.hideAllBestDishesContainer();
             const targetId = evt.target.id;
-            document.querySelectorAll(`#${targetId}`)[lastElementIndex].style.display = 'BLOCK';
+            const targetElement = document.querySelectorAll(`#${targetId}`)[lastElementIndex];
+            targetElement.classList.add('show');
         });
     }
 
@@ -33,6 +32,7 @@ class BestDishesView {
 
         const foodDatas = [];
     
+        // omg.. higher order function T.T
         data.forEach(element => {
             element.items.forEach(item => {
                 foodDatas.push({
@@ -48,8 +48,7 @@ class BestDishesView {
     };
     
     modifyOverStringToDot(data, standard) {
-        if (data.length <= standard)
-            return data;
+        if (data.length <= standard) return data;
     
         let result = data.substring(0, standard-1);
         result += '...';
@@ -61,28 +60,37 @@ class BestDishesView {
         return onlyNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
     
+    /**
+     * AJAX로 받아온 데이터를 기반으로 베스트 반찬 컨테이너를 만드는 작업을 한다
+     * 한가지 일만 하는가?
+     * 
+     * @param {*} obj 
+     */
     createBestDishContainer(obj) {
     
         const originElement = document.querySelector('.best_food_container');
         let parentElement;
         let foodElement;
         let idCount = 0;
+        const isThirdIdx = function (idx) {
+            return idx%3 === 0;
+        }
+        const isLastIdx = function (idx){
+            return idx === obj.length-1;
+        }
     
         for (let i=0; i<obj.length; i++) {
     
-            if (parentElement && i%3 === 0 || i === obj.length-1) {
+            if (parentElement && isThirdIdx(i) || isLastIdx(i)) {
                 originElement.insertAdjacentElement('beforeEnd', parentElement);
             }
     
-            if (i % 3 === 0) {
-                parentElement = document.createElement('UL');
-                parentElement.classList.add('best_food_list');
-                parentElement.classList.add('hide');
-                parentElement.id = `BEST-SIDE-DISH-${idCount}`;
-                idCount++;
+            if (isThirdIdx(i)) {
+                parentElement = this.createBestDishParentElement(idCount);
+                idCount++; // 안 좋다는것을 알고있지만...
             }
     
-            foodElement = ((i+1) % 3 === 0) ?
+            foodElement = isThirdIdx(i+1) ?
                 this.createBestDishLiElement(obj[i], 'food-box-last') :
                 this.createBestDishLiElement(obj[i]);
     
@@ -91,6 +99,16 @@ class BestDishesView {
 
         this.setFoodTabListID();
         this.selectRandom();
+    }
+
+    createBestDishParentElement(count) {
+        let parentElement;
+        parentElement = document.createElement('UL');
+        parentElement.classList.add('best_food_list');
+        parentElement.classList.add('hide');
+        parentElement.id = `BEST-SIDE-DISH-${count}`;
+
+        return parentElement;
     }
     
     selectRandom() {
@@ -103,17 +121,12 @@ class BestDishesView {
         
         const button = selectedBestSideDishNodeList[0];
         const container = selectedBestSideDishNodeList[1];
-        
-        button.style.backgroundColor = '#5FC8C6';
-        button.style.color = 'WHITE';
-        button.style.fontWeight = 'BOLD';
-        
-        container.style.display = 'BLOCK';
+
+        button.classList.add('btn-highlight');
+        container.classList.add('show');
     }
     
-    createBestDishLiElement(data, opt) {
-    
-        if (!opt) opt = "";
+    createBestDishLiElement(data, opt = "") {
     
         const parentElement = `
         <li class="food_box ${opt}">
@@ -152,20 +165,20 @@ class BestDishesView {
 
     removeTabMenuStyle() {
         const foodTabListElements = document.querySelectorAll('.food_tab_list > li');
-        
+
         foodTabListElements.forEach((element) => {
-            element.style.backgroundColor = 'WHITE';
-            element.style.fontWeight = 'NORMAL';
-            element.style.color = '#777';
+            element.classList.remove('btn-highlight');
         });
     }
     
     hideAllBestDishesContainer() {
-        const bestSideDishesElements = document.querySelectorAll('.best_food_list');
+
+        const showingElement = document.querySelector('.show');
+
+        // debugger;
     
-        bestSideDishesElements.forEach(element => {
-            element.style.display = 'NONE';
-        });
+        showingElement.classList.remove('show');
+
     }
     
 }

@@ -22,14 +22,13 @@ class MenuManager {
         this.currentElement.list = object.list;
     }
 
-    hover() {
+    setHoverToMainMenu() {
         this.mouseOver(this.element);
         this.mouseLeave(this.element);
     }
 
     mouseOver(element) {
-        element.addEventListener('mouseover', (evt) => {
-            const target = evt.target;
+        element.addEventListener('mouseover', ({target}) => {
             this.actionShowMainSubMenuList(target);
             this.showMainMenuHighlight(this.currentElement.target);
         });

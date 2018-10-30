@@ -336,9 +336,9 @@
 } */
 
 .food_tab_list > li:hover {
-	background-color: #5FC8C6 !important;
-	color: white !important;
-	font-weight: bold !important;
+	background-color: #5FC8C6;
+	color: white;
+	font-weight: bold;
 }
 /* 서브 콘텐츠 영역 (+탭) END */
 
@@ -346,14 +346,6 @@
 .best_food_list {
 	width: 960px;
 	padding-top: 30px;
-}
-
-.show {
-	display: block;
-}
-
-.hide {
-	display: none;
 }
 
 .food-box-last {
@@ -805,4 +797,18 @@
 
 .no-background {
 	background: none;
+}
+
+.btn-highlight {
+	background-color: #5FC8C6 !important;
+	color: WHITE !important;
+	font-weight: BOLD;
+}
+
+.hide {
+	display: NONE;
+}
+
+.show {
+	display: BLOCK;
 }

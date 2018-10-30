@@ -379,7 +379,52 @@ var bob = new Person("Bob", "Doe");
 console.log(bob.fullname());
 ```
 
+<br/><br/>
 
+## Higher order function
+
+---
+
+1. filter
+
+   ```javascript
+   var words = ['spray', 'limit', 'elite', 'exuberant', 'destruction', 'present'];
+   
+   const result = words.filter(word => word.length > 6);
+   
+   console.log(result);
+   // expected output: Array ["exuberant", "destruction", "present"]
+   ```
+
+2. map
+
+   ```javascript
+   var array1 = [1, 4, 9, 16];
+   
+   // pass a function to map
+   const map1 = array1.map(x => x * 2);
+   
+   console.log(map1);
+   // expected output: Array [2, 8, 18, 32]
+   
+   ```
+
+3. reduce
+
+   ```javascript
+   const array1 = [1, 2, 3, 4];
+   const reducer = (accumulator, currentValue) => accumulator + currentValue;
+   
+   // 1 + 2 + 3 + 4
+   console.log(array1.reduce(reducer));
+   // expected output: 10
+   
+   // 5 + 1 + 2 + 3 + 4
+   console.log(array1.reduce(reducer, 5));
+   // expected output: 15
+   ```
+
+4. 
 
 
 
@@ -428,5 +473,24 @@ console.log(bob.fullname());
 
 10. 함수의 목적에 맞게 프로토타입 안으로 옮기거나, 별도의 파일로 구성
 
+11. hover 라는 이름이 더욱 구체적이였으면 좋겠다
+
+12. 인자로 받아놓고 하드코딩하는 멍청한짓은 그만
+
+13. destructuring ??
+
+14. 중괄호가 없는 조건문이면 한줄로 표현
+
+15. 매직넘버 사용금지
+
+16. 함수를.. 하나의 일만 하도록 ㅠㅠ
+
+17. inline이나 important 보다는 css class 를 추가삭제하는것이!
+
+18. default parameter
+
+19. 생각의 전환, 전체적인 요소를 한번에 바꾸기보다는 현재 떠있는 부분을 클래스 속성으로 찾아서(querySelector) 전환!
+
+20. mouse Event , evt -> target
 
 <br/><br/>
