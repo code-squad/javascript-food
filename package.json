@@ -1,0 +1,27 @@
+{
+  "name": "javascript-food",
+  "version": "1.0.0",
+  "description": "다양한 기능을 가진 웹사이트를 개발할 것이며, `AJAX` 에 대한 이해 및 간단한 `애니메이션 처리`를 이해하는 것이 목적입니다. 그리고 간단한 `UI Component` 를 개발하는 프로젝트 입니다.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "normalize.css": "^8.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antaehyeon/javascript-food.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/antaehyeon/javascript-food/issues"
+  },
+  "homepage": "https://github.com/antaehyeon/javascript-food#readme"
+}

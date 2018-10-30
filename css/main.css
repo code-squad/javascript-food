@@ -51,8 +51,8 @@
 }
 
 .util_user > li {
-  display: inline;
-	float: left;
+  	display: inline;
+	/* float: left; */
 }
 
 .util_user > li:first-child > a {
@@ -87,7 +87,7 @@
 .search {
 	float: left;
 	position: relative;
-	margin-top: 30px;g
+	margin-top: 30px;
 	margin-left: 46px;
 }
 
@@ -147,7 +147,7 @@
 	text-align: center;
 }
 
-.main_navi_list > li:hover .main-navi-item {
+/* .main_navi_list > li:hover .main-navi-item {
 	background: var(--top-navi-hover-bg-color);
 	border: 1px solid BLACK;
 }
@@ -158,7 +158,7 @@
 
 .main_navi_list > li:hover .main-navi-sub-list {
 	display: block;
-}
+} */
 
 .main-navi-sub-list > li:hover span {
 	font-size: 1.1em;
@@ -172,6 +172,7 @@
 }
 
 .main-navi-item > p {
+	display: inline-block;
 	margin-top: 18px;
 	color: white;
 	font-weight: bold;
@@ -211,7 +212,7 @@
 	text-decoration: none;
 }
 
-.main_navi_list > li:nth-child(8) {
+.main-navi-brand-menu {
 	height: 52px;
 	background-color: #362d25;
 }
@@ -311,10 +312,6 @@
 	display: inline;
 	font-size: 30px;
 }
-
-.food_box_title > p:nth-child(3) {
-	font-weight: bold;
-}
 /* 서브 네비게이션+콘텐츠 영역 END */
 
 /* 서브 콘텐츠 영역 (+탭) START */
@@ -332,7 +329,13 @@
 	padding-top: 20px;
 }
 
-.food_tab_list > li:nth-child(1) {
+/* .food_tab_list > li:nth-child(1) {
+	background-color: #5FC8C6;
+	color: white;
+	font-weight: bold;
+} */
+
+.food_tab_list > li:hover {
 	background-color: #5FC8C6;
 	color: white;
 	font-weight: bold;
@@ -345,9 +348,9 @@
 	padding-top: 30px;
 }
 
-.best_food_list > li:nth-child(3) {
-	float: right;
-	margin-right: 0px;
+.food-box-last {
+	float: right !important;
+	margin-right: 0px !important;
 }
 
 .food_box {
@@ -693,10 +696,6 @@
 	background-repeat: no-repeat;
 }
 
-.footer_navi > li:nth-child(1) {
-	background: none;
-}
-
 .footer_info_list {
 	width: 820px; height: 60px;
 	font-size: 13px;
@@ -796,6 +795,20 @@
 	padding-left: 0 !important;
 }
 
-.last {
+.no-background {
 	background: none;
+}
+
+.btn-highlight {
+	background-color: #5FC8C6 !important;
+	color: WHITE !important;
+	font-weight: BOLD;
+}
+
+.hide {
+	display: NONE;
+}
+
+.show {
+	display: BLOCK;
 }
