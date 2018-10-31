@@ -272,7 +272,7 @@ ul {
     display : inline-block;
     width : 6rem;
     height : 9.2rem;
-    background: url(https://cdn.bmf.kr/web/common/main_slides_navi.png) no-repeat center center;
+    background: url(https://cdn.bmf.kr/web/common/main_slides_navi.png);
     z-index : 100;
 }
 
@@ -664,6 +664,35 @@ ul {
 .dish_list_wrap .badge_area{
     height : 2.4rem;
     text-align : center;
+}
+
+.dish_list_wrap .slides_navi{
+    position : absolute;
+    height : 0;
+    top : 40%;
+    left : 50%;
+}
+
+.dish_list_wrap .slides_navi a{
+    position : absolute;
+    display : inline-block;
+    background-image : url(http://cdn.bmf.kr/web/common/btn_prds_thumb_slides_navi.png);
+    width : 2.8rem;
+    height : 5.2rem;
+}
+
+.dish_list_wrap .slides_navi .slide_prev{
+    right : 55rem;
+    background-position : left top;
+}
+
+.dish_list_wrap .slides_navi .slide_next{
+    left : 55rem;
+    background-position : right top;
+}
+
+.dish_list_wrap .slides_navi a:hover{
+    background-position-y : bottom;
 }
 
 .dish_list_wrap .btn_more{
