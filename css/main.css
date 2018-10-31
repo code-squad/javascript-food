@@ -248,35 +248,61 @@
 }
 
 .main-slide-list {
+	position: relative;
 	width: 1920px;
 	height: 420px;
 }
 
 .banner-01 {
 	background-image: url('../img/main-banner-01.jpg');
-	background-repeat: no-repeat;
-	background-position: center;
 }
 
 .banner-02 {
 	background-image: url('../img/main-banner-02.jpg');
-	background-repeat: no-repeat;
-	background-position: center;
 }
 
 .banner-03 {
 	background-image: url('../img/main-banner-03.jpg');
-	background-repeat: no-repeat;
-	background-position: center;
 }
 
 .banner-04 {
 	background-image: url('../img/main-banner-04.jpg');
+}
+
+.banner-05 {
+	background-image: url('../img/main-banner-05.jpg');
+}
+
+.banner-06 {
+	background-image: url('../img/main-banner-06.jpg');
+}
+
+.banner-07 {
+	background-image: url('../img/main-banner-07.jpg');
+}
+
+.banner-08 {
+	background-image: url('../img/main-banner-08.jpg');
+}
+
+.banner-09 {
+	background-image: url('../img/main-banner-09.jpg');
+}
+
+.banner-common-property {
+	width: 1920px;
+	opacity: 0;
+	transition: all 1s;
+	position: absolute;
 	background-repeat: no-repeat;
 	background-position: center;
 }
 
-banner.-active {
+.opacity-hide-active {
+	opacity: 0;
+}
+
+.opacity-show-active {
 	opacity: 1;
 }
 
@@ -296,15 +322,15 @@ banner.-active {
 }
 
 .slide_prev {
-	left: 50%;
-	margin-left: 530px;
-	background-position: right center;
-}
-
-.slide_next {
 	right: 50%;
 	margin-right: 530px;
 	background-position: left center;
+}
+
+.slide_next {
+	left: 50%;
+	margin-left: 530px;
+	background-position: right center;
 }
 
 /* 메인 컨테이너(배너 및 화살표) END */
