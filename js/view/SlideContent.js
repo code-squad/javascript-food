@@ -33,7 +33,7 @@ export default class SlideContent {
 
         //그 다음에 보여줄 content를 render한다.
         this.render(nextContentEl, this.contentData[this.getCurrentIdx()]);
-        //클래스이름을 next_content를 current_content로 current_content를 previous_content로 
+        //맨앞에 있는 li엘리먼트를 맨 마지막 순서로 옮겨준다. 
         this.slideListEl.appendChild(preContentEl);
     }
 

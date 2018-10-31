@@ -1,4 +1,4 @@
-import { bestMenuTpl } from '../template/bestMenuTpl.js';
+import { itemListTpl } from '../template/itemListTpl.js';
 import { ajax } from '../util.js';
 
 export default class TabView {
@@ -49,6 +49,6 @@ export default class TabView {
 
     render(data) {
         const bestListEl = this.tabEl.nextElementSibling;
-        bestListEl.innerHTML = bestMenuTpl(data);
+        bestListEl.innerHTML = itemListTpl(data);
     }
 }
