@@ -18,6 +18,8 @@ class MainBannerSlider {
 
   addLeftBtnEvent() {
     this.btnLeft.addEventListener("click", () => {
+      if (!this.checkPossibleRange("LEFT", this.currentShowingBannerIdx))
+        return;
       this.actionBannerAnimation("REMOVE", "opacity-show-active");
       this.currentShowingBannerIdx += this.changeCurrentShowingIdx("DECREASE");
       this.actionBannerAnimation("ADD", "opacity-show-active");
@@ -26,6 +28,8 @@ class MainBannerSlider {
 
   addRightBtnEvent() {
     this.btnRight.addEventListener("click", () => {
+      if (!this.checkPossibleRange("RIGHT", this.currentShowingBannerIdx))
+        return;
       this.actionBannerAnimation("REMOVE", "opacity-hide-active");
       this.currentShowingBannerIdx += this.changeCurrentShowingIdx("INCREASE");
       this.actionBannerAnimation("ADD", "opacity-show-active");
@@ -67,7 +71,15 @@ class MainBannerSlider {
     run[mode]();
   }
 
-  checkPossibleRange() {}
+  checkPossibleRange(mode, data) {
+    const first = 1;
+    const last = document.querySelectorAll(".banner-common-property").length;
+
+    if (mode === "LEFT" && data === first) return false;
+    if (mode === "RIGHT" && data === last) return false;
+
+    return true;
+  }
 }
 
 export { MainBannerSlider };

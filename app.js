@@ -1,7 +1,7 @@
 // IMPORT
 import { MenuManager } from "./js/MenuManager.js";
 import { BestDishesView } from "./js/BestDishesView.js";
-import { MainBannerSlider } from "./js/MainBannerSlider.js";
+import { MainBannerSlider } from "./js/Transition.js";
 
 // Variable
 const mainNaviElement = document.querySelector(".main_navi");
