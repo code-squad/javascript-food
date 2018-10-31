@@ -1,8 +1,26 @@
 /*
-  USE TRANSITION ANIMATION
+    USE REQUEST ANIMATION FRAME
 */
 
-class MainBannerSlider {
+let start;
+let firstBanner;
+let secondBanner;
+
+const action = function(time) {
+  if (!start) start = time;
+
+  const progress = time - start;
+  const calProgress = 1000 - progress * 5;
+
+  firstBanner.style.opacity = calProgress;
+  secondBanner.style.opacity = progress;
+
+  if (progress < 1000) {
+    window.requestAnimationFrame(action);
+  }
+};
+
+class RequestAnimationFrame {
   constructor() {
     this.btnRight = null;
     this.btnLeft = null;
@@ -24,9 +42,12 @@ class MainBannerSlider {
     this.btnLeft.addEventListener("click", () => {
       if (!this.checkPossibleRange("LEFT", this.currentShowingBannerIdx))
         return;
-      this.actionBannerAnimation("REMOVE", "opacity-show-active");
-      this.currentShowingBannerIdx += this.changeCurrentShowingIdx("DECREASE");
-      this.actionBannerAnimation("ADD", "opacity-show-active");
+      firstBanner = this.getCurrentBannerElement(this.currentShowingBannerIdx);
+      secondBanner = this.getCurrentBannerElement(
+        this.currentShowingBannerIdx - 1
+      );
+      this.currentShowingBannerIdx--;
+      window.requestAnimationFrame(action);
     });
   }
 
@@ -34,45 +55,19 @@ class MainBannerSlider {
     this.btnRight.addEventListener("click", () => {
       if (!this.checkPossibleRange("RIGHT", this.currentShowingBannerIdx))
         return;
-      this.actionBannerAnimation("REMOVE", "opacity-hide-active");
-      this.currentShowingBannerIdx += this.changeCurrentShowingIdx("INCREASE");
-      this.actionBannerAnimation("ADD", "opacity-show-active");
+      firstBanner = this.getCurrentBannerElement(this.currentShowingBannerIdx);
+      secondBanner = this.getCurrentBannerElement(
+        this.currentShowingBannerIdx + 1
+      );
+      this.currentShowingBannerIdx++;
+      window.requestAnimationFrame(action);
     });
-  }
-
-  actionBannerAnimation(mode, className) {
-    const element = this.getCurrentBannerElement(this.currentShowingBannerIdx);
-    this.modifyElementClassList(element, mode, className);
-  }
-
-  changeCurrentShowingIdx(mode) {
-    const run = {
-      INCREASE() {
-        return 1;
-      },
-      DECREASE() {
-        return -1;
-      }
-    };
-    return run[mode]();
   }
 
   getCurrentBannerElement(idx) {
     const className = `.banner-0${idx}`;
     const element = document.querySelector(className);
     return element;
-  }
-
-  modifyElementClassList(element, mode, className) {
-    const run = {
-      ADD() {
-        element.classList.add(className);
-      },
-      REMOVE() {
-        element.classList.remove(className);
-      }
-    };
-    run[mode]();
   }
 
   checkPossibleRange(mode, data) {
@@ -86,4 +81,4 @@ class MainBannerSlider {
   }
 }
 
-export { MainBannerSlider };
+export { RequestAnimationFrame };
