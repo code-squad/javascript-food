@@ -9,8 +9,8 @@
 
 1. [[STEP 1] food 서비스 - 화면 레이아웃](https://github.com/antaehyeon/javascript-food/blob/STEP2/README/STEP1.md)
 2. [[STEP 2] 메뉴 레이어 컨트롤](https://github.com/antaehyeon/javascript-food/blob/STEP2/README/STEP2.md)
-3. [STEP 3] TAB UI
-4. [STEP 4] 화면전환 효과
+3. [[STEP 3] TAB UI](https://github.com/antaehyeon/javascript-food/blob/antaehyeon/README/STEP3.md)
+4. [[STEP 4] 화면전환 효과](https://github.com/antaehyeon/javascript-food/blob/antaehyeon/README/STEP4.md)
 5. [STEP 5] 슬라이딩 효과
 6. [STEP 6] 무한롤링이 되는 슬라이딩 효과 구현
 7. [STEP 7] 추가 슬라이딩 UI 구현
