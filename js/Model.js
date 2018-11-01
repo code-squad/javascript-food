@@ -9,7 +9,7 @@ class Model {
     }
 
     notify() {
-        for(let i=0; i<this.listener.length; i++) {
+        for (let i = 0; i < this.listener.length; i++) {
             this.listener[i]();
         }
     }
@@ -25,4 +25,6 @@ class Model {
 
 }
 
-export { Model };
+export {
+    Model
+};

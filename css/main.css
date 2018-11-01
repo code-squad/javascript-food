@@ -245,6 +245,7 @@
 .main_banner {
 	max-width: 1920px;
 	height: 420px;
+	overflow: hidden;
 }
 
 .main-slide-list {
@@ -321,12 +322,13 @@
 
 .slides_pagination li a {
 	overflow: hidden;
-	width: 10px; height: 0;
+	width: 10px;
+	height: 0;
 	display: block;
 	padding: 10px 0 0 0;
 	background: #FFF;
 	border-radius: 50%;
-	box-shadow: 0 0 0 1px rgba(0,0,0,0.1);
+	box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
 	opacity: 0.6;
 }
 

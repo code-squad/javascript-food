@@ -56,7 +56,6 @@ class RequestAnimationFrame {
     if (!this.checkPossibleRange(mode, this.currentShowingBannerIdx)) return;
     firstBanner = this.getCurrentBannerElement(this.currentShowingBannerIdx);
     this.currentShowingBannerIdx += this.changeCurrentShowingIdx(mode);
-    debugger;
     this.model.setMainBannerIdx(this.currentShowingBannerIdx);
     secondBanner = this.getCurrentBannerElement(this.currentShowingBannerIdx);
     window.requestAnimationFrame(action);

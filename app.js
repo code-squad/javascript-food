@@ -1,11 +1,25 @@
 // IMPORT
-import { MenuManager } from "./js/MenuManager.js";
-import { BestDishesView } from "./js/BestDishesView.js";
-import { MainBannerSlider } from "./js/Transition.js";
-import { RequestAnimationFrame } from "./js/raf.js";
-import { Model } from './js/Model.js';
-import { View } from './js/View.js';
-import { ViewModel} from './js/ViewModel.js';
+import {
+  MenuManager
+} from "./js/MenuManager.js";
+import {
+  BestDishesView
+} from "./js/BestDishesView.js";
+import {
+  MainBannerSlider
+} from "./js/Transition.js";
+import {
+  RequestAnimationFrame
+} from "./js/raf.js";
+import {
+  Model
+} from './js/Model.js';
+import {
+  View
+} from './js/View.js';
+import {
+  ViewModel
+} from './js/ViewModel.js';
 
 // Variable
 const mainNaviElement = document.querySelector(".main_navi");
@@ -26,8 +40,8 @@ function loadHandler() {
   menuManager.setHoverToMainMenu();
   bestDishesView.request("http://crong.codesquad.kr:8080/woowa/best");
   bestDishesView.addClickEvent();
-  // mainBannerSlider.run();
-  raf.run();
+  mainBannerSlider.run();
+  // raf.run();
   view.run();
 }
 
