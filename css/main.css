@@ -330,6 +330,10 @@
 	opacity: 0.6;
 }
 
+#now {
+	opacity: 1;
+}
+
 .main_banner_slider {
 	display: block;
 }
