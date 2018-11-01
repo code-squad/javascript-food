@@ -23,6 +23,4 @@ class ViewModel {
 
 }
 
-export {
-    ViewModel
-};
+export { ViewModel };

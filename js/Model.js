@@ -25,6 +25,4 @@ class Model {
 
 }
 
-export {
-    Model
-};
+export { Model };

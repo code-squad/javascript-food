@@ -26,10 +26,7 @@ class MainBannerSlider {
 
   run() {
     this.findButton();
-    // this.addEvent();
-    this.addEvent2();
-    // this.model.subscribe(this.eventListener);
-    // this.model.subscribe(this.eventListener2);
+    this.addEvent();
   }
 
   findButton() {
@@ -46,44 +43,12 @@ class MainBannerSlider {
     }, false);
   }
 
-  addEvent2() {
-    this.btnLeft.addEventListener('click', () => {
-      const idx = this.model.getMainBannerIdx();
-      if (!this.checkPossibleRange('LEFT', idx)) return;
-      this.beforeAction();
-      this.model.setMainBannerIdx(idx - 1);
-    });
-    this.btnRight.addEventListener('click', () => {
-      const idx = this.model.getMainBannerIdx();
-      if (!this.checkPossibleRange('RIGHT', idx)) return;
-      this.beforeAction();
-      this.model.setMainBannerIdx(idx + 1);
-    });
-  }
-
-  beforeAction() {
-    const targetElement = document.querySelector('.opacity-show-active');
-    targetElement.classList.remove('opacity-show-active');
-  }
-
   changeBannerEventListener(obj) {
     if (!this.checkPossibleRange(obj.mode, this.currentShowingBannerIdx)) return;
     this.actionBannerAnimation("REMOVE", obj.removeClassName);
     this.currentShowingBannerIdx += this.changeCurrentShowingIdx(obj.changeMode);
     this.model.setMainBannerIdx(this.currentShowingBannerIdx);
     this.actionBannerAnimation("ADD", obj.addClassName);
-  }
-
-  eventListener() {
-    const idx = this.model.getMainBannerIdx();
-    const elem = document.querySelector(`.banner-0${idx}`);
-    elem.classList.remove('opacity-show-active');
-  }
-
-  eventListener2() {
-    const idx = this.model.getMainBannerIdx();
-    const elem = document.querySelector(`.banner-0${idx}`);
-    elem.classList.add('opacity-show-active');
   }
 
   actionBannerAnimation(mode, className) {
@@ -93,12 +58,8 @@ class MainBannerSlider {
 
   changeCurrentShowingIdx(mode) {
     const run = {
-      INCREASE() {
-        return 1;
-      },
-      DECREASE() {
-        return -1;
-      }
+      INCREASE() { return 1; },
+      DECREASE() { return -1; },
     };
     return run[mode]();
   }
@@ -111,12 +72,8 @@ class MainBannerSlider {
 
   modifyElementClassList(element, mode, className) {
     const run = {
-      ADD() {
-        element.classList.add(className);
-      },
-      REMOVE() {
-        element.classList.remove(className);
-      }
+      ADD() { element.classList.add(className); },
+      REMOVE() { element.classList.remove(className); }
     };
     run[mode]();
   }
@@ -132,6 +89,4 @@ class MainBannerSlider {
   }
 }
 
-export {
-  MainBannerSlider
-};
+export { MainBannerSlider };
