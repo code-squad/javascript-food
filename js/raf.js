@@ -21,7 +21,9 @@ const action = function(time) {
 };
 
 class RequestAnimationFrame {
-  constructor() {
+  constructor(model) {
+    this.model = model;
+
     this.btnRight = null;
     this.btnLeft = null;
     this.currentShowingBannerIdx = 1;

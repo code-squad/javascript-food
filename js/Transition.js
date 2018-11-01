@@ -3,7 +3,9 @@
 */
 
 class MainBannerSlider {
-  constructor() {
+  constructor(model) {
+    this.model = model;
+
     this.btnRight = null;
     this.btnLeft = null;
     this.currentShowingBannerIdx = 1;
