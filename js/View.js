@@ -13,8 +13,16 @@ class View {
 
     addEvent() {
         this.targetElement.addEventListener('click', ({target}) => {
-            this.vm.bind(target);
+            // this.vm.bind(target);
+            // debugger
+            this.beforeAction();
+            this.model.setMainBannerIdx(parseInt(target.innerText));
         });
+    }
+
+    beforeAction() {
+        const targetElement = document.querySelector('.opacity-show-active');
+        targetElement.classList.remove('opacity-show-active');
     }
     
 }

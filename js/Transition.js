@@ -49,11 +49,13 @@ class MainBannerSlider {
   addEvent2() {
     this.btnLeft.addEventListener('click', () => {
       const idx = this.model.getMainBannerIdx();
+      if (!this.checkPossibleRange('LEFT', idx)) return;
       this.beforeAction();
       this.model.setMainBannerIdx(idx - 1);
     });
     this.btnRight.addEventListener('click', () => {
       const idx = this.model.getMainBannerIdx();
+      if (!this.checkPossibleRange('RIGHT', idx)) return;
       this.beforeAction();
       this.model.setMainBannerIdx(idx + 1);
     });
