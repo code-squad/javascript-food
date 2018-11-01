@@ -17,8 +17,8 @@ function loadHandler() {
   menuManager.setHoverToMainMenu();
   bestDishesView.request("http://crong.codesquad.kr:8080/woowa/best");
   bestDishesView.addClickEvent();
-  mainBannerSlider.run();
-  // raf.run();
+  // mainBannerSlider.run();
+  raf.run();
 }
 
 document.addEventListener("DOMContentLoaded", loadHandler);

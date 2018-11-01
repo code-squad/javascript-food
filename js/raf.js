@@ -29,8 +29,7 @@ class RequestAnimationFrame {
 
   run() {
     this.findButton();
-    this.addLeftBtnEvent();
-    this.addRightBtnEvent();
+    this.addBtnEvent();
   }
 
   findButton() {
@@ -38,30 +37,25 @@ class RequestAnimationFrame {
     this.btnRight = document.querySelector(".slide_next");
   }
 
-  addLeftBtnEvent() {
-    this.btnLeft.addEventListener("click", () => {
-      if (!this.checkPossibleRange("LEFT", this.currentShowingBannerIdx))
-        return;
-      firstBanner = this.getCurrentBannerElement(this.currentShowingBannerIdx);
-      secondBanner = this.getCurrentBannerElement(
-        this.currentShowingBannerIdx - 1
-      );
-      this.currentShowingBannerIdx--;
-      window.requestAnimationFrame(action);
-    });
+  addBtnEvent() {
+    this.btnLeft.addEventListener('click', () => { this.showBannerEventListener('LEFT'); });
+    this.btnRight.addEventListener('click', () => { this.showBannerEventListener('RIGHT'); });
   }
 
-  addRightBtnEvent() {
-    this.btnRight.addEventListener("click", () => {
-      if (!this.checkPossibleRange("RIGHT", this.currentShowingBannerIdx))
-        return;
-      firstBanner = this.getCurrentBannerElement(this.currentShowingBannerIdx);
-      secondBanner = this.getCurrentBannerElement(
-        this.currentShowingBannerIdx + 1
-      );
-      this.currentShowingBannerIdx++;
-      window.requestAnimationFrame(action);
-    });
+  changeCurrentShowingIdx(mode) {
+    const run = {
+      LEFT() { return -1; },
+      RIGHT() { return 1; },
+    };
+    return run[mode]();
+  }
+
+  showBannerEventListener(mode) {
+    if (!this.checkPossibleRange(mode, this.currentShowingBannerIdx)) return;
+    firstBanner = this.getCurrentBannerElement(this.currentShowingBannerIdx);
+    this.currentShowingBannerIdx += this.changeCurrentShowingIdx(mode);
+    secondBanner = this.getCurrentBannerElement(this.currentShowingBannerIdx);
+    window.requestAnimationFrame(action);
   }
 
   getCurrentBannerElement(idx) {
