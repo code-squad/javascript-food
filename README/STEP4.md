@@ -13,7 +13,7 @@
 
 ---
 
-- [ ] HTML 아래 동그라미 네비 버튼 추가하기
+- [x] HTML 아래 동그라미 네비 버튼 추가하기
 - [ ] 각 화살표 이벤트 등록하기
   - [x] transition
     - [x] 버튼에 따른 이벤트 구현
@@ -26,6 +26,7 @@
 ---
 
 - **requestAnimationframe.js**
+
   - [REQUEST ANIMATION FRAME](https://flaviocopes.com/requestanimationframe/)
 
 - **transform**
@@ -76,8 +77,28 @@
   - 함수를 전달하니, this 의 기준이 달라졌다고 하는게 맞나(?)
     - 무튼, Class의 constructor에서 생성한 인자들을 인식하지 못함
     - 왜 그런지 알겠는데 말로 설명은 못하겠음 `이 부분 공부할 것`
-    - 
 
+- **HTML 아래에 동그란 네비게이션 (slides_pagination) 추가**
+
+  - bottom 속성을 알아볼 것 (아래에서 해당 px 만큼 위치시키는 것 같음)
+  - `border-raidus : 50%` 속성을 이용해서 동그라미로 표현
+  - `ul > li > a` 를 이용해서 구현
+
+- **classList 를 이용해 class 속성을 추가할 경우 CSS 우선순위**
+
+  - 일단 CSS에서 구체적으로 (ex. body > span) 으로 적용한 배경에서
+  - classList를 이용해 어떤 클래스를 추가해줬을 경우
+  - 우선순위에 밀려서 적용이 되지 않는 경우가 발생한다.
+  - 어떻게 해결해야할까?
+    - 일단은 id 속성으로 제공하긴 했는데...
+
+- **리스너를 통한 함수실행**
+
+  - 현재 bannerIdx 만 증가시켜주거나 감소시켜주거나 하는 식으로 진행
+  - Model 에서의 set 함수가 불리면, Listener 을 통해서 subscribe 된 함수들을 실행
+
+  - Listener 는 한번에 실행되는데, 현재는 값이 바뀌고만 적용되어야 함
+  - 안숨겨도 되고, z-index 값만 바뀌어도 괜찮다는 생각이 떠오름
 
 <br/><br/>
 
