@@ -7,12 +7,24 @@ class MainBannerSlider {
     this.btnRight = null;
     this.btnLeft = null;
     this.currentShowingBannerIdx = 1;
+
+    this.leftClickEventMode = {
+      'mode': 'LEFT',
+      'changeMode': 'DECREASE',
+      'removeClassName': 'opacity-show-active',
+      'addClassName': 'opacity-show-active',
+    };
+    this.rightClickEventMode = {
+      'mode': 'RIGHT',
+      'changeMode': 'INCREASE',
+      'removeClassName': 'opacity-hide-active',
+      'addClassName': 'opacity-show-active',
+    };
   }
 
   run() {
     this.findButton();
-    this.addLeftBtnEvent();
-    this.addRightBtnEvent();
+    this.addEvent();
   }
 
   findButton() {
@@ -20,24 +32,16 @@ class MainBannerSlider {
     this.btnRight = document.querySelector(".slide_next");
   }
 
-  addLeftBtnEvent() {
-    this.btnLeft.addEventListener("click", () => {
-      if (!this.checkPossibleRange("LEFT", this.currentShowingBannerIdx))
-        return;
-      this.actionBannerAnimation("REMOVE", "opacity-show-active");
-      this.currentShowingBannerIdx += this.changeCurrentShowingIdx("DECREASE");
-      this.actionBannerAnimation("ADD", "opacity-show-active");
-    });
+  addEvent() {
+    this.btnLeft.addEventListener('click', () => { this.changeBannerEventListener(this.leftClickEventMode); }, false);
+    this.btnRight.addEventListener('click', () => { this.changeBannerEventListener(this.rightClickEventMode); }, false);
   }
 
-  addRightBtnEvent() {
-    this.btnRight.addEventListener("click", () => {
-      if (!this.checkPossibleRange("RIGHT", this.currentShowingBannerIdx))
-        return;
-      this.actionBannerAnimation("REMOVE", "opacity-hide-active");
-      this.currentShowingBannerIdx += this.changeCurrentShowingIdx("INCREASE");
-      this.actionBannerAnimation("ADD", "opacity-show-active");
-    });
+  changeBannerEventListener(obj) {
+    if (!this.checkPossibleRange(obj.mode, this.currentShowingBannerIdx)) return;
+    this.actionBannerAnimation("REMOVE", obj.removeClassName);
+    this.currentShowingBannerIdx += this.changeCurrentShowingIdx(obj.changeMode);
+    this.actionBannerAnimation("ADD", obj.addClassName);
   }
 
   actionBannerAnimation(mode, className) {
@@ -47,12 +51,8 @@ class MainBannerSlider {
 
   changeCurrentShowingIdx(mode) {
     const run = {
-      INCREASE() {
-        return 1;
-      },
-      DECREASE() {
-        return -1;
-      }
+      INCREASE() { return 1; },
+      DECREASE() { return -1; }
     };
     return run[mode]();
   }
@@ -65,12 +65,8 @@ class MainBannerSlider {
 
   modifyElementClassList(element, mode, className) {
     const run = {
-      ADD() {
-        element.classList.add(className);
-      },
-      REMOVE() {
-        element.classList.remove(className);
-      }
+      ADD() { element.classList.add(className); },
+      REMOVE() { element.classList.remove(className); }
     };
     run[mode]();
   }
