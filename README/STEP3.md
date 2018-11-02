@@ -493,4 +493,10 @@ console.log(bob.fullname());
 
 20. mouse Event , evt -> target
 
+21. **fetch API를 공부하고(XHR 통신과 같이 동작하지만 다름), 다양한 기능을 지원하는 axios 라이브러리도 공부**
+
+22. important 는 안쓰는 방법이 좋아요. 보다 근본적인 원인을 해결
+
+23. 
+
 <br/><br/>
