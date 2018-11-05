@@ -1,11 +1,9 @@
 import { makeItemScoreByStars } from "../Util/helper.js";
 
-
-
 export const makeSliderTpl = (list) => {
   const ROW_SIZE = 4;
   const slideWrapHTML = list.reduce((acc, cv, idx) => {
-    acc.temp += sideMenuItemTpl(cv);
+    acc.temp += _sideMenuItemTpl(cv);
     if ((idx + 1) % ROW_SIZE === 0 || idx === list.length) {
       acc.unit +=
         `
@@ -19,12 +17,13 @@ export const makeSliderTpl = (list) => {
   }, { unit: '', temp: '', ulCount: 0 });
   return slideWrapHTML.unit;
 }
-function sideMenuItemTpl(data) {
+
+function _sideMenuItemTpl(data) {
   const sideMenuItemHTML =
     `<li>
       <a href="" class="side_menu_a">
       <div class="side_menu_box">
-      <div class="img_container"><img class="side_menu_img" src="${data.image}">
+      <div class="side_menu_img_wrap"><img class="side_menu_img" src="${data.image}">
         <div class="side_menu_deli1">${data.delivery_type[0]}</div>
         <hr class="side_menu_deli_hr">
         <div class="side_menu_deli2">${data.delivery_type[1]}</div>
@@ -43,9 +42,6 @@ function sideMenuItemTpl(data) {
   </li>
   `
   return sideMenuItemHTML;
-}
-function makeDarkBackground(imgSource) {
-  return `linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${imgSource})`
 }
 
 const sideMenuBadgeTpl = {

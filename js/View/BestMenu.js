@@ -1,10 +1,10 @@
-import { bestMenuItemTpl } from "../templates/bestMenuTpl.js";
 import { qs, qsa, ajax } from "../../js/Util/helper.js";
 
 export default class BestMenu {
-  constructor() {
+  constructor(bestMenuItemTpl) {
     this._randomIdx = () => Math.floor(Math.random() * 6);
     this.apiUrl = null;
+    this.bestMenuItemTpl = bestMenuItemTpl;
   }
 
   initialize({ url }) {
@@ -15,7 +15,7 @@ export default class BestMenu {
 
   _render(url, idx) {
     this._removeClassIfExist('best_menu_nav_item_selected');
-    ajax(url, this._renderBestMenuFromAPI, idx);
+    ajax(url, this._renderBestMenuFromAPI.bind(this), idx);
   }
 
   _removeClassIfExist(targetCSSClass) {
@@ -24,7 +24,7 @@ export default class BestMenu {
 
   _renderBestMenuFromAPI(requestData, idx) {
     console.log(requestData);
-    qs(".best_menu_item_list").innerHTML = bestMenuItemTpl(requestData[idx].items);
+    qs(".best_menu_item_list").innerHTML = this.bestMenuItemTpl(requestData[idx].items);
     qsa(".best_menu_nav_a")[idx].classList.add("best_menu_nav_item_selected");
   }
 
