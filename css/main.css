@@ -636,6 +636,7 @@ ul {
 .dish_list_wrap .list_slide_wrap{
     width : 100%;
     min-height : 37.3rem;
+    overflow : hidden;
 }
 
 .dish_list_wrap .items{
