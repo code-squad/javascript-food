@@ -28,6 +28,9 @@ export default class MenuSlide{
         this.render(this.contentData);
         this.render(firstView);
 
+        this.currentPositionX = this.positionValue().firstContentPositionX;
+        this.slideListEl.style.transform = `translateX(${this.currentPositionX}%`;
+
     }
 
     plusPositionX({maxPositionX}){
@@ -50,5 +53,24 @@ export default class MenuSlide{
 
     render(data){
         this.slideListEl.innerHTML += itemListTpl(data);
+    }
+
+    positionValue(){
+        const contentLength = this.contentData.length;
+        const viewContentCount = this.viewContentCount;
+        const remainContentCount = contentLength % viewContentCount;
+        const remainContentsWidth = !remainContentCount ? 10 : 10 / viewContentCount * remainContentCount;
+
+        const firstContentPositionX = -10;
+        const maxPositionX = firstContentPositionX + remainContentsWidth;
+        const minPositionX = -(10 / viewContentCount * (contentLength + viewContentCount));
+        const lastContentPositionX = minPositionX + remainContentsWidth;
+
+        return {
+            firstContentPositionX : firstContentPositionX,
+            lastContentPositionX : lastContentPositionX,
+            minPositionX : minPositionX,
+            maxPositionX : maxPositionX
+        }
     }
 }
