@@ -52,6 +52,6 @@ function itemsTpl({ image, alt, delivery_type, title, description, n_price, s_pr
     `;
 }
 
-export function itemListTpl({ items }) {
-    return items.reduce((prev, curr) => prev + `<li class="items"><a href="#">${itemsTpl(curr)}</a></li>`, '');
+export function itemListTpl(itemsData) {
+    return itemsData.reduce((prev, curr) => prev + `<li class="items"><a href="#">${itemsTpl(curr)}</a></li>`, '');
 }

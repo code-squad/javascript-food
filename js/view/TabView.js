@@ -47,8 +47,8 @@ export default class TabView {
         return target.getAttribute('data-category_no');
     }
 
-    render(data) {
+    render({items}) {
         const bestListEl = this.tabEl.nextElementSibling;
-        bestListEl.innerHTML = itemListTpl(data);
+        bestListEl.innerHTML = itemListTpl(items);
     }
 }
