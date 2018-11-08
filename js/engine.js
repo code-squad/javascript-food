@@ -4,19 +4,28 @@
 */
 
 export class Engine {
-  constructor(header, navModel, bestMenu, promotion, sideMenu, apiUrl) {
+  constructor(header, navModel, bestMenu, promotion, sideMenuSlide, mainMenuSlide, courseMenuSlide, apiUrl) {
     this.header = header;
     this.bestMenu = bestMenu;
     this.promotion = promotion;
-    this.sideMenu = sideMenu;
+    this.sideMenuSlide = sideMenuSlide;
+    this.mainMenuSlide = mainMenuSlide;
+    this.courseMenuSlide = courseMenuSlide;
 
     this.navModel = navModel;
     this.apiUrl = apiUrl;
+
+    this.sliderCount = 0;
   }
   start() {
     this.header.initialize(this.navModel.getNavItemList());
-    this.bestMenu.initialize({ url: this.apiUrl.bestMenu });
+    this.bestMenu.initialize();
     this.promotion.initialize();
-    this.sideMenu.initialize({ url: this.apiUrl.sideMenu });
+    this.sideMenuSlide.initialize();
+    this.mainMenuSlide.initialize();
+    this.courseMenuSlide.initialize();
+  }
+  inputSlideCount() {
+    return this.sliderCount++;
   }
 }

@@ -1,15 +1,14 @@
 import { qs, qsa, ajax } from "../../js/Util/helper.js";
 
 export default class BestMenu {
-  constructor(bestMenuItemTpl) {
+  constructor(apiUrl, bestMenuItemTpl) {
     this._randomIdx = () => Math.floor(Math.random() * 6);
-    this.apiUrl = null;
+    this.apiUrl = apiUrl;
     this.bestMenuItemTpl = bestMenuItemTpl;
   }
 
-  initialize({ url }) {
-    this.apiUrl = url;
-    this._render(url, this._randomIdx());
+  initialize() {
+    this._render(this.apiUrl, this._randomIdx());
     this._registClickTabEvt();
   }
 
@@ -30,8 +29,8 @@ export default class BestMenu {
 
   _registClickTabEvt() {
     qs(".best_menu_nav").addEventListener("click", e => {
-      this._clickTab(e.target);
       e.preventDefault();
+      this._clickTab(e.target);
     });
   }
 

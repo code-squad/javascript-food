@@ -13,13 +13,13 @@ export default class Promotion {
   }
 
   _registEvent() {
-    $on('.promotion_nav_arrow', 'click', e => {
+    $on(qs('.promotion_nav_arrow'), 'click', e => {
       e.preventDefault();
       if (e.target.className === 'promotion_left_nav') this._prevSlide();
       if (e.target.className === 'promotion_right_nav') this._nextSlide();
     });
 
-    $on('.slides_navi', 'click', e => {
+    $on(qs('.slides_navi'), 'click', e => {
       e.preventDefault();
       if (e.target.tagName !== 'LI') return;
       this._hideSlide(this.index);

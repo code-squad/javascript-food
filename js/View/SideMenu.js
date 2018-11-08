@@ -1,7 +1,8 @@
 import { qs, qsa, $on, ajax } from "../../js/Util/helper.js";
 
 export default class SideMenu {
-  constructor(makeSliderTpl) {
+  constructor(makeSideMenuTpl, makeSliderTpl) {
+    this.makeSideMenuTpl = makeSideMenuTpl;
     this.makeSliderTpl = makeSliderTpl;
     this.index = 0;
   }
@@ -30,6 +31,7 @@ export default class SideMenu {
   }
 
   render() {
+    qs('main').innerHTML += this.makeSideMenuTpl();
     ajax('http://crong.codesquad.kr:8080/woowa/side', this.cbRenderByTemplate.bind(this));
   }
 

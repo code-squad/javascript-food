@@ -1,36 +1,57 @@
 import { makeItemScoreByStars } from "../Util/helper.js";
 
-export const makeSliderTpl = (list) => {
-  const ROW_SIZE = 4;
-  const slideWrapHTML = list.reduce((acc, cv, idx) => {
-    acc.temp += _sideMenuItemTpl(cv);
-    if ((idx + 1) % ROW_SIZE === 0 || idx === list.length) {
-      acc.unit +=
-        `
-        <ul class="side_item_wrap" data-num="${acc.ulCount}">
+export const slideTpl = {
+  makeSliderTpl: function (id, title, subtitle) {
+    return `
+        <div class="slide_arrow">
+          <a href=""><img class="slide_left_nav" src="./css/images/side/arrow_grey_left.png" alt=""></a>
+          <a href=""><img class="slide_right_nav" src="./css/images/side/arrow_grey_right.png" alt=""></a>
+        </div>
+        <div class="wrap slide_wrap">
+          <h4 class="slide_head1">${title}</h4>
+          <span class="slide_head2">${subtitle}</strong></span>
+          <div class="slide_wrap">
+            <div id="${id}_slider" class="slider">
+              <!-- side_menu_ul -->
+            </div>
+          </div>
+        </div>
+        <a href="" class="slide_menu_btn">
+          <span class="slide_menu_btn_sp">${title} 전체보기</span>
+        </a>
+  `
+  },
+  makeSlideItemTpl: function (list) {
+    const ROW_SIZE = 4;
+    const slideWrapHTML = list.reduce((acc, cv, idx) => {
+      acc.temp += _sideMenuItemTpl(cv);
+      if ((idx + 1) % ROW_SIZE === 0 || idx === list.length) {
+        acc.unit +=
+          `
+        <ul class="slide_item_wrap" data-num="${acc.ulCount}">
         ${acc.temp}
         </ul>`
-      acc.temp = '';
-      acc.ulCount++;
-    }
-    return acc;
-  }, { unit: '', temp: '', ulCount: 0 });
-  return slideWrapHTML.unit;
+        acc.temp = '';
+        acc.ulCount++;
+      }
+      return acc;
+    }, { unit: '', temp: '', ulCount: 0 });
+    return slideWrapHTML.unit;
+  }
 }
-
 function _sideMenuItemTpl(data) {
   const sideMenuItemHTML =
     `<li>
-      <a href="" class="side_menu_a">
-      <div class="side_menu_box">
-      <div class="side_menu_img_wrap"><img class="side_menu_img" src="${data.image}">
-        <div class="side_menu_deli1">${data.delivery_type[0]}</div>
-        <hr class="side_menu_deli_hr">
-        <div class="side_menu_deli2">${data.delivery_type[1]}</div>
+      <a href="" class="slide_menu_a">
+      <div class="slide_menu_box">
+      <div class="slide_menu_img_wrap"><img class="slide_menu_img" src="${data.image}">
+        <div class="slide_menu_deli1">${data.delivery_type[0]}</div>
+        <hr class="slide_menu_deli_hr">
+        <div class="slide_menu_deli2">${data.delivery_type[1]}</div>
         <div class="after"></div>
       </div>
-      <span class="best_menu_item_sp1 side_menu_sp1">${data.title}</span>
-      <span class="best_menu_item_sp2 side_menu_sp2">${data.description}</span>
+      <span class="best_menu_item_sp1 slide_menu_sp1">${data.title}</span>
+      <span class="best_menu_item_sp2 slide_menu_sp2">${data.description}</span>
       <div class="best_menu_item_rate">
         <span class="best_menu_item_score">${makeItemScoreByStars(4)}
           <span class="best_menu_item_star">${3000}</span>
@@ -45,6 +66,6 @@ function _sideMenuItemTpl(data) {
 }
 
 const sideMenuBadgeTpl = {
-  normal: (name) => `<div class="side_menu_badge"><span class="side_menu_badge_sp">${name}</span></div>`,
-  best: (name) => `<div class="side_menu_badge badge_best_color"><span class="side_menu_badge_sp">${name}</span></div>`
+  normal: (name) => `<div class="slide_menu_badge"><span class="slide_menu_badge_sp">${name}</span></div>`,
+  best: (name) => `<div class="slide_menu_badge badge_best_color"><span class="slide_menu_badge_sp">${name}</span></div>`
 }
