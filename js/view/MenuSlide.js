@@ -31,8 +31,43 @@ export default class MenuSlide{
         this.currentPositionX = this.positionValue().firstContentPositionX;
         this.slideListEl.style.transform = `translateX(${this.currentPositionX}%`;
 
+        this.clickNextBtn(this.positionValue());
+        this.clickPreBtn(this.positionValue());
+    }
+    
+    clickNextBtn({firstContentPositionX, minPositionX}){
+
+        const nextBtn = this.naviEl.children[1];
+        nextBtn.addEventListener('click', ()=>{
+            this.slideContent(this.minusPositionX.bind(this), this.positionValue());
+            if(this.currentPositionX === minPositionX)this.resetToInitContent(firstContentPositionX);
+        })
     }
 
+    clickPreBtn({lastContentPositionX, maxPositionX}){
+
+        const preBtn = this.naviEl.children[0];
+        preBtn.addEventListener('click', ()=>{
+            this.slideContent(this.plusPositionX.bind(this), this.positionValue());
+            if(this.currentPositionX === maxPositionX)this.resetToInitContent(lastContentPositionX);
+        })
+    }
+
+    slideContent(convertPositionValue,positionValue){
+        if(!this.slideListEl.style.transition)this.slideListEl.style.transition = `transform ${this.timer/1000}s`;
+
+        convertPositionValue(positionValue);
+        this.slideListEl.style.transform = `translateX(${this.currentPositionX}%)`;
+    }
+
+    resetToInitContent(initPositionX){
+        setTimeout(()=>{
+            this.slideListEl.style.transition = "";
+            this.currentPositionX = initPositionX;
+            this.slideListEl.style.transform = `translateX(${this.currentPositionX}%)`;
+        },this.timer);
+    }
+    
     plusPositionX({maxPositionX}){
         this.currentPositionX += 10;
         if(this.currentPositionX > maxPositionX)this.currentPositionX = maxPositionX;
