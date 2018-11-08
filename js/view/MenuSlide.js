@@ -29,7 +29,21 @@ export default class MenuSlide{
         this.render(firstView);
 
     }
-    
+
+    plusPositionX({maxPositionX}){
+        this.currentPositionX += 10;
+        if(this.currentPositionX > maxPositionX)this.currentPositionX = maxPositionX;
+    }
+
+    minusPositionX({minPositionX}){
+        this.currentPositionX -= 10;
+        if(this.currentPositionX < minPositionX)this.currentPositionX = minPositionX;
+    }
+
+    setListWidth(){
+        this.slideListEl.style.width = 1000 + "%";
+    }
+
     setContentData(data){
         this.contentData = data;
     }
@@ -37,5 +51,4 @@ export default class MenuSlide{
     render(data){
         this.slideListEl.innerHTML += itemListTpl(data);
     }
-
 }
