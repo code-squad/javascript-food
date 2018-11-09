@@ -12,7 +12,7 @@ export const slideTpl = {
           <span class="slide_head2">${subtitle}</strong></span>
           <div class="slide_wrap">
             <div id="${id}_slider" class="slider">
-              <!-- side_menu_ul -->
+              <!-- slide_menu_ul -->
             </div>
           </div>
         </div>

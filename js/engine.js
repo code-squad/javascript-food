@@ -4,7 +4,7 @@
 */
 
 export class Engine {
-  constructor(header, navModel, bestMenu, promotion, sideMenuSlide, mainMenuSlide, courseMenuSlide, apiUrl) {
+  constructor(header, navModel, bestMenu, promotion, sideMenuSlide, mainMenuSlide, courseMenuSlide) {
     this.header = header;
     this.bestMenu = bestMenu;
     this.promotion = promotion;
@@ -13,10 +13,8 @@ export class Engine {
     this.courseMenuSlide = courseMenuSlide;
 
     this.navModel = navModel;
-    this.apiUrl = apiUrl;
-
-    this.sliderCount = 0;
   }
+
   start() {
     this.header.initialize(this.navModel.getNavItemList());
     this.bestMenu.initialize();
@@ -24,8 +22,5 @@ export class Engine {
     this.sideMenuSlide.initialize();
     this.mainMenuSlide.initialize();
     this.courseMenuSlide.initialize();
-  }
-  inputSlideCount() {
-    return this.sliderCount++;
   }
 }
