@@ -1,23 +1,23 @@
 
 function originalPrice(price) {
     if (!price) return '';
-    return `<p class="original_price">${price}</p>`
+    return `<p class="original-price">${price}</p>`
 }
 
 function salePrice(price) {
-    return `<p class="sale_price">${price}</p>`;
+    return `<p class="sale-price">${price}</p>`;
 }
 
 function itemTitle(title) {
-    return `<dt class='item_title'>${title}</dt>`
+    return `<dt class='item-title'>${title}</dt>`
 }
 
 function itemDescription(description) {
-    return `<dd class='item_description'>${description}</dd>`
+    return `<dd class='item-description'>${description}</dd>`
 }
 
 function itemPrice(n_price, s_price) {
-    return `<dd class="item_price">${salePrice(s_price.slice(0, -1))}<p class='unit'>원</p>${originalPrice(n_price)}</dd>`;
+    return `<dd class="item-price">${salePrice(s_price.slice(0, -1))}<p class='unit'>원</p>${originalPrice(n_price)}</dd>`;
 }
 
 function delivery(delivery_type){
@@ -25,9 +25,9 @@ function delivery(delivery_type){
 }
 
 function foodImg(image, alt, delivery_type){
-    return `<div class="food_img">
+    return `<div class="food-img">
                 <img src="${image}" alt="${alt}">
-                <div class="dark_background"></div>
+                <div class="dark-background"></div>
                 <div class="delivery">
                     ${delivery(delivery_type)}
                 </div>
@@ -45,10 +45,10 @@ function itemsTpl({ image, alt, delivery_type, title, description, n_price, s_pr
     <dl>
         ${itemTitle(title)}
         ${itemDescription(description)}
-        <dd class="item_review"></dd>
+        <dd class="item-review"></dd>
         ${itemPrice(n_price, s_price)}
     </dl>
-    <div class="badge_area">${badge && badgeTpl(badge)}</div>
+    <div class="badge-area">${badge && badgeTpl(badge)}</div>
     `;
 }
 
