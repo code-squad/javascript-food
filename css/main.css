@@ -639,6 +639,10 @@ ul {
     overflow : hidden;
 }
 
+.dish-list-wrap .list-slide-wrap .slide-list{
+    width : 1000%;
+}
+
 .dish-list-wrap .items{
     width : 21.5rem;
     margin : 0 1.5rem 0.8rem;
