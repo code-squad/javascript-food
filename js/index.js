@@ -5,7 +5,7 @@ import SlideNavi from './view/SlideNavi.js';
 import SlideController from './view/SlideController.js';
 import MenuSlide from './view/MenuSlide.js';
 
-const elements = {
+const _e = {
     body: document.querySelector('body'),
     bestTabEl: document.querySelector('.best-seller-tab'),
     mainSlideEl: document.querySelector('.main-slide-wrap'),
@@ -27,16 +27,16 @@ const contentURL = {
 }
 
 const tabView = new TabView({
-    tabElement: elements.bestTabEl,
+    tabElement: _e.bestTabEl,
     urlRequestData: contentURL.bestSeller
 });
 
 const mainSlideContent = new SlideContent({
-    slideListEl: elements.mainSlideEl.querySelector('.slide-list'),
+    slideListEl: _e.mainSlideEl.querySelector('.slide-list'),
     urlRequestData: contentURL.mainSlide
 })
-const mainSlideDots = new SlideDots({ dotListEl: elements.mainSlideEl.querySelector('.slide-dots') });
-const mainSlideNavi = new SlideNavi({ naviEl: elements.mainSlideEl.querySelector('.slides-navi') });
+const mainSlideDots = new SlideDots({ dotListEl: _e.mainSlideEl.querySelector('.slide-dots') });
+const mainSlideNavi = new SlideNavi({ naviEl: _e.mainSlideEl.querySelector('.slides-navi') });
 const mainSlideContoller = new SlideController({
     slideContent: mainSlideContent,
     slideNavi: mainSlideNavi,
@@ -44,11 +44,11 @@ const mainSlideContoller = new SlideController({
 });
 
 const subSlideContent = new SlideContent({
-    slideListEl: elements.subSlideEl.querySelector('.slide-list'),
+    slideListEl: _e.subSlideEl.querySelector('.slide-list'),
     urlRequestData: contentURL.subSlide
 })
-const subSlideDots = new SlideDots({ dotListEl: elements.subSlideEl.querySelector('.slide-dots')});
-const subSlideNavi = new SlideNavi({ naviEl : elements.subSlideEl.querySelector('.slides-navi')});
+const subSlideDots = new SlideDots({ dotListEl: _e.subSlideEl.querySelector('.slide-dots')});
+const subSlideNavi = new SlideNavi({ naviEl : _e.subSlideEl.querySelector('.slides-navi')});
 const subSlideController = new SlideController({
     slideContent: subSlideContent,
     slideNavi: subSlideNavi,
@@ -57,30 +57,30 @@ const subSlideController = new SlideController({
 
 const mainDishSlide = new MenuSlide({
     urlRequestData : contentURL.mainDish,
-    slideListEl : elements.mainDishEl.querySelector('.slide-list'),
-    naviEl : elements.mainDishEl.querySelector('.slides-navi'),
+    slideListEl : _e.mainDishEl.querySelector('.slide-list'),
+    naviEl : _e.mainDishEl.querySelector('.slides-navi'),
 })
 
 const sideDishSlide = new MenuSlide({
     urlRequestData : contentURL.mainDish,
-    slideListEl : elements.sideDishEl.querySelector('.slide-list'),
-    naviEl : elements.sideDishEl.querySelector('.slides-navi'),
+    slideListEl : _e.sideDishEl.querySelector('.slide-list'),
+    naviEl : _e.sideDishEl.querySelector('.slides-navi'),
 })
 
 const soupDishSlide = new MenuSlide({
     urlRequestData : contentURL.soupDish,
-    slideListEl : elements.soupDishEl.querySelector('.slide-list'),
-    naviEl : elements.soupDishEl.querySelector('.slides-navi'),
+    slideListEl : _e.soupDishEl.querySelector('.slide-list'),
+    naviEl : _e.soupDishEl.querySelector('.slides-navi'),
 })
 
 const courseDishSlide = new MenuSlide({
     urlRequestData : contentURL.courseDish,
-    slideListEl : elements.courseDishEl.querySelector('.slide-list'),
-    naviEl : elements.courseDishEl.querySelector('.slides-navi'),
+    slideListEl : _e.courseDishEl.querySelector('.slide-list'),
+    naviEl : _e.courseDishEl.querySelector('.slides-navi'),
 })
 
 function init() {
-    elements.body.addEventListener('click', (e) => {
+    _e.body.addEventListener('click', (e) => {
         if (e.target.tagName !== 'A') return;
         e.preventDefault();
     })
