@@ -2,10 +2,10 @@ import { ajax } from '../util.js';
 import { slideTpl } from '../template/slideTpl.js';
 
 export default class SlideContent {
-    constructor({ slideListEl, url }) {
+    constructor({ slideListEl, urlRequestData }) {
         this.slideListEl = slideListEl;
         ajax({
-            'url': url,
+            'url': urlRequestData,
             'requestType': 'GET',
             'handler': this.init.bind(this)
         });

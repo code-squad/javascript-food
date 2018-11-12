@@ -3,7 +3,7 @@ import {itemListTpl} from '../template/itemListTpl.js';
 
 export default class MenuSlide{
 
-    constructor({url, slideListEl, naviEl, viewContentCount = 4, timer = 500}){
+    constructor({urlRequestData, slideListEl, naviEl, viewContentCount = 4, timer = 500}){
 
         this.slideListEl = slideListEl;
         this.naviEl = naviEl;
@@ -11,7 +11,7 @@ export default class MenuSlide{
         this.timer = timer;
 
         ajax({
-            'url' : url,
+            'url' : urlRequestData,
             'requestType' : 'GET',
             'handler' : this.init.bind(this)
         })

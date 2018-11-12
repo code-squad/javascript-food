@@ -2,9 +2,9 @@ import { itemListTpl } from '../template/itemListTpl.js';
 import { ajax } from '../util.js';
 
 export default class TabView {
-    constructor({ tabElement, url }) {
+    constructor({ tabElement, urlRequestData }) {
         this.tabEl = tabElement;
-        this.url = url;
+        this.url = urlRequestData;
     }
 
     init() {
