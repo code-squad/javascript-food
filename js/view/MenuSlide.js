@@ -39,7 +39,7 @@ export default class MenuSlide{
         const nextBtn = this.naviEl.children[1];
         nextBtn.addEventListener('click', ()=>{
             this.slideContent(this.minusPositionX.bind(this), this.positionValue());
-            if(this.currentPositionX === minPositionX)this.resetToInitContent(firstContentPositionX);
+            if(this.currentPositionX === minPositionX)this.resetToInitContent(firstContentPositionX,this.timer);
         })
     }
 
@@ -48,7 +48,7 @@ export default class MenuSlide{
         const preBtn = this.naviEl.children[0];
         preBtn.addEventListener('click', ()=>{
             this.slideContent(this.plusPositionX.bind(this), this.positionValue());
-            if(this.currentPositionX === maxPositionX)this.resetToInitContent(lastContentPositionX);
+            if(this.currentPositionX === maxPositionX)this.resetToInitContent(lastContentPositionX,this.timer);
         })
     }
 
@@ -59,21 +59,23 @@ export default class MenuSlide{
         this.slideListEl.style.transform = `translateX(${this.currentPositionX}%)`;
     }
 
-    resetToInitContent(initPositionX){
+    resetToInitContent(initPositionX, timer){
         setTimeout(()=>{
             this.slideListEl.style.transition = "";
             this.currentPositionX = initPositionX;
             this.slideListEl.style.transform = `translateX(${this.currentPositionX}%)`;
-        },this.timer);
+        },timer);
     }
     
     plusPositionX({maxPositionX}){
-        this.currentPositionX += 10;
+        const contentWidth = 10;
+        this.currentPositionX += contentWidth;
         if(this.currentPositionX > maxPositionX)this.currentPositionX = maxPositionX;
     }
 
     minusPositionX({minPositionX}){
-        this.currentPositionX -= 10;
+        const contentWidth = 10;
+        this.currentPositionX -= contentWidth;
         if(this.currentPositionX < minPositionX)this.currentPositionX = minPositionX;
     }
 
@@ -90,14 +92,15 @@ export default class MenuSlide{
     }
 
     positionValue(){
+        const contentWidth = 10;
         const contentLength = this.contentData.length;
         const viewContentCount = this.viewContentCount;
         const remainContentCount = contentLength % viewContentCount;
-        const remainContentsWidth = !remainContentCount ? 10 : 10 / viewContentCount * remainContentCount;
+        const remainContentsWidth = !remainContentCount ? contentWidth : contentWidth / viewContentCount * remainContentCount;
 
-        const firstContentPositionX = -10;
+        const firstContentPositionX = -contentWidth;
         const maxPositionX = firstContentPositionX + remainContentsWidth;
-        const minPositionX = -(10 / viewContentCount * (contentLength + viewContentCount));
+        const minPositionX = -(contentWidth / viewContentCount * (contentLength + viewContentCount));
         const lastContentPositionX = minPositionX + remainContentsWidth;
 
         return { firstContentPositionX, lastContentPositionX, minPositionX, maxPositionX }
