@@ -19,52 +19,54 @@ export default class MenuSlide{
 
     init(data){
         this.setContentData(data);
-        this.setListWidth();
+        this.render(this.getInitRenderData());
 
-        const firstView = Array.from(this.contentData).slice(0,this.viewContentCount);
-        const lastView = Array.from(this.contentData).slice(-this.viewContentCount);
-        const initRenderData = lastView.concat(this.contentData).concat(firstView);
-        
-        this.render(initRenderData);
-
-        this.currentPositionX = this.positionValue().firstContentPositionX;
-        this.slideListEl.style.transform = `translateX(${this.currentPositionX}%`;
-
-        this.clickNextBtn(this.positionValue());
-        this.clickPreBtn(this.positionValue());
+        this.setInitSlidePosition(this.positionValue());
+        this.clickNaviBtn(this.positionValue());
+        this.transitionEnd(this.positionValue());
     }
     
-    clickNextBtn({firstContentPositionX, minPositionX}){
+    getInitRenderData(){
 
-        const nextBtn = this.naviEl.children[1];
-        nextBtn.addEventListener('click', ()=>{
-            this.slideContent(this.minusPositionX.bind(this), this.positionValue());
-            if(this.currentPositionX === minPositionX)this.resetToInitContent(firstContentPositionX,this.timer);
+        const firstViewData = Array.from(this.contentData).slice(0,this.viewContentCount);
+        const lastViewData = Array.from(this.contentData).slice(-this.viewContentCount);
+        const initRenderData = lastViewData.concat(this.contentData).concat(firstViewData);
+        return initRenderData;
+    }
+
+    setInitSlidePosition({firstContentPositionX}){
+        this.currentPositionX = firstContentPositionX;
+        this.slideListEl.style.transform = `translateX(${this.currentPositionX}%`;
+    }
+
+    clickNaviBtn(positionValue){
+        
+        this.naviEl.addEventListener('click', ({target})=>{
+            if(target.className === "slide-prev")this.slideContent(this.plusPositionX.bind(this), positionValue);
+            if(target.className === "slide-next")this.slideContent(this.minusPositionX.bind(this), positionValue);
         })
     }
 
-    clickPreBtn({lastContentPositionX, maxPositionX}){
+    transitionEnd({firstContentPositionX, lastContentPositionX, minPositionX, maxPositionX}){
 
-        const preBtn = this.naviEl.children[0];
-        preBtn.addEventListener('click', ()=>{
-            this.slideContent(this.plusPositionX.bind(this), this.positionValue());
-            if(this.currentPositionX === maxPositionX)this.resetToInitContent(lastContentPositionX,this.timer);
+        this.slideListEl.addEventListener('transitionend',()=>{
+            if(this.currentPositionX === maxPositionX )this.resetToInitContent(lastContentPositionX);
+            if(this.currentPositionX === minPositionX )this.resetToInitContent(firstContentPositionX);
         })
     }
 
     slideContent(convertPositionValue,positionValue){
-        if(!this.slideListEl.style.transition)this.slideListEl.style.transition = `transform ${this.timer/1000}s`;
 
+        if(!this.slideListEl.style.transition)this.slideListEl.style.transition = `transform ${this.timer/1000}s`;
         convertPositionValue(positionValue);
         this.slideListEl.style.transform = `translateX(${this.currentPositionX}%)`;
     }
 
-    resetToInitContent(initPositionX, timer){
-        setTimeout(()=>{
-            this.slideListEl.style.transition = "";
-            this.currentPositionX = initPositionX;
-            this.slideListEl.style.transform = `translateX(${this.currentPositionX}%)`;
-        },timer);
+    resetToInitContent(initPositionX){
+
+        this.slideListEl.style.transition = "";
+        this.currentPositionX = initPositionX;
+        this.slideListEl.style.transform = `translateX(${this.currentPositionX}%)`;
     }
     
     plusPositionX({maxPositionX}){
@@ -77,10 +79,6 @@ export default class MenuSlide{
         const contentWidth = 10;
         this.currentPositionX -= contentWidth;
         if(this.currentPositionX < minPositionX)this.currentPositionX = minPositionX;
-    }
-
-    setListWidth(){
-        this.slideListEl.style.width = 1000 + "%";
     }
 
     setContentData(data){
