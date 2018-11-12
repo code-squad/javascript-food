@@ -715,3 +715,29 @@ ul {
     background-position-x : right;
     background-position-y : 0.3rem;
 }
+
+.scroll{
+    position : fixed;
+    right : 13rem;
+    bottom : 7rem;
+}
+
+.scroll a{
+    width : 5rem;
+    height : 5rem;
+    display : block;
+    cursor : pointer;
+    background-image : url(http://cdn.bmf.kr/web/common/btn_page_up_down_new.png);
+}
+
+.scroll .page-up{
+    background-position : left top;
+}
+
+.scroll .page-down{
+    background-position : left bottom;
+}
+
+.scroll a:focus, .scroll a:hover{
+    background-position-x : right;
+}
