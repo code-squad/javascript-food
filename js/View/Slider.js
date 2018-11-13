@@ -8,14 +8,14 @@ export default class Slider {
     this.apiUrl = apiUrl;
     this.tpl = tpl;
     this.index = 1;
-    this.slideIndex = null;
+    this.slideNumber = null;
     this.timeChecker = null;
   }
 
   initialize() {
     this.render();
     this._registEvent(this.getSlideNumber());
-    this.slideIndex = this.getSlideNumber();
+    this.slideNumber = this.getSlideNumber();
   }
 
   getSlideNumber() {
@@ -32,60 +32,32 @@ export default class Slider {
 
   _prevSlide(number) {
     this.transformByIndex('prev', number);
-    // if (this.timeChecker) return;
-    // this.index--;
-    // qsa('.slider')[number].style.transform = `translateX(${this.index * -980}px)`
-    // this.timeChecker = setTimeout(() => {
-    //   if (this.index === 0) {
-    //     this.index = 2;
-    //     qsa('.slider')[number].style.transition = 'none';
-    //     qsa('.slider')[number].style.transform = `translateX(${(qsa('.slider')[number].children.length - 2) * -980}px)`;
-    //   }
-    //   this.initializeChecker();
-    // }, 700);
-    // qsa('.slider')[number].style.transition = 'all 0.7s';
   }
-  transformByIndex(way, number, before, after) {
+
+  _nextSlide(number) {
+    this.transformByIndex('next', number);
+  }
+
+  transformByIndex(way, number) {
     if (this.timeChecker) return;
     way === 'prev' ? this.index-- : this.index++;
     qsa('.slider')[number].style.transform = `translateX(${this.index * -980}px)`
+
     if (way === 'prev') {
-      this.timeChecker = setTimeout(() => {
-        if (this.index === 0) {
-          this.index = 2;
-          qsa('.slider')[number].style.transition = 'none';
-          qsa('.slider')[number].style.transform = `translateX(${(qsa('.slider')[number].children.length - 2) * -980}px)`;
-        }
-        this.initializeChecker();
-      }, 700);
+      this.timeChecker = setTimeout(() => this.cbTranslateWithoutTransition(0, qsa('.slider')[number].children.length - 2, number), 700);
     } else {
-      // this.index++;
-      // qsa('.slider')[number].style.transform = `translateX(${this.index * -980}px)`
-      this.timeChecker = setTimeout(() => {
-        if (this.index + 1 >= qsa('.slider')[number].children.length) {
-          this.index = 1;
-          qsa('.slider')[number].style.transition = 'none';
-          qsa('.slider')[number].style.transform = `translateX(${this.index * -980}px)`;
-        }
-        this.initializeChecker();
-      }, 700);
+      this.timeChecker = setTimeout(() => this.cbTranslateWithoutTransition(qsa('.slider')[number].children.length - 1, 1, number), 700);
     }
     qsa('.slider')[number].style.transition = 'all 0.7s';
   }
 
-  _nextSlide(number) {
-    if (this.timeChecker) return;
-    this.index++;
-    qsa('.slider')[number].style.transform = `translateX(${this.index * -980}px)`
-    this.timeChecker = setTimeout(() => {
-      if (this.index + 1 >= qsa('.slider')[number].children.length) {
-        this.index = 1;
-        qsa('.slider')[number].style.transition = 'none';
-        qsa('.slider')[number].style.transform = `translateX(${this.index * -980}px)`;
-      }
-      this.initializeChecker();
-    }, 700);
-    qsa('.slider')[number].style.transition = 'all 0.7s';
+  cbTranslateWithoutTransition(condition, after, number) {
+    if (this.index === condition) {
+      this.index = after;
+      qsa('.slider')[number].style.transition = 'none';
+      qsa('.slider')[number].style.transform = `translateX(${after * -980}px)`;
+    }
+    this.initializeChecker();
   }
 
   render() {
@@ -103,7 +75,7 @@ export default class Slider {
 
   cbRenderByTemplate(ajaxRequest) {
     qs(`#${this.category}_slider`).innerHTML += this.tpl.makeSlideItemTpl(ajaxRequest); // API에 메뉴가 8개라 3번 호출
-    qsa('.slider')[this.slideIndex].style.transform = 'translateX(-980px)'
+    qsa('.slider')[this.slideNumber].style.transform = 'translateX(-980px)'
   }
 
   initializeChecker() {
