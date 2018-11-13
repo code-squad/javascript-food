@@ -725,6 +725,7 @@ ul {
     position : fixed;
     right : 10rem;
     bottom : 7rem;
+    transition : opacity 0.5s;
 }
 
 .scroll a{
