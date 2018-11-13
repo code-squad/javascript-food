@@ -1,4 +1,4 @@
-import {ajax} from '../util.js';
+import {ajax, throttle} from '../util.js';
 import {itemListTpl} from '../template/itemListTpl.js';
 
 export default class MenuSlide{
@@ -41,10 +41,10 @@ export default class MenuSlide{
 
     clickNaviBtn(positionValue){
         
-        this.naviEl.addEventListener('click', ({target})=>{
+        this.naviEl.addEventListener('click', throttle(({target})=>{
             if(target.className === "slide-prev")this.slideContent(this.plusPositionX.bind(this), positionValue);
             if(target.className === "slide-next")this.slideContent(this.minusPositionX.bind(this), positionValue);
-        })
+        },this.timer))
     }
 
     transitionEnd({firstContentPositionX, lastContentPositionX, minPositionX, maxPositionX}){

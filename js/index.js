@@ -40,7 +40,8 @@ const mainSlideNavi = new SlideNavi({ naviEl: _e.mainSlideEl.querySelector('.sli
 const mainSlideContoller = new SlideController({
     slideContent: mainSlideContent,
     slideNavi: mainSlideNavi,
-    slideDots: mainSlideDots
+    slideDots: mainSlideDots,
+    timer : 1000
 });
 
 const subSlideContent = new SlideContent({
@@ -52,7 +53,8 @@ const subSlideNavi = new SlideNavi({ naviEl : _e.subSlideEl.querySelector('.slid
 const subSlideController = new SlideController({
     slideContent: subSlideContent,
     slideNavi: subSlideNavi,
-    slideDots: subSlideDots
+    slideDots: subSlideDots,
+    timer : 500
 })
 
 const mainDishSlide = new MenuSlide({
