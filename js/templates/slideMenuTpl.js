@@ -26,16 +26,18 @@ export const slideTpl = {
     const slideWrapHTML = list.reduce((acc, cv, idx) => {
       acc.temp += _sideMenuItemTpl(cv);
       if ((idx + 1) % ROW_SIZE === 0 || idx === list.length) {
-        acc.unit +=
-          `
+        acc.unit.push(`
         <ul class="slide_item_wrap" data-num="${acc.ulCount}">
         ${acc.temp}
         </ul>`
+        )
         acc.temp = '';
         acc.ulCount++;
       }
       return acc;
-    }, { unit: '', temp: '', ulCount: 0 });
+    }, { unit: [], temp: '', ulCount: 0 });
+    slideWrapHTML.unit.push(slideWrapHTML.unit[0]);
+    slideWrapHTML.unit.unshift(slideWrapHTML.unit[slideWrapHTML.unit.length - 2])
     return slideWrapHTML.unit;
   }
 }

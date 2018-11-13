@@ -7,15 +7,19 @@ export default class Slider {
     this.subtitle = slideMenuData[category].subtitle;
     this.apiUrl = apiUrl;
     this.tpl = tpl;
-    this.index = 0;
+    this.index = 1;
+    this.slideIndex = null;
+    this.timeChecker = null;
   }
+
   initialize() {
     this.render();
     this._registEvent(this.getSlideNumber());
+    this.slideIndex = this.getSlideNumber();
   }
-  getSlideNumber() {
-    return document.querySelectorAll('.slider').length - 1;
 
+  getSlideNumber() {
+    return qsa('.slider').length - 1;
   }
 
   _registEvent(number) {
@@ -27,14 +31,61 @@ export default class Slider {
   }
 
   _prevSlide(number) {
-    this.index && this.index--;
-    qsa('.slider')[number].style.transform = `translate3d(${this.index * -980}px,0,0)`
+    this.transformByIndex('prev', number);
+    // if (this.timeChecker) return;
+    // this.index--;
+    // qsa('.slider')[number].style.transform = `translateX(${this.index * -980}px)`
+    // this.timeChecker = setTimeout(() => {
+    //   if (this.index === 0) {
+    //     this.index = 2;
+    //     qsa('.slider')[number].style.transition = 'none';
+    //     qsa('.slider')[number].style.transform = `translateX(${(qsa('.slider')[number].children.length - 2) * -980}px)`;
+    //   }
+    //   this.initializeChecker();
+    // }, 700);
+    // qsa('.slider')[number].style.transition = 'all 0.7s';
+  }
+  transformByIndex(way, number, before, after) {
+    if (this.timeChecker) return;
+    way === 'prev' ? this.index-- : this.index++;
+    qsa('.slider')[number].style.transform = `translateX(${this.index * -980}px)`
+    if (way === 'prev') {
+      this.timeChecker = setTimeout(() => {
+        if (this.index === 0) {
+          this.index = 2;
+          qsa('.slider')[number].style.transition = 'none';
+          qsa('.slider')[number].style.transform = `translateX(${(qsa('.slider')[number].children.length - 2) * -980}px)`;
+        }
+        this.initializeChecker();
+      }, 700);
+    } else {
+      // this.index++;
+      // qsa('.slider')[number].style.transform = `translateX(${this.index * -980}px)`
+      this.timeChecker = setTimeout(() => {
+        if (this.index + 1 >= qsa('.slider')[number].children.length) {
+          this.index = 1;
+          qsa('.slider')[number].style.transition = 'none';
+          qsa('.slider')[number].style.transform = `translateX(${this.index * -980}px)`;
+        }
+        this.initializeChecker();
+      }, 700);
+    }
+    qsa('.slider')[number].style.transition = 'all 0.7s';
   }
 
   _nextSlide(number) {
-    if (this.index + 1 >= qs(`#${this.category}_slider`).children.length) return;
+    if (this.timeChecker) return;
     this.index++;
-    qsa('.slider')[number].style.transform = `translate3d(${this.index * -980}px,0,0)`
+    qsa('.slider')[number].style.transform = `translateX(${this.index * -980}px)`
+    this.timeChecker = setTimeout(() => {
+      if (this.index + 1 >= qsa('.slider')[number].children.length) {
+        this.index = 1;
+        qsa('.slider')[number].style.transition = 'none';
+        qsa('.slider')[number].style.transform = `translateX(${this.index * -980}px)`;
+      }
+      this.initializeChecker();
+    }, 700);
+    qsa('.slider')[number].style.transition = 'all 0.7s';
   }
 
   render() {
@@ -51,9 +102,11 @@ export default class Slider {
   }
 
   cbRenderByTemplate(ajaxRequest) {
-    console.log(ajaxRequest);
     qs(`#${this.category}_slider`).innerHTML += this.tpl.makeSlideItemTpl(ajaxRequest); // API에 메뉴가 8개라 3번 호출
-    qs(`#${this.category}_slider`).innerHTML += this.tpl.makeSlideItemTpl(ajaxRequest);
-    qs(`#${this.category}_slider`).innerHTML += this.tpl.makeSlideItemTpl(ajaxRequest);
+    qsa('.slider')[this.slideIndex].style.transform = 'translateX(-980px)'
+  }
+
+  initializeChecker() {
+    this.timeChecker = null;
   }
 }

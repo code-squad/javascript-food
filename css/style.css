@@ -504,7 +504,6 @@ header {
 
 .slider {
   width: max-content;
-  transition: all 0.5s;
 }
 
 .slide_item_wrap {
