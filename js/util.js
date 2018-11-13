@@ -9,4 +9,14 @@ function ajax({ url, handler, requestType }) {
     xhr.send();
 }
 
-export { ajax }
+function throttle(func, timer){
+  let shutter;
+  return function () {
+    if (!shutter) {
+      func.apply(null, arguments);
+      shutter = setTimeout(() => shutter = null, timer);
+    }
+  }
+}
+
+export { ajax, throttle }
