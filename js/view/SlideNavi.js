@@ -5,14 +5,14 @@ export default class SlideNavi {
     }
 
     clickNextBtn(handler) {
-        const nextBtn = this.naviEl.querySelector('.slide_next');
+        const nextBtn = this.naviEl.querySelector('.slide-next');
         nextBtn.addEventListener('click', () => {
             handler(this.plusIdx());
         })
     }
 
     clickPreBtn(handler) {
-        const preBtn = this.naviEl.querySelector('.slide_prev');
+        const preBtn = this.naviEl.querySelector('.slide-prev');
         preBtn.addEventListener('click', () => {
             handler(this.minusIdx());
         })

@@ -1,10 +1,10 @@
-import { bestMenuTpl } from '../template/bestMenuTpl.js';
+import { itemListTpl } from '../template/itemListTpl.js';
 import { ajax } from '../util.js';
 
 export default class TabView {
-    constructor({ tabElement, url }) {
+    constructor({ tabElement, urlRequestData }) {
         this.tabEl = tabElement;
-        this.url = url;
+        this.url = urlRequestData;
     }
 
     init() {
@@ -47,8 +47,8 @@ export default class TabView {
         return target.getAttribute('data-category_no');
     }
 
-    render(data) {
+    render({items}) {
         const bestListEl = this.tabEl.nextElementSibling;
-        bestListEl.innerHTML = bestMenuTpl(data);
+        bestListEl.innerHTML = itemListTpl(items);
     }
 }

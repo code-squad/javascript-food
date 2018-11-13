@@ -1,12 +1,11 @@
-import { ajax, fadeIn, fadeOut } from '../util.js';
+import { ajax } from '../util.js';
 import { slideTpl } from '../template/slideTpl.js';
 
 export default class SlideContent {
-    constructor({ slideListEl, url, runTime = 1000 }) {
+    constructor({ slideListEl, urlRequestData }) {
         this.slideListEl = slideListEl;
-        this.runTime = runTime;
         ajax({
-            'url': url,
+            'url': urlRequestData,
             'requestType': 'GET',
             'handler': this.init.bind(this)
         });
@@ -21,26 +20,20 @@ export default class SlideContent {
 
     showPreContent() {
         const preContentEl = this.slideListEl.children[0];
-        const currentContentEl = this.slideListEl.children[1];
         const nextContentEl = this.slideListEl.children[2];
 
         this.render(preContentEl, this.contentData[this.getCurrentIdx()]);
-        fadeIn(preContentEl, this.runTime);
-        fadeOut(currentContentEl, this.runTime);
+        
         this.slideListEl.insertBefore(nextContentEl, preContentEl);
     }
 
     showNextContent() {
         const preContentEl = this.slideListEl.children[0];
-        const currentContentEl = this.slideListEl.children[1];
         const nextContentEl = this.slideListEl.children[2];
 
         //그 다음에 보여줄 content를 render한다.
         this.render(nextContentEl, this.contentData[this.getCurrentIdx()]);
-        //다음에 보여줄 content를 fadeIn해주고 현재 content를 fadeOut해준다.
-        fadeIn(nextContentEl, this.runTime);
-        fadeOut(currentContentEl, this.runTime);
-        //맨 앞자리의 li태그를 맨 뒷자리로 옮겨준다.
+        //맨앞에 있는 li엘리먼트를 맨 마지막 순서로 옮겨준다. 
         this.slideListEl.appendChild(preContentEl);
     }
 

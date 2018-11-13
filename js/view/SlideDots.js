@@ -6,8 +6,8 @@ export default class SlideDots {
     clickDots(handler) {
         this.dotListEl.addEventListener('click', ({ target }) => {
             if (target.tagName !== 'A') return;
-            handler(target.innerText);
             this.highlightDot(target.innerText);
+            handler(target.innerText);
         })
     }
 
