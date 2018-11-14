@@ -1,13 +1,13 @@
 export default class SlideController {
 
-    constructor({ slideContent, slideNavi, slideDots }) {
+    constructor({ slideContent, slideNavi, slideDots, timer }) {
         this.slideContent = slideContent;
         this.slideNavi = slideNavi;
         this.slideDots = slideDots;
 
-        this.slideNavi.clickNextBtn(this.nextSlide.bind(this));
-        this.slideNavi.clickPreBtn(this.preSlide.bind(this));
-        this.slideDots.clickDots(this.showSlide.bind(this));
+        this.slideNavi.clickNextBtn(this.nextSlide.bind(this),timer);
+        this.slideNavi.clickPreBtn(this.preSlide.bind(this),timer);
+        this.slideDots.clickDots(this.showSlide.bind(this),timer);
     }
 
     nextSlide(idx) {

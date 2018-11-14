@@ -4,6 +4,7 @@ import SlideDots from './view/SlideDots.js';
 import SlideNavi from './view/SlideNavi.js';
 import SlideController from './view/SlideController.js';
 import MenuSlide from './view/MenuSlide.js';
+import ScrollBtnView from './view/ScrollBtnView.js';
 
 const _e = {
     body: document.querySelector('body'),
@@ -13,7 +14,8 @@ const _e = {
     mainDishEl:document.querySelector(".dish-list-wrap[data-index='0']"),
     sideDishEl:document.querySelector(".dish-list-wrap[data-index='1']"),
     soupDishEl:document.querySelector(".dish-list-wrap[data-index='2']"),
-    courseDishEl:document.querySelector(".dish-list-wrap[data-index='3']")
+    courseDishEl:document.querySelector(".dish-list-wrap[data-index='3']"),
+    scrollBtnEl:document.querySelector(".scroll")
 }
 
 const contentURL = {
@@ -40,7 +42,8 @@ const mainSlideNavi = new SlideNavi({ naviEl: _e.mainSlideEl.querySelector('.sli
 const mainSlideContoller = new SlideController({
     slideContent: mainSlideContent,
     slideNavi: mainSlideNavi,
-    slideDots: mainSlideDots
+    slideDots: mainSlideDots,
+    timer : 1000
 });
 
 const subSlideContent = new SlideContent({
@@ -52,7 +55,8 @@ const subSlideNavi = new SlideNavi({ naviEl : _e.subSlideEl.querySelector('.slid
 const subSlideController = new SlideController({
     slideContent: subSlideContent,
     slideNavi: subSlideNavi,
-    slideDots: subSlideDots
+    slideDots: subSlideDots,
+    timer : 500
 })
 
 const mainDishSlide = new MenuSlide({
@@ -77,6 +81,10 @@ const courseDishSlide = new MenuSlide({
     urlRequestData : contentURL.courseDish,
     slideListEl : _e.courseDishEl.querySelector('.slide-list'),
     naviEl : _e.courseDishEl.querySelector('.slides-navi'),
+})
+
+const scrollBtnView = new ScrollBtnView({
+    scrollEl : _e.scrollBtnEl
 })
 
 function init() {

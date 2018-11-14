@@ -1,14 +1,15 @@
+import { throttle } from '../util.js'
 export default class SlideDots {
     constructor({ dotListEl }) {
         this.dotListEl = dotListEl;
     }
 
-    clickDots(handler) {
-        this.dotListEl.addEventListener('click', ({ target }) => {
+    clickDots(handler,timer) {
+        this.dotListEl.addEventListener('click', throttle(({ target }) => {
             if (target.tagName !== 'A') return;
             this.highlightDot(target.innerText);
             handler(target.innerText);
-        })
+        },timer))
     }
 
     highlightDot(idx) {
