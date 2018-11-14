@@ -21,25 +21,26 @@ export const slideTpl = {
         </a>
   `
   },
-  makeSlideItemTpl: function (list) {
-    const ROW_SIZE = 4;
+  makeSlideItemTpl: function (list, ROW_SIZE = 4) {
     const slideWrapHTML = list.reduce((acc, cv, idx) => {
       acc.temp += _sideMenuItemTpl(cv);
       if ((idx + 1) % ROW_SIZE === 0 || idx === list.length) {
-        acc.unit.push(`
-        <ul class="slide_item_wrap" data-num="${acc.ulCount}">
-        ${acc.temp}
-        </ul>`
-        )
+        acc.unit.push(ulWrapping('slide_item_wrap', acc.temp));
         acc.temp = '';
-        acc.ulCount++;
       }
       return acc;
-    }, { unit: [], temp: '', ulCount: 0 });
-    slideWrapHTML.unit.push(slideWrapHTML.unit[0]);
-    slideWrapHTML.unit.unshift(slideWrapHTML.unit[slideWrapHTML.unit.length - 2])
-    return slideWrapHTML.unit;
+    }, { unit: [], temp: '' });
+    const slideArr = _addFakeSlide(slideWrapHTML.unit);
+    return slideArr;
   }
+}
+function ulWrapping(className, liData) {
+  return `<ul class="${className}">${liData}</ul>`
+}
+function _addFakeSlide(slideArr) {
+  slideArr.push(slideArr[0]);
+  slideArr.unshift(slideArr[slideArr.length - 2]);
+  return slideArr;
 }
 function _sideMenuItemTpl(data) {
   const sideMenuItemHTML =

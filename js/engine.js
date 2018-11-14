@@ -4,8 +4,8 @@
 */
 
 export class Engine {
-  constructor(header, navModel, bestMenu, promotion, sideMenuSlide, mainMenuSlide, courseMenuSlide) {
-    this.header = header;
+  constructor({ nav, navModel, bestMenu, promotion, sideMenuSlide, mainMenuSlide, courseMenuSlide }) {
+    this.nav = nav;
     this.bestMenu = bestMenu;
     this.promotion = promotion;
     this.sideMenuSlide = sideMenuSlide;
@@ -16,7 +16,7 @@ export class Engine {
   }
 
   start() {
-    this.header.initialize(this.navModel.getNavItemList());
+    this.nav.initialize(this.navModel.getNavItemList());
     this.bestMenu.initialize();
     this.promotion.initialize();
     this.sideMenuSlide.initialize();

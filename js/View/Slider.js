@@ -41,7 +41,8 @@ export default class Slider {
   transformByIndex(way, number) {
     if (this.timeChecker) return;
     way === 'prev' ? this.index-- : this.index++;
-    qsa('.slider')[number].style.transform = `translateX(${this.index * -980}px)`
+    const SLIDE_WIDTH = qs('.slide_wrap').offsetWidth;
+    qsa('.slider')[number].style.transform = `translateX(${this.index * -SLIDE_WIDTH}px)`
 
     if (way === 'prev') {
       this.timeChecker = setTimeout(() => this.cbTranslateWithoutTransition(0, qsa('.slider')[number].children.length - 2, number), 700);
@@ -52,10 +53,11 @@ export default class Slider {
   }
 
   cbTranslateWithoutTransition(condition, after, number) {
+    const SLIDE_WIDTH = qs('.slide_wrap').offsetWidth;
     if (this.index === condition) {
       this.index = after;
       qsa('.slider')[number].style.transition = 'none';
-      qsa('.slider')[number].style.transform = `translateX(${after * -980}px)`;
+      qsa('.slider')[number].style.transform = `translateX(${after * -SLIDE_WIDTH}px)`;
     }
     this.initializeChecker();
   }
@@ -74,8 +76,9 @@ export default class Slider {
   }
 
   cbRenderByTemplate(ajaxRequest) {
+    const SLIDE_WIDTH = qs('.slide_wrap').offsetWidth;
     qs(`#${this.category}_slider`).innerHTML += this.tpl.makeSlideItemTpl(ajaxRequest); // API에 메뉴가 8개라 3번 호출
-    qsa('.slider')[this.slideNumber].style.transform = 'translateX(-980px)'
+    qsa('.slider')[this.slideNumber].style.transform = `translateX(${-SLIDE_WIDTH}px)`
   }
 
   initializeChecker() {

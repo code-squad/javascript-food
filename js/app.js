@@ -37,6 +37,6 @@ const courseMenuSlide = new Slider({
 });
 
 const engine = new Engine(
-  nav, navModel, bestMenu, promotion, sideMenuSlide, mainMenuSlide, courseMenuSlide);
+  { nav, navModel, bestMenu, promotion, sideMenuSlide, mainMenuSlide, courseMenuSlide });
 
 document.addEventListener("DOMContentLoaded", engine.start.bind(engine));
