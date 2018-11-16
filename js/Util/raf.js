@@ -1,7 +1,7 @@
 export const RequestAnimations = {
   fadeIn(element, time) {
-    var opacity = 0;
-    var fps = (16 / time) * 10;
+    let opacity = 0;
+    let fps = (16 / time) * 10;
     function increase() {
       opacity += fps;
       if (opacity >= 1) {
@@ -14,8 +14,8 @@ export const RequestAnimations = {
     increase();
   },
   fadeOut(element, time) {
-    var opacity = 1;
-    var fps = (16 / time) * 10;
+    let opacity = 1;
+    let fps = (16 / time) * 10;
     function decrease() {
       opacity -= fps;
       if (opacity <= 0) {

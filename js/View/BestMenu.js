@@ -1,21 +1,20 @@
-import { bestMenuItemTpl } from "../templates/bestMenuTpl.js";
 import { qs, qsa, ajax } from "../../js/Util/helper.js";
 
 export default class BestMenu {
-  constructor() {
+  constructor(apiUrl, bestMenuItemTpl) {
     this._randomIdx = () => Math.floor(Math.random() * 6);
-    this.apiUrl = null;
+    this.apiUrl = apiUrl;
+    this.bestMenuItemTpl = bestMenuItemTpl;
   }
 
-  initialize({ url }) {
-    this.apiUrl = url;
-    this._render(url, this._randomIdx());
+  initialize() {
+    this._render(this.apiUrl, this._randomIdx());
     this._registClickTabEvt();
   }
 
   _render(url, idx) {
-    this._removeClassIfExist('menu_nav_item_selected');
-    ajax(url, this._renderBestMenuFromAPI, idx);
+    this._removeClassIfExist('best_menu_nav_item_selected');
+    ajax(url, this._renderBestMenuFromAPI.bind(this), idx);
   }
 
   _removeClassIfExist(targetCSSClass) {
@@ -23,14 +22,15 @@ export default class BestMenu {
   }
 
   _renderBestMenuFromAPI(requestData, idx) {
-    qs(".menu_item_list").innerHTML = bestMenuItemTpl(requestData[idx].items);
-    qsa(".menu_nav_a")[idx].classList.add("menu_nav_item_selected");
+    console.log(requestData);
+    qs(".best_menu_item_list").innerHTML = this.bestMenuItemTpl(requestData[idx].items);
+    qsa(".best_menu_nav_a")[idx].classList.add("best_menu_nav_item_selected");
   }
 
   _registClickTabEvt() {
     qs(".best_menu_nav").addEventListener("click", e => {
-      this._clickTab(e.target);
       e.preventDefault();
+      this._clickTab(e.target);
     });
   }
 
