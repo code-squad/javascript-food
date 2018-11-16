@@ -16,12 +16,20 @@ export default class ScrollBtnView{
         window.addEventListener('scroll', ()=>{
 
             clearTimeout(shutter);
-            this.scrollEl.style.opacity = "0";
+            this.hideElement(this.scrollEl);
 
-            shutter = setTimeout(()=>{
-                this.scrollEl.style.opacity = "1";
-            },timer)
+            shutter = setTimeout(()=>{this.showElement(this.scrollEl)},timer);
         })
+    }
+
+    hideElement(element){
+        element.classList.remove('show');
+        element.classList.add('hide');
+    }
+
+    showElement(element){
+        element.classList.remove('hide');
+        element.classList.add('show');
     }
 
     pageScroll(className){

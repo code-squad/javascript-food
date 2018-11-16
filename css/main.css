@@ -747,3 +747,11 @@ ul {
 .scroll a:focus, .scroll a:hover{
     background-position-x : right;
 }
+
+.scroll.hide{
+    opacity : 0;
+}
+
+.scroll.show{
+    opacity : 1;
+}
