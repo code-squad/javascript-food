@@ -12,6 +12,8 @@ import Nav from "./View/Nav.js";
 import BestMenu from "./View/BestMenu.js";
 import Promotion from './View/Promotion.js'
 import Slider from './View/Slider.js';
+import ScrollBtn from './View/ScrollBtn.js'
+
 
 import { bestMenuItemTpl } from "./templates/bestMenuTpl.js";
 import { slideTpl } from './templates/slideMenuTpl.js'
@@ -23,6 +25,7 @@ const navModel = new NavModel(navItemList);
 const nav = new Nav();
 const bestMenu = new BestMenu(apiUrl.bestMenu, bestMenuItemTpl);
 const promotion = new Promotion(RequestAnimations);
+const scrollBtn = new ScrollBtn();
 
 const sideMenuSlide = new Slider({
   category: 'side', apiUrl: apiUrl.sideMenu, tpl: slideTpl, slideMenuData: slideMenuData

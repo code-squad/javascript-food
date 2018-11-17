@@ -1,4 +1,28 @@
 export const RequestAnimations = {
+  scrollUp(layerY, goal, speed) {
+    function decrease() {
+      layerY -= speed;
+      window.scrollTo(0, layerY);
+      if (layerY <= goal) {
+        window.scrollTo(0, goal);
+        return true;
+      }
+      requestAnimationFrame(decrease);
+    }
+    decrease();
+  },
+  scrollDown(layerY, goal, speed) {
+    function increase() {
+      layerY += speed;
+      window.scrollTo(0, layerY);
+      if (layerY >= goal) {
+        window.scrollTo(0, goal);
+        return true;
+      }
+      requestAnimationFrame(increase);
+    }
+    increase();
+  },
   fadeIn(element, time) {
     let opacity = 0;
     let fps = (16 / time) * 10;
