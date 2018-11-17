@@ -1,7 +1,5 @@
 /* Entry Point */
 
-import { Engine } from "./engine.js";
-
 import { navItemList } from "./Model/data/navData.js";
 import { apiUrl } from "./model/data/apiUrl.js";
 
@@ -39,7 +37,11 @@ const courseMenuSlide = new Slider({
   category: 'course', apiUrl: apiUrl.courseMenu, tpl: slideTpl, slideMenuData: slideMenuData
 });
 
-const engine = new Engine(
-  { nav, navModel, bestMenu, promotion, sideMenuSlide, mainMenuSlide, courseMenuSlide });
-
-document.addEventListener("DOMContentLoaded", engine.start.bind(engine));
+document.addEventListener("DOMContentLoaded", () => {
+  nav.initialize(navModel.getNavItemList());
+  bestMenu.initialize();
+  promotion.initialize();
+  sideMenuSlide.initialize();
+  mainMenuSlide.initialize();
+  courseMenuSlide.initialize();
+});
