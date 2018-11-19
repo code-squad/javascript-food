@@ -1,17 +1,17 @@
 export default class ScrollBtnView{
-    constructor({scrollEl, debounceTimer = 200}){
+    constructor({scrollEl, debounceTimer = 200, acceleration = 1.5}){
         this.scrollEl = scrollEl;
-        this.clickScrollBtn();
-        this.viewScrollBtn(debounceTimer);
+        this.clickScrollBtn(acceleration);
+        this.scrollWindow(debounceTimer);
     }
     
-    clickScrollBtn(){ 
+    clickScrollBtn(acceleration){ 
         this.scrollEl.addEventListener('click', ({target})=>{
-            this.pageScroll(target.className);
+            this.pageScroll(target.className, acceleration);
         })
     }
 
-    viewScrollBtn(timer){
+    scrollWindow(timer){
         let shutter;
         window.addEventListener('scroll', ()=>{
 
@@ -32,7 +32,7 @@ export default class ScrollBtnView{
         element.classList.add('show');
     }
 
-    pageScroll(className){
+    pageScroll(className, acceleration){
         const pageY = scrollY;
         const pageHeight = document.body.scrollHeight;
         let fps = 1;
@@ -41,12 +41,12 @@ export default class ScrollBtnView{
         if( className === "page-down")pageDown();
 
         function pageUp(){
-            fps = fps * 1.5;
+            fps = fps * acceleration;
             scrollTo(0, pageY - fps);
             if(pageY > fps)requestAnimationFrame(pageUp);
         }
         function pageDown(){
-            fps = fps * 1.5;
+            fps = fps * acceleration;
             scrollTo(0, pageY + fps);
             if(pageY + fps < pageHeight)requestAnimationFrame(pageDown);
         }
