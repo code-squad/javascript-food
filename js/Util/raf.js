@@ -1,5 +1,6 @@
 export const RequestAnimations = {
   scrollUp(layerY, goal, speed) {
+    speed /= 10;
     function decrease() {
       layerY -= speed;
       window.scrollTo(0, layerY);
@@ -12,6 +13,7 @@ export const RequestAnimations = {
     decrease();
   },
   scrollDown(layerY, goal, speed) {
+    speed /= 10;
     function increase() {
       layerY += speed;
       window.scrollTo(0, layerY);

@@ -7,7 +7,7 @@ export default class Promotion {
     this.fadeOut = fadeOut;
   }
 
-  initialize() {
+  init() {
     this._showSlide(this.index);
     this._registEvent();
   }

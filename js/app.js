@@ -2,8 +2,6 @@
 
 import { navItemList } from "./Model/data/navData.js";
 import { apiUrl } from "./model/data/apiUrl.js";
-
-import { NavModel } from "./Model/navModel.js";
 import { slideMenuData } from './Model/data/slideMenuData.js';
 
 import Nav from "./View/Nav.js";
@@ -15,15 +13,16 @@ import ScrollBtn from './View/ScrollBtn.js'
 
 import { bestMenuItemTpl } from "./templates/bestMenuTpl.js";
 import { slideTpl } from './templates/slideMenuTpl.js'
+import { scrollBtnTpl } from './templates/scrollBtnTpl.js'
 
 import { RequestAnimations } from './Util/raf.js'
 
-const navModel = new NavModel(navItemList);
 
-const nav = new Nav();
+const nav = new Nav(navItemList);
 const bestMenu = new BestMenu(apiUrl.bestMenu, bestMenuItemTpl);
 const promotion = new Promotion(RequestAnimations);
-const scrollBtn = new ScrollBtn();
+const scrollBtn = new ScrollBtn(
+  { scrollBtnTpl: scrollBtnTpl, className: 'scroll_btn_box', speed: 1000 });
 
 const sideMenuSlide = new Slider({
   category: 'side', apiUrl: apiUrl.sideMenu, tpl: slideTpl, slideMenuData: slideMenuData
@@ -38,10 +37,11 @@ const courseMenuSlide = new Slider({
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  nav.initialize(navModel.getNavItemList());
-  bestMenu.initialize();
-  promotion.initialize();
-  sideMenuSlide.initialize();
-  mainMenuSlide.initialize();
-  courseMenuSlide.initialize();
+  nav.init();
+  bestMenu.init();
+  promotion.init();
+  sideMenuSlide.init();
+  mainMenuSlide.init();
+  courseMenuSlide.init();
+  scrollBtn.init();
 });
