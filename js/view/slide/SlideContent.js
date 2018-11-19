@@ -1,5 +1,5 @@
-import { ajax } from '../util.js';
-import { slideTpl } from '../template/slideTpl.js';
+import { ajax } from '../../util.js';
+import { slideTpl } from '../../template/slideTpl.js';
 
 export default class SlideContent {
     constructor({ slideListEl, urlRequestData }) {

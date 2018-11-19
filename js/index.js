@@ -1,8 +1,8 @@
 import TabView from './view/TabView.js';
-import SlideContent from './view/SlideContent.js';
-import SlideDots from './view/SlideDots.js';
-import SlideNavi from './view/SlideNavi.js';
-import SlideController from './view/SlideController.js';
+import SlideContent from './view/slide/SlideContent.js';
+import SlideDots from './view/slide/SlideDots.js';
+import SlideNavi from './view/slide/SlideNavi.js';
+import SlideController from './view/slide/SlideController.js';
 import MenuSlide from './view/MenuSlide.js';
 import ScrollBtnView from './view/ScrollBtnView.js';
 
