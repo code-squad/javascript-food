@@ -11,10 +11,10 @@ const _e = {
     bestTabEl: document.querySelector('.best-seller-tab'),
     mainSlideEl: document.querySelector('.main-slide-wrap'),
     subSlideEl: document.querySelector('.sub-slide-wrap'),
-    mainDishEl:document.querySelector(".dish-list-wrap[data-index='0']"),
-    sideDishEl:document.querySelector(".dish-list-wrap[data-index='1']"),
-    soupDishEl:document.querySelector(".dish-list-wrap[data-index='2']"),
-    courseDishEl:document.querySelector(".dish-list-wrap[data-index='3']"),
+    mainDishEl:document.querySelector(".dish-list-wrap.main-dish"),
+    sideDishEl:document.querySelector(".dish-list-wrap.side-dish"),
+    soupDishEl:document.querySelector(".dish-list-wrap.soup-dish"),
+    courseDishEl:document.querySelector(".dish-list-wrap.course-dish"),
     scrollBtnEl:document.querySelector(".scroll")
 }
 
