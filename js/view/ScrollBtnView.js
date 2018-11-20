@@ -1,3 +1,4 @@
+import { debounce } from '../util.js'
 export default class ScrollBtnView{
     constructor({scrollEl, debounceTimer = 200, acceleration = 1.5}){
         this.scrollEl = scrollEl;
@@ -12,14 +13,12 @@ export default class ScrollBtnView{
     }
 
     scrollWindow(timer){
-        let shutter;
         window.addEventListener('scroll', ()=>{
-
-            clearTimeout(shutter);
             this.hideElement(this.scrollEl);
-
-            shutter = setTimeout(()=>{this.showElement(this.scrollEl)},timer);
         })
+        window.addEventListener('scroll', debounce(()=>{
+            this.showElement(this.scrollEl);
+        },timer))
     }
 
     hideElement(element){

@@ -19,4 +19,12 @@ function throttle(func, timer){
   }
 }
 
-export { ajax, throttle }
+function debounce(func, timer){
+  let shutter;
+  return function (){
+    clearTimeout(shutter);
+    setTimeout(()=>{ func.apply(null, arguments) }, timer);
+  }
+}
+
+export { ajax, throttle, debounce }
