@@ -7,7 +7,7 @@ export default class BestMenu {
     this.bestMenuItemTpl = bestMenuItemTpl;
   }
 
-  initialize() {
+  init() {
     this._render(this.apiUrl, this._randomIdx());
     this._registClickTabEvt();
   }

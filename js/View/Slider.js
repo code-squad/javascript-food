@@ -11,7 +11,7 @@ export default class Slider {
     this.timeChecker = null;
   }
 
-  initialize() {
+  init() {
     this.render();
     this._registEvent();
   }

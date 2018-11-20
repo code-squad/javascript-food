@@ -812,3 +812,26 @@ header {
   font-size: 0.8em;
   margin: 20px 0;
 }
+
+.scroll_btn_box {
+  position: fixed;
+  top: 500px;
+  left: 1180px;
+  width: 50px;
+  height: 100px;
+}
+
+.scroll_up_btn {
+  display: block;
+  width: 50px;
+  height: 50px;
+  background: url("https://cdn.bmf.kr/web/common/btn_page_up_down_new.png") no-repeat;
+}
+
+.scroll_down_btn {
+  display: block;
+  width: 50px;
+  height: 50px;
+  background: url("https://cdn.bmf.kr/web/common/btn_page_up_down_new.png") no-repeat;
+  background-position: 0 -50px;
+}
