@@ -1,4 +1,4 @@
-import { debounce } from '../util.js'
+import { debounce, showElement, hideElement } from '../util.js'
 export default class ScrollBtnView{
     constructor({scrollEl, debounceTimer = 200, acceleration = 1.5}){
         this.scrollEl = scrollEl;
@@ -14,21 +14,11 @@ export default class ScrollBtnView{
 
     scrollWindow(timer){
         window.addEventListener('scroll', ()=>{
-            this.hideElement(this.scrollEl);
+            hideElement(this.scrollEl);
         })
         window.addEventListener('scroll', debounce(()=>{
-            this.showElement(this.scrollEl);
+            showElement(this.scrollEl);
         },timer))
-    }
-
-    hideElement(element){
-        element.classList.remove('show');
-        element.classList.add('hide');
-    }
-
-    showElement(element){
-        element.classList.remove('hide');
-        element.classList.add('show');
     }
 
     pageScroll(className, acceleration){

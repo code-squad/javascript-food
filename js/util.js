@@ -27,4 +27,14 @@ function debounce(func, timer){
   }
 }
 
-export { ajax, throttle, debounce }
+function hideElement(element){
+  element.classList.remove('show');
+  element.classList.add('hide');
+}
+
+function showElement(element){
+  element.classList.remove('hide');
+  element.classList.add('show');
+}
+
+export { ajax, throttle, debounce, hideElement, showElement }
