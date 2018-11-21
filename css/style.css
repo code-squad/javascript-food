@@ -95,7 +95,7 @@ header {
 }
 
 .search_wrap {
-  display: flex;
+  position: relative;
   align-items: center;
   width: 270px;
   height: 100px;
@@ -104,6 +104,7 @@ header {
 }
 
 .search_bar {
+  margin-top: 28px;
   border: 1px solid #cbcbd4;
 }
 
@@ -134,6 +135,24 @@ header {
 
 .search_list_img {
   vertical-align: middle;
+}
+
+.search_auto_drop {
+  width: 270px;
+  height: 44px;
+  background-color: #ccc;
+  border: 1px solid #cbcbd4;
+  box-sizing: border-box;
+  z-index: 1000;
+}
+
+.search_auto_drop_focus {
+  background-color: yellow;
+}
+
+.search_auto_drop_sp {
+  display: block;
+  margin: 12px 0 0 10px;
 }
 
 /* nav */

@@ -20,6 +20,29 @@ export default class ScrollBtn {
     scrollNode.innerHTML = this.scrollBtnTpl;
     this.setCoordiantes(scrollNode, this.leftValue, this.topValue);
     document.body.appendChild(scrollNode);
+    document.querySelector('.search_bar>ul').firstElementChild.focus();
+    $on(qs('.search_bar_in'), 'keydown', e => {
+      document.querySelector('.search_bar>ul').firstElementChild.classList.add('search_auto_drop_focus')
+    })
+    $on(qs('.search_bar_in'), 'input', e => {
+      console.log(e.target.value);
+      fetch(`http://crong.codesquad.kr:8080/ac/${e.target.value}`)
+        .then(response => { return response.text(); })
+        .then(response => {
+          if (!Array.isArray(JSON.parse(response))) {
+            document.querySelector('.search_bar>ul').innerHTML = '';
+            return;
+          }
+          console.log(JSON.parse(response));
+          document.querySelector('.search_bar>ul').innerHTML = '';
+          JSON.parse(response)[1].forEach(v => {
+            document.querySelector('.search_bar>ul').innerHTML += `
+            <div class="search_auto_drop"><span class="search_auto_drop_sp">${v}</span></div>
+            `
+          });
+
+        });
+    });
   }
 
   setCoordiantes(node, top = "500px", left = "1180px") {
