@@ -5,6 +5,7 @@ import SlideNavi from './view/slide/SlideNavi.js';
 import SlideController from './view/slide/SlideController.js';
 import MenuSlide from './view/MenuSlide.js';
 import ScrollBtnView from './view/ScrollBtnView.js';
+import AutoComplate from './view/AutoComplate.js';
 
 const _e = {
     body: document.querySelector('body'),
@@ -15,7 +16,8 @@ const _e = {
     sideDishEl:document.querySelector(".dish-list-wrap.side-dish"),
     soupDishEl:document.querySelector(".dish-list-wrap.soup-dish"),
     courseDishEl:document.querySelector(".dish-list-wrap.course-dish"),
-    scrollBtnEl:document.querySelector(".scroll")
+    scrollBtnEl:document.querySelector(".scroll"),
+    searchBarEl:document.querySelector(".searchbar")
 }
 
 const contentURL = {
@@ -85,6 +87,10 @@ const courseDishSlide = new MenuSlide({
 
 const scrollBtnView = new ScrollBtnView({
     scrollEl : _e.scrollBtnEl
+})
+
+const autoComplate = new AutoComplate({
+    searchBarEl : _e.searchBarEl
 })
 
 function init() {
