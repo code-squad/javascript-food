@@ -22,8 +22,12 @@ export default class ScrollBtn {
     document.body.appendChild(scrollNode);
     document.querySelector('.search_bar>ul').firstElementChild.focus();
     $on(qs('.search_bar_in'), 'keydown', e => {
-      document.querySelector('.search_bar>ul').firstElementChild.classList.add('search_auto_drop_focus')
-    })
+      if (e.code === 'ArrowDown') {
+        if (qs('.search_auto_drop'))
+          qs('.search_auto_drop').firstElementChild.classList.add('search_auto_drop_focus');
+      }
+      return;
+    });
     $on(qs('.search_bar_in'), 'input', e => {
       console.log(e.target.value);
       fetch(`http://crong.codesquad.kr:8080/ac/${e.target.value}`)
