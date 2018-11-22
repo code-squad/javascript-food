@@ -1,6 +1,6 @@
 import { debounce, showElement, hideElement } from '../util.js'
 export default class ScrollBtnView{
-    constructor({scrollEl, debounceTimer = 200, acceleration = 1.5}){
+    constructor({scrollEl, debounceTimer = 1000, acceleration = 1.5}){
         this.scrollEl = scrollEl;
         this.clickScrollBtn(acceleration);
         this.scrollWindow(debounceTimer);
