@@ -1,20 +1,32 @@
 import { searchListTpl } from '../template/searchListTpl.js'
-import { showElement, hideElement } from '../util.js' 
+import { debounce, showElement, hideElement } from '../util.js' 
 export default class AutoComplate{
-    constructor({searchBarEl}){
+    constructor({searchBarEl, urlRequestData, debounceTimer=1000}){
         this.searchBarEl = searchBarEl;
-        this.inputEvent();
+        this.inputEvent(debounceTimer);
+        this.urlRequestData = urlRequestData;
     }
 
-    inputEvent(){
+    inputEvent(timer){
         const inputEl = this.searchBarEl.querySelector('input');
         const searchList = this.searchBarEl.querySelector('.search-list');
 
-        inputEl.addEventListener('input', () => {
-            showElement(searchList);
-        })
-        inputEl.addEventListener('blur', ()=>{
-            hideElement(searchList);
-        })
+        inputEl.addEventListener('focus',()=>{showElement(searchList)})
+        inputEl.addEventListener('blur', ()=>{hideElement(searchList)})
+        inputEl.addEventListener('input', debounce(({target}) => {
+            fetch(this.getRequestUrl(target.value), { mode : 'cors'})
+            .then(reponse => reponse.text())
+            .then(text=>{this.render(JSON.parse(text))})
+            .catch(error=>{})
+        },timer))
+    }
+
+    getRequestUrl(value){
+        return this.urlRequestData + value;
+    }
+    
+    render(data){
+        const searchList = this.searchBarEl.querySelector('.search-list');
+        searchList.innerHTML = searchListTpl(data);
     }
 }

@@ -27,7 +27,8 @@ const contentURL = {
     mainDish: 'http://crong.codesquad.kr:8080/woowa/main',
     slideDish: 'http://crong.codesquad.kr:8080/woowa/side',
     soupDish: 'http://crong.codesquad.kr:8080/woowa/soup',
-    courseDish: 'http://crong.codesquad.kr:8080/woowa/course'
+    courseDish: 'http://crong.codesquad.kr:8080/woowa/course',
+    autoComplate: 'http://crong.codesquad.kr:8080/ac/'
 }
 
 const tabView = new TabView({
@@ -90,7 +91,8 @@ const scrollBtnView = new ScrollBtnView({
 })
 
 const autoComplate = new AutoComplate({
-    searchBarEl : _e.searchBarEl
+    searchBarEl : _e.searchBarEl,
+    urlRequestData : contentURL.autoComplate
 })
 
 function init() {
