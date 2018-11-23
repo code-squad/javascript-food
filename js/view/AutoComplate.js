@@ -11,10 +11,11 @@ export default class AutoComplate{
             searchList : this.searchBarEl.querySelector('.search-list'),
             submit : this.searchBarEl.querySelector('button')
         };
+        this.selectedEl = null;
         this.totalEvent(debounceTimer)
     }
 
-    totalEvent(timer){
+    totalEvent(timer){        
         
         const event = {
             input : ()=>{
@@ -23,14 +24,27 @@ export default class AutoComplate{
             focus : ()=>{
                 this._el.input.addEventListener('focus',this.focusEventHandler.bind(this))
             },
+            click : ()=>{
+                
+            },
             clickAnotherArea : ()=>{
                 document.body.addEventListener('click', this.clickAnotherAreaHanlder.bind(this))
             },
+            keyup : ()=>{
+                this._e.searchbar.addEventListener('keyup',(e)=>{
+                    if(e.key === "ArrowUp")this.keyupArrowUpHandler()
+                    if(e.key === "ArrowDown")this.keyupArrowDownHandler()
+                    if(e.key === "Enter")this.keyupEnterHandler()
+                })
+            },
+            hover : ()=>{
+                
+            }
         }
 
         Object.keys(event).forEach( v=> event[v]())
     }
-
+    
     focusEventHandler(){
         showElement(this._el.searchList)
     }
@@ -48,12 +62,43 @@ export default class AutoComplate{
         .catch(error=>{})
     }
 
+    mouseoverEventHandler(){
+        
+    }
+
+    mouseleaveEventHandler(){
+        
+    }
+
+    keyupArrowUpHandler(){
+        
+    }
+
+    keyupArrowDownHandler(){
+        
+    }
+
+    keyupEnterHandler(){
+        
+    }
+
+    addSelectedClassName(){
+        
+    }
+
+    removeSelectedClassName(){
+        
+    }
+
+    getSelectedElement(){
+        
+    }
+
     getRequestUrl(value){
         return this.urlRequestData + value;
     }
-    
+
     render(data){
-        const searchList = this.searchBarEl.querySelector('.search-list');
-        searchList.innerHTML = searchListTpl(data);
+        this._el.searchList.innerHTML = searchListTpl(data);
     }
 }
