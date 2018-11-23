@@ -3,22 +3,49 @@ import { debounce, showElement, hideElement } from '../util.js'
 export default class AutoComplate{
     constructor({searchBarEl, urlRequestData, debounceTimer=1000}){
         this.searchBarEl = searchBarEl;
-        this.inputEvent(debounceTimer);
         this.urlRequestData = urlRequestData;
+
+        this._el = { 
+            searchbar : this.searchBarEl,
+            input : this.searchBarEl.querySelector('input'),
+            searchList : this.searchBarEl.querySelector('.search-list'),
+            submit : this.searchBarEl.querySelector('button')
+        };
+        this.totalEvent(debounceTimer)
     }
 
-    inputEvent(timer){
-        const inputEl = this.searchBarEl.querySelector('input');
-        const searchList = this.searchBarEl.querySelector('.search-list');
+    totalEvent(timer){
+        
+        const event = {
+            input : ()=>{
+                this._el.input.addEventListener('input',debounce(this.inputEventHandler.bind(this),timer))
+            },
+            focus : ()=>{
+                this._el.input.addEventListener('focus',this.focusEventHandler.bind(this))
+            },
+            clickAnotherArea : ()=>{
+                document.body.addEventListener('click', this.clickAnotherAreaHanlder.bind(this))
+            },
+        }
 
-        inputEl.addEventListener('focus',()=>{showElement(searchList)})
-        inputEl.addEventListener('blur', ()=>{hideElement(searchList)})
-        inputEl.addEventListener('input', debounce(({target}) => {
-            fetch(this.getRequestUrl(target.value), { mode : 'cors'})
-            .then(reponse => reponse.text())
-            .then(text=>{this.render(JSON.parse(text))})
-            .catch(error=>{})
-        },timer))
+        Object.keys(event).forEach( v=> event[v]())
+    }
+
+    focusEventHandler(){
+        showElement(this._el.searchList)
+    }
+
+    clickAnotherAreaHanlder({target}){
+        target.parentElement !== this._el.searchList && target !== this._el.input && hideElement(this._el.searchList);
+    }
+
+    inputEventHandler({target}){
+
+        showElement(this._el.searchList)
+        fetch(this.getRequestUrl(target.value), { mode : 'cors'})
+        .then(reponse => reponse.text())
+        .then(text=>{this.render(JSON.parse(text))})
+        .catch(error=>{})
     }
 
     getRequestUrl(value){
