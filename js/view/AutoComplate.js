@@ -31,14 +31,14 @@ export default class AutoComplate{
                 document.body.addEventListener('click', this.clickAnotherAreaHanlder.bind(this))
             },
             keyup : ()=>{
-                this._e.searchbar.addEventListener('keyup',(e)=>{
+                this._el.searchbar.addEventListener('keyup',(e)=>{
                     if(e.key === "ArrowUp")this.keyupArrowUpHandler()
                     if(e.key === "ArrowDown")this.keyupArrowDownHandler()
                     if(e.key === "Enter")this.keyupEnterHandler()
                 })
             },
             hover : ()=>{
-                
+                this._el.searchList.addEventListener('mouseover', this.mouseoverEventHandler.bind(this))
             }
         }
 
@@ -62,8 +62,12 @@ export default class AutoComplate{
         .catch(error=>{})
     }
 
-    mouseoverEventHandler(){
-        
+    mouseoverEventHandler(e){
+        const target = e.target;
+        const preTarget = e.relatedTarget;
+        if(target.tagName !== 'LI')return ;
+        if(preTarget && preTarget.className === 'relatedValue selected')this.removeSelectedClassName(preTarget);
+        this.addSelectedClassName(this.getCurrentSelectedElement(target));
     }
 
     mouseleaveEventHandler(){
@@ -82,16 +86,17 @@ export default class AutoComplate{
         
     }
 
-    addSelectedClassName(){
-        
+    addSelectedClassName(target){
+        target.classList.add('selected');
     }
 
-    removeSelectedClassName(){
-        
+    removeSelectedClassName(target){
+        target.classList.remove('selected');
     }
 
-    getSelectedElement(){
-        
+    getCurrentSelectedElement(target){
+        this.selectedEl = target || this.selectedEl;
+        return this.selectedEl;
     }
 
     getRequestUrl(value){
