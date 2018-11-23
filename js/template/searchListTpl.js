@@ -3,7 +3,7 @@ function highlightElmentTpl(value){
 }
 
 function relatedQueryTpl(inputvalue, relatedValue){
-    return `<li>${relatedValue}</li>`.replace(RegExp(inputvalue,'g'), highlightElmentTpl(inputvalue))
+    return `<li class="relatedValue">${relatedValue}</li>`.replace(RegExp(inputvalue,'g'), highlightElmentTpl(inputvalue))
 }
 
 function searchListTpl(searchListData){

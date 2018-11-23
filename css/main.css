@@ -124,7 +124,7 @@ ul {
     display : none;
 }
 
-.header .searchbar .search-list li:hover{
+.header .searchbar .search-list .selected{
     background-color : #eee;
     cursor : pointer;
 }
