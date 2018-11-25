@@ -39,6 +39,7 @@ export default class AutoComplate{
             },
             hover : ()=>{
                 this._el.searchList.addEventListener('mouseover', this.mouseoverEventHandler.bind(this))
+                this._el.searchList.addEventListener('mouseleave', this.mouseleaveEventHandler.bind(this))
             }
         }
 
@@ -67,11 +68,12 @@ export default class AutoComplate{
         const preTarget = e.relatedTarget;
         if(target.tagName !== 'LI')return ;
         if(preTarget && preTarget.className === 'relatedValue selected')this.removeSelectedClassName(preTarget);
-        this.addSelectedClassName(this.getCurrentSelectedElement(target));
+        this.addSelectedClassName(this.getSelectedEl(target));
     }
 
     mouseleaveEventHandler(){
-        
+        this.removeSelectedClassName(this.getSelectedEl());
+        this.resetSelectedElement();
     }
 
     keyupArrowUpHandler(){
@@ -94,9 +96,13 @@ export default class AutoComplate{
         target.classList.remove('selected');
     }
 
-    getCurrentSelectedElement(target){
+    getSelectedEl(target){
         this.selectedEl = target || this.selectedEl;
         return this.selectedEl;
+    }
+
+    resetSelectedElement(){
+        this.selectedEl = null;
     }
 
     getRequestUrl(value){
