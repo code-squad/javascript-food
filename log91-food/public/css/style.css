@@ -108,6 +108,10 @@ header {
   border: 1px solid #cbcbd4;
 }
 
+.search_bar_in_wrap {
+  border-bottom: 1px solid #cbcbd4;
+}
+
 .search_bar_in {
   vertical-align: middle;
   border: none;
@@ -137,22 +141,28 @@ header {
   vertical-align: middle;
 }
 
+.search_auto_list {
+  background-color: #fff;
+}
+
 .search_auto_drop {
   width: 270px;
   height: 44px;
-  background-color: #ccc;
-  border: 1px solid #cbcbd4;
   box-sizing: border-box;
-  z-index: 1000;
+  padding-top: 12px;
 }
 
-.search_auto_drop_focus {
-  background-color: yellow;
+.search_auto_drop_hl {
+  background-color: #efefef;
 }
 
 .search_auto_drop_sp {
   display: block;
-  margin: 12px 0 0 10px;
+  margin-left: 10px;
+}
+
+.search_auto_drop strong {
+  color: var(--main-theme-color);
 }
 
 /* nav */
