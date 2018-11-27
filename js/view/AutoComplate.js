@@ -31,11 +31,7 @@ export default class AutoComplate{
                 document.body.addEventListener('click', this.clickAnotherAreaHanlder.bind(this))
             },
             keyup : ()=>{
-                this._el.searchbar.addEventListener('keyup',(e)=>{
-                    if(e.key === "ArrowUp")this.keyupArrowUpHandler()
-                    if(e.key === "ArrowDown")this.keyupArrowDownHandler()
-                    if(e.key === "Enter")this.keyupEnterHandler()
-                })
+                this._el.searchbar.addEventListener('keyup',this.keyupHandler.bind(this))
             },
             hover : ()=>{
                 this._el.searchList.addEventListener('mouseover', this.mouseoverEventHandler.bind(this))
@@ -74,15 +70,21 @@ export default class AutoComplate{
         this.resetSelectedElement();
     }
 
-    keyupArrowUpHandler(){
-        
+    keyupHandler({key}){
+        if(key === "ArrowUp" || key === "ArrowDown")this.arrowkeyHandler(key)
+        if(key === "Enter")this.enterkeyHandler()
     }
 
-    keyupArrowDownHandler(){
-        
+    arrowkeyHandler(key){
+        let selectedEl
+        key === "ArrowUp" ? 
+        selectedEl = this.selectedEl ? this.selectedEl.previousSibling : this._el.searchList.lastChild
+        : selectedEl = this.selectedEl ? this.selectedEl.nextSibling : this._el.searchList.firstChild
+        this.removeSelectedClassName();
+        this.addSelectedClassName(selectedEl);
     }
 
-    keyupEnterHandler(){
+    enterkeyHandler(){
         
     }
 
