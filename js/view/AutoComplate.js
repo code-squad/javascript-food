@@ -1,7 +1,7 @@
 import { searchListTpl } from '../template/searchListTpl.js'
 import { debounce, showElement, hideElement } from '../util.js' 
 export default class AutoComplate{
-    constructor({searchBarEl, urlRequestData, debounceTimer=1000}){
+    constructor({searchBarEl, urlRequestData, debounceTimer=200}){
         this.searchBarEl = searchBarEl;
         this.urlRequestData = urlRequestData;
 
@@ -15,7 +15,7 @@ export default class AutoComplate{
         this.totalEvent(debounceTimer)
     }
 
-    totalEvent(timer){        
+    totalEvent(timer){
         
         const event = {
             input : ()=>{
@@ -25,7 +25,7 @@ export default class AutoComplate{
                 this._el.input.addEventListener('focus',this.focusEventHandler.bind(this))
             },
             click : ()=>{
-                
+                this._el.searchList.addEventListener('click',this.clickSearchListHandler.bind(this))
             },
             clickAnotherArea : ()=>{
                 document.body.addEventListener('click', this.clickAnotherAreaHanlder.bind(this))
@@ -50,8 +50,13 @@ export default class AutoComplate{
         target.parentElement !== this._el.searchList && target !== this._el.input && hideElement(this._el.searchList);
     }
 
-    inputEventHandler({target}){
+    clickSearchListHandler({target}){
+        if(target.tagName !== "LI")return ;
+        this.inputValue();
+        hideElement(target.parentElement);
+    }
 
+    inputEventHandler({target}){
         showElement(this._el.searchList)
         fetch(this.getRequestUrl(target.value), { mode : 'cors'})
         .then(reponse => reponse.text())
@@ -85,7 +90,8 @@ export default class AutoComplate{
     }
 
     enterkeyHandler(){
-        
+        this.inputValue();
+        hideElement(this._el.searchList);
     }
 
     addSelectedClassName(target){
@@ -95,6 +101,10 @@ export default class AutoComplate{
     
     removeSelectedClassName(){
         this.selectedEl && this.selectedEl.classList.remove('selected');
+    }
+
+    inputValue(){
+        this._el.input.value = this.selectedEl.innerText;
     }
 
     resetSelectedElement(){
