@@ -63,16 +63,14 @@ export default class AutoComplate{
         .catch(error=>{})
     }
 
-    mouseoverEventHandler(e){
-        const target = e.target;
-        const preTarget = e.relatedTarget;
+    mouseoverEventHandler({target}){
         if(target.tagName !== 'LI')return ;
-        if(preTarget && preTarget.className === 'relatedValue selected')this.removeSelectedClassName(preTarget);
-        this.addSelectedClassName(this.getSelectedEl(target));
+        this.removeSelectedClassName();
+        this.addSelectedClassName(target);
     }
 
     mouseleaveEventHandler(){
-        this.removeSelectedClassName(this.getSelectedEl());
+        this.removeSelectedClassName();
         this.resetSelectedElement();
     }
 
@@ -89,16 +87,12 @@ export default class AutoComplate{
     }
 
     addSelectedClassName(target){
-        target.classList.add('selected');
+        this.selectedEl = target;
+        this.selectedEl && this.selectedEl.classList.add('selected');
     }
-
-    removeSelectedClassName(target){
-        target.classList.remove('selected');
-    }
-
-    getSelectedEl(target){
-        this.selectedEl = target || this.selectedEl;
-        return this.selectedEl;
+    
+    removeSelectedClassName(){
+        this.selectedEl && this.selectedEl.classList.remove('selected');
     }
 
     resetSelectedElement(){
