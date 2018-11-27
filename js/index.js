@@ -5,7 +5,7 @@ import SlideNavi from './view/slide/SlideNavi.js';
 import SlideController from './view/slide/SlideController.js';
 import MenuSlide from './view/MenuSlide.js';
 import ScrollBtnView from './view/ScrollBtnView.js';
-import AutoComplate from './view/AutoComplate.js';
+import AutoComplete from './view/AutoComplete.js';
 
 const _e = {
     body: document.querySelector('body'),
@@ -28,7 +28,7 @@ const contentURL = {
     slideDish: 'http://crong.codesquad.kr:8080/woowa/side',
     soupDish: 'http://crong.codesquad.kr:8080/woowa/soup',
     courseDish: 'http://crong.codesquad.kr:8080/woowa/course',
-    autoComplate: 'http://crong.codesquad.kr:8080/ac/'
+    autoComplete: 'http://crong.codesquad.kr:8080/ac/'
 }
 
 const tabView = new TabView({
@@ -90,9 +90,9 @@ const scrollBtnView = new ScrollBtnView({
     scrollEl : _e.scrollBtnEl
 })
 
-const autoComplate = new AutoComplate({
+const autoComplete = new AutoComplete({
     searchBarEl : _e.searchBarEl,
-    urlRequestData : contentURL.autoComplate
+    urlRequestData : contentURL.autoComplete
 })
 
 function init() {

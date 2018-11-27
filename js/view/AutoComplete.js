@@ -1,6 +1,6 @@
 import { searchListTpl } from '../template/searchListTpl.js'
 import { debounce, showElement, hideElement } from '../util.js' 
-export default class AutoComplate{
+export default class AutoComplete{
     constructor({searchBarEl, urlRequestData, debounceTimer=200}){
         this.searchBarEl = searchBarEl;
         this.urlRequestData = urlRequestData;
