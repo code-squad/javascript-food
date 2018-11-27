@@ -23,7 +23,7 @@ function debounce(func, timer){
   let shutter;
   return function (){
     clearTimeout(shutter);
-    setTimeout(()=>{ func.apply(null, arguments) }, timer);
+    shutter = setTimeout(()=>{ func.apply(null, arguments) }, timer);
   }
 }
 
