@@ -1,4 +1,4 @@
-import { throttle } from '../util.js';
+import { throttle } from '../../util.js';
 export default class SlideNavi {
     constructor({ naviEl }) {
         this.naviEl = naviEl;

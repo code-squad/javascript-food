@@ -19,4 +19,22 @@ function throttle(func, timer){
   }
 }
 
-export { ajax, throttle }
+function debounce(func, timer){
+  let shutter;
+  return function (){
+    clearTimeout(shutter);
+    shutter = setTimeout(()=>{ func.apply(null, arguments) }, timer);
+  }
+}
+
+function hideElement(element){
+  element.classList.remove('show');
+  element.classList.add('hide');
+}
+
+function showElement(element){
+  element.classList.remove('hide');
+  element.classList.add('show');
+}
+
+export { ajax, throttle, debounce, hideElement, showElement }

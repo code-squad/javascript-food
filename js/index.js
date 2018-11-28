@@ -1,21 +1,23 @@
 import TabView from './view/TabView.js';
-import SlideContent from './view/SlideContent.js';
-import SlideDots from './view/SlideDots.js';
-import SlideNavi from './view/SlideNavi.js';
-import SlideController from './view/SlideController.js';
+import SlideContent from './view/slide/SlideContent.js';
+import SlideDots from './view/slide/SlideDots.js';
+import SlideNavi from './view/slide/SlideNavi.js';
+import SlideController from './view/slide/SlideController.js';
 import MenuSlide from './view/MenuSlide.js';
 import ScrollBtnView from './view/ScrollBtnView.js';
+import AutoComplete from './view/AutoComplete.js';
 
 const _e = {
     body: document.querySelector('body'),
     bestTabEl: document.querySelector('.best-seller-tab'),
     mainSlideEl: document.querySelector('.main-slide-wrap'),
     subSlideEl: document.querySelector('.sub-slide-wrap'),
-    mainDishEl:document.querySelector(".dish-list-wrap[data-index='0']"),
-    sideDishEl:document.querySelector(".dish-list-wrap[data-index='1']"),
-    soupDishEl:document.querySelector(".dish-list-wrap[data-index='2']"),
-    courseDishEl:document.querySelector(".dish-list-wrap[data-index='3']"),
-    scrollBtnEl:document.querySelector(".scroll")
+    mainDishEl:document.querySelector(".dish-list-wrap.main-dish"),
+    sideDishEl:document.querySelector(".dish-list-wrap.side-dish"),
+    soupDishEl:document.querySelector(".dish-list-wrap.soup-dish"),
+    courseDishEl:document.querySelector(".dish-list-wrap.course-dish"),
+    scrollBtnEl:document.querySelector(".scroll"),
+    searchBarEl:document.querySelector(".searchbar")
 }
 
 const contentURL = {
@@ -25,7 +27,8 @@ const contentURL = {
     mainDish: 'http://crong.codesquad.kr:8080/woowa/main',
     slideDish: 'http://crong.codesquad.kr:8080/woowa/side',
     soupDish: 'http://crong.codesquad.kr:8080/woowa/soup',
-    courseDish: 'http://crong.codesquad.kr:8080/woowa/course'
+    courseDish: 'http://crong.codesquad.kr:8080/woowa/course',
+    autoComplete: 'http://crong.codesquad.kr:8080/ac/'
 }
 
 const tabView = new TabView({
@@ -85,6 +88,11 @@ const courseDishSlide = new MenuSlide({
 
 const scrollBtnView = new ScrollBtnView({
     scrollEl : _e.scrollBtnEl
+})
+
+const autoComplete = new AutoComplete({
+    searchBarEl : _e.searchBarEl,
+    urlRequestData : contentURL.autoComplete
 })
 
 function init() {

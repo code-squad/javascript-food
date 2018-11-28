@@ -1,4 +1,4 @@
-import { throttle } from '../util.js'
+import { throttle } from '../../util.js'
 export default class SlideDots {
     constructor({ dotListEl }) {
         this.dotListEl = dotListEl;
