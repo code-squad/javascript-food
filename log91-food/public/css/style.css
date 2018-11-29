@@ -147,18 +147,19 @@ header {
 
 .search_auto_drop {
   width: 270px;
-  height: 44px;
+  height: 40px;
   box-sizing: border-box;
   padding-top: 12px;
 }
 
-.search_auto_drop_hl {
+.highlight {
   background-color: #efefef;
 }
 
 .search_auto_drop_sp {
   display: block;
   margin-left: 10px;
+  font-size: 12px;
 }
 
 .search_auto_drop strong {

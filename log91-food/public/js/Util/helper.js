@@ -3,7 +3,7 @@ export const qsa = selector => document.querySelectorAll(selector);
 export const $on = (targetNode, eventType, callback) => {
   targetNode.addEventListener(eventType, callback);
 }
-
+export const pipe = (...fns) => x => fns.reduce((v, f) => f(v), x)
 export const ajax = (url, handler, param1) => {
   const xhr = new XMLHttpRequest();
   xhr.addEventListener("load", () => {
