@@ -7,7 +7,9 @@ function relatedQueryTpl(inputvalue, relatedValue){
 }
 
 function searchListTpl(searchListData){
-    const [ inputValue,relatedValues ] = searchListData;
+    const maxContentCount = 10;
+    let [ inputValue,relatedValues ] = searchListData;
+    relatedValues = relatedValues.length > maxContentCount ? relatedValues.slice(0,maxContentCount) : relatedValues;
     return relatedValues.reduce((prev,curr) => prev.concat(relatedQueryTpl(inputValue,curr)),'');
 }
 
