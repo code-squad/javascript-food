@@ -37,4 +37,6 @@ function showElement(element){
   element.classList.add('show');
 }
 
-export { ajax, throttle, debounce, hideElement, showElement }
+const pipe = (...fns) => value => fns.reduce( (acc,fn) => fn(acc),value);
+
+export { ajax, throttle, debounce, hideElement, showElement, pipe }

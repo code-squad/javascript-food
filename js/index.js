@@ -25,7 +25,7 @@ const contentURL = {
     mainSlide: './jsonData/mainSlideData.json',
     subSlide: './jsonData/subSlideData.json',
     mainDish: 'http://crong.codesquad.kr:8080/woowa/main',
-    slideDish: 'http://crong.codesquad.kr:8080/woowa/side',
+    sideDish: 'http://crong.codesquad.kr:8080/woowa/side',
     soupDish: 'http://crong.codesquad.kr:8080/woowa/soup',
     courseDish: 'http://crong.codesquad.kr:8080/woowa/course',
     autoComplete: 'http://crong.codesquad.kr:8080/ac/'
@@ -69,7 +69,7 @@ const mainDishSlide = new MenuSlide({
 })
 
 const sideDishSlide = new MenuSlide({
-    urlRequestData : contentURL.mainDish,
+    urlRequestData : contentURL.sideDish,
     slideListEl : _e.sideDishEl.querySelector('.slide-list'),
     naviEl : _e.sideDishEl.querySelector('.slides-navi'),
 })

@@ -1,5 +1,5 @@
 import { searchListTpl } from '../template/searchListTpl.js'
-import { debounce, showElement, hideElement } from '../util.js' 
+import { debounce, showElement, hideElement, pipe } from '../util.js' 
 export default class AutoComplete{
     constructor({searchBarEl, urlRequestData, debounceTimer=200}){
         this.searchBarEl = searchBarEl;
@@ -26,6 +26,7 @@ export default class AutoComplete{
             },
             click : ()=>{
                 this._el.searchList.addEventListener('click',this.clickSearchListHandler.bind(this))
+                this._el.submit.addEventListener('click',this.clickSubmitHandler.bind(this))
             },
             clickAnotherArea : ()=>{
                 document.body.addEventListener('click', this.clickAnotherAreaHanlder.bind(this))
@@ -56,11 +57,18 @@ export default class AutoComplete{
         hideElement(target.parentElement);
     }
 
+    clickSubmitHandler(){
+        
+    }
+
     inputEventHandler({target}){
+        
         showElement(this._el.searchList)
         fetch(this.getRequestUrl(target.value), { mode : 'cors'})
         .then(reponse => reponse.text())
-        .then(text=>{this.render(JSON.parse(text))})
+        .then(text=>{
+            pipe(JSON.parse, searchListTpl, this.render.bind(this))(text)
+        })
         .catch(error=>{})
     }
 
@@ -116,6 +124,6 @@ export default class AutoComplete{
     }
 
     render(data){
-        this._el.searchList.innerHTML = searchListTpl(data);
+        this._el.searchList.innerHTML = data;
     }
 }
