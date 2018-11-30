@@ -23,13 +23,13 @@ export default class AutoComplete {
           null;
   }
 
-  _renderAutoCompleteHandler(e) {
-    fetch(`${this.apiUrl}/${e.target.value}`)
-      .then(response => { return response.text(); })
-      .then(response => {
-        const autoCompleteTpl = pipe(JSON.parse, this._strongSameLiteral, this.autoCompleteItemTpl)(response);
-        qs('.search_auto_list').innerHTML = autoCompleteTpl;
-      }).catch(error => { });
+  async _renderAutoCompleteHandler(e) {
+    const response = await fetch(`${this.apiUrl}/${e.target.value}`);
+    const autoData = await response.text();
+    try {
+      const autoCompleteTpl = pipe(JSON.parse, this._strongSameLiteral, this.autoCompleteItemTpl)(autoData);
+      qs('.search_auto_list').innerHTML = autoCompleteTpl;
+    } catch{ }
   }
 
   _strongSameLiteral(parsedData) {
