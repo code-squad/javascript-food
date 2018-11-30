@@ -4,12 +4,12 @@ export default class SlideDots {
         this.dotListEl = dotListEl;
     }
 
-    clickDots(handler,timer) {
+    clickDots(handler, timer) {
         this.dotListEl.addEventListener('click', throttle(({ target }) => {
             if (target.tagName !== 'A') return;
             this.highlightDot(target.innerText);
             handler(target.innerText);
-        },timer))
+        }, timer))
     }
 
     highlightDot(idx) {

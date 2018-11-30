@@ -1,15 +1,15 @@
 function ajax({ url, handler, requestType }) {
-    const xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', () => {
+  const xhr = new XMLHttpRequest();
+  xhr.addEventListener('load', () => {
 
-        const requestData = JSON.parse(xhr.response);
-        handler(requestData);
-    })
-    xhr.open(requestType, url);
-    xhr.send();
+    const requestData = JSON.parse(xhr.response);
+    handler(requestData);
+  })
+  xhr.open(requestType, url);
+  xhr.send();
 }
 
-function throttle(func, timer){
+function throttle(func, timer) {
   let shutter;
   return function () {
     if (!shutter) {
@@ -19,24 +19,24 @@ function throttle(func, timer){
   }
 }
 
-function debounce(func, timer){
+function debounce(func, timer) {
   let shutter;
-  return function (){
+  return function () {
     clearTimeout(shutter);
-    shutter = setTimeout(()=>{ func.apply(null, arguments) }, timer);
+    shutter = setTimeout(() => { func.apply(null, arguments) }, timer);
   }
 }
 
-function hideElement(element){
+function hideElement(element) {
   element.classList.remove('show');
   element.classList.add('hide');
 }
 
-function showElement(element){
+function showElement(element) {
   element.classList.remove('hide');
   element.classList.add('show');
 }
 
-const pipe = (...fns) => value => fns.reduce( (acc,fn) => fn(acc),value);
+const pipe = (...fns) => value => fns.reduce((acc, fn) => fn(acc), value);
 
 export { ajax, throttle, debounce, hideElement, showElement, pipe }

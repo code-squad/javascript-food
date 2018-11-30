@@ -5,9 +5,9 @@ export default class SlideController {
         this.slideNavi = slideNavi;
         this.slideDots = slideDots;
 
-        this.slideNavi.clickNextBtn(this.nextSlide.bind(this),timer);
-        this.slideNavi.clickPreBtn(this.preSlide.bind(this),timer);
-        this.slideDots.clickDots(this.showSlide.bind(this),timer);
+        this.slideNavi.clickNextBtn(this.nextSlide.bind(this), timer);
+        this.slideNavi.clickPreBtn(this.preSlide.bind(this), timer);
+        this.slideDots.clickDots(this.showSlide.bind(this), timer);
     }
 
     nextSlide(idx) {

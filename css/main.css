@@ -108,36 +108,36 @@ ul {
     margin: 3rem 0 0 4.6rem;
 }
 
-.header .searchbar .search-list{
-    z-index : 100;
-    position : absolute;
-    width : 100%;
-    font-size : 1.4rem;
-    background-color : #fff;
+.header .searchbar .search-list {
+    z-index: 100;
+    position: absolute;
+    width: 100%;
+    font-size: 1.4rem;
+    background-color: #fff;
 }
 
-.header .searchbar .search-list.show{
-    display : block;
+.header .searchbar .search-list.show {
+    display: block;
 }
 
-.header .searchbar .search-list.hide{
-    display : none;
+.header .searchbar .search-list.hide {
+    display: none;
 }
 
-.header .searchbar .search-list .selected{
-    background-color : #eee;
-    cursor : pointer;
+.header .searchbar .search-list .selected {
+    background-color: #eee;
+    cursor: pointer;
 }
 
-.header .searchbar .search-list li{
-    width : 100%;
-    padding : 1rem 0 1rem 2rem;
-    line-height : 2rem;
-    text-overflow : ellipsis;
+.header .searchbar .search-list li {
+    width: 100%;
+    padding: 1rem 0 1rem 2rem;
+    line-height: 2rem;
+    text-overflow: ellipsis;
 }
 
-.header .searchbar .search-list li b{
-    color : #fa1c1c;
+.header .searchbar .search-list li b {
+    color: #fa1c1c;
 }
 
 .header .searchbar input {
@@ -177,15 +177,15 @@ ul {
 .navi-wrap {
     width: var(--main-width);
     background-color: #483f35;
-    position : relative;
+    position: relative;
 }
 
 .navi {
     height: 5.2rem;
 }
 
-.navi ul{
-    position : absolute;
+.navi ul {
+    position: absolute;
 }
 
 .navi ul>li {
@@ -235,7 +235,7 @@ ul {
     padding-top: 2rem;
     padding-bottom: 3.5rem;
     cursor: default;
-    z-index : 100;
+    z-index: 100;
 }
 
 .navi .brand-menu .sub-list {
@@ -264,95 +264,97 @@ ul {
 
 .main-slide-wrap {
     width: var(--main-width);
-    height : 42rem;
-    position : relative;
-    text-align : center;
-    overflow : hidden;
+    height: 42rem;
+    position: relative;
+    text-align: center;
+    overflow: hidden;
 }
 
-.main-slide-wrap .slide-list ul{
-    width : auto;
-    position : relative;
+.main-slide-wrap .slide-list ul {
+    width: auto;
+    position: relative;
 }
 
-.main-slide-wrap .slide-list li{
-    position : absolute;
-    float : left;
-    width : 100%;
-    height : 42rem;
-    z-index : 0;
-    transition : opacity 1s;
+.main-slide-wrap .slide-list li {
+    position: absolute;
+    float: left;
+    width: 100%;
+    height: 42rem;
+    z-index: 0;
+    transition: opacity 1s;
 }
 
-.main-slide-wrap .slide-list li img{
-    position : relative;
-    right : 24rem;
-    height : 42rem;
-}
-.main-slide-wrap .slide-list li:nth-child(1), .main-slide-wrap .slide-list li:nth-child(3){
-    opacity : 0;
+.main-slide-wrap .slide-list li img {
+    position: relative;
+    right: 24rem;
+    height: 42rem;
 }
 
-.main-slide-wrap .slide-list li:nth-child(2){
-    opacity : 1;
-    z-index : 50;
+.main-slide-wrap .slide-list li:nth-child(1),
+.main-slide-wrap .slide-list li:nth-child(3) {
+    opacity: 0;
 }
 
-.main-slide-wrap .slides-navi{
-    position : absolute;
-    top : 40%;
-    left : 50%;
-    height : 0;
+.main-slide-wrap .slide-list li:nth-child(2) {
+    opacity: 1;
+    z-index: 50;
 }
 
-.main-slide-wrap .slides-navi a{
-    display : inline-block;
-    width : 6rem;
-    height : 9.2rem;
+.main-slide-wrap .slides-navi {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    height: 0;
+}
+
+.main-slide-wrap .slides-navi a {
+    display: inline-block;
+    width: 6rem;
+    height: 9.2rem;
     background: url(https://cdn.bmf.kr/web/common/main_slides_navi.png);
-    background-repeat : no-repeat;
-    z-index : 50;
+    background-repeat: no-repeat;
+    z-index: 50;
 }
 
-.main-slide-wrap .slides-navi .slide-prev{
-    position : absolute;
-    right : 53rem;
+.main-slide-wrap .slides-navi .slide-prev {
+    position: absolute;
+    right: 53rem;
     background-position: left center;
 }
 
-.main-slide-wrap .slides-navi .slide-next{
-    position : absolute;
-    left : 53rem;
+.main-slide-wrap .slides-navi .slide-next {
+    position: absolute;
+    left: 53rem;
     background-position: right center;
 }
 
-.main-slide-wrap .slide-dots{
-    position : absolute;
-    width : 100%;
-    height : 0;
-    bottom : 3rem;
-    z-index : 50;
+.main-slide-wrap .slide-dots {
+    position: absolute;
+    width: 100%;
+    height: 0;
+    bottom: 3rem;
+    z-index: 50;
 }
 
-.main-slide-wrap .slide-dots li{
-    display : inline-block;
-    padding : 0 0.4rem;
+.main-slide-wrap .slide-dots li {
+    display: inline-block;
+    padding: 0 0.4rem;
 }
 
-.main-slide-wrap .slide-dots li a{
-    display : block;
-    overflow : hidden;
-    border-radius : 50%;
-    width : 1rem;
-    height : 0;
-    padding-top : 1rem;
-    background-color : #FFF;
+.main-slide-wrap .slide-dots li a {
+    display: block;
+    overflow: hidden;
+    border-radius: 50%;
+    width: 1rem;
+    height: 0;
+    padding-top: 1rem;
+    background-color: #FFF;
     box-shadow: 0 0 0 0.1rem #0000001a;
-    opacity : 0.4;
+    opacity: 0.4;
 }
 
-.main-slide-wrap .slide-dots li a.now{
-    opacity : 1;
+.main-slide-wrap .slide-dots li a.now {
+    opacity: 1;
 }
 
 .main-banner-wrap .main-banner {
@@ -360,100 +362,101 @@ ul {
     overflow: hidden;
 }
 
-.main-banner .user-guide,.sub-slide-wrap {
+.main-banner .user-guide,
+.sub-slide-wrap {
     width: 47rem;
     height: 24rem;
     float: left;
-    overflow : hidden;
+    overflow: hidden;
 }
 
 .main-banner .sub-slide-wrap {
-    position : relative;
+    position: relative;
     margin-left: 1rem;
     margin-right: 2rem;
 }
 
-.sub-slide-wrap .slide-list ul{
-    width : auto;
-    position : relative;
-    overflow : hidden;
+.sub-slide-wrap .slide-list ul {
+    width: auto;
+    position: relative;
+    overflow: hidden;
 }
 
-.sub-slide-wrap .slide-list li{
-    position : absolute;
-    float : left;
-    width : 100%;
-    height : 100%;
-    z-index : 0;
-    transition : transform 0.5s;
+.sub-slide-wrap .slide-list li {
+    position: absolute;
+    float: left;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    transition: transform 0.5s;
 }
 
-.sub-slide-wrap .slide-list li:nth-child(1){
-    transform : translateX(-100%);
+.sub-slide-wrap .slide-list li:nth-child(1) {
+    transform: translateX(-100%);
 }
 
-.sub-slide-wrap .slide-list li:nth-child(3){
-    transform : translateX(100%);
+.sub-slide-wrap .slide-list li:nth-child(3) {
+    transform: translateX(100%);
 }
 
-.main-banner .sub-slide-wrap:hover .slides-navi{
-    opacity : 1;
+.main-banner .sub-slide-wrap:hover .slides-navi {
+    opacity: 1;
 }
 
-.sub-slide-wrap .slides-navi{
-    position : absolute;
-    top : 30%;
-    left : 50%;
-    height : 0;
-    opacity : 0;
-    transition : opacity 1s;
+.sub-slide-wrap .slides-navi {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    height: 0;
+    opacity: 0;
+    transition: opacity 1s;
 }
 
-.sub-slide-wrap .slides-navi a{
-    display : inline-block;
-    width : 6rem;
-    height : 9.2rem;
-    z-index : 100;
+.sub-slide-wrap .slides-navi a {
+    display: inline-block;
+    width: 6rem;
+    height: 9.2rem;
+    z-index: 100;
 }
 
-.sub-slide-wrap .slides-navi .slide-prev{
-    position : absolute;
+.sub-slide-wrap .slides-navi .slide-prev {
+    position: absolute;
     background: url(https://cdn.bmf.kr/web/common/btn_slides_prev_s.png) no-repeat center center;
-    right : 18em;
+    right: 18em;
 }
 
-.sub-slide-wrap .slides-navi .slide-next{
-    position : absolute;
+.sub-slide-wrap .slides-navi .slide-next {
+    position: absolute;
     background: url(https://cdn.bmf.kr/web/common/btn_slides_next_s.png) no-repeat center center;
-    left : 18rem;
+    left: 18rem;
 }
 
-.main-banner .sub-slide-wrap .slide-dots{
-    position : absolute;
-    top : 2rem;
-    right : 1.7rem;
-    z-index : 100;
+.main-banner .sub-slide-wrap .slide-dots {
+    position: absolute;
+    top: 2rem;
+    right: 1.7rem;
+    z-index: 100;
 }
 
-.main-banner .sub-slide-wrap .slide-dots li{
-    display : inline-block;
-    padding : 0 0.2rem;
+.main-banner .sub-slide-wrap .slide-dots li {
+    display: inline-block;
+    padding: 0 0.2rem;
 }
 
-.sub-slide-wrap .slide-dots li a{
-    display : block;
-    overflow : hidden;
-    border-radius : 50%;
-    width : 0.8rem;
-    height : 0;
-    padding-top : 0.8rem;
-    background-color : #FFF;
+.sub-slide-wrap .slide-dots li a {
+    display: block;
+    overflow: hidden;
+    border-radius: 50%;
+    width: 0.8rem;
+    height: 0;
+    padding-top: 0.8rem;
+    background-color: #FFF;
     box-shadow: 0 0 0 0.1rem #0000001a;
-    opacity : 0.4;
+    opacity: 0.4;
 }
 
-.sub-slide-wrap .slide-dots li a.now{
-    opacity : 1;
+.sub-slide-wrap .slide-dots li a.now {
+    opacity: 1;
 }
 
 .main-banner .user-guide {
@@ -481,13 +484,13 @@ ul {
     color: #999;
     font-size: 1.8rem;
     margin-bottom: 0.5rem;
-    font-weight : normal;
+    font-weight: normal;
 }
 
 .head-line p {
     font-size: 3.4rem;
     margin-top: 0;
-    font-weight : normal;
+    font-weight: normal;
 }
 
 .best-seller .best-seller-tab {
@@ -507,13 +510,13 @@ ul {
     font-weight: 800;
 }
 
-.best-seller .best-seller-tab li:hover{
+.best-seller .best-seller-tab li:hover {
     background-color: var(--main-font-color);
     color: var(--main-bg-color);
     cursor: pointer;
 }
 
-.best-seller .best-seller-tab .now{
+.best-seller .best-seller-tab .now {
     background-color: var(--main-font-color);
     color: var(--main-bg-color);
 }
@@ -524,7 +527,7 @@ ul {
 }
 
 .best-seller .best-list .items {
-    position : relative;
+    position: relative;
     background-color: var(--main-bg-color);
     width: 30.4rem;
     height: 44rem;
@@ -532,54 +535,60 @@ ul {
     margin-right: 3.35rem;
 }
 
-.best-seller .best-list .food-img{
+.best-seller .best-list .food-img {
     height: 30.4rem;
-    position :relative;
+    position: relative;
 }
 
 .best-seller .best-list .items img {
     height: 30.4rem;
 }
 
-.best-seller .food-img .dark-background, .dish-list-wrap .food-img .dark-background{
-    display : none;
-    position : absolute;
-    background-color : #000;
-    opacity : 0.5;
-    width : 100%;
-    height :100%;
-    z-index : 50;
-    top : 50%;
-    transform : translateY(-50%);
-    border-radius : 0%;
+.best-seller .food-img .dark-background,
+.dish-list-wrap .food-img .dark-background {
+    display: none;
+    position: absolute;
+    background-color: #000;
+    opacity: 0.5;
+    width: 100%;
+    height: 100%;
+    z-index: 50;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 0%;
 }
 
-.best-seller .food-img .delivery,.dish-list-wrap .food-img .delivery{
-    position : absolute;
-    display : inline-block;
-    top : 50%;
-    transform : translate3d(-50%, -50%, 0);
-    z-index : 50;
-    left : 50%;
+.best-seller .food-img .delivery,
+.dish-list-wrap .food-img .delivery {
+    position: absolute;
+    display: inline-block;
+    top: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    z-index: 50;
+    left: 50%;
 }
 
-.best-seller .food-img .delivery p,.dish-list-wrap .food-img .delivery p{
-    display : none;
-    color : #fff;
-    font-size : 2rem;
-    padding : 1rem 0;
+.best-seller .food-img .delivery p,
+.dish-list-wrap .food-img .delivery p {
+    display: none;
+    color: #fff;
+    font-size: 2rem;
+    padding: 1rem 0;
 }
 
-.best-seller .items:hover .dark-background,.best-seller .items:hover .delivery p,
-.dish-list-wrap .items:hover .dark-background,.dish-list-wrap .items:hover .delivery p{
-    display : block;
+.best-seller .items:hover .dark-background,
+.best-seller .items:hover .delivery p,
+.dish-list-wrap .items:hover .dark-background,
+.dish-list-wrap .items:hover .delivery p {
+    display: block;
 }
-.best-seller .best-list .items:nth-last-child(1){
+
+.best-seller .best-list .items:nth-last-child(1) {
     margin-right: 0;
 }
 
 .items dl {
-    overflow : hidden;
+    overflow: hidden;
     padding: 1.5rem 1.6rem;
     letter-spacing: -0.05rem;
 }
@@ -589,18 +598,18 @@ ul {
     font-weight: 800;
     font-size: 1.7rem;
     margin-bottom: 0.7rem;
-    overflow : hidden;
-    white-space : nowrap;
-    text-overflow : ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .items dl dd {
     color: #333;
     font-size: 1.3rem;
     margin-bottom: 0.7rem;
-    overflow : hidden;
-    white-space : nowrap;
-    text-overflow : ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .items .item-review {
@@ -636,29 +645,31 @@ ul {
     text-decoration: line-through;
 }
 
-.best-seller .badge-area{
-    position : absolute;
-    z-index : 100;
-    top : 0rem;
-    height : 2.4rem;
-    text-align : center;
-    transform : translateY(calc(30.4rem - 100%));
+.best-seller .badge-area {
+    position: absolute;
+    z-index: 100;
+    top: 0rem;
+    height: 2.4rem;
+    text-align: center;
+    transform: translateY(calc(30.4rem - 100%));
 }
 
-.best-seller .badge-area .event,.dish-list-wrap .badge-area .event{
-    z-index : 100;
-    display : inline-block;
-    height : 100%;
-    width : 6.2rem;
-    background-color : #c6a8a5;
-    margin-right : 0.3rem;
+.best-seller .badge-area .event,
+.dish-list-wrap .badge-area .event {
+    z-index: 100;
+    display: inline-block;
+    height: 100%;
+    width: 6.2rem;
+    background-color: #c6a8a5;
+    margin-right: 0.3rem;
 }
 
-.best-seller .badge-area .event span,.dish-list-wrap .badge-area .event span{
-    z-index : 100;
-    color : #fff;
-    line-height : 2.4rem;
-    font-size : 1.1rem;
+.best-seller .badge-area .event span,
+.dish-list-wrap .badge-area .event span {
+    z-index: 100;
+    color: #fff;
+    line-height: 2.4rem;
+    font-size: 1.1rem;
 }
 
 .dish-list-wrap {
@@ -671,125 +682,126 @@ ul {
     position: relative;
 }
 
-.dish-list-wrap .list-slide-wrap{
-    width : 100%;
-    min-height : 37.3rem;
-    overflow : hidden;
+.dish-list-wrap .list-slide-wrap {
+    width: 100%;
+    min-height: 37.3rem;
+    overflow: hidden;
 }
 
-.dish-list-wrap .list-slide-wrap .slide-list{
-    width : 1000%;
+.dish-list-wrap .list-slide-wrap .slide-list {
+    width: 1000%;
 }
 
-.dish-list-wrap .items{
-    width : 21.5rem;
-    margin : 0 1.5rem 0.8rem;
-    float : left;
-    text-align : center;
+.dish-list-wrap .items {
+    width: 21.5rem;
+    margin: 0 1.5rem 0.8rem;
+    float: left;
+    text-align: center;
 }
 
-.dish-list-wrap .food-img{
-    height : 21.5rem;
-    position : relative;
-    text-align : center;
+.dish-list-wrap .food-img {
+    height: 21.5rem;
+    position: relative;
+    text-align: center;
 }
 
-.dish-list-wrap .food-img img{
-    width : 100%;
-    height : 100%;
-    border-radius : 50%;
+.dish-list-wrap .food-img img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
 }
 
-.dish-list-wrap .food-img .dark-background{
-    border-radius : 50%;
+.dish-list-wrap .food-img .dark-background {
+    border-radius: 50%;
 }
 
-.dish-list-wrap .badge-area{
-    height : 2.4rem;
-    text-align : center;
+.dish-list-wrap .badge-area {
+    height: 2.4rem;
+    text-align: center;
 }
 
-.dish-list-wrap .slides-navi{
-    position : absolute;
-    height : 0;
-    top : 40%;
-    left : 50%;
+.dish-list-wrap .slides-navi {
+    position: absolute;
+    height: 0;
+    top: 40%;
+    left: 50%;
 }
 
-.dish-list-wrap .slides-navi a{
-    position : absolute;
-    display : inline-block;
-    background-image : url(http://cdn.bmf.kr/web/common/btn_prds_thumb_slides_navi.png);
-    width : 2.8rem;
-    height : 5.2rem;
+.dish-list-wrap .slides-navi a {
+    position: absolute;
+    display: inline-block;
+    background-image: url(http://cdn.bmf.kr/web/common/btn_prds_thumb_slides_navi.png);
+    width: 2.8rem;
+    height: 5.2rem;
 }
 
-.dish-list-wrap .slides-navi .slide-prev{
-    right : 55rem;
-    background-position : left top;
+.dish-list-wrap .slides-navi .slide-prev {
+    right: 55rem;
+    background-position: left top;
 }
 
-.dish-list-wrap .slides-navi .slide-next{
-    left : 55rem;
-    background-position : right top;
+.dish-list-wrap .slides-navi .slide-next {
+    left: 55rem;
+    background-position: right top;
 }
 
-.dish-list-wrap .slides-navi a:hover{
-    background-position-y : bottom;
+.dish-list-wrap .slides-navi a:hover {
+    background-position-y: bottom;
 }
 
-.dish-list-wrap .btn-more{
-    display : block;
-    width : 100%;
-    margin : 5rem 0;
-    text-align : center;
-    font-size : 1.6rem;
-    color : #444;
-    border : 0.1rem solid #d7d7d7;
-    padding : 1.7rem 0 1.5rem;
+.dish-list-wrap .btn-more {
+    display: block;
+    width: 100%;
+    margin: 5rem 0;
+    text-align: center;
+    font-size: 1.6rem;
+    color: #444;
+    border: 0.1rem solid #d7d7d7;
+    padding: 1.7rem 0 1.5rem;
 }
 
-.dish-list-wrap .btn-more span{
-    padding-right : 1.4rem;
-    font-weight : 400;
-    background-image : url(https://cdn.bmf.kr/web/main/btn_arr_more.png);
-    background-repeat : no-repeat;
-    background-position-x : right;
-    background-position-y : 0.3rem;
+.dish-list-wrap .btn-more span {
+    padding-right: 1.4rem;
+    font-weight: 400;
+    background-image: url(https://cdn.bmf.kr/web/main/btn_arr_more.png);
+    background-repeat: no-repeat;
+    background-position-x: right;
+    background-position-y: 0.3rem;
 }
 
-.scroll{
-    position : fixed;
-    right : 10rem;
-    bottom : 7rem;
-    transition : opacity 0.5s;
-    z-index : 100;
+.scroll {
+    position: fixed;
+    right: 10rem;
+    bottom: 7rem;
+    transition: opacity 0.5s;
+    z-index: 100;
 }
 
-.scroll a{
-    width : 5rem;
-    height : 5rem;
-    display : block;
-    cursor : pointer;
-    background-image : url(http://cdn.bmf.kr/web/common/btn_page_up_down_new.png);
+.scroll a {
+    width: 5rem;
+    height: 5rem;
+    display: block;
+    cursor: pointer;
+    background-image: url(http://cdn.bmf.kr/web/common/btn_page_up_down_new.png);
 }
 
-.scroll .page-up{
-    background-position : left top;
+.scroll .page-up {
+    background-position: left top;
 }
 
-.scroll .page-down{
-    background-position : left bottom;
+.scroll .page-down {
+    background-position: left bottom;
 }
 
-.scroll a:focus, .scroll a:hover{
-    background-position-x : right;
+.scroll a:focus,
+.scroll a:hover {
+    background-position-x: right;
 }
 
-.scroll.hide{
-    opacity : 0;
+.scroll.hide {
+    opacity: 0;
 }
 
-.scroll.show{
-    opacity : 1;
+.scroll.show {
+    opacity: 1;
 }

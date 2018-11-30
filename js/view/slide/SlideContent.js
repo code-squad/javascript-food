@@ -23,7 +23,7 @@ export default class SlideContent {
         const nextContentEl = this.slideListEl.children[2];
 
         this.render(preContentEl, this.contentData[this.getCurrentIdx()]);
-        
+
         this.slideListEl.insertBefore(nextContentEl, preContentEl);
     }
 

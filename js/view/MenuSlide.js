@@ -1,9 +1,9 @@
-import {ajax, throttle} from '../util.js';
-import {itemListTpl} from '../template/itemListTpl.js';
+import { ajax, throttle } from '../util.js';
+import { itemListTpl } from '../template/itemListTpl.js';
 
-export default class MenuSlide{
+export default class MenuSlide {
 
-    constructor({urlRequestData, slideListEl, naviEl, viewContentCount = 4, timer = 500}){
+    constructor({ urlRequestData, slideListEl, naviEl, viewContentCount = 4, timer = 500 }) {
 
         this.slideListEl = slideListEl;
         this.naviEl = naviEl;
@@ -11,13 +11,13 @@ export default class MenuSlide{
         this.timer = timer;
 
         ajax({
-            'url' : urlRequestData,
-            'requestType' : 'GET',
-            'handler' : this.init.bind(this)
+            'url': urlRequestData,
+            'requestType': 'GET',
+            'handler': this.init.bind(this)
         })
     }
 
-    init(data){
+    init(data) {
         this.setContentData(data);
         this.render(this.getInitRenderData());
 
@@ -25,71 +25,71 @@ export default class MenuSlide{
         this.clickNaviBtn(this.positionValue());
         this.transitionEnd(this.positionValue());
     }
-    
-    getInitRenderData(){
 
-        const firstViewData = Array.from(this.contentData).slice(0,this.viewContentCount);
+    getInitRenderData() {
+
+        const firstViewData = Array.from(this.contentData).slice(0, this.viewContentCount);
         const lastViewData = Array.from(this.contentData).slice(-this.viewContentCount);
         const initRenderData = lastViewData.concat(this.contentData).concat(firstViewData);
         return initRenderData;
     }
 
-    setInitSlidePosition({firstContentPositionX}){
+    setInitSlidePosition({ firstContentPositionX }) {
         this.currentPositionX = firstContentPositionX;
         this.slideListEl.style.transform = `translateX(${this.currentPositionX}%`;
     }
 
-    clickNaviBtn(positionValue){
-        
-        this.naviEl.addEventListener('click', throttle(({target})=>{
-            if(target.className === "slide-prev")this.slideContent(this.plusPositionX.bind(this), positionValue);
-            if(target.className === "slide-next")this.slideContent(this.minusPositionX.bind(this), positionValue);
-        },this.timer))
+    clickNaviBtn(positionValue) {
+
+        this.naviEl.addEventListener('click', throttle(({ target }) => {
+            if (target.className === "slide-prev") this.slideContent(this.plusPositionX.bind(this), positionValue);
+            if (target.className === "slide-next") this.slideContent(this.minusPositionX.bind(this), positionValue);
+        }, this.timer))
     }
 
-    transitionEnd({firstContentPositionX, lastContentPositionX, minPositionX, maxPositionX}){
+    transitionEnd({ firstContentPositionX, lastContentPositionX, minPositionX, maxPositionX }) {
 
-        this.slideListEl.addEventListener('transitionend',()=>{
-            if(this.currentPositionX === maxPositionX )this.resetToInitContent(lastContentPositionX);
-            if(this.currentPositionX === minPositionX )this.resetToInitContent(firstContentPositionX);
+        this.slideListEl.addEventListener('transitionend', () => {
+            if (this.currentPositionX === maxPositionX) this.resetToInitContent(lastContentPositionX);
+            if (this.currentPositionX === minPositionX) this.resetToInitContent(firstContentPositionX);
         })
     }
 
-    slideContent(convertPositionValue,positionValue){
+    slideContent(convertPositionValue, positionValue) {
 
-        if(!this.slideListEl.style.transition)this.slideListEl.style.transition = `transform ${this.timer/1000}s`;
+        if (!this.slideListEl.style.transition) this.slideListEl.style.transition = `transform ${this.timer / 1000}s`;
         convertPositionValue(positionValue);
         this.slideListEl.style.transform = `translateX(${this.currentPositionX}%)`;
     }
 
-    resetToInitContent(initPositionX){
+    resetToInitContent(initPositionX) {
 
         this.slideListEl.style.transition = "";
         this.currentPositionX = initPositionX;
         this.slideListEl.style.transform = `translateX(${this.currentPositionX}%)`;
     }
-    
-    plusPositionX({maxPositionX}){
+
+    plusPositionX({ maxPositionX }) {
         const contentWidth = 10;
         this.currentPositionX += contentWidth;
-        if(this.currentPositionX > maxPositionX)this.currentPositionX = maxPositionX;
+        if (this.currentPositionX > maxPositionX) this.currentPositionX = maxPositionX;
     }
 
-    minusPositionX({minPositionX}){
+    minusPositionX({ minPositionX }) {
         const contentWidth = 10;
         this.currentPositionX -= contentWidth;
-        if(this.currentPositionX < minPositionX)this.currentPositionX = minPositionX;
+        if (this.currentPositionX < minPositionX) this.currentPositionX = minPositionX;
     }
 
-    setContentData(data){
+    setContentData(data) {
         this.contentData = data;
     }
 
-    render(data){
+    render(data) {
         this.slideListEl.innerHTML += itemListTpl(data);
     }
 
-    positionValue(){
+    positionValue() {
         const contentWidth = 10;
         const contentLength = this.contentData.length;
         const viewContentCount = this.viewContentCount;
