@@ -46,4 +46,32 @@ function removeExpirationItems() {
     })
 }
 
-export { ajax, throttle, debounce, hideElement, showElement, pipe, removeExpirationItems }
+function setLocalItem(key, value) {
+    localStorage.setItem(key, JSON.stringify({
+        value,
+        time: new Date()
+    }))
+}
+
+function request(url) {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.addEventListener('load', () => {
+            xhr.status === 200 ? resolve(JSON.parse(xhr.response)) : reject('status error');
+        })
+        xhr.open("GET", url);
+        xhr.send();
+    })
+}
+
+async function checkLocalItem(url) {
+    try {
+        if (localStorage.getItem(url)) return;
+        const value = await request(url);
+        setLocalItem(url, value);
+    } catch (e) {
+        throw e;
+    }
+}
+
+export { ajax, throttle, debounce, hideElement, showElement, pipe, removeExpirationItems, checkLocalItem }
