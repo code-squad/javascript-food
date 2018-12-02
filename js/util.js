@@ -1,4 +1,4 @@
-function ajax({ url, handler, requestType }) {
+export function ajax({ url, handler, requestType }) {
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', () => {
 
@@ -9,7 +9,7 @@ function ajax({ url, handler, requestType }) {
     xhr.send();
 }
 
-function throttle(func, timer) {
+export function throttle(func, timer) {
     let shutter;
     return function () {
         if (!shutter) {
@@ -19,7 +19,7 @@ function throttle(func, timer) {
     }
 }
 
-function debounce(func, timer) {
+export function debounce(func, timer) {
     let shutter;
     return function () {
         clearTimeout(shutter);
@@ -27,51 +27,54 @@ function debounce(func, timer) {
     }
 }
 
-function hideElement(element) {
+export function hideElement(element) {
     element.classList.remove('show');
     element.classList.add('hide');
 }
 
-function showElement(element) {
+export function showElement(element) {
     element.classList.remove('hide');
     element.classList.add('show');
 }
 
-const pipe = (...fns) => value => fns.reduce((acc, fn) => fn(acc), value);
+export const pipe = (...fns) => value => fns.reduce((acc, fn) => fn(acc), value);
 
-function removeExpirationItems() {
+export function removeExpirationItems() {
     Object.keys(localStorage).forEach(v => {
         const expieationTime = 1000 * 60 * 60; //6시간
         if (new Date() - JSON.parse(localStorage[v]).time > expieationTime) localStorage.removeItem(v);
     })
 }
 
-function setLocalItem(key, value) {
+export function setLocalItem(key, value) {
     localStorage.setItem(key, JSON.stringify({
         value,
         time: new Date()
     }))
 }
 
+export function getLocalItem(key) {
+    return localStorage.getItem(key) && JSON.parse(localStorage.getItem(key)).value
+}
+
 function request(url) {
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
         xhr.addEventListener('load', () => {
-            xhr.status === 200 ? resolve(JSON.parse(xhr.response)) : reject('status error');
+            const res = JSON.parse(xhr.response)
+            res.error || xhr.status !== 200 ? reject('error') : resolve(res);
         })
         xhr.open("GET", url);
         xhr.send();
     })
 }
 
-async function checkLocalItem(url) {
+export async function checkLocalItem(url) {
     try {
         if (localStorage.getItem(url)) return;
         const value = await request(url);
         setLocalItem(url, value);
     } catch (e) {
-        throw e;
+        return true;
     }
 }
-
-export { ajax, throttle, debounce, hideElement, showElement, pipe, removeExpirationItems, checkLocalItem }
