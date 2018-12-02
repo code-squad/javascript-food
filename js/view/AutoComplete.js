@@ -45,6 +45,7 @@ export default class AutoComplete {
 
     focusEventHandler() {
         showElement(this._el.searchList)
+        !this._el.input.value && this.renderRecentList();
     }
 
     clickAnotherAreaHanlder({ target }) {
@@ -57,12 +58,14 @@ export default class AutoComplete {
         hideElement(target.parentElement);
     }
 
-    clickSubmitHandler() {
-
+    clickSubmitHandler({ target }) {
+        if (target.tagName !== "BUTTON") return;
+        this.saveRecentList();
+        this.resetValue();
     }
 
     async inputEventHandler({ target }) {
-        if (!this._el.input.value) return;
+        if (!this._el.input.value) return this.renderRecentList()
         if (await checkLocalItem(this.getRequestUrl(target.value))) return;
         pipe(getLocalItem, searchListTpl, this.render.bind(this))(this.getRequestUrl(target.value))
     }
@@ -108,6 +111,20 @@ export default class AutoComplete {
 
     inputValue() {
         this._el.input.value = this.selectedEl.innerText;
+    }
+
+    saveRecentList() {
+        let recentList = getLocalItem('recentList') || [];
+        recentList.unshift(this._el.input.value);
+        setLocalItem('recentList', recentList.slice(0, 5));
+    }
+
+    renderRecentList() {
+        getLocalItem('recentList') && pipe(getLocalItem, recentListTpl, this.render.bind(this))('recentList')
+    }
+
+    resetValue() {
+        this._el.input.value = "";
     }
 
     resetSelectedElement() {
