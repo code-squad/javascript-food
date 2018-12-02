@@ -1,5 +1,5 @@
-import { searchListTpl } from '../template/searchListTpl.js'
-import { debounce, showElement, hideElement, pipe } from '../util.js'
+import { searchListTpl, recentListTpl } from '../template/searchListTpl.js'
+import { debounce, showElement, hideElement, pipe, checkLocalItem, getLocalItem, setLocalItem } from '../util.js'
 export default class AutoComplete {
     constructor({ searchBarEl, urlRequestData, debounceTimer = 200 }) {
         this.searchBarEl = searchBarEl;
@@ -61,15 +61,10 @@ export default class AutoComplete {
 
     }
 
-    inputEventHandler({ target }) {
-
-        showElement(this._el.searchList)
-        fetch(this.getRequestUrl(target.value), { mode: 'cors' })
-            .then(reponse => reponse.text())
-            .then(text => {
-                pipe(JSON.parse, searchListTpl, this.render.bind(this))(text)
-            })
-            .catch(error => { })
+    async inputEventHandler({ target }) {
+        if (!this._el.input.value) return;
+        if (await checkLocalItem(this.getRequestUrl(target.value))) return;
+        pipe(getLocalItem, searchListTpl, this.render.bind(this))(this.getRequestUrl(target.value))
     }
 
     mouseoverEventHandler({ target }) {
