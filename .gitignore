@@ -1,5 +1,6 @@
 # node modules
 /node_modules
-
+/log91-food/node_modules
+/log91-food/public/node_modules
 # babelrc
 .babelrc
