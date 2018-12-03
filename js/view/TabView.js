@@ -1,5 +1,5 @@
-import { itemListTpl } from '../template/itemListTpl.js';
-import { ajax } from '../util.js';
+import { itemListTpl, tabListTpl } from '../template/itemListTpl.js';
+import { checkLocalItem, getLocalItem, pipe } from '../util.js'
 
 export default class TabView {
     constructor({ bestSellerEl, urlRequestData }) {
@@ -30,18 +30,19 @@ export default class TabView {
         Object.keys(event).forEach(v => event[v]())
     }
 
-    clickTab() {
-        this.tabEl.addEventListener('click', ({ target }) => {
-            this.focusTab(target);
-            ajax({
-                url: this.getUrl(this.getCategoryNo(target)),
-                handler: this.render.bind(this),
-                requestType: 'GET'
-            });
-        })
+    async clickTabHandler({ target }) {
+        if (target.tagName !== "LI") return;
+        if (await checkLocalItem(this.getUrl(this.getCategoryNo(target)))) return;
+        this.showTabContentUI(target);
     }
 
+    showTabContentUI(target) {
+        const url = this.getUrl(this.getCategoryNo(target))
         this.blurTab();
+        this.focusTab(target);
+        pipe(getLocalItem, itemListTpl, this.renderContent.bind(this))(url);
+    }
+
     focusTab(target) {
         target.classList.add('now');
     }
