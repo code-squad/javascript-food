@@ -311,7 +311,7 @@ ul {
     display: inline-block;
     width: 6rem;
     height: 9.2rem;
-    background: url(https://cdn.bmf.kr/web/common/main_slides_navi.png);
+    background: url(../images/main_slides_navi.png);
     background-repeat: no-repeat;
     z-index: 50;
 }
@@ -421,13 +421,13 @@ ul {
 
 .sub-slide-wrap .slides-navi .slide-prev {
     position: absolute;
-    background: url(https://cdn.bmf.kr/web/common/btn_slides_prev_s.png) no-repeat center center;
+    background: url(../images/btn_slides_prev_s.png) no-repeat center center;
     right: 18em;
 }
 
 .sub-slide-wrap .slides-navi .slide-next {
     position: absolute;
-    background: url(https://cdn.bmf.kr/web/common/btn_slides_next_s.png) no-repeat center center;
+    background: url(../images/btn_slides_next_s.png) no-repeat center center;
     left: 18rem;
 }
 
@@ -730,7 +730,7 @@ ul {
 .dish-list-wrap .slides-navi a {
     position: absolute;
     display: inline-block;
-    background-image: url(http://cdn.bmf.kr/web/common/btn_prds_thumb_slides_navi.png);
+    background-image: url(../images/btn_prds_thumb_slides_navi.png);
     width: 2.8rem;
     height: 5.2rem;
 }
@@ -763,7 +763,7 @@ ul {
 .dish-list-wrap .btn-more span {
     padding-right: 1.4rem;
     font-weight: 400;
-    background-image: url(https://cdn.bmf.kr/web/main/btn_arr_more.png);
+    background-image: url(../images/btn_arr_more.png);
     background-repeat: no-repeat;
     background-position-x: right;
     background-position-y: 0.3rem;
@@ -782,7 +782,7 @@ ul {
     height: 5rem;
     display: block;
     cursor: pointer;
-    background-image: url(http://cdn.bmf.kr/web/common/btn_page_up_down_new.png);
+    background-image: url(../images/btn_page_up_down_new.png);
 }
 
 .scroll .page-up {
