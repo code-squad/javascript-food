@@ -52,6 +52,15 @@ function itemsTpl({ image, alt, delivery_type, title, description, n_price, s_pr
     `;
 }
 
+function tabTpl({ category_id, name }) {
+    return `<li category_no=${category_id}>${name}</li>`
+}
+
+export function tabListTpl(items) {
+    return items.reduce((prev, curr) => prev + tabTpl(curr), "")
+}
+
 export function itemListTpl(itemsData) {
+    itemsData = Object.prototype.toString.call(itemsData) === "[object Object]" ? itemsData.items : itemsData;
     return itemsData.reduce((prev, curr) => prev + `<li class="items"><a href="#">${itemsTpl(curr)}</a></li>`, '');
 }
