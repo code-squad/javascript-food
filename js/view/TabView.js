@@ -9,15 +9,6 @@ export default class TabView {
         this.totalEvent();
     }
 
-    init() {
-        const firstNode = this.tabEl.firstElementChild;
-        this.focusTab(firstNode);
-        ajax({
-            url: this.getUrl(this.getCategoryNo(firstNode)),
-            handler: this.render.bind(this),
-            requestType: "GET"
-        })
-        this.clickTab();
     totalEvent() {
         const event = {
             click: () => {
@@ -34,6 +25,14 @@ export default class TabView {
         if (target.tagName !== "LI") return;
         if (await checkLocalItem(this.getUrl(this.getCategoryNo(target)))) return;
         this.showTabContentUI(target);
+    }
+
+    async init() {
+        if (await checkLocalItem(this.url)) return;
+        pipe(getLocalItem, tabListTpl, this.renderTab.bind(this))(this.url);
+        const firstNode = this.bestTab.firstElementChild;
+        if (await checkLocalItem(this.getUrl(this.getCategoryNo(firstNode)))) return;
+        this.showTabContentUI(firstNode);
     }
 
     showTabContentUI(target) {
