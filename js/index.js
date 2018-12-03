@@ -6,6 +6,7 @@ import SlideController from './view/slide/SlideController.js';
 import MenuSlide from './view/MenuSlide.js';
 import ScrollBtnView from './view/ScrollBtnView.js';
 import AutoComplete from './view/AutoComplete.js';
+import { removeExpirationItems } from './util.js'
 
 const _e = {
     body: document.querySelector('body'),
@@ -100,6 +101,7 @@ function init() {
         if (e.target.tagName !== 'A') return;
         e.preventDefault();
     })
+    window.addEventListener('load', removeExpirationItems);
     tabView.init();
 }
 init();
