@@ -41,26 +41,29 @@ export default class TabView {
         })
     }
 
-    focusTab(target) {
         this.blurTab();
+    focusTab(target) {
         target.classList.add('now');
     }
 
     blurTab() {
-        const childNodes = this.tabEl.querySelectorAll('li');
-        childNodes.forEach(v => v.classList.remove('now'));
+        const currentTab = this.bestEl.querySelector('.now')
+        currentTab && currentTab.classList.remove('now');
     }
 
     getUrl(category_no) {
-        return this.url + category_no;
+        return this.url + '/' + category_no;
     }
 
     getCategoryNo(target) {
-        return target.getAttribute('data-category_no');
+        return target.getAttribute('category_no');
     }
 
-    render({ items }) {
-        const bestListEl = this.tabEl.nextElementSibling;
-        bestListEl.innerHTML = itemListTpl(items);
+    renderContent(data) {
+        this.bestEl.querySelector('.best-list').innerHTML = data;
+    }
+
+    renderTab(data) {
+        this.bestTab.innerHTML = data;
     }
 }
