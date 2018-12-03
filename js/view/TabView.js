@@ -2,9 +2,11 @@ import { itemListTpl } from '../template/itemListTpl.js';
 import { ajax } from '../util.js';
 
 export default class TabView {
-    constructor({ tabElement, urlRequestData }) {
-        this.tabEl = tabElement;
+    constructor({ bestSellerEl, urlRequestData }) {
+        this.bestEl = bestSellerEl;
+        this.bestTab = this.bestEl.querySelector('.best-seller-tab');
         this.url = urlRequestData;
+        this.totalEvent();
     }
 
     init() {
@@ -16,6 +18,16 @@ export default class TabView {
             requestType: "GET"
         })
         this.clickTab();
+    totalEvent() {
+        const event = {
+            click: () => {
+                this.bestTab.addEventListener('click', this.clickTabHandler.bind(this))
+            },
+            load: () => {
+                document.body.addEventListener('load', this.init.bind(this))
+            }
+        }
+        Object.keys(event).forEach(v => event[v]())
     }
 
     clickTab() {
