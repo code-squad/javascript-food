@@ -1,7 +1,7 @@
 import { searchListTpl, recentListTpl } from '../template/searchListTpl.js'
 import { debounce, showElement, hideElement, pipe, checkLocalItem, getLocalItem, setLocalItem } from '../util.js'
 export default class AutoComplete {
-    constructor({ searchBarEl, urlRequestData, debounceTimer = 200 }) {
+    constructor({ searchBarEl, urlRequestData, debounceTime = 200 }) {
         this.searchBarEl = searchBarEl;
         this.urlRequestData = urlRequestData;
 
@@ -12,7 +12,7 @@ export default class AutoComplete {
             submit: this.searchBarEl.querySelector('button')
         };
         this.selectedEl = null;
-        this.totalEvent(debounceTimer)
+        this.totalEvent(debounceTime)
     }
 
     totalEvent(timer) {

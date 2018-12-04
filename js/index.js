@@ -47,7 +47,7 @@ const mainSlideContoller = new SlideController({
     slideContent: mainSlideContent,
     slideNavi: mainSlideNavi,
     slideDots: mainSlideDots,
-    timer: 1000
+    throttleTime: 1000
 });
 
 const subSlideContent = new SlideContent({
@@ -60,7 +60,7 @@ const subSlideController = new SlideController({
     slideContent: subSlideContent,
     slideNavi: subSlideNavi,
     slideDots: subSlideDots,
-    timer: 500
+    throttleTime: 500
 })
 
 const mainDishSlide = new MenuSlide({
