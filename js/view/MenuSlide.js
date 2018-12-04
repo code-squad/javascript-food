@@ -1,24 +1,21 @@
-import { ajax, throttle } from '../util.js';
+import { throttle, checkLocalItem, getLocalItem } from '../util.js';
 import { itemListTpl } from '../template/itemListTpl.js';
 
 export default class MenuSlide {
 
-    constructor({ urlRequestData, slideListEl, naviEl, viewContentCount = 4, timer = 500 }) {
+    constructor({ urlRequestData, slideListEl, naviEl, viewContentCount = 4, throttleTime = 500 }) {
 
         this.slideListEl = slideListEl;
         this.naviEl = naviEl;
         this.viewContentCount = viewContentCount;
-        this.timer = timer;
+        this.throttleTime = throttleTime;
 
-        ajax({
-            'url': urlRequestData,
-            'requestType': 'GET',
-            'handler': this.init.bind(this)
-        })
+        this.init(urlRequestData);
     }
 
-    init(data) {
-        this.setContentData(data);
+    async init(url) {
+        if (await checkLocalItem(url)) return;
+        this.setContentData(getLocalItem(url));
         this.render(this.getInitRenderData());
 
         this.setInitSlidePosition(this.positionValue());
@@ -44,7 +41,7 @@ export default class MenuSlide {
         this.naviEl.addEventListener('click', throttle(({ target }) => {
             if (target.className === "slide-prev") this.slideContent(this.plusPositionX.bind(this), positionValue);
             if (target.className === "slide-next") this.slideContent(this.minusPositionX.bind(this), positionValue);
-        }, this.timer))
+        }, this.throttleTime))
     }
 
     transitionEnd({ firstContentPositionX, lastContentPositionX, minPositionX, maxPositionX }) {
@@ -57,7 +54,7 @@ export default class MenuSlide {
 
     slideContent(convertPositionValue, positionValue) {
 
-        if (!this.slideListEl.style.transition) this.slideListEl.style.transition = `transform ${this.timer / 1000}s`;
+        if (!this.slideListEl.style.transition) this.slideListEl.style.transition = `transform ${this.throttleTime / 1000}s`;
         convertPositionValue(positionValue);
         this.slideListEl.style.transform = `translateX(${this.currentPositionX}%)`;
     }
