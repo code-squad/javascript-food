@@ -20,11 +20,11 @@ function itemPrice(n_price, s_price) {
     return `<dd class="item-price">${salePrice(s_price.slice(0, -1))}<p class='unit'>원</p>${originalPrice(n_price)}</dd>`;
 }
 
-function delivery(delivery_type){
-    return delivery_type.reduce( (prev,curr) => prev + `<p>${curr}</p>`,'');
+function delivery(delivery_type) {
+    return delivery_type.reduce((prev, curr) => prev + `<p>${curr}</p>`, '');
 }
 
-function foodImg(image, alt, delivery_type){
+function foodImg(image, alt, delivery_type) {
     return `<div class="food-img">
                 <img src="${image}" alt="${alt}">
                 <div class="dark-background"></div>
@@ -34,8 +34,8 @@ function foodImg(image, alt, delivery_type){
             </div>`
 }
 
-function badgeTpl(badge){
-    return badge.reduce((prev,curr) =>prev + `<div class="event"><span>${curr}</span></div>`,'');
+function badgeTpl(badge) {
+    return badge.reduce((prev, curr) => prev + `<div class="event"><span>${curr}</span></div>`, '');
 }
 
 function itemsTpl({ image, alt, delivery_type, title, description, n_price, s_price, badge }) {
@@ -52,6 +52,15 @@ function itemsTpl({ image, alt, delivery_type, title, description, n_price, s_pr
     `;
 }
 
+function tabTpl({ category_id, name }) {
+    return `<li category_no=${category_id}>${name}</li>`
+}
+
+export function tabListTpl(items) {
+    return items.reduce((prev, curr) => prev + tabTpl(curr), "")
+}
+
 export function itemListTpl(itemsData) {
+    itemsData = Object.prototype.toString.call(itemsData) === "[object Object]" ? itemsData.items : itemsData;
     return itemsData.reduce((prev, curr) => prev + `<li class="items"><a href="#">${itemsTpl(curr)}</a></li>`, '');
 }

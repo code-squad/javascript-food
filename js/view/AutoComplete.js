@@ -1,121 +1,141 @@
-import { searchListTpl } from '../template/searchListTpl.js'
-import { debounce, showElement, hideElement } from '../util.js' 
-export default class AutoComplete{
-    constructor({searchBarEl, urlRequestData, debounceTimer=200}){
+import { searchListTpl, recentListTpl } from '../template/searchListTpl.js'
+import { debounce, showElement, hideElement, pipe, checkLocalItem, getLocalItem, setLocalItem } from '../util.js'
+export default class AutoComplete {
+    constructor({ searchBarEl, urlRequestData, debounceTime = 200 }) {
         this.searchBarEl = searchBarEl;
         this.urlRequestData = urlRequestData;
 
-        this._el = { 
-            searchbar : this.searchBarEl,
-            input : this.searchBarEl.querySelector('input'),
-            searchList : this.searchBarEl.querySelector('.search-list'),
-            submit : this.searchBarEl.querySelector('button')
+        this._el = {
+            searchbar: this.searchBarEl,
+            input: this.searchBarEl.querySelector('input'),
+            searchList: this.searchBarEl.querySelector('.search-list'),
+            submit: this.searchBarEl.querySelector('button')
         };
         this.selectedEl = null;
-        this.totalEvent(debounceTimer)
+        this.totalEvent(debounceTime)
     }
 
-    totalEvent(timer){
-        
+    totalEvent(timer) {
+
         const event = {
-            input : ()=>{
-                this._el.input.addEventListener('input',debounce(this.inputEventHandler.bind(this),timer))
+            input: () => {
+                this._el.input.addEventListener('input', debounce(this.inputEventHandler.bind(this), timer))
             },
-            focus : ()=>{
-                this._el.input.addEventListener('focus',this.focusEventHandler.bind(this))
+            focus: () => {
+                this._el.input.addEventListener('focus', this.focusEventHandler.bind(this))
             },
-            click : ()=>{
-                this._el.searchList.addEventListener('click',this.clickSearchListHandler.bind(this))
+            click: () => {
+                this._el.searchList.addEventListener('click', this.clickSearchListHandler.bind(this))
+                this._el.submit.addEventListener('click', this.clickSubmitHandler.bind(this))
             },
-            clickAnotherArea : ()=>{
+            clickAnotherArea: () => {
                 document.body.addEventListener('click', this.clickAnotherAreaHanlder.bind(this))
             },
-            keyup : ()=>{
-                this._el.searchbar.addEventListener('keyup',this.keyupHandler.bind(this))
+            keyup: () => {
+                this._el.searchbar.addEventListener('keyup', this.keyupHandler.bind(this))
             },
-            hover : ()=>{
+            hover: () => {
                 this._el.searchList.addEventListener('mouseover', this.mouseoverEventHandler.bind(this))
                 this._el.searchList.addEventListener('mouseleave', this.mouseleaveEventHandler.bind(this))
             }
         }
 
-        Object.keys(event).forEach( v=> event[v]())
-    }
-    
-    focusEventHandler(){
-        showElement(this._el.searchList)
+        Object.keys(event).forEach(v => event[v]())
     }
 
-    clickAnotherAreaHanlder({target}){
+    focusEventHandler() {
+        showElement(this._el.searchList)
+        !this._el.input.value && this.renderRecentList();
+    }
+
+    clickAnotherAreaHanlder({ target }) {
         target.parentElement !== this._el.searchList && target !== this._el.input && hideElement(this._el.searchList);
     }
 
-    clickSearchListHandler({target}){
-        if(target.tagName !== "LI")return ;
+    clickSearchListHandler({ target }) {
+        if (target.tagName !== "LI") return;
         this.inputValue();
         hideElement(target.parentElement);
     }
 
-    inputEventHandler({target}){
-        showElement(this._el.searchList)
-        fetch(this.getRequestUrl(target.value), { mode : 'cors'})
-        .then(reponse => reponse.text())
-        .then(text=>{this.render(JSON.parse(text))})
-        .catch(error=>{})
+    clickSubmitHandler({ target }) {
+        if (target.tagName !== "BUTTON") return;
+        this.saveRecentList();
+        this.resetValue();
     }
 
-    mouseoverEventHandler({target}){
-        if(target.tagName !== 'LI')return ;
+    async inputEventHandler({ target }) {
+        if (!this._el.input.value) return this.renderRecentList()
+        if (await checkLocalItem(this.getRequestUrl(target.value))) return;
+        pipe(getLocalItem, searchListTpl, this.render.bind(this))(this.getRequestUrl(target.value))
+    }
+
+    mouseoverEventHandler({ target }) {
+        if (target.tagName !== 'LI') return;
         this.removeSelectedClassName();
         this.addSelectedClassName(target);
     }
 
-    mouseleaveEventHandler(){
+    mouseleaveEventHandler() {
         this.removeSelectedClassName();
         this.resetSelectedElement();
     }
 
-    keyupHandler({key}){
-        if(key === "ArrowUp" || key === "ArrowDown")this.arrowkeyHandler(key)
-        if(key === "Enter")this.enterkeyHandler()
+    keyupHandler({ key }) {
+        if (key === "ArrowUp" || key === "ArrowDown") this.arrowkeyHandler(key)
+        if (key === "Enter") this.enterkeyHandler()
     }
 
-    arrowkeyHandler(key){
+    arrowkeyHandler(key) {
         let selectedEl
-        key === "ArrowUp" ? 
-        selectedEl = this.selectedEl ? this.selectedEl.previousSibling : this._el.searchList.lastChild
-        : selectedEl = this.selectedEl ? this.selectedEl.nextSibling : this._el.searchList.firstChild
+        key === "ArrowUp" ?
+            selectedEl = this.selectedEl ? this.selectedEl.previousSibling : this._el.searchList.lastChild
+            : selectedEl = this.selectedEl ? this.selectedEl.nextSibling : this._el.searchList.firstChild
         this.removeSelectedClassName();
         this.addSelectedClassName(selectedEl);
     }
 
-    enterkeyHandler(){
+    enterkeyHandler() {
         this.inputValue();
         hideElement(this._el.searchList);
     }
 
-    addSelectedClassName(target){
+    addSelectedClassName(target) {
         this.selectedEl = target;
         this.selectedEl && this.selectedEl.classList.add('selected');
     }
-    
-    removeSelectedClassName(){
+
+    removeSelectedClassName() {
         this.selectedEl && this.selectedEl.classList.remove('selected');
     }
 
-    inputValue(){
+    inputValue() {
         this._el.input.value = this.selectedEl.innerText;
     }
 
-    resetSelectedElement(){
+    saveRecentList() {
+        let recentList = getLocalItem('recentList') || [];
+        recentList.unshift(this._el.input.value);
+        setLocalItem('recentList', recentList.slice(0, 5));
+    }
+
+    renderRecentList() {
+        getLocalItem('recentList') && pipe(getLocalItem, recentListTpl, this.render.bind(this))('recentList')
+    }
+
+    resetValue() {
+        this._el.input.value = "";
+    }
+
+    resetSelectedElement() {
         this.selectedEl = null;
     }
 
-    getRequestUrl(value){
+    getRequestUrl(value) {
         return this.urlRequestData + value;
     }
 
-    render(data){
-        this._el.searchList.innerHTML = searchListTpl(data);
+    render(data) {
+        this._el.searchList.innerHTML = data;
     }
 }
