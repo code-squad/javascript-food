@@ -1,14 +1,3 @@
-export function ajax({ url, handler, requestType }) {
-    const xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', () => {
-
-        const requestData = JSON.parse(xhr.response);
-        handler(requestData);
-    })
-    xhr.open(requestType, url);
-    xhr.send();
-}
-
 export function throttle(func, timer) {
     let shutter;
     return function () {
@@ -42,14 +31,14 @@ export const pipe = (...fns) => value => fns.reduce((acc, fn) => fn(acc), value)
 export function removeExpirationItems() {
     Object.keys(localStorage).forEach(v => {
         const expieationTime = 1000 * 60 * 60; //6시간
-        if (new Date() - JSON.parse(localStorage[v]).time > expieationTime) localStorage.removeItem(v);
+        if (new Date().getTime() - JSON.parse(localStorage[v]).time > expieationTime) localStorage.removeItem(v);
     })
 }
 
 export function setLocalItem(key, value) {
     localStorage.setItem(key, JSON.stringify({
         value,
-        time: new Date()
+        time: new Date().getTime()
     }))
 }
 
@@ -57,14 +46,14 @@ export function getLocalItem(key) {
     return localStorage.getItem(key) && JSON.parse(localStorage.getItem(key)).value
 }
 
-function request(url) {
+function request(url, requestType = "GET") {
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
         xhr.addEventListener('load', () => {
             const res = JSON.parse(xhr.response)
             res.error || xhr.status !== 200 ? reject('error') : resolve(res);
         })
-        xhr.open("GET", url);
+        xhr.open(requestType, url);
         xhr.send();
     })
 }
