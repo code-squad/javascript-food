@@ -123,6 +123,7 @@ header {
 
 .search_icon {
   vertical-align: middle;
+  padding: 5px;
   width: 20px;
   margin: 8px;
 }
@@ -150,6 +151,7 @@ header {
   height: 40px;
   box-sizing: border-box;
   padding-top: 12px;
+  z-index: 1;
 }
 
 .highlight {
@@ -164,6 +166,10 @@ header {
 
 .search_auto_drop strong {
   color: var(--main-theme-color);
+}
+
+.remove_recent {
+  font-weight: 600;
 }
 
 /* nav */
@@ -279,6 +285,7 @@ header {
 }
 
 .slides_navi {
+  margin-top: 220px;
   width: 150px;
   height: 30px;
   position: absolute;

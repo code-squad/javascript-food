@@ -1,8 +1,9 @@
-import { $on, qs, qsa, pipe } from '../Util/helper.js'
+import { $on, qs, qsa, pipe, searchUpNode } from '../Util/helper.js'
 
 export default class AutoComplete {
-  constructor({ autoCompleteItemTpl, apiUrl }) {
+  constructor({ autoCompleteItemTpl, recentDataTpl, apiUrl }) {
     this.autoCompleteItemTpl = autoCompleteItemTpl;
+    this.recentDataTpl = recentDataTpl;
     this.apiUrl = apiUrl;
   }
 
@@ -11,8 +12,34 @@ export default class AutoComplete {
   }
 
   _registerEvt() {
+    // autoComplete
+    $on(qs('body'), 'click', this._removeAutoListWhenClickedAnother.bind(this));
     $on(qs('.search_wrap'), 'keyup', this._keyUpHandler.bind(this));
-    $on(qs('.search_bar_in'), 'input', this._renderAutoCompleteHandler.bind(this))
+    $on(qs('.search_bar_in'), 'input', this._renderAutoCompleteHandler.bind(this));
+
+    // recentItem
+    $on(qs('.search_bar_in'), 'focus', this._renderRecentItem.bind(this));
+    $on(qs('.search_icon'), 'click', this._saveItemInLocalStorage)
+  }
+
+  _renderRecentItem(e, MAX_LENGTH = 5) {
+    if (!localStorage['recent']) return;
+    const autoCompleteTpl = this.recentDataTpl(JSON.parse(localStorage['recent']).slice(0, MAX_LENGTH));
+    qs('.search_auto_list').innerHTML = autoCompleteTpl;
+  }
+
+  _saveItemInLocalStorage(e) {
+    e.preventDefault();
+    if (!qs('.search_bar_in').value.trim()) return;
+    localStorage.getItem('recent') || localStorage.setItem('recent', JSON.stringify([]));
+    const existData = JSON.parse(localStorage.getItem('recent'));
+    const addedData = ([qs('.search_bar_in').value]).concat(existData);
+    localStorage.setItem('recent', JSON.stringify(addedData));
+  }
+
+  _removeRecentListHandler() {
+    localStorage.clear();
+    this.removeAutoList();
   }
 
   _keyUpHandler({ code }) {
@@ -24,12 +51,16 @@ export default class AutoComplete {
   }
 
   async _renderAutoCompleteHandler(e) {
-    const response = await fetch(`${this.apiUrl}/${e.target.value}`);
-    const autoData = await response.text();
     try {
+      const response = await fetch(`${this.apiUrl}/${e.target.value}`);
+      const autoData = await response.text();
       const autoCompleteTpl = pipe(JSON.parse, this._strongSameLiteral, this.autoCompleteItemTpl)(autoData);
       qs('.search_auto_list').innerHTML = autoCompleteTpl;
     } catch{ }
+  }
+
+  _removeAutoListWhenClickedAnother({ target }) {
+    searchUpNode(target, 'search_bar') || this.removeAutoList();
   }
 
   _strongSameLiteral(parsedData) {
@@ -39,9 +70,14 @@ export default class AutoComplete {
   }
 
   enter() {
+    if (!qs('.highlight')) return;
+    if (qs('.highlight').classList.contains('remove_recent')) {
+      this._removeRecentListHandler();
+      return;
+    }
     const selectedItem = qs('.highlight').firstElementChild.innerText;
     qs('.search_bar_in').value = selectedItem;
-    qs('.search_auto_list').innerHTML = '';
+    this.removeAutoList();
   }
 
   downHighlight() {
@@ -60,4 +96,7 @@ export default class AutoComplete {
     qsa('.highlight')[qsa('.highlight').length - 1].classList.remove('highlight')
   }
 
+  removeAutoList() {
+    qs('.search_auto_list').innerHTML = '';
+  }
 }
