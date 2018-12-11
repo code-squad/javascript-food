@@ -1,10 +1,11 @@
 import { $on, qs, qsa, pipe, searchUpNode } from '../Util/helper.js'
 
 export default class AutoComplete {
-  constructor({ autoCompleteItemTpl, recentDataTpl, apiUrl }) {
+  constructor({ autoCompleteItemTpl, recentDataTpl, apiUrl, storage }) {
     this.autoCompleteItemTpl = autoCompleteItemTpl;
     this.recentDataTpl = recentDataTpl;
     this.apiUrl = apiUrl;
+    this.storage = storage;
   }
 
   init() {
@@ -18,28 +19,11 @@ export default class AutoComplete {
     $on(qs('.search_bar_in'), 'input', this._renderAutoCompleteHandler.bind(this));
 
     // recentItem
-    $on(qs('.search_bar_in'), 'focus', this._renderRecentItem.bind(this));
-    $on(qs('.search_icon'), 'click', this._saveItemInLocalStorage)
-  }
-
-  _renderRecentItem(e, MAX_LENGTH = 5) {
-    if (!localStorage['recent']) return;
-    const autoCompleteTpl = this.recentDataTpl(JSON.parse(localStorage['recent']).slice(0, MAX_LENGTH));
-    qs('.search_auto_list').innerHTML = autoCompleteTpl;
-  }
-
-  _saveItemInLocalStorage(e) {
-    e.preventDefault();
-    if (!qs('.search_bar_in').value.trim()) return;
-    localStorage.getItem('recent') || localStorage.setItem('recent', JSON.stringify([]));
-    const existData = JSON.parse(localStorage.getItem('recent'));
-    const addedData = ([qs('.search_bar_in').value]).concat(existData);
-    localStorage.setItem('recent', JSON.stringify(addedData));
-  }
-
-  _removeRecentListHandler() {
-    localStorage.clear();
-    this.removeAutoList();
+    $on(qs('.search_bar_in'), 'focus',
+      this.storage.render.bind(this.storage,
+        { key: 'recent', targetNode: qs('.search_auto_list'), tpl: this.recentDataTpl, listLength: 5 }));
+    $on(qs('.search_icon'), 'click', this.storage.save.bind(this.storage,
+      { key: 'recent', targetNode: qs('.search_bar_in') }));
   }
 
   _keyUpHandler({ code }) {
@@ -72,7 +56,8 @@ export default class AutoComplete {
   enter() {
     if (!qs('.highlight')) return;
     if (qs('.highlight').classList.contains('remove_recent')) {
-      this._removeRecentListHandler();
+      this.storage.clear();
+      this.removeAutoList();
       return;
     }
     const selectedItem = qs('.highlight').firstElementChild.innerText;
@@ -91,7 +76,7 @@ export default class AutoComplete {
   }
 
   upHighlight() {
-    if (!qs('.highlight').previousElementSibling) return;
+    if (!qs('.highlight') || !qs('.highlight').previousElementSibling) return;
     qs('.highlight').previousElementSibling.classList.add('highlight');
     qsa('.highlight')[qsa('.highlight').length - 1].classList.remove('highlight')
   }

@@ -3,6 +3,7 @@
 import { navItemList } from "./Model/data/navData.js";
 import { apiUrl } from "./model/data/apiUrl.js";
 import { slideMenuData } from './Model/data/slideMenuData.js';
+import LocalStorage from './Model/localStroage.js';
 
 import Header from "./View/Header.js";
 import BestMenu from "./View/BestMenu.js";
@@ -20,9 +21,13 @@ import { autoCompleteItemTpl, recentDataTpl } from './templates/autoCompleteTpl.
 
 import { RequestAnimations } from './Util/raf.js'
 
-
 const header = new Header(navItemList, navTpl);
-const autoComplete = new AutoComplete({ apiUrl: apiUrl.autoComplete, autoCompleteItemTpl, recentDataTpl });
+const autoComplete = new AutoComplete({
+  apiUrl: apiUrl.autoComplete,
+  storage: new LocalStorage(),
+  autoCompleteItemTpl: autoCompleteItemTpl,
+  recentDataTpl: recentDataTpl
+});
 const bestMenu = new BestMenu(apiUrl.bestMenu, bestMenuItemTpl);
 const promotion = new Promotion(RequestAnimations);
 const scrollBtn = new ScrollBtn(
