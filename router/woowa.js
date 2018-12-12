@@ -3,6 +3,12 @@ const router = express.Router();
 const path = require('path');
 const best = require('../data/best.json');
 
+function getCategoryApi(categoryId) {
+    let api;
+    const boolean = best.some(v => api = categoryId === v.category_id ? v : undefined)
+    return boolean ? api : { error: 'not found' }
+}
+
 router.get('/', (req, res) => {
     res.send({ woowahan: 'woogie' });
 })
@@ -11,10 +17,9 @@ router.get('/best', (req, res) => {
     res.send(best);
 })
 
-best.forEach(v => {
-    router.get(`/best/${v.category_id}`, (req, res) => {
-        res.send(v);
-    })
+router.get('/best/:id', (req, res) => {
+    const id = req.params.id.toUpperCase();
+    res.send(getCategoryApi(id));
 })
 
 router.get('/main', (req, res) => {
