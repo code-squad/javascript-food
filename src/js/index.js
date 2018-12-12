@@ -22,14 +22,14 @@ const _e = {
 }
 
 const contentURL = {
-    bestSeller: 'http://crong.codesquad.kr:8080/woowa/best',
-    mainSlide: './jsonData/mainSlideData.json',
-    subSlide: './jsonData/subSlideData.json',
-    mainDish: 'http://crong.codesquad.kr:8080/woowa/main',
-    sideDish: 'http://crong.codesquad.kr:8080/woowa/side',
-    soupDish: 'http://crong.codesquad.kr:8080/woowa/soup',
-    courseDish: 'http://crong.codesquad.kr:8080/woowa/course',
-    autoComplete: 'http://crong.codesquad.kr:8080/ac/'
+    bestSeller: 'http://localhost:3000/woowa/best',
+    mainSlide: 'http://localhost:3000/woowa/main_slide',
+    subSlide: 'http://localhost:3000/woowa/sub_slide',
+    mainDish: 'http://localhost:3000/woowa/main',
+    sideDish: 'http://localhost:3000/woowa/side',
+    soupDish: 'http://localhost:3000/woowa/soup',
+    courseDish: 'http://localhost:3000/woowa/course',
+    autoComplete: 'http://localhost:3000/ac/'
 }
 
 const tabView = new TabView({

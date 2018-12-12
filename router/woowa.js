@@ -38,4 +38,12 @@ router.get('/course', (req, res) => {
     res.sendFile(path.join(__dirname, '../data/course.json'));
 })
 
+router.get('/main_slide', (req, res) => {
+    res.sendFile(path.join(__dirname, '../data/mainSlide.json'));
+})
+
+router.get('/sub_slide', (req, res) => {
+    res.sendFile(path.join(__dirname, '../data/subSlide.json'));
+})
+
 module.exports = router;
