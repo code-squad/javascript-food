@@ -26,3 +26,14 @@ export function makeItemScoreByStars(star) {
   }
   return result;
 }
+
+// search node
+
+export function searchUpNode(node, targetClass) {
+  while (node !== document.querySelector('body')) {
+    if (!node) return;
+    if (node.classList.contains(targetClass)) return true;
+    node = node.parentNode;
+  }
+  return;
+}

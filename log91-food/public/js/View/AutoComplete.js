@@ -1,9 +1,11 @@
-import { $on, qs, qsa, pipe } from '../Util/helper.js'
+import { $on, qs, qsa, pipe, searchUpNode } from '../Util/helper.js'
 
 export default class AutoComplete {
-  constructor({ autoCompleteItemTpl, apiUrl }) {
+  constructor({ autoCompleteItemTpl, recentDataTpl, apiUrl, storage }) {
     this.autoCompleteItemTpl = autoCompleteItemTpl;
+    this.recentDataTpl = recentDataTpl;
     this.apiUrl = apiUrl;
+    this.storage = storage;
   }
 
   init() {
@@ -11,8 +13,17 @@ export default class AutoComplete {
   }
 
   _registerEvt() {
+    // autoComplete
+    $on(qs('body'), 'click', this._removeAutoListWhenClickedAnother.bind(this));
     $on(qs('.search_wrap'), 'keyup', this._keyUpHandler.bind(this));
-    $on(qs('.search_bar_in'), 'input', this._renderAutoCompleteHandler.bind(this))
+    $on(qs('.search_bar_in'), 'input', this._renderAutoCompleteHandler.bind(this));
+
+    // recentItem
+    $on(qs('.search_bar_in'), 'focus',
+      this.storage.render.bind(this.storage,
+        { key: 'recent', targetNode: qs('.search_auto_list'), tpl: this.recentDataTpl, listLength: 5 }));
+    $on(qs('.search_icon'), 'click', this.storage.save.bind(this.storage,
+      { key: 'recent', targetNode: qs('.search_bar_in') }));
   }
 
   _keyUpHandler({ code }) {
@@ -24,12 +35,16 @@ export default class AutoComplete {
   }
 
   async _renderAutoCompleteHandler(e) {
-    const response = await fetch(`${this.apiUrl}/${e.target.value}`);
-    const autoData = await response.text();
     try {
+      const response = await fetch(`${this.apiUrl}/${e.target.value}`);
+      const autoData = await response.text();
       const autoCompleteTpl = pipe(JSON.parse, this._strongSameLiteral, this.autoCompleteItemTpl)(autoData);
       qs('.search_auto_list').innerHTML = autoCompleteTpl;
     } catch{ }
+  }
+
+  _removeAutoListWhenClickedAnother({ target }) {
+    searchUpNode(target, 'search_bar') || this.removeAutoList();
   }
 
   _strongSameLiteral(parsedData) {
@@ -39,9 +54,15 @@ export default class AutoComplete {
   }
 
   enter() {
+    if (!qs('.highlight')) return;
+    if (qs('.highlight').classList.contains('remove_recent')) {
+      this.storage.clear();
+      this.removeAutoList();
+      return;
+    }
     const selectedItem = qs('.highlight').firstElementChild.innerText;
     qs('.search_bar_in').value = selectedItem;
-    qs('.search_auto_list').innerHTML = '';
+    this.removeAutoList();
   }
 
   downHighlight() {
@@ -55,9 +76,12 @@ export default class AutoComplete {
   }
 
   upHighlight() {
-    if (!qs('.highlight').previousElementSibling) return;
+    if (!qs('.highlight') || !qs('.highlight').previousElementSibling) return;
     qs('.highlight').previousElementSibling.classList.add('highlight');
     qsa('.highlight')[qsa('.highlight').length - 1].classList.remove('highlight')
   }
 
+  removeAutoList() {
+    qs('.search_auto_list').innerHTML = '';
+  }
 }
