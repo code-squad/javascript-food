@@ -1,0 +1,23 @@
+{
+  "name": "javascript-food",
+  "version": "1.0.0",
+  "description": "javascript level3",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Imdonguk/javascript-food.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Imdonguk/javascript-food/issues"
+  },
+  "homepage": "https://github.com/Imdonguk/javascript-food#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}

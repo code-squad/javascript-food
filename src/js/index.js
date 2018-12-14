@@ -1,7 +1,6 @@
 import TabView from './view/TabView.js';
 import SlideContent from './view/slide/SlideContent.js';
 import SlideDots from './view/slide/SlideDots.js';
-import SlideNavi from './view/slide/SlideNavi.js';
 import SlideController from './view/slide/SlideController.js';
 import MenuSlide from './view/MenuSlide.js';
 import ScrollBtnView from './view/ScrollBtnView.js';
@@ -22,14 +21,14 @@ const _e = {
 }
 
 const contentURL = {
-    bestSeller: 'http://crong.codesquad.kr:8080/woowa/best',
-    mainSlide: './jsonData/mainSlideData.json',
-    subSlide: './jsonData/subSlideData.json',
-    mainDish: 'http://crong.codesquad.kr:8080/woowa/main',
-    sideDish: 'http://crong.codesquad.kr:8080/woowa/side',
-    soupDish: 'http://crong.codesquad.kr:8080/woowa/soup',
-    courseDish: 'http://crong.codesquad.kr:8080/woowa/course',
-    autoComplete: 'http://crong.codesquad.kr:8080/ac/'
+    bestSeller: 'http://localhost:3000/woowa/best',
+    mainSlide: 'http://localhost:3000/woowa/main_slide',
+    subSlide: 'http://localhost:3000/woowa/sub_slide',
+    mainDish: 'http://localhost:3000/woowa/main',
+    sideDish: 'http://localhost:3000/woowa/side',
+    soupDish: 'http://localhost:3000/woowa/soup',
+    courseDish: 'http://localhost:3000/woowa/course',
+    autoComplete: 'http://localhost:3000/ac/'
 }
 
 const tabView = new TabView({
@@ -39,28 +38,26 @@ const tabView = new TabView({
 
 const mainSlideContent = new SlideContent({
     slideListEl: _e.mainSlide.querySelector('.slide-list'),
-    urlRequestData: contentURL.mainSlide
+    naviEl: _e.mainSlide.querySelector('.slides-navi')
 })
 const mainSlideDots = new SlideDots({ dotListEl: _e.mainSlide.querySelector('.slide-dots') });
-const mainSlideNavi = new SlideNavi({ naviEl: _e.mainSlide.querySelector('.slides-navi') });
 const mainSlideContoller = new SlideController({
     slideContent: mainSlideContent,
-    slideNavi: mainSlideNavi,
     slideDots: mainSlideDots,
-    throttleTime: 1000
+    throttleTime: 1000,
+    urlRequestData: contentURL.mainSlide
 });
 
 const subSlideContent = new SlideContent({
     slideListEl: _e.subSlide.querySelector('.slide-list'),
-    urlRequestData: contentURL.subSlide
+    naviEl: _e.subSlide.querySelector('.slides-navi')
 })
 const subSlideDots = new SlideDots({ dotListEl: _e.subSlide.querySelector('.slide-dots') });
-const subSlideNavi = new SlideNavi({ naviEl: _e.subSlide.querySelector('.slides-navi') });
 const subSlideController = new SlideController({
     slideContent: subSlideContent,
-    slideNavi: subSlideNavi,
     slideDots: subSlideDots,
-    throttleTime: 500
+    throttleTime: 500,
+    urlRequestData: contentURL.subSlide
 })
 
 const mainDishSlide = new MenuSlide({
