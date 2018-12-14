@@ -1,34 +1,60 @@
+import { getLocalItem, checkLocalItem } from "../../util.js";
+
 export default class SlideController {
 
-    constructor({ slideContent, slideNavi, slideDots, throttleTime }) {
+    constructor({ slideContent, slideDots, throttleTime, urlRequestData }) {
         this.slideContent = slideContent;
-        this.slideNavi = slideNavi;
         this.slideDots = slideDots;
 
-        this.slideNavi.clickNextBtn(this.nextSlide.bind(this), throttleTime);
-        this.slideNavi.clickPreBtn(this.preSlide.bind(this), throttleTime);
+        this.slideContent.clickNextBtn(this.nextSlide.bind(this), throttleTime);
+        this.slideContent.clickPreBtn(this.preSlide.bind(this), throttleTime);
         this.slideDots.clickDots(this.showSlide.bind(this), throttleTime);
+
+        this.currentIdx = 0;
+        this.init(urlRequestData);
     }
 
-    nextSlide(idx) {
-        this.slideContent.setCurrentIdx(idx);
-        this.slideNavi.setCurrentIdx(this.slideContent.getCurrentIdx());
-        this.slideContent.showNextContent();
-        this.slideDots.highlightDot(this.slideContent.getCurrentIdx());
+    async init(url) {
+        if (await checkLocalItem(url)) return;
+        this.slideContent.setContentData(getLocalItem(url))
+        this.contentLength = getLocalItem(url).length;
+        this.slideContent.init(this.getCurrentIdx());
     }
 
-    preSlide(idx) {
-        this.slideContent.setCurrentIdx(idx);
-        this.slideNavi.setCurrentIdx(this.slideContent.getCurrentIdx());
-        this.slideContent.showPreContent();
-        this.slideDots.highlightDot(this.slideContent.getCurrentIdx());
+    nextSlide() {
+        this.plusIdx();
+        this.slideContent.showNextContent(this.getCurrentIdx());
+        this.slideDots.highlightDot(this.getCurrentIdx());
+    }
+
+    preSlide() {
+        this.minusIdx();
+        this.slideContent.showPreContent(this.getCurrentIdx());
+        this.slideDots.highlightDot(this.getCurrentIdx());
     }
 
     showSlide(idx) {
-        const currentIdx = this.slideContent.getCurrentIdx();
+        const currentIdx = this.getCurrentIdx();
         if (currentIdx == idx) return;
-        this.slideContent.setCurrentIdx(idx);
-        this.slideNavi.setCurrentIdx(idx);
-        currentIdx > idx ? this.slideContent.showPreContent() : this.slideContent.showNextContent();
+        this.setCurrentIdx(idx);
+        currentIdx > idx ? this.slideContent.showPreContent(this.getCurrentIdx())
+            : this.slideContent.showNextContent(this.getCurrentIdx());
+    }
+
+    setCurrentIdx(idx) {
+        this.currentIdx = idx;
+    }
+
+    getCurrentIdx() {
+        this.currentIdx = this.currentIdx < 0 ? this.contentLength - 1 : this.currentIdx % this.contentLength;
+        return this.currentIdx;
+    }
+
+    plusIdx() {
+        ++this.currentIdx;
+    }
+
+    minusIdx() {
+        --this.currentIdx;
     }
 }
